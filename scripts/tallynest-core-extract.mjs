@@ -9,6 +9,11 @@ const replacements = [
   ["@/modules/ee/license-check/lib/utils", "@/modules/tallynest-core/entitlements"],
   ["@/modules/ee/audit-logs/lib/handler", "@/modules/tallynest-core/activity-context"],
   ["@/modules/ee/teams/workspace-teams/types/team", "@/modules/tallynest-core/team-permissions"],
+  ["@/modules/ee/audit-logs/types/audit-log", "@/modules/tallynest-core/api-audit"],
+  ["@/modules/ee/quotas/lib/evaluation-service", "@/modules/tallynest-core/quotas"],
+  ["@/modules/ee/quotas/lib/quotas", "@/modules/tallynest-core/quotas"],
+  ["@/modules/ee/quotas/lib/helpers", "@/modules/tallynest-core/quotas"],
+  ["@/modules/ee/license-check/lib/license", "@/modules/tallynest-core/entitlements"],
 ];
 
 const skipDirs = new Set(["node_modules", ".next", ".git", "modules/ee"]);
@@ -29,6 +34,8 @@ for (const file of walk(web)) {
   let next = s;
   for (const [from, to] of replacements) next = next.split(from).join(to);
   next = next.replaceAll("withAuditLogging(", "withActivityContext(");
+  next = next.replaceAll("modules/ee/sso/", "the excluded Enterprise SSO module");
+  next = next.replaceAll("modules/ee/quotas/", "the excluded Enterprise quota module");
   if (next !== s) fs.writeFileSync(file, next);
 }
 
@@ -44,6 +51,12 @@ const removeTrees = [
   "app/(app)/api/auth/sso",
   "app/api/auth/saml",
   "app/api/auth/sso",
+  "app/api/v3/contact-attribute-keys",
+  "app/api/v3/feedbackRecords",
+  "app/api/v3/unify-feedback",
+  "app/api/v3/workflows",
+  "modules/api/v2/management/contact-attribute-keys",
+  "modules/api/v2/management/surveys/[surveyId]/contact-links/segments",
 ];
 
 for (const rel of removeTrees) {
