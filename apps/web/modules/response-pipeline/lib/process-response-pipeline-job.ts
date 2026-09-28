@@ -487,7 +487,6 @@ const handleSurveyAutoCompleteSafely = async ({
 }: {
   finishedResponseCount: number | null;
   logContext: ReturnType<typeof getPipelineLogContext>;
-  organizationId: string;
   survey: TPipelineSurvey;
 }): Promise<void> => {
   const autoCompleteThreshold = getAutoCompleteThreshold(survey);
@@ -524,33 +523,7 @@ const handleSurveyAutoCompleteSafely = async ({
     );
   }
 
-  try {
-    await queueAuditEventWithoutRequest({
-      status: logStatus,
-      action: "updated",
-      targetType: "survey",
-      userId: UNKNOWN_DATA,
-      userType: "system",
-      targetId: survey.id,
-      organizationId,
-      ...(logStatus === "success"
-        ? {
-            newObject: {
-              status: "completed",
-            },
-          }
-        : {}),
-    });
-  } catch (error) {
-    logger.error(
-      {
-        ...logContext,
-        auditStatus: logStatus,
-        err: error,
-      },
-      "Response pipeline survey auto-complete audit log failed"
-    );
-  }
+
 };
 
 const runResponseFinishedSideEffects = async ({
@@ -558,7 +531,6 @@ const runResponseFinishedSideEffects = async ({
   displayTimeZone,
   logContext,
   organizationId,
-  stripeCustomerId,
   survey,
   workspaceId,
 }: {
@@ -649,7 +621,6 @@ const runResponseFinishedSideEffects = async ({
   await handleSurveyAutoCompleteSafely({
     finishedResponseCount: await finishedResponseCountPromise,
     logContext,
-    organizationId,
     survey,
   });
 
@@ -666,7 +637,6 @@ const runResponseCreatedSideEffects = async ({
   logContext: ReturnType<typeof getPipelineLogContext>;
   organizationId: string;
   survey: TPipelineSurvey;
-  stripeCustomerId: string | null | undefined;
 }) => {
   if (POSTHOG_KEY) {
     try {
