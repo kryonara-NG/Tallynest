@@ -10,7 +10,6 @@ import { HowToSendCard } from "@/modules/survey/editor/components/how-to-send-ca
 import { RecontactOptionsCard } from "@/modules/survey/editor/components/recontact-options-card";
 import { ResponseOptionsCard } from "@/modules/survey/editor/components/response-options-card";
 import { SurveyPlacementCard } from "@/modules/survey/editor/components/survey-placement-card";
-import { TargetingLockedCard } from "@/modules/survey/editor/components/targeting-locked-card";
 import { WhenToSendCard } from "@/modules/survey/editor/components/when-to-send-card";
 import { type TSurveySchedulingConfig } from "@/modules/survey/scheduling/lib/config";
 
@@ -41,21 +40,21 @@ export const SettingsView = ({
   localSurvey,
   setLocalSurvey,
   actionClasses,
-  contactAttributeKeys,
-  segments,
-  responseCount,
+  _contactAttributeKeys,
+  _segments,
+  _responseCount,
   finishedResponseCount,
   membershipRole,
   isUserTargetingAllowed = false,
   isSpamProtectionAllowed,
-  isQuotasAllowed,
+  _isQuotasAllowed,
   workspacePermission,
-  isFormbricksCloud,
-  quotas,
+  _isFormbricksCloud,
+  _quotas,
   surveySchedulingConfig,
   locale,
   appSetupCompleted,
-  enterpriseLicenseRequestFormUrl,
+  _enterpriseLicenseRequestFormUrl,
   hasTriggerError = false,
 }: Readonly<SettingsViewProps>) => {
   const isAppSurvey = localSurvey.type === "app";
