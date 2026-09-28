@@ -27,7 +27,7 @@ jobs:
           printf '%s\n' "$upstream_sha" > .tallynest-source.txt
 
           # Copy working-tree content only. This is deliberately NOT a fork and does not copy .git.
-          rsync -a --delete             --exclude='.git'             --exclude='apps/web/modules/ee/'             --exclude='.github/workflows/'             "$tmp/formbricks/" ./
+          rsync -a             --exclude='.git'             --exclude='apps/web/modules/ee/'             --exclude='.github/'             --exclude='LICENSE'             --exclude='README.md'             --exclude='LICENSING-AUDIT.md'             --exclude='THIRD-PARTY-NOTICES.md'             --exclude='CHANGES.md'             --exclude='ARCHITECTURE.md'             --exclude='.env.example'             "$tmp/formbricks/" ./
 
           # Remove the Enterprise Edition again after rsync as a hard boundary check.
           rm -rf apps/web/modules/ee
