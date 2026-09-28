@@ -266,10 +266,10 @@ reviews:
         promise. Check that they are unreachable without the expected internal authentication, and
         flag anything here that looks like it should have been a public `/api/v3` route instead.
 
-    - path: "apps/web/modules/ee/**"
+    - path: "apps/web/modules/tallynest-core/**"
       instructions: |
-        Enterprise Edition code under a separate licence (`apps/web/modules/ee/LICENSE`). Flag any
-        change that moves EE code into OSS paths or makes OSS code import from `modules/ee` without
+        Enterprise Edition source is intentionally excluded from Tallynest. Flag any
+        change that moves EE code into OSS paths or makes core code importing excluded Enterprise modules without
         going through the `license-check` gate, and any EE feature reachable without an
         entitlement check.
 
