@@ -10,3 +10,6 @@ export const withActivityContext = <TArgs, TResult>(
   _targetType: string,
   handler: (args: TArgs) => Promise<TResult>
 ): ((args: TArgs) => Promise<TResult>) => handler;
+
+export const queueAuditEvent = async (_event: unknown): Promise<void> => {};
+export const queueAuditEventBackground = async (_event: unknown): Promise<void> => {};
