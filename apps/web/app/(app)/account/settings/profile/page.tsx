@@ -1,5 +1,4 @@
 import { AuthenticationError } from "@formbricks/types/errors";
-import { AccountSecurity } from "@/app/(app)/workspaces/[workspaceId]/settings/account/profile/components/AccountSecurity";
 import { DeleteAccount } from "@/app/(app)/workspaces/[workspaceId]/settings/account/profile/components/DeleteAccount";
 import { EditProfileDetailsForm } from "@/app/(app)/workspaces/[workspaceId]/settings/account/profile/components/EditProfileDetailsForm";
 import { SettingsCard } from "@/app/(app)/workspaces/[workspaceId]/settings/components/SettingsCard";
@@ -14,12 +13,9 @@ import { getTranslate } from "@/lingodotdev/server";
 import { requiresPasswordConfirmationForAccountDeletion } from "@/modules/account/lib/account-deletion-auth";
 import { getSession } from "@/modules/auth/lib/session";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
-import { getSettingsLayoutData } from "@/modules/settings/lib/navigation-data";
-import { getOrganizationBillingPath } from "@/modules/settings/lib/routes";
 import { IdBadge } from "@/modules/ui/components/id-badge";
 import { PageContentWrapper } from "@/modules/ui/components/page-content-wrapper";
 import { PageHeader } from "@/modules/ui/components/page-header";
-import { UpgradePrompt } from "@/modules/ui/components/upgrade-prompt";
 
 const Page = async () => {
   const isMultiOrgEnabled = await getIsMultiOrgEnabled();
@@ -34,12 +30,6 @@ const Page = async () => {
   if (!user) {
     throw new AuthenticationError(t("common.not_authenticated"));
   }
-
-  // Two-factor upgrade points at the user's organization billing page (org-scoped after the refactor).
-  const layoutData = await getSettingsLayoutData(session.user.id);
-  const billingUpgradeHref = layoutData
-    ? getOrganizationBillingPath(layoutData.organization.id, IS_FORMBRICKS_CLOUD)
-    : "/";
 
   const isPasswordResetEnabled = !PASSWORD_RESET_DISABLED && user.identityProvider === "email";
   const requiresPasswordConfirmation = requiresPasswordConfirmationForAccountDeletion(user);
@@ -65,7 +55,7 @@ const Page = async () => {
           </SettingsCard>
         )}
 
-        <SettingsCard/
+        <SettingsCard
           title={t("workspace.settings.profile.delete_account")}
           description={t("workspace.settings.profile.confirm_delete_account")}>
           <DeleteAccount
