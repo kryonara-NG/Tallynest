@@ -1,27 +1,14 @@
-# Tallynest Enterprise Boundary Report
+# EE Dependency Report
 
-Generated: 2026-09-28T20:19:20Z
+Generated from the Tallynest working tree. No Formbricks Enterprise source is permitted.
 
-Remaining references:
 .coderabbit.yaml:269:    - path: "apps/web/modules/ee/**"
 .coderabbit.yaml:271:        Enterprise Edition code under a separate licence (`apps/web/modules/ee/LICENSE`). Flag any
 .coderabbit.yaml:272:        change that moves EE code into OSS paths or makes OSS code import from `modules/ee` without
 .github/workflows/tallynest-core-extract.yml:27:          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > /tmp/ee.txt
 .github/workflows/verify.yml:33:            if git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md'; then
-apps/web/app/(app)/(onboarding)/organizations/[organizationId]/workspaces/new/plan/components/select-plan-onboarding.tsx:1:import { SelectPlanCard } from "@/modules/ee/billing/components/select-plan-card";
-apps/web/app/(app)/billing-confirmation/components/ConfirmationPage.tsx:5:import { waitForBillingPlanAction } from "@/modules/ee/billing/actions";
-apps/web/app/(app)/workspaces/[workspaceId]/components/MainNavigationNotices.tsx:8:import { TrialAlert } from "@/modules/ee/billing/components/trial-alert";
-apps/web/app/(app)/workspaces/[workspaceId]/components/MainNavigationNotices.tsx:9:import { TRIAL_BASE_RESPONSE_LIMIT, TrialBannerNew } from "@/modules/ee/billing/components/trial-banner-new";
-apps/web/app/(app)/workspaces/[workspaceId]/components/WorkspaceLayout.tsx:10:import { TrialEndingWarningModal } from "@/modules/ee/billing/components/trial-ending-warning-modal";
-apps/web/app/(app)/workspaces/[workspaceId]/components/WorkspaceLayout.tsx:11:import { TrialResponseWarningModal } from "@/modules/ee/billing/components/trial-response-warning-modal";
-apps/web/app/(app)/workspaces/[workspaceId]/components/WorkspaceLayout.tsx:12:import { getPendingDowngradeSchedule } from "@/modules/ee/license-check/lib/license";
 apps/web/app/(app)/workspaces/[workspaceId]/settings/account/profile/actions.ts:35: * modules/ee/sso/lib/better-auth-providers.ts) — so `EditProfileDetailsForm` renders the input
-apps/web/app/(app)/workspaces/[workspaceId]/settings/account/profile/components/AccountSecurity.tsx:6:import { DisableTwoFactorModal } from "@/modules/ee/two-factor-auth/components/disable-two-factor-modal";
-apps/web/app/(app)/workspaces/[workspaceId]/settings/account/profile/components/AccountSecurity.tsx:7:import { EnableTwoFactorModal } from "@/modules/ee/two-factor-auth/components/enable-two-factor-modal";
 apps/web/app/(app)/workspaces/[workspaceId]/settings/account/profile/components/EditProfileDetailsForm.tsx:176:                    // (`overrideUserInfo` in modules/ee/sso/lib/better-auth-providers.ts), so an edit
-apps/web/app/(app)/workspaces/[workspaceId]/settings/organization/enterprise/components/EnterpriseLicenseFeaturesTable.tsx:7:import type { TEnterpriseLicenseFeatures } from "@/modules/ee/license-check/types/enterprise-license";
-apps/web/app/(app)/workspaces/[workspaceId]/settings/organization/enterprise/components/EnterpriseLicenseStatus.tsx:10:import { recheckLicenseAction } from "@/modules/ee/license-check/actions";
-apps/web/app/(app)/workspaces/[workspaceId]/settings/organization/enterprise/components/EnterpriseLicenseStatus.tsx:11:import type { TLicenseStatus } from "@/modules/ee/license-check/types/enterprise-license";
 apps/web/app/(app)/workspaces/[workspaceId]/surveys/[surveyId]/(analysis)/summary/actions.ts:20:import { generatePersonalLinks } from "@/modules/ee/contacts/lib/contacts";
 apps/web/app/(app)/workspaces/[workspaceId]/surveys/[surveyId]/(analysis)/summary/actions.ts:21:import { NO_CONTACTS_IN_SEGMENT_ERROR_CODE } from "@/modules/ee/contacts/lib/personal-link-errors";
 apps/web/app/(app)/workspaces/[workspaceId]/surveys/[surveyId]/(analysis)/summary/actions.ts:23:import { getOrganizationLogoUrl } from "@/modules/ee/whitelabel/email-customization/lib/organization";
@@ -50,7 +37,6 @@ apps/web/app/api/v3/unify-feedback/enrichment-status/lib/aggregate.ts:4:} from "
 apps/web/app/api/v3/unify-feedback/enrichment-status/lib/operations.ts:5:import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
 apps/web/app/api/v3/unify-feedback/enrichment-status/lib/operations.ts:6:import type { TEnrichmentStatusResponse } from "@/modules/ee/unify-feedback/enrichment-status/lib/enrichment";
 apps/web/app/api/v3/workflows/lib/analytics.ts:11:} from "@/modules/ee/workflows/lib/analytics-events";
-apps/web/app/lib/api/with-api-logging.ts:26:import { TAuditAction, TAuditTarget, UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
 apps/web/app/setup/organization/create/actions.ts:14:import { ensureCloudStripeSetupForOrganization } from "@/modules/ee/billing/lib/organization-billing";
 apps/web/app/storage/[workspaceId]/[accessType]/[...filePath]/lib/audit-logs.ts:4:import { TAuditStatus, UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
 apps/web/lib/authorization/resource-inventory.test.ts:27:    join(REPOSITORY_ROOT, "apps/web/modules/ee/audit-logs/types/audit-log.ts"),
@@ -69,7 +55,6 @@ apps/web/lib/organization/service.ts:27:import { cleanupStripeCustomer } from "@
 apps/web/lib/response/service.ts:23:import { reduceQuotaLimits } from "@/modules/ee/quotas/lib/quotas";
 apps/web/lib/survey/service.ts:34:import { getSurveyWorkspaceIdMap } from "@/modules/ee/contacts/segments/lib/segments";
 apps/web/lib/telemetry/usage-update.ts:9:import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
-apps/web/lib/utils/action-client/index.ts:11:import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
 apps/web/lib/utils/prisma-deadlock.ts:27: * cycle can form in the first place (see updateAttributes in modules/ee/contacts/lib/attributes.ts).
 apps/web/lib/utils/services.ts:9:import { getQuota as getQuotaService } from "@/modules/ee/quotas/lib/quotas";
 apps/web/modules/account/lib/account-deletion-audit.ts:4:import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
@@ -86,11 +71,7 @@ apps/web/modules/api/v2/openapi-document.ts:27:import { contactPaths } from "@/m
 apps/web/modules/api/v2/organizations/[organizationId]/users/lib/users.ts:222:    // Mirrors the last-owner guard in modules/ee/role-management/actions.ts: without it, this
 apps/web/modules/api/v2/organizations/[organizationId]/users/lib/utils.ts:101: * (modules/ee/role-management/actions.ts): an owner may assign any role, a manager may only assign
 apps/web/modules/auth/forgot-password/actions.test.ts:44:// Passthrough so the handler runs directly, matching modules/ee/billing/actions.test.ts. Importing the
-apps/web/modules/auth/lib/after-auth-hooks.ts:6:} from "@/modules/ee/sso/lib/better-auth-hooks";
-apps/web/modules/auth/lib/auth.ts:29:import { ssoDatabaseHooks, ssoLicenseGateBeforeHandler } from "@/modules/ee/sso/lib/better-auth-hooks";
-apps/web/modules/auth/lib/auth.ts:30:import { ssoGenericOAuthConfig, ssoSocialProviders } from "@/modules/ee/sso/lib/better-auth-providers";
-apps/web/modules/auth/lib/auth.ts:31:import { ssoRecoverySignInPlugin } from "@/modules/ee/sso/lib/better-auth-recovery-signin";
-apps/web/modules/auth/lib/auth.ts:111:  // modules/ee/sso/lib/better-auth-providers.ts. The account-linking / verify-before-link flow is
+apps/web/modules/auth/lib/auth.ts:107:  // modules/ee/sso/lib/better-auth-providers.ts. The account-linking / verify-before-link flow is
 apps/web/modules/auth/lib/better-auth-hibp.ts:7:import type { AuthHookContext } from "@/modules/ee/sso/lib/better-auth-hooks";
 apps/web/modules/auth/lib/better-auth-observability.ts:10:import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
 apps/web/modules/auth/lib/better-auth-observability.ts:11:import type { AuthHookContext } from "@/modules/ee/sso/lib/better-auth-hooks";
@@ -179,3 +160,5 @@ scripts/tallynest-core-extract.mjs:11:  ["@/modules/ee/teams/workspace-teams/typ
 scripts/tallynest-core-extract.mjs:14:const skipDirs = new Set(["node_modules", ".next", ".git", "modules/ee"]);
 sonar-project.properties:77:sonar.coverage.exclusions=**/*.test.*,**/*.spec.*,**/*.tsx,**/*.mdx,**/*.config.mts,**/*.config.ts,**/constants.ts,apps/web/**/types/**,**/src/types/**,packages/database/types/**,**/types.ts,**/stories.*,**/*.mock.*,**/mocks/**,**/__mocks__/**,**/openapi.ts,**/openapi-document.ts,**/instrumentation.ts,scripts/openapi/merge-client-endpoints.ts,**/playwright/**,**/Dockerfile,**/*.config.cjs,**/*.css,**/templates.ts,apps/web/modules/ui/components/icons/*,**/*.json,apps/web/vitestSetup.ts,packages/js-core/src/index.ts,packages/surveys/src/index.ts,apps/web/postcss.config.js,apps/web/next.config.mjs,apps/web/scripts/**,packages/js-core/vitest.setup.ts,**/*.mjs,apps/web/modules/auth/lib/mock-data.ts,**/cache.ts,apps/web/app/**/billing-confirmation/**,apps/web/modules/ee/billing/**,apps/web/modules/survey/multi-language-surveys/**,apps/web/modules/email/**,apps/web/modules/integrations/**,apps/web/modules/setup/**/intro/**,apps/web/modules/setup/**/signup/**,apps/web/modules/setup/**/layout.tsx,apps/web/modules/survey/follow-ups/**,apps/web/app/share/**,apps/web/modules/ee/contacts/[contactId]/**,apps/web/modules/ee/contacts/components/**,apps/web/modules/ee/two-factor-auth/**,apps/web/lib/slack/**,apps/web/lib/notion/**,apps/web/lib/googleSheet/**,apps/web/app/api/google-sheet/**,apps/web/app/api/billing/**,apps/web/lib/airtable/**,apps/web/app/api/v1/integrations/**,apps/web/lib/env.ts,apps/web/lib/env-client.ts,**/instrumentation-node.ts,**/cache/**,**/*.svg,apps/web/modules/ui/components/icons/**,apps/web/modules/ui/components/table/**,packages/survey-ui/**/*.stories.*,apps/web/integration/**,apps/web/modules/auth/lib/auth.ts,apps/web/modules/auth/lib/auth-client.ts,apps/web/modules/auth/lib/cutover/**,packages/database/migration/**/migration.ts,apps/web/modules/auth/lib/better-auth-email-verification.ts,apps/web/modules/ee/sso/lib/better-auth-recovery-signin.ts,apps/web/modules/account/lib/better-auth-account-deletion-request.ts
 sonar-project.properties:95:sonar.cpd.exclusions=packages/i18n-utils/src/utils.ts,apps/web/modules/ee/analysis/lib/schema-definition.ts,apps/web/modules/analysis/lib/reserved-field-display.ts,apps/web/lib/surveyLogic/utils.ts,**/*.test.*,**/*.spec.*,**/*.tsx,**/*.mdx,**/*.config.mts,**/*.config.ts,**/constants.ts,**/route.ts,**/route.tsx,**/types/**,**/types.ts,**/stories.*,**/*.mock.*,**/mocks/**,**/__mocks__/**,**/openapi.ts,**/openapi-document.ts,**/instrumentation.ts,scripts/openapi/merge-client-endpoints.ts,**/playwright/**,**/Dockerfile,**/*.config.cjs,**/*.css,**/templates.ts,**/actions.ts,apps/web/modules/ui/components/icons/*,**/*.json,apps/web/vitestSetup.ts,apps/web/postcss.config.js,apps/web/next.config.mjs,apps/web/scripts/**,packages/js-core/vitest.setup.ts,packages/js-core/src/index.ts,**/*.mjs,apps/web/modules/auth/lib/mock-data.ts,**/cache.ts,apps/web/app/**/billing-confirmation/**,apps/web/modules/ee/billing/**,apps/web/modules/survey/multi-language-surveys/**,apps/web/modules/email/**,apps/web/modules/integrations/**,apps/web/modules/setup/**/intro/**,apps/web/modules/setup/**/signup/**,apps/web/modules/setup/**/layout.tsx,apps/web/modules/survey/follow-ups/**,apps/web/app/share/**,apps/web/modules/ee/contacts/[contactId]/**,apps/web/modules/ee/contacts/components/**,apps/web/modules/ee/two-factor-auth/**,apps/web/lib/slack/**,apps/web/lib/notion/**,apps/web/lib/googleSheet/**,apps/web/app/api/google-sheet/**,apps/web/app/api/billing/**,apps/web/lib/airtable/**,apps/web/app/api/v1/integrations/**,apps/web/lib/env.ts,**/instrumentation-node.ts,**/cache/**,**/*.svg,apps/web/modules/ui/components/icons/**,apps/web/modules/ui/components/table/**,packages/survey-ui/**/*.stories.*
+
+**Action required:** each listed dependency must be removed or replaced with independently authored Tallynest code.
