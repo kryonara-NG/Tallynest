@@ -20,3 +20,6 @@ export type TApiAuditLog = {
   apiUrl: string;
   eventId?: string;
 };
+
+export type TAuditStatus = TallynestAuditStatus;
+export const UNKNOWN_DATA = TALLYNEST_UNKNOWN_DATA;
