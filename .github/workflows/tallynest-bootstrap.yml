@@ -40,11 +40,10 @@ jobs:
 
           # Rebrand only user-facing documentation/configuration text. Do not globally replace
           # internal @formbricks package names or copyright/license notices.
-          for f in README.md docs/**/*.md docs/**/*.mdx 2>/dev/null; do
-            [ -f "$f" ] || continue
+          while IFS= read -r -d '' f; do
             sed -i 's/Formbricks/Tallynest/g' "$f"
-            sed -i 's/formbricks\.com/tallynest.example/g' "$f"
-          done
+            sed -i 's/formbricks\\.com/tallynest.example/g' "$f"
+          done < <(find docs -type f \( -name '*.md' -o -name '*.mdx' \) -print0 2>/dev/null || true)
 
           # Replace obvious application metadata without changing internal package namespaces.
           if [ -f apps/web/app/layout.tsx ]; then
