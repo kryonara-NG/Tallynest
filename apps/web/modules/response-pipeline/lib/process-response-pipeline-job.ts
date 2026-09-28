@@ -18,11 +18,6 @@ import { getIntegrations } from "@/lib/integration/service";
 import { isDatabasePoolExhaustionError } from "@/lib/jobs/pool-exhaustion";
 import { getResponseCountBySurveyId } from "@/lib/response/service";
 import { sendTelemetryEvents } from "@/lib/telemetry/usage-update";
-import { queueAuditEventWithoutRequest } from "@/modules/tallynest-core/activity-context";
-import { type TAuditStatus, UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
-import { recordResponseCreatedMeterEvent } from "@/modules/ee/billing/lib/metering";
-import { dispatchWorkflowRunViaJobs } from "@/modules/ee/workflows/lib/runner/dispatch";
-import { enqueueResponseCompletedWorkflowRuns } from "@/modules/ee/workflows/lib/runner/enqueue-response-completed-runs";
 import { sendResponseFinishedEmail } from "@/modules/email";
 import { captureSurveyResponsePostHogEvent } from "@/modules/response-pipeline/lib/posthog";
 import { sendFollowUpsForResponse } from "@/modules/survey/follow-ups/lib/follow-ups";
@@ -507,7 +502,7 @@ const handleSurveyAutoCompleteSafely = async ({
     return;
   }
 
-  let logStatus: TAuditStatus = "success";
+
 
   try {
     await prisma.survey.update({
@@ -571,7 +566,6 @@ const runResponseFinishedSideEffects = async ({
   displayTimeZone: string | null;
   logContext: ReturnType<typeof getPipelineLogContext>;
   organizationId: string;
-  stripeCustomerId: string | null | undefined;
   survey: TPipelineSurvey;
   workspaceId: string;
 }) => {
@@ -659,26 +653,6 @@ const runResponseFinishedSideEffects = async ({
     survey,
   });
 
-  // Workflow runner (producer): enqueue runs for matching enabled workflows. Isolated so a runner
-  // failure never breaks the response pipeline job, its retries, or the other side-effects above.
-  try {
-    await enqueueResponseCompletedWorkflowRuns({
-      response: data.response,
-      workspaceId,
-      organizationId,
-      stripeCustomerId,
-      dispatch: dispatchWorkflowRunViaJobs,
-      logContext,
-    });
-  } catch (error) {
-    // Transient DB pool exhaustion must propagate so the job retries (same contract as the outer
-    // pipeline catch); otherwise a completed-response trigger is silently lost. Only non-retryable
-    // failures are swallowed, so they never break the other responseFinished side-effects above.
-    if (isDatabasePoolExhaustionError(error)) {
-      throw error;
-    }
-    logger.error({ ...logContext, err: error }, "Response pipeline workflow run enqueue failed");
-  }
 };
 
 const runResponseCreatedSideEffects = async ({
@@ -694,22 +668,6 @@ const runResponseCreatedSideEffects = async ({
   survey: TPipelineSurvey;
   stripeCustomerId: string | null | undefined;
 }) => {
-  try {
-    await recordResponseCreatedMeterEvent({
-      stripeCustomerId,
-      responseId: data.response.id,
-      createdAt: data.response.createdAt,
-    });
-  } catch (error) {
-    logger.error(
-      {
-        ...logContext,
-        err: error,
-      },
-      "Response pipeline meter event failed"
-    );
-  }
-
   if (POSTHOG_KEY) {
     try {
       const responseCount = await getResponseCountBySurveyId(data.surveyId);
@@ -781,7 +739,6 @@ export const processResponsePipelineJob: JobHandler<TResponsePipelineJobData> = 
         displayTimeZone: organization.displayTimeZone,
         logContext,
         organizationId: organization.id,
-        stripeCustomerId: organization.billing?.stripeCustomerId,
         survey,
         workspaceId: data.workspaceId,
       });
@@ -793,7 +750,6 @@ export const processResponsePipelineJob: JobHandler<TResponsePipelineJobData> = 
         logContext,
         organizationId: organization.id,
         survey,
-        stripeCustomerId: organization.billing?.stripeCustomerId,
       });
     }
   } catch (error) {
