@@ -11,7 +11,7 @@ import { capturePostHogEvent } from "@/lib/posthog";
 import { ACCOUNT_DELETION_SOLE_OWNER_BLOCK_MESSAGE } from "@/modules/account/constants";
 import { deleteBrevoCustomerByEmail } from "@/modules/auth/lib/brevo";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
-import type { AuthHookContext } from "@/modules/ee/sso/lib/better-auth-hooks";
+import type { AuthHookContext } from "@/modules/tallynest-core/auth-context";
 import { queueAccountDeletionAuditEvent } from "./account-deletion-audit";
 
 type DeleteUserConfig = NonNullable<NonNullable<BetterAuthOptions["user"]>["deleteUser"]>;
