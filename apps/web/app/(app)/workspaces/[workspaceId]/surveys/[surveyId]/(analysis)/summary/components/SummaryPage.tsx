@@ -19,7 +19,6 @@ import { CustomFilter } from "@/app/(app)/workspaces/[workspaceId]/surveys/[surv
 import { getFormattedFilters } from "@/app/lib/surveys/surveys";
 import { getFormattedErrorMessage } from "@/lib/utils/helper";
 import { replaceHeadlineRecall } from "@/lib/utils/recall";
-import { QuotasSummary } from "@/the excluded Enterprise quota modulecomponents/quotas-summary";
 import { SummaryList } from "./SummaryList";
 import { SummaryMetadata } from "./SummaryMetadata";
 
@@ -67,7 +66,7 @@ export const SummaryPage = ({
     initialSurveySummary || defaultSurveySummary
   );
 
-  const [tab, setTab] = useState<"dropOffs" | "quotas" | "impressions" | undefined>(undefined);
+  const [tab, setTab] = useState<"dropOffs" | "impressions" | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(!initialSurveySummary);
 
   const { selectedFilter, dateRange, resetState, registerAnalysisRefreshHandler } = useResponseFilter();
