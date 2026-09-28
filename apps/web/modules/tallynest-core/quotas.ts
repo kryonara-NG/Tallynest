@@ -19,9 +19,8 @@ export const screenResponseQuotas = async (_input: unknown): Promise<null> => nu
 
 export const reduceQuotaLimits = async (_quotaIds: string[], _tx: unknown): Promise<void> => {};
 
+export const getQuotas = async (_surveyId: string): Promise<[]> => [];
+
 export const createQuotaFullObject = (_quotaFull: unknown): Record<string, never> => {};
 
-export const getQuota = async (quotaId: string) => {
-  const { prisma } = await import("@formbricks/database");
-  return prisma.quota.findUniqueOrThrow({ where: { id: quotaId } });
-};
+export const getQuota = async (_quotaId: string): Promise<null> => null;
