@@ -22,10 +22,8 @@ import {
 import { applyIPRateLimit, applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
-import { queueAuditEvent } from "@/modules/tallynest-core/activity-context";
-import { TAuditAction, TAuditTarget, UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { TALLYNEST_UNKNOWN_DATA, type TApiAuditLog, type TTallynestAuditAction, type TTallynestAuditTarget } from "@/modules/tallynest-core/api-audit";
 
-export type TApiAuditLog = Parameters<typeof queueAuditEvent>[0];
 export type TApiV1Authentication = TAuthenticationApiKey | Session | null;
 export type TApiKeyAuthentication = TAuthenticationApiKey | null;
 export type TSessionAuthentication = Session | null;
@@ -44,8 +42,8 @@ export interface TWithV1ApiWrapperParams<
   TProps = unknown,
 > {
   handler: (params: THandlerParams<TProps>) => Promise<TResult>;
-  action?: TAuditAction;
-  targetType?: TAuditTarget;
+  action?: TTallynestAuditAction;
+  targetType?: TTallynestAuditTarget;
   customRateLimitConfig?: TRateLimitConfig;
   /**
    * When the route requires auth but the client is unauthenticated, the wrapper normally returns
@@ -243,9 +241,7 @@ const processResponse = async (
   }
 
   // Queue audit event if enabled and audit log exists
-  if (AUDIT_LOG_ENABLED && auditLog) {
-    queueAuditEvent(auditLog);
-  }
+  // Enterprise audit-event persistence is intentionally not part of Tallynest core.\n  // Request/error logging remains active above.
 };
 
 const getRouteType = (
@@ -366,16 +362,16 @@ export const withV1ApiWrapper = <TResult extends { response: Response; error?: u
 };
 
 export const buildAuditLogBaseObject = (
-  action: TAuditAction,
-  targetType: TAuditTarget,
+  action: TTallynestAuditAction,
+  targetType: TTallynestAuditTarget,
   apiUrl: string
 ): TApiAuditLog => {
   return {
     action,
     targetType,
-    userId: UNKNOWN_DATA,
-    targetId: UNKNOWN_DATA,
-    organizationId: UNKNOWN_DATA,
+    userId: TALLYNEST_UNKNOWN_DATA,
+    targetId: TALLYNEST_UNKNOWN_DATA,
+    organizationId: TALLYNEST_UNKNOWN_DATA,
     status: "failure",
     oldObject: undefined,
     newObject: undefined,
