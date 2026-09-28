@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -12,29 +11,12 @@ import { createWorkspaceAction } from "@/app/(app)/workspaces/[workspaceId]/acti
 import { getFormattedErrorMessage } from "@/lib/utils/helper";
 import { Button } from "@/modules/ui/components/button";
 import {
-  Dialog,
-  DialogBody,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+  Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
 } from "@/modules/ui/components/dialog";
-import {
-  FormControl,
-  FormError,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormProvider,
-} from "@/modules/ui/components/form";
+import { FormControl, FormError, FormField, FormItem, FormLabel, FormProvider } from "@/modules/ui/components/form";
 import { Input } from "@/modules/ui/components/input";
 
-const ZCreateWorkspaceForm = z.object({
-  name: ZWorkspace.shape.name,
-  teamIds: z.array(z.string()).optional(),
-});
-
+const ZCreateWorkspaceForm = z.object({ name: ZWorkspace.shape.name });
 type TCreateWorkspaceForm = z.infer<typeof ZCreateWorkspaceForm>;
 
 interface CreateWorkspaceModalProps {
@@ -44,94 +26,51 @@ interface CreateWorkspaceModalProps {
   isAccessControlAllowed: boolean;
 }
 
-export const CreateWorkspaceModal = ({
-  open,
-  setOpen,
-  organizationId,
-  isAccessControlAllowed: _isAccessControlAllowed,
-}: CreateWorkspaceModalProps) => {
+export const CreateWorkspaceModal = ({ open, setOpen, organizationId }: CreateWorkspaceModalProps) => {
   const { t } = useTranslation();
   const router = useRouter();
-
-
   const form = useForm<TCreateWorkspaceForm>({
     resolver: zodResolver(ZCreateWorkspaceForm),
-    defaultValues: {
-      name: "",
-      teamIds: [],
-    },
+    defaultValues: { name: "" },
   });
 
-  const { isSubmitting } = form.formState;
-
-  const organizationTeamsOptions = organizationTeams.map((team) => ({
-    label: team.name,
-    value: team.id,
-  }));
-
   const onSubmit = async (data: TCreateWorkspaceForm) => {
-    const createWorkspaceResponse = await createWorkspaceAction({
-      organizationId,
-      data: {
-        name: data.name,
-        teamIds: data.teamIds || [],
-      },
-    });
-
-    if (createWorkspaceResponse?.data) {
-      const workspace = createWorkspaceResponse.data;
+    const result = await createWorkspaceAction({ organizationId, data: { name: data.name, teamIds: [] } });
+    if (result?.data) {
       toast.success(t("common.workspace_created_successfully"));
       setOpen(false);
       form.reset();
-      // Redirect to the new workspace's surveys page
-      router.push(`/workspaces/${workspace.id}/surveys`);
+      router.push(`/workspaces/${result.data.id}/surveys`);
     } else {
-      const errorMessage = getFormattedErrorMessage(createWorkspaceResponse);
-      toast.error(errorMessage);
+      toast.error(getFormattedErrorMessage(result));
     }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    form.reset();
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent unconstrained={true}>
+      <DialogContent unconstrained>
         <DialogHeader>
           <DialogTitle>{t("common.create_workspace")}</DialogTitle>
           <DialogDescription>{t("common.workspace_creation_description")}</DialogDescription>
         </DialogHeader>
-
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <DialogBody className="relative z-20 space-y-4 overflow-visible">
+            <DialogBody>
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field, fieldState: { error } }) => (
                   <FormItem>
                     <FormLabel>{t("common.workspace_name")}</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder={t("common.workspace_name_placeholder")} autoFocus />
-                    </FormControl>
-                    {error?.message && <FormError className="text-left">{error.message}</FormError>}
+                    <FormControl><Input {...field} autoFocus /></FormControl>
+                    {error?.message && <FormError>{error.message}</FormError>}
                   </FormItem>
                 )}
               />
-
-               />
-              )}
             </DialogBody>
-
             <DialogFooter>
-              <Button type="button" variant="secondary" onClick={handleClose}>
-                {t("common.cancel")}
-              </Button>
-              <Button type="submit" loading={isSubmitting}>
-                {t("common.create_workspace")}
-              </Button>
+              <Button type="button" variant="secondary" onClick={() => setOpen(false)}>{t("common.cancel")}</Button>
+              <Button type="submit" loading={form.formState.isSubmitting}>{t("common.create_workspace")}</Button>
             </DialogFooter>
           </form>
         </FormProvider>
