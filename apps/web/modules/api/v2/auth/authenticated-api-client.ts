@@ -2,7 +2,7 @@ import { TAuthenticationApiKey } from "@formbricks/types/auth";
 import { buildAuditLogBaseObject } from "@/app/lib/api/with-api-logging";
 import { handleApiError, logApiRequest } from "@/modules/api/v2/lib/utils";
 import { ApiErrorResponseV2 } from "@/modules/api/v2/types/api-error";
-import { TAuditAction, TAuditTarget } from "@/modules/ee/audit-logs/types/audit-log";
+import { TTallynestAuditAction, TTallynestAuditTarget } from "@/modules/tallynest-core/api-audit";
 import { ExtendedSchemas, HandlerFn, ParsedSchemas, apiWrapper } from "./api-wrapper";
 
 export const authenticatedApiClient = async <S extends ExtendedSchemas>({
@@ -21,8 +21,8 @@ export const authenticatedApiClient = async <S extends ExtendedSchemas>({
   externalParams?: Promise<Record<string, any>>;
   rateLimit?: boolean;
   handler: HandlerFn<ParsedSchemas<S>>;
-  action?: TAuditAction;
-  targetType?: TAuditTarget;
+  action?: TTallynestAuditAction;
+  targetType?: TTallynestAuditTarget;
   bodyTransform?: (
     body: Record<string, unknown>,
     auth: TAuthenticationApiKey
