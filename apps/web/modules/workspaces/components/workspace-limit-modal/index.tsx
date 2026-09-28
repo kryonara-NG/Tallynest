@@ -18,7 +18,7 @@ export const WorkspaceLimitModal = ({
   setOpen,
   workspaceLimit,
   buttons,
-  showLiteLicenseTip,
+  showLiteLicenseTip: _showLiteLicenseTip,
 }: Readonly<WorkspaceLimitModalProps>) => {
   const { t } = useTranslation();
   const title = t("common.unlock_more_workspaces_with_a_higher_plan");
@@ -27,7 +27,7 @@ export const WorkspaceLimitModal = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogTitle className="sr-only">{title}</DialogTitle>
-        {!showLiteLicenseTip ? (
+        {(
           <UpgradePrompt
             title={title}
             description={t("common.you_have_reached_your_limit_of_workspace_limit", { workspaceLimit })}
