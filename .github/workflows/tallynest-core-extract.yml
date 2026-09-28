@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' > /tmp/ee.txt
+          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > /tmp/ee.txt
           rc=$?
           {
             echo "# Tallynest Enterprise Boundary Report"
