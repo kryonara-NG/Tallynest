@@ -3,8 +3,6 @@ import { prisma } from "@formbricks/database";
 import { IntegrationType } from "@formbricks/database/prisma";
 import { logger } from "@formbricks/logger";
 import { E2E_TESTING, IS_DEVELOPMENT, TELEMETRY_DISABLED } from "@/lib/constants";
-import { env } from "@/lib/env";
-import { hashString } from "@/lib/hash-string";
 import { getInstanceInfo } from "@/lib/instance";
 import packageJson from "@/package.json";
 
@@ -32,7 +30,6 @@ let nextTelemetryCheck = 0;
  */
 // Hashed license key for log context — allows correlating log entries to a specific license
 // without exposing the raw key. Computed once at module load.
-const hashedLicenseKey = null;
 
 /**
  * Returns true if telemetry is disabled via env var AND there is no active EE license.
