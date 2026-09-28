@@ -4,22 +4,16 @@ import { z } from "zod";
 import { logger } from "@formbricks/logger";
 import { ZId } from "@formbricks/types/common";
 import { RequestBodyTooLargeError, readRequestBodyWithLimit } from "@/app/lib/api/request-body";
-import { can } from "@/lib/authorization";
 import { withAuthorizationSurface } from "@/lib/authorization/context";
-import { getFeedbackDirectoryAuthorizationAction } from "@/lib/authorization/permission-action";
 import { verifyFeedbackRecordsGatewayToken } from "@/lib/jwt";
 import { getBearerTokenFromHeaders } from "@/modules/api/lib/api-key-auth";
-import { getIsFeedbackDirectoriesEnabled } from "@/modules/tallynest-core/entitlements";
 import {
   TGatewayAuthenticatedPrincipal,
   TGatewayRequestAuthorizer,
   allowGatewayRequest,
   buildGatewayStatusResponse,
 } from "@/modules/gateway-auth/lib/request";
-import {
-  type TFeedbackRecordsGatewayPermission,
-  hasApiKeyImplicitFeedbackDirectoryAccess,
-} from "@/modules/hub/feedback-records-gateway-authz";
+import type { TFeedbackRecordsGatewayPermission } from "@/modules/hub/feedback-records-gateway-authz";
 import { normalizeFeedbackRecordsPath } from "@/modules/hub/feedback-records-routing";
 import { getFeedbackRecordTenant } from "@/modules/hub/service";
 
