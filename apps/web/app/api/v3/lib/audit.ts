@@ -1,13 +1,13 @@
 import { logger } from "@formbricks/logger";
 import { buildAuditLogBaseObject } from "@/app/lib/api/with-api-logging";
 import { queueAuditEvent } from "@/modules/tallynest-core/activity-context";
-import { TAuditAction, TAuditTarget } from "@/modules/ee/audit-logs/types/audit-log";
+import { TTallynestAuditAction, TTallynestAuditTarget } from "@/modules/tallynest-core/api-audit";
 import type { TV3AuditLog, TV3Authentication } from "./types";
 
 export function buildV3AuditLog(
   authentication: TV3Authentication,
-  action?: TAuditAction,
-  targetType?: TAuditTarget,
+  action?: TTallynestAuditAction,
+  targetType?: TTallynestAuditTarget,
   apiUrl?: string
 ): TV3AuditLog | undefined {
   if (!authentication || !action || !targetType || !apiUrl) {
