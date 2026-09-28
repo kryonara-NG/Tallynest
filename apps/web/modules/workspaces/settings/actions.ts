@@ -14,7 +14,6 @@ import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { getRemoveBrandingPermission } from "@/modules/tallynest-core/entitlements";
-import { getTeamsByOrganizationId } from "@/modules/ee/teams/team-list/lib/team";
 import { updateWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 import { ZWorkspaceUpdateActionInput } from "@/modules/workspaces/settings/lib/workspace-update-input";
 
@@ -128,11 +127,4 @@ const ZGetTeamsByOrganizationIdAction = z.object({
 
 export const getTeamsByOrganizationIdAction = authenticatedActionClient
   .inputSchema(ZGetTeamsByOrganizationIdAction)
-  .action(async ({ ctx, parsedInput }) => {
-    await assertCan({ type: "user", id: ctx.user.id }, "organization.manage", {
-      type: "organization",
-      id: parsedInput.organizationId,
-    });
-    const teams = await getTeamsByOrganizationId(parsedInput.organizationId);
-    return teams;
-  });
+  .action(async () => []);
