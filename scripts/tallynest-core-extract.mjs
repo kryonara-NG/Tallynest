@@ -58,6 +58,11 @@ const removeTrees = [
   "modules/api/v2/management/contact-attribute-keys",
   "modules/api/v2/management/surveys/[surveyId]/contact-links/segments",
   "modules/organization/settings/teams",
+  "modules/auth/lib/better-auth-two-factor-backfill.ts",
+  "modules/auth/lib/auth-two-factor.integration.test.ts",
+  "modules/auth/lib/cutover/reencode-two-factor.integration.test.ts",
+  "modules/auth/lib/sso-provisioning-reject-reasons.ts",
+  "modules/ui/components/confirm-delete-segment-modal",
 ];
 
 for (const rel of removeTrees) {
@@ -85,4 +90,4 @@ for (const file of walk(web)) {
   }
 }
 
-// workflow trigger checkpoint 5
+// workflow trigger checkpoint 6
