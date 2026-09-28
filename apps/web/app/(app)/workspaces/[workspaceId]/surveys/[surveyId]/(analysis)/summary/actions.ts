@@ -17,10 +17,6 @@ import { getOrganizationIdFromSurveyId, getWorkspaceIdFromSurveyId } from "@/lib
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { generatePersonalLinks } from "@/modules/ee/contacts/lib/contacts";
-import { NO_CONTACTS_IN_SEGMENT_ERROR_CODE } from "@/modules/ee/contacts/lib/personal-link-errors";
-import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";
-import { getOrganizationLogoUrl } from "@/modules/ee/whitelabel/email-customization/lib/organization";
 import { sendEmbedSurveyPreviewEmail } from "@/modules/email";
 import { deleteResponsesAndDisplaysForSurvey } from "./lib/survey";
 
@@ -32,7 +28,6 @@ export const sendEmbedSurveyPreviewEmailAction = authenticatedActionClient
   .inputSchema(ZSendEmbedSurveyPreviewEmailAction)
   .action(async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromSurveyId(parsedInput.surveyId);
-    const organizationLogoUrl = await getOrganizationLogoUrl(organizationId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.read", {
       type: "workspace",
@@ -55,7 +50,7 @@ export const sendEmbedSurveyPreviewEmailAction = authenticatedActionClient
       emailHtml,
       survey.workspaceId,
       ctx.user.locale,
-      organizationLogoUrl || ""
+      ""
     );
   });
 
@@ -202,87 +197,6 @@ export const getEmailHtmlAction = authenticatedActionClient
     });
 
     return await getEmailTemplateHtml(parsedInput.surveyId, ctx.user.locale);
-  });
-
-const ZGeneratePersonalLinksAction = z.object({
-  surveyId: ZId,
-  segmentId: ZId,
-  expirationDays: z.number().optional(),
-});
-
-export const generatePersonalLinksAction = authenticatedActionClient
-  .inputSchema(ZGeneratePersonalLinksAction)
-  .action(async ({ ctx, parsedInput }) => {
-    const organizationId = await getOrganizationIdFromSurveyId(parsedInput.surveyId);
-    const workspaceId = await getWorkspaceIdFromSurveyId(parsedInput.surveyId);
-    const isContactsEnabled = await getIsContactsEnabled(organizationId);
-    if (!isContactsEnabled) {
-      throw new OperationNotAllowedError("Contacts are not enabled for this workspace");
-    }
-
-    await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
-      type: "workspace",
-      id: workspaceId,
-    });
-
-    // Get contacts and generate personal links
-    const contactsResult = await generatePersonalLinks(
-      parsedInput.surveyId,
-      parsedInput.segmentId,
-      parsedInput.expirationDays
-    );
-
-    if (!contactsResult || contactsResult.length === 0) {
-      throw new InvalidInputError(NO_CONTACTS_IN_SEGMENT_ERROR_CODE);
-    }
-
-    capturePostHogEvent(
-      ctx.user.id,
-      "personal_link_created",
-      {
-        organization_id: organizationId,
-        workspace_id: workspaceId,
-        survey_id: parsedInput.surveyId,
-        link_count: contactsResult.length,
-      },
-      { organizationId, workspaceId }
-    );
-
-    // Prepare CSV data with the specified headers and order
-    const csvHeaders = [
-      "Formbricks Contact ID",
-      "User ID",
-      "First Name",
-      "Last Name",
-      "Email",
-      "Personal Link",
-    ];
-
-    const csvData = contactsResult
-      .map((contact) => {
-        if (!contact) {
-          return null;
-        }
-        const attributes = contact.attributes ?? {};
-        return {
-          "Formbricks Contact ID": contact.contactId,
-          "User ID": attributes.userId ?? "",
-          "First Name": attributes.firstName ?? "",
-          "Last Name": attributes.lastName ?? "",
-          Email: attributes.email ?? "",
-          "Personal Link": contact.surveyUrl,
-        };
-      })
-      .filter((contact) => contact !== null);
-
-    // Convert to CSV using the file conversion utility
-    const csvContent = await convertToCsv(csvHeaders, csvData);
-    const fileName = `personal-links-${parsedInput.surveyId}-${Date.now()}.csv`;
-
-    return {
-      fileName,
-      csvContent,
-    };
   });
 
 const ZUpdateSingleUseLinksAction = z.object({
