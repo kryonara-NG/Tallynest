@@ -23,6 +23,7 @@ import { applyIPRateLimit, applyRateLimit } from "@/modules/core/rate-limit/help
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
 import { TALLYNEST_UNKNOWN_DATA, type TApiAuditLog, type TTallynestAuditAction, type TTallynestAuditTarget } from "@/modules/tallynest-core/api-audit";
+export type { TApiAuditLog } from "@/modules/tallynest-core/api-audit";
 
 export type TApiV1Authentication = TAuthenticationApiKey | Session | null;
 export type TApiKeyAuthentication = TAuthenticationApiKey | null;
