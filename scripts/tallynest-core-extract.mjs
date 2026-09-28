@@ -57,6 +57,7 @@ const removeTrees = [
   "app/api/v3/workflows",
   "modules/api/v2/management/contact-attribute-keys",
   "modules/api/v2/management/surveys/[surveyId]/contact-links/segments",
+  "modules/organization/settings/teams",
 ];
 
 for (const rel of removeTrees) {
@@ -84,4 +85,4 @@ for (const file of walk(web)) {
   }
 }
 
-// workflow trigger checkpoint 3
+// workflow trigger checkpoint 4
