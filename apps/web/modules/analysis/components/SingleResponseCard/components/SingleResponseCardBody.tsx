@@ -15,7 +15,6 @@ import { getLocalizedValue } from "@/lib/i18n/utils";
 import { buildServerEmbeddedValues } from "@/lib/surveyLogic/utils";
 import { getSurveyDateFormatMap } from "@/lib/utils/date-display";
 import { parseRecallInfo } from "@/lib/utils/recall";
-import { ResponseCardQuotas } from "@/modules/ee/quotas/components/single-response-card-quotas";
 import { getElementsFromBlocks } from "@/modules/survey/lib/client-utils";
 import { isValidValue, splitRecallHighlights } from "../util";
 import { ElementSkip } from "./ElementSkip";
@@ -160,8 +159,6 @@ export const SingleResponseCardBody = ({
       {ingestedFields.length > 0 && (
         <HiddenFields hiddenFields={ingestedFields} responseData={response.data} />
       )}
-      <ResponseCardQuotas quotas={response.quotas} />
-
       {response.finished && (
         <div className="mt-4 flex items-center">
           <CheckCircle2Icon className="size-6 text-slate-400" />
