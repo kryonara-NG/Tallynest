@@ -38,15 +38,7 @@ jobs:
             fi
           } > EE-DEPENDENCY-REPORT.md
 
-          git config user.name "Tallynest Bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add EE-DEPENDENCY-REPORT.md
-          if ! git diff --cached --quiet; then
-            HUSKY=0 git commit -m "Add EE dependency audit report [tallynest-verify-report]"
-            git push origin HEAD:main
-          fi
-
-          # Keep the audit visible but continue into compiler/test/build stages.
+          # Audit is report-only in verification; extraction workflow owns the committed report.\n          # Keep the audit visible but continue into compiler/test/build stages.
 
       - name: Prepare CI environment
         run: |
