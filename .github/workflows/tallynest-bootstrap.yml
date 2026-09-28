@@ -84,6 +84,15 @@ jobs:
             exit 1
           fi
 
+      - name: Prepare CI environment
+        run: |
+          cp .env.example .env
+          printf '\nDATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5432/tallynest?schema=public\n' >> .env
+          printf '\nDIRECT_URL=postgresql://postgres:postgres@127.0.0.1:5432/tallynest?schema=public\n' >> .env
+          printf '\nNEXTAUTH_SECRET=ci-placeholder-nextauth-secret\n' >> .env
+          printf '\nENCRYPTION_KEY=ci-placeholder-encryption-key-32-chars\n' >> .env
+          printf '\nAUTH_SECRET=ci-placeholder-auth-secret\n' >> .env
+
       - name: Typecheck
         run: pnpm typecheck
 
