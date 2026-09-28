@@ -72,10 +72,7 @@ jobs:
 
           rm -rf "$tmp"
 
-          # Restore Tallynest control documents after upstream source import.
-          cp /tmp/tallynest-control/* . 2>/dev/null || true
-          touch .tallynest-bootstrap-complete
-
+          # Control documents are already present in the target repository and are not overwritten by rsync.\n          touch .tallynest-bootstrap-complete\n
       - name: Install dependencies
         run: corepack enable && corepack prepare pnpm@11.7.0 --activate && pnpm install --frozen-lockfile
 
