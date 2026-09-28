@@ -134,7 +134,7 @@ describe("deleteScopedResponse quota effects, against real Postgres", () => {
     const screenedInCount = await prisma.responseQuotaLink.count({
       where: { quotaId, status: "screenedIn" },
     });
-    // The repo's only fullness predicate, from `modules/ee/quotas/lib/utils.ts`.
+    // The repo's only fullness predicate, from `the excluded Enterprise quota modulelib/utils.ts`.
     return { limit: quota.limit, screenedInCount, isFull: screenedInCount >= quota.limit };
   };
 

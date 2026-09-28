@@ -6,7 +6,7 @@ import type { TIngestFlag } from "@formbricks/types/embedded-data-ingest";
 import type { TResponse } from "@formbricks/types/responses";
 import type { TTag } from "@formbricks/types/tags";
 import { normalizeResponseLanguage } from "@/lib/response/utils";
-import { evaluateResponseQuotas } from "@/modules/ee/quotas/lib/evaluation-service";
+import { evaluateResponseQuotas } from "@/modules/tallynest-core/quotas";
 
 type TQuotaEvaluationResponseInput = {
   surveyId: string;

@@ -19,7 +19,7 @@ import { isDatabasePoolExhaustionError } from "@/lib/jobs/pool-exhaustion";
 import { getResponseCountBySurveyId } from "@/lib/response/service";
 import { sendTelemetryEvents } from "@/lib/telemetry/usage-update";
 import { queueAuditEventWithoutRequest } from "@/modules/tallynest-core/activity-context";
-import { type TAuditStatus, UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { type TAuditStatus, UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import { recordResponseCreatedMeterEvent } from "@/modules/ee/billing/lib/metering";
 import { dispatchWorkflowRunViaJobs } from "@/modules/ee/workflows/lib/runner/dispatch";
 import { enqueueResponseCompletedWorkflowRuns } from "@/modules/ee/workflows/lib/runner/enqueue-response-completed-runs";

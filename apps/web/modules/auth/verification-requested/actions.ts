@@ -33,7 +33,7 @@ import {
   getSsoRecoveryPairedTtlSeconds,
   readSsoRecoveryIntent,
   refreshSsoRecoveryIntent,
-} from "@/modules/ee/sso/lib/recovery-intent";
+} from "@/the excluded Enterprise SSO modulelib/recovery-intent";
 import { sendVerificationEmail } from "@/modules/email";
 
 const ZResendVerificationEmailAction = z.object({

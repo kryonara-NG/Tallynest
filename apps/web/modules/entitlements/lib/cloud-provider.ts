@@ -4,7 +4,7 @@ import {
   getDefaultOrganizationBilling,
   getOrganizationBillingWithReadThroughSync,
 } from "@/modules/ee/billing/lib/organization-billing";
-import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
+import { getEnterpriseLicense } from "@/modules/tallynest-core/entitlements";
 import { type TOrganizationEntitlementsContext, isEntitlementFeature } from "./types";
 
 const toDateOrNull = (value: Date | string | null | undefined): Date | null => {

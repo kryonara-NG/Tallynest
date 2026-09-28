@@ -13,7 +13,7 @@ import { FORMBRICKS_LOGGED_IN_WITH_LS } from "@/lib/localStorage";
 import { buildAttributionQuerySuffix } from "@/modules/auth/lib/attribution";
 import { authClient } from "@/modules/auth/lib/auth-client";
 import { getOAuthErrorVariant } from "@/modules/auth/lib/oauth-error";
-import { SSOOptions } from "@/modules/ee/sso/components/sso-options";
+import { SSOOptions } from "@/the excluded Enterprise SSO modulecomponents/sso-options";
 import { TwoFactor } from "@/modules/ee/two-factor-auth/components/two-factor";
 import { TwoFactorBackup } from "@/modules/ee/two-factor-auth/components/two-factor-backup";
 import { Alert, AlertDescription, AlertTitle } from "@/modules/ui/components/alert";

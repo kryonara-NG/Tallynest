@@ -3,7 +3,7 @@ import { ResourceNotFoundError } from "@formbricks/types/errors";
 import { COMMUNITY_WORKSPACE_LIMIT } from "@/lib/constants";
 import { getOrganization } from "@/lib/organization/service";
 import { CLOUD_STRIPE_FEATURE_LOOKUP_KEYS } from "@/modules/billing/lib/stripe-catalog";
-import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
+import { getEnterpriseLicense } from "@/modules/tallynest-core/entitlements";
 import type { TEntitlementFeature, TOrganizationEntitlementsContext } from "./types";
 
 const mapLicenseFeaturesToEntitlements = (

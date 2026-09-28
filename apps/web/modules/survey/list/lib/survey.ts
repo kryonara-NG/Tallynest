@@ -14,7 +14,7 @@ import { checkForInvalidMediaInBlocks } from "@/lib/survey/utils";
 import { validateInputs } from "@/lib/utils/validate";
 import { getTranslate } from "@/lingodotdev/server";
 import { getIsQuotasEnabled } from "@/modules/tallynest-core/entitlements";
-import { getQuotas } from "@/modules/ee/quotas/lib/quotas";
+import { getQuotas } from "@/modules/tallynest-core/quotas";
 import { buildWhereClause } from "@/modules/survey/lib/utils";
 import { doesWorkspaceExist, getWorkspaceWithLanguages } from "@/modules/survey/list/lib/workspace";
 import type { TWorkspaceWithLanguages } from "@/modules/survey/list/types/surveys";

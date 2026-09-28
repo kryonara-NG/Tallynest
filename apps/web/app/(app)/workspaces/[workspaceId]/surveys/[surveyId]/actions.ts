@@ -12,7 +12,7 @@ import { getTagsByWorkspaceId } from "@/lib/tag/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromSurveyId, getWorkspaceIdFromSurveyId } from "@/lib/utils/helper";
 import { getIsQuotasEnabled } from "@/modules/tallynest-core/entitlements";
-import { getQuotas } from "@/modules/ee/quotas/lib/quotas";
+import { getQuotas } from "@/modules/tallynest-core/quotas";
 import { getOrganizationBilling } from "@/modules/survey/lib/survey";
 
 const ZGetResponsesDownloadUrlAction = z.object({

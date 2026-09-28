@@ -23,7 +23,7 @@ import { canUserNavigateWorkspace } from "@/lib/workspace/auth";
 import { getWorkspace } from "@/lib/workspace/service";
 import { getTranslate } from "@/lingodotdev/server";
 import { getSession } from "@/modules/auth/lib/session";
-import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
+import { getEnterpriseLicense } from "@/modules/tallynest-core/entitlements";
 import { getAccessControlPermission } from "@/modules/tallynest-core/entitlements";
 import { getWorkspacePermissionByUserId } from "@/modules/ee/teams/lib/roles";
 import { getTeamPermissionFlags } from "@/modules/ee/teams/utils/teams";

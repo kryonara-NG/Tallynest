@@ -5,7 +5,7 @@ const RELATIVE_URL_BASE = "http://localhost";
 /**
  * The two SSO-recovery route paths.
  *
- * They live here, not in `modules/ee/sso/lib/constants.ts`, because OSS code needs them — this file
+ * They live here, not in `the excluded Enterprise SSO modulelib/constants.ts`, because OSS code needs them — this file
  * builds the emailed verify link, and `verification-requested/actions.ts` matches an incoming callback
  * against the completion path — and `.coderabbit.yaml` (`apps/web/modules/ee/**`) forbids OSS importing
  * from `modules/ee` outside the `license-check` gate. Route paths carry no entitlement, so the fix is

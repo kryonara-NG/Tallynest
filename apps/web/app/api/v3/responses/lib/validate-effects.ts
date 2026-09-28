@@ -11,7 +11,7 @@ import type {
 } from "@formbricks/types/responses";
 import { IS_FORMBRICKS_CLOUD } from "@/lib/constants";
 import { getOrganization } from "@/lib/organization/service";
-import { screenResponseQuotas } from "@/modules/ee/quotas/lib/evaluation-service";
+import { screenResponseQuotas } from "@/modules/tallynest-core/quotas";
 import type { TV3ResponseRow } from "./service";
 import type { TV3WriteSurveyRow } from "./write-service";
 

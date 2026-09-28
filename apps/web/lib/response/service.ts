@@ -20,7 +20,7 @@ import {
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { TTag } from "@formbricks/types/tags";
 import { getIsQuotasEnabled } from "@/modules/tallynest-core/entitlements";
-import { reduceQuotaLimits } from "@/modules/ee/quotas/lib/quotas";
+import { reduceQuotaLimits } from "@/modules/tallynest-core/quotas";
 import { deleteResponseFileUrls } from "@/modules/storage/lib/delete-response-files";
 import {
   collectResponseFileUrls,

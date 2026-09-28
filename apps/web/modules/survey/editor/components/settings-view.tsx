@@ -6,7 +6,7 @@ import { TSegment } from "@formbricks/types/segment";
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { TUserLocale } from "@formbricks/types/user";
 import { TargetingCard } from "@/modules/ee/contacts/segments/components/targeting-card";
-import { QuotasCard } from "@/modules/ee/quotas/components/quotas-card";
+import { QuotasCard } from "@/the excluded Enterprise quota modulecomponents/quotas-card";
 import { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import { HowToSendCard } from "@/modules/survey/editor/components/how-to-send-card";
 import { RecontactOptionsCard } from "@/modules/survey/editor/components/recontact-options-card";

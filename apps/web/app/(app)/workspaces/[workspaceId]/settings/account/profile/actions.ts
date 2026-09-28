@@ -32,7 +32,7 @@ function buildUserUpdatePayload(parsedInput: TUserPersonalInfoUpdateInput): TUse
  * the address.
  *
  * The identity provider owns `User.name` — it is re-read on every sign-in (`overrideUserInfo` in
- * modules/ee/sso/lib/better-auth-providers.ts) — so `EditProfileDetailsForm` renders the input
+ * the excluded Enterprise SSO modulelib/better-auth-providers.ts) — so `EditProfileDetailsForm` renders the input
  * disabled. That is presentation, not enforcement: this action takes `name` straight off the request,
  * so a crafted call would still land a write that sticks until the user's next sign-in silently
  * reverts it. Enforce it at the boundary instead.

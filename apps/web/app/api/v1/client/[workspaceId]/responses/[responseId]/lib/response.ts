@@ -3,7 +3,7 @@ import { type TIngestFlag } from "@formbricks/types/embedded-data-ingest";
 import { TResponseWithQuotaFull } from "@formbricks/types/quota";
 import { TResponseUpdateInput } from "@formbricks/types/responses";
 import { updateResponse } from "@/lib/response/service";
-import { evaluateResponseQuotas } from "@/modules/ee/quotas/lib/evaluation-service";
+import { evaluateResponseQuotas } from "@/modules/tallynest-core/quotas";
 
 export const updateResponseWithQuotaEvaluation = async (
   responseId: string,
