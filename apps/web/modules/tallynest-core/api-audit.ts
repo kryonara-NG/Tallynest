@@ -4,6 +4,7 @@
  */
 export type TTallynestAuditAction = string;
 export type TTallynestAuditTarget = string;
+export type TallynestAuditStatus = "success" | "failure";
 export const TALLYNEST_UNKNOWN_DATA = "unknown";
 
 export type TApiAuditLog = {
