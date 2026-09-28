@@ -33,7 +33,7 @@ for (const file of walk(web)) {
   let s = fs.readFileSync(file, "utf8");
   let next = s;
   for (const [from, to] of replacements) next = next.split(from).join(to);
-  next = next.replaceAll("withAuditLogging(", "withActivityContext(");
+  next = next.replaceAll("withActivityContext(", "withAuditLogging(");
   next = next.replaceAll("modules/ee/sso/", "the excluded Enterprise SSO module");
   next = next.replaceAll("modules/ee/quotas/", "the excluded Enterprise quota module");
   if (next !== s) fs.writeFileSync(file, next);
@@ -85,4 +85,4 @@ for (const file of walk(web)) {
   }
 }
 
-// workflow trigger checkpoint 4
+// workflow trigger checkpoint 5
