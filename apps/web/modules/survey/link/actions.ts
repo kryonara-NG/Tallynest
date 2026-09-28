@@ -7,7 +7,6 @@ import { actionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromSurveyId } from "@/lib/utils/helper";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { getOrganizationLogoUrl } from "@/modules/ee/whitelabel/email-customization/lib/organization";
 import { sendLinkSurveyToVerifiedEmail } from "@/modules/email";
 import { getSurveyWithMetadata } from "@/modules/survey/link/lib/data";
 import { resolveSurveyLanguageCode } from "@/modules/survey/link/lib/language";
@@ -24,9 +23,6 @@ export const sendLinkSurveyEmailAction = actionClient
       throw new InvalidInputError("EMAIL_VERIFICATION_NOT_ENABLED");
     }
 
-    const organizationId = await getOrganizationIdFromSurveyId(parsedInput.surveyId);
-    const organizationLogoUrl = await getOrganizationLogoUrl(organizationId);
-
     // The language arrives from the client, and it ends up as `?lang=` in the link we email out — so
     // resolve it against this survey's own enabled languages here rather than trusting the payload.
     // Anything that names no enabled language becomes "default" and is left out of the link entirely.
@@ -35,7 +31,7 @@ export const sendLinkSurveyEmailAction = actionClient
     await sendLinkSurveyToVerifiedEmail({
       ...parsedInput,
       surveyLanguageCode,
-      logoUrl: organizationLogoUrl || "",
+      logoUrl: "",
     });
     return { success: true };
   });
