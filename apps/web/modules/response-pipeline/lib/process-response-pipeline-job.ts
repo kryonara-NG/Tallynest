@@ -528,14 +528,12 @@ const runResponseFinishedSideEffects = async ({
   data,
   displayTimeZone,
   logContext,
-  organizationId,
   survey,
   workspaceId,
 }: {
   data: TResponsePipelineJobData;
   displayTimeZone: string | null;
   logContext: ReturnType<typeof getPipelineLogContext>;
-  organizationId: string;
   survey: TPipelineSurvey;
   workspaceId: string;
 }) => {
@@ -629,7 +627,6 @@ const runResponseCreatedSideEffects = async ({
   logContext,
   organizationId,
   survey,
-  stripeCustomerId,
 }: {
   data: TResponsePipelineJobData;
   logContext: ReturnType<typeof getPipelineLogContext>;
