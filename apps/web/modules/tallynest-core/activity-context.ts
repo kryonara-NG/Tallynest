@@ -13,3 +13,6 @@ export const withActivityContext = <TArgs, TResult>(
 
 export const queueAuditEvent = async (_event: unknown): Promise<void> => {};
 export const queueAuditEventBackground = async (_event: unknown): Promise<void> => {};
+
+export const withAuditLogging = withActivityContext;
+export const queueAuditEventWithoutRequest = queueAuditEvent;
