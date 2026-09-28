@@ -236,58 +236,11 @@ const resolveTenantId = async (
 };
 
 const authorizeFeedbackRecordsGatewayRequest = async (
-  principal: TAuthenticatedGatewayPrincipal,
-  feedbackDirectoryId: string,
-  requiredPermission: TFeedbackRecordsGatewayPermission,
-  operation: TFeedbackRecordsGatewayOperation
-): Promise<{
-  // Feedback-directory/Unify is outside Tallynest core.
-  return { allowed: false };
-} | { allowed: false }> => {
-  const isRecordMutation = RECORD_MUTATING_OPERATIONS.has(operation);
-  const feedbackDirectory = await getFeedbackDirectoryAuthContext(feedbackDirectoryId);
-  if (!feedbackDirectory || feedbackDirectory.isArchived) {
-    return { allowed: false };
-  }
-
-  const isFeedbackDirectoriesAllowed = await getIsFeedbackDirectoriesEnabled(
-    feedbackDirectory.organizationId
-  );
-  if (!isFeedbackDirectoriesAllowed) {
-    return { allowed: false };
-  }
-
-  if (principal.type === "apiKey") {
-    const legacySafeguardsAllow = hasApiKeyImplicitFeedbackDirectoryAccess(
-      principal.authentication,
-      feedbackDirectory.organizationId,
-      feedbackDirectory.workspaceIds,
-      requiredPermission,
-      isRecordMutation
-    );
-    if (!legacySafeguardsAllow) return { allowed: false };
-
-    const allowed = await can(
-      { type: "apiKey", id: principal.authentication.apiKeyId },
-      getFeedbackDirectoryAuthorizationAction(requiredPermission),
-      { type: "feedbackDirectory", id: feedbackDirectoryId }
-    );
-    return { allowed };
-  }
-
-  const allowed = isRecordMutation
-    ? await can({ type: "user", id: principal.userId }, "organization.manage", {
-        type: "organization",
-        id: feedbackDirectory.organizationId,
-      })
-    : await can(
-        { type: "user", id: principal.userId },
-        getFeedbackDirectoryAuthorizationAction(requiredPermission),
-        { type: "feedbackDirectory", id: feedbackDirectoryId }
-      );
-
-  return { allowed };
-};
+  _principal: TAuthenticatedGatewayPrincipal,
+  _feedbackDirectoryId: string,
+  _requiredPermission: TFeedbackRecordsGatewayPermission,
+  _operation: TFeedbackRecordsGatewayOperation
+): Promise<{ allowed: false }> => ({ allowed: false });
 
 export const feedbackRecordsGatewayAuthorizer: TGatewayRequestAuthorizer = {
   matches: (originalRequest) => normalizeFeedbackRecordsPath(originalRequest.url.pathname) !== null,
