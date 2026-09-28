@@ -1,1 +1,5 @@
-export { POST } from "@/modules/ee/contacts/api/v2/management/contacts/route";
+import { notFound } from "next/navigation";
+
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

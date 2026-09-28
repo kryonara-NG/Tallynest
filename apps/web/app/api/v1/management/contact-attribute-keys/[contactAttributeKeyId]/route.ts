@@ -1,7 +1,5 @@
-import {
-  DELETE,
-  GET,
-  PUT,
-} from "@/modules/ee/contacts/api/v1/management/contact-attribute-keys/[contactAttributeKeyId]/route";
+import { notFound } from "next/navigation";
 
-export { DELETE, GET, PUT };
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

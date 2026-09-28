@@ -22,7 +22,7 @@ import {
 } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { createActionClass } from "@/modules/survey/editor/lib/action-class";
 import { checkExternalUrlsPermission } from "@/modules/survey/editor/lib/check-external-urls-permission";
 import { updateSurvey, updateSurveyDraft } from "@/modules/survey/editor/lib/survey";
@@ -190,7 +190,7 @@ const checkSurveyFollowUpsPermission = async (
 };
 
 export const updateSurveyDraftAction = authenticatedActionClient.inputSchema(ZSurveyDraft).action(
-  withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
     // Cast to TSurvey - ZSurveyDraft validates structure, full validation happens on publish
     const survey = parsedInput as TSurvey;
 
@@ -241,7 +241,7 @@ export const updateSurveyDraftAction = authenticatedActionClient.inputSchema(ZSu
 );
 
 export const updateSurveyAction = authenticatedActionClient.inputSchema(ZSurvey).action(
-  withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromSurveyId(parsedInput.id);
     const workspaceId = await getWorkspaceIdFromSurveyId(parsedInput.id);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
@@ -458,7 +458,7 @@ const ZCreateActionClassAction = z.object({
 });
 
 export const createActionClassAction = authenticatedActionClient.inputSchema(ZCreateActionClassAction).action(
-  withAuditLogging("created", "actionClass", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "actionClass", async ({ ctx, parsedInput }) => {
     const workspaceId = parsedInput.action.workspaceId;
     const organizationId = await getOrganizationIdFromWorkspaceId(workspaceId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {

@@ -6,7 +6,7 @@ import { isAPIError } from "better-auth/api";
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import { IS_PRODUCTION, SENTRY_DSN } from "@/lib/constants";
-import { queueAuditEventBackground } from "@/modules/ee/audit-logs/lib/handler";
+import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
 import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
 import type { AuthHookContext } from "@/modules/ee/sso/lib/better-auth-hooks";
 import { getBetterAuthRequestContext } from "./better-auth-request-context";

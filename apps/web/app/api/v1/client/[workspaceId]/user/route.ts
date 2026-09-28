@@ -1,3 +1,5 @@
-import { OPTIONS, POST } from "@/modules/ee/contacts/api/v1/client/[workspaceId]/user/route";
+import { notFound } from "next/navigation";
 
-export { POST, OPTIONS };
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

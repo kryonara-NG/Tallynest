@@ -1,3 +1,5 @@
-import { POST } from "@/modules/ee/billing/api/route";
+import { notFound } from "next/navigation";
 
-export { POST };
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

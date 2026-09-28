@@ -1,3 +1,5 @@
-import { GET, POST } from "@/modules/ee/contacts/api/v1/management/contact-attribute-keys/route";
+import { notFound } from "next/navigation";
 
-export { GET, POST };
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

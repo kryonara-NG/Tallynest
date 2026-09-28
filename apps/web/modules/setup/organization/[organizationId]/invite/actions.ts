@@ -6,7 +6,7 @@ import { AuthenticationError } from "@formbricks/types/errors";
 import { ZUserEmail, ZUserName } from "@formbricks/types/user";
 import { INVITE_DISABLED } from "@/lib/constants";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { sendInviteMemberEmail } from "@/modules/email";
 import { applyInviteRateLimit } from "@/modules/organization/settings/teams/lib/invite-rate-limit";
 import { checkSetupInviteAuthorization } from "@/modules/setup/organization/[organizationId]/invite/lib/authorization";
@@ -21,7 +21,7 @@ const ZInviteOrganizationMemberAction = z.object({
 export const inviteOrganizationMemberAction = authenticatedActionClient
   .inputSchema(ZInviteOrganizationMemberAction)
   .action(
-    withAuditLogging("created", "invite", async ({ ctx, parsedInput }) => {
+    withActivityContext("created", "invite", async ({ ctx, parsedInput }) => {
       if (INVITE_DISABLED) {
         throw new AuthenticationError("Invite disabled");
       }

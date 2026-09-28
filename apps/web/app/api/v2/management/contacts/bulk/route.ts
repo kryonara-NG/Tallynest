@@ -1,3 +1,5 @@
-import { PUT } from "@/modules/ee/contacts/api/v2/management/contacts/bulk/route";
+import { notFound } from "next/navigation";
 
-export { PUT };
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

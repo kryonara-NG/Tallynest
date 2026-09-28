@@ -4,7 +4,7 @@ import { z } from "zod";
 import { ZUserNotificationSettings } from "@formbricks/types/user";
 import { getUser, updateUser } from "@/lib/user/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 
 const ZUpdateNotificationSettingsAction = z.object({
   notificationSettings: ZUserNotificationSettings,
@@ -13,7 +13,7 @@ const ZUpdateNotificationSettingsAction = z.object({
 export const updateNotificationSettingsAction = authenticatedActionClient
   .inputSchema(ZUpdateNotificationSettingsAction)
   .action(
-    withAuditLogging("updated", "user", async ({ ctx, parsedInput }) => {
+    withActivityContext("updated", "user", async ({ ctx, parsedInput }) => {
       const oldObject = await getUser(ctx.user.id);
       const result = await updateUser(ctx.user.id, {
         notificationSettings: parsedInput.notificationSettings,

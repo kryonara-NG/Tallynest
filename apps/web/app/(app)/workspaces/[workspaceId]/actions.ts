@@ -10,11 +10,11 @@ import { capturePostHogEvent, groupIdentifyPostHog } from "@/lib/posthog";
 import { updateUser } from "@/lib/user/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationWorkspacesCount } from "@/lib/workspace/service";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import {
   getAccessControlPermission,
   getOrganizationWorkspacesLimit,
-} from "@/modules/ee/license-check/lib/utils";
+} from "@/modules/tallynest-core/entitlements";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 import { getOrganizationsByUserId } from "./lib/organization";
 import { getWorkspacesByUserId, getWritableWorkspacesByUserId } from "./lib/workspace";
@@ -25,7 +25,7 @@ const ZCreateWorkspaceAction = z.object({
 });
 
 export const createWorkspaceAction = authenticatedActionClient.inputSchema(ZCreateWorkspaceAction).action(
-  withAuditLogging("created", "workspace", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "workspace", async ({ ctx, parsedInput }) => {
     const { user } = ctx;
 
     const organizationId = parsedInput.organizationId;

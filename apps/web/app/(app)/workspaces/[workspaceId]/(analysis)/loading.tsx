@@ -1,3 +1,5 @@
-import { AnalysisListLoading } from "@/modules/ee/analysis/loading";
+import { notFound } from "next/navigation";
 
-export default AnalysisListLoading;
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

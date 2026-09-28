@@ -1,6 +1,6 @@
 import "server-only";
 import { logger } from "@formbricks/logger";
-import { queueAuditEventBackground } from "@/modules/ee/audit-logs/lib/handler";
+import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
 import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
 
 export const queueAccountDeletionAuditEvent = async ({

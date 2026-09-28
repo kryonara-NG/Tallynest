@@ -1,5 +1,5 @@
-import { GET } from "@/modules/ee/contacts/api/v1/management/contacts/route";
+import { notFound } from "next/navigation";
 
-export { GET };
-
-// Please use the client API to create a new contact
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

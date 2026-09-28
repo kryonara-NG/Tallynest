@@ -1,6 +1,5 @@
-import { WorkspaceTeams } from "@/modules/ee/teams/workspace-teams/page";
-import { getSettingsPageMetadata } from "@/modules/settings/lib/metadata";
+import { notFound } from "next/navigation";
 
-export const generateMetadata = () => getSettingsPageMetadata("common.team_access");
-
-export default WorkspaceTeams;
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

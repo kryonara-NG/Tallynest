@@ -1,3 +1,5 @@
-import { DELETE, GET } from "@/modules/ee/contacts/api/v1/management/contacts/[contactId]/route";
+import { notFound } from "next/navigation";
 
-export { DELETE, GET };
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

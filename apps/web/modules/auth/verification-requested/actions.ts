@@ -27,7 +27,7 @@ import {
 } from "@/modules/auth/lib/verification-links";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import {
   type TSsoRecoveryIntent,
   getSsoRecoveryPairedTtlSeconds,
@@ -110,7 +110,7 @@ const resolveSsoRecoveryResend = async ({
 };
 
 export const resendVerificationEmailAction = actionClient.inputSchema(ZResendVerificationEmailAction).action(
-  withAuditLogging("verificationEmailSent", "user", async ({ ctx, parsedInput }) => {
+  withActivityContext("verificationEmailSent", "user", async ({ ctx, parsedInput }) => {
     await applyIPRateLimit(rateLimitConfigs.auth.verifyEmail);
 
     const user = await getUserByEmail(parsedInput.email);

@@ -10,9 +10,9 @@ import { createOrganization } from "@/lib/organization/service";
 import { capturePostHogEvent, getEmailDomain, groupIdentifyPostHog } from "@/lib/posthog";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { DEFAULT_WORKSPACE_NAME } from "@/lib/workspace/constants";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { ensureCloudStripeSetupForOrganization } from "@/modules/ee/billing/lib/organization-billing";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 
 const ZCreateOrganizationAction = z.object({
@@ -22,7 +22,7 @@ const ZCreateOrganizationAction = z.object({
 export const createOrganizationAction = authenticatedActionClient
   .inputSchema(ZCreateOrganizationAction)
   .action(
-    withAuditLogging("created", "organization", async ({ ctx, parsedInput }) => {
+    withActivityContext("created", "organization", async ({ ctx, parsedInput }) => {
       const hasNoOrganizations = await getHasNoOrganizations();
       const isMultiOrgEnabled = await getIsMultiOrgEnabled();
 

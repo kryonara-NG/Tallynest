@@ -1,7 +1,5 @@
-import { PricingPage } from "@/modules/ee/billing/page";
+import { notFound } from "next/navigation";
 
-const Page = (props: Readonly<{ params: Promise<{ organizationId: string }> }>) => {
-  return PricingPage(props);
-};
-
-export default Page;
+export default function EnterpriseFeatureUnavailable() {
+  notFound();
+}

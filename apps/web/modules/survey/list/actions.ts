@@ -11,7 +11,7 @@ import {
 } from "@/lib/utils/single-use-surveys";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { copySurveyToOtherWorkspace } from "@/modules/survey/list/lib/survey";
 
 const ZCopySurveyToOtherWorkspaceAction = z.object({
@@ -22,7 +22,7 @@ const ZCopySurveyToOtherWorkspaceAction = z.object({
 export const copySurveyToOtherWorkspaceAction = authenticatedActionClient
   .inputSchema(ZCopySurveyToOtherWorkspaceAction)
   .action(
-    withAuditLogging("copiedToOtherWorkspace", "survey", async ({ ctx, parsedInput }) => {
+    withActivityContext("copiedToOtherWorkspace", "survey", async ({ ctx, parsedInput }) => {
       const sourceWorkspaceId = await getWorkspaceIdFromSurveyId(parsedInput.surveyId);
 
       const sourceOrganizationId = await getOrganizationIdFromWorkspaceId(sourceWorkspaceId);

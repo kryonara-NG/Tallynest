@@ -9,7 +9,7 @@ const { mockLoggerError, mockLoggerInfo, mockQueueAuditEventWithoutRequest } = v
   mockQueueAuditEventWithoutRequest: vi.fn(),
 }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   queueAuditEventWithoutRequest: mockQueueAuditEventWithoutRequest,
 }));
 

@@ -12,8 +12,8 @@ import { getOrganizationIdFromWorkspaceId } from "@/lib/utils/helper";
 import { getWorkspace } from "@/lib/workspace/service";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
-import { getRemoveBrandingPermission } from "@/modules/ee/license-check/lib/utils";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { getRemoveBrandingPermission } from "@/modules/tallynest-core/entitlements";
 import { getTeamsByOrganizationId } from "@/modules/ee/teams/team-list/lib/team";
 import { updateWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 import { ZWorkspaceUpdateActionInput } from "@/modules/workspaces/settings/lib/workspace-update-input";
@@ -24,7 +24,7 @@ const ZUpdateWorkspaceAction = z.object({
 });
 
 export const updateWorkspaceAction = authenticatedActionClient.inputSchema(ZUpdateWorkspaceAction).action(
-  withAuditLogging("updated", "workspace", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "workspace", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.manage", {

@@ -12,7 +12,7 @@ import {
 } from "@/app/api/v3/lib/response";
 import type { TV3AuditLog, TV3Authentication } from "@/app/api/v3/lib/types";
 import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
-import type { TTeamPermission } from "@/modules/ee/teams/workspace-teams/types/team";
+import type { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import {
   countFeedbackRecords,
   createFeedbackRecord,

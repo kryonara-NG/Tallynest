@@ -4,7 +4,7 @@ import { z } from "zod";
 import { logger } from "@formbricks/logger";
 import { isExpectedError } from "@formbricks/types/errors";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { deleteWorkspaceWithConfirmation, getWorkspaceIdForLogging } from "./lib/delete-workspace";
 
 const logWorkspaceDeletionError = (userId: string, workspaceId: string, error: unknown) => {
@@ -16,7 +16,7 @@ const shouldLogWorkspaceDeletionError = (error: unknown) => {
 };
 
 export const deleteWorkspaceAction = authenticatedActionClient.inputSchema(z.unknown()).action(
-  withAuditLogging("deleted", "workspace", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "workspace", async ({ ctx, parsedInput }) => {
     const workspaceIdForLogging = getWorkspaceIdForLogging(parsedInput);
 
     try {

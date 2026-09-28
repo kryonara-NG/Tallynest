@@ -8,7 +8,7 @@ import {
   TEnterpriseLicenseFeatures,
   TLicenseStatus,
 } from "@/modules/ee/license-check/types/enterprise-license";
-import { TTeamPermission, ZTeamPermission } from "@/modules/ee/teams/workspace-teams/types/team";
+import { TTeamPermission, ZTeamPermission } from "@/modules/tallynest-core/team-permissions";
 
 // Type for the enterprise license returned by getEnterpriseLicense()
 type TEnterpriseLicense = {
