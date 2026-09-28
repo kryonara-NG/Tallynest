@@ -9,7 +9,6 @@ import { withAuthorizationSurface } from "@/lib/authorization/context";
 import { getFeedbackDirectoryAuthorizationAction } from "@/lib/authorization/permission-action";
 import { verifyFeedbackRecordsGatewayToken } from "@/lib/jwt";
 import { getBearerTokenFromHeaders } from "@/modules/api/lib/api-key-auth";
-import { getFeedbackDirectoryAuthContext } from "@/modules/ee/feedback-directory/lib/feedback-directory";
 import { getIsFeedbackDirectoriesEnabled } from "@/modules/tallynest-core/entitlements";
 import {
   TGatewayAuthenticatedPrincipal,
@@ -241,7 +240,10 @@ const authorizeFeedbackRecordsGatewayRequest = async (
   feedbackDirectoryId: string,
   requiredPermission: TFeedbackRecordsGatewayPermission,
   operation: TFeedbackRecordsGatewayOperation
-): Promise<{ allowed: true } | { allowed: false }> => {
+): Promise<{
+  // Feedback-directory/Unify is outside Tallynest core.
+  return { allowed: false };
+} | { allowed: false }> => {
   const isRecordMutation = RECORD_MUTATING_OPERATIONS.has(operation);
   const feedbackDirectory = await getFeedbackDirectoryAuthContext(feedbackDirectoryId);
   if (!feedbackDirectory || feedbackDirectory.isArchived) {
