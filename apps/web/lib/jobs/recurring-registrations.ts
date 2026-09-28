@@ -8,21 +8,12 @@ import {
   type TRecurringJobKey,
   type TResponsePipelineJobData,
   type TWebhookDeliveryJobData,
-  type TWorkflowRunJobData,
   recurringJobs,
 } from "@formbricks/jobs";
 import { processAuthzedProjectionDeliveryJob } from "@/lib/authzed/outbox-processor";
 import { processAuthzedScheduledReconciliationJob } from "@/lib/authzed/scheduled-reconciliation";
 import { USAGE_TELEMETRY_DAILY_CRON_PATTERN, USAGE_TELEMETRY_TIME_ZONE } from "@/lib/telemetry/constants";
 import { processUsageTelemetryJob } from "@/lib/telemetry/process-usage-telemetry-job";
-import {
-  WORKFLOWS_USAGE_SNAPSHOT_DAILY_CRON_PATTERN,
-  WORKFLOWS_USAGE_SNAPSHOT_TIME_ZONE,
-} from "@/modules/ee/workflows/lib/analytics/constants";
-import { processWorkflowsUsageSnapshotJob } from "@/modules/ee/workflows/lib/analytics/process-workflows-usage-snapshot-job";
-import { processWorkflowRunJob } from "@/modules/ee/workflows/lib/runner/process-workflow-run-job";
-import { processWorkflowRunReconcileJob } from "@/modules/ee/workflows/lib/runner/process-workflow-run-reconcile-job";
-import { WORKFLOW_RUN_RECONCILE_INTERVAL_MS } from "@/modules/ee/workflows/lib/runner/reconcile-constants";
 import { processResponsePipelineJob } from "@/modules/response-pipeline/lib/process-response-pipeline-job";
 import { processWebhookDeliveryJob } from "@/modules/response-pipeline/lib/process-webhook-delivery-job";
 import {
@@ -41,6 +32,8 @@ import { processSurveySchedulingJob } from "@/modules/survey/scheduling/lib/proc
  * the job's schema before dispatching, so this is the single place where that already-checked value is
  * narrowed — rather than one unchecked cast per job.
  */
+const disabledEnterpriseWorkflowJob: JobHandler<TGlobalScopeJobData> = async () => {};
+
 const toJobHandlerOverride =
   <TData>(handler: JobHandler<TData>): NonNullable<JobHandlerOverrides[string]> =>
   async (data, context) => {
@@ -126,22 +119,16 @@ export const RECURRING_JOB_REGISTRATIONS_BY_KEY: Record<TRecurringJobKey, Recurr
     },
   },
   workflowRunReconcile: {
-    handler: processWorkflowRunReconcileJob,
+    handler: disabledEnterpriseWorkflowJob,
     job: recurringJobs.workflowRunReconcile,
-    schedule: {
-      everyMs: WORKFLOW_RUN_RECONCILE_INTERVAL_MS,
-      kind: "every",
-    },
+    schedule: { everyMs: 365 * 24 * 60 * 60 * 1_000, kind: "every" },
   },
   workflowsUsageSnapshot: {
-    handler: processWorkflowsUsageSnapshotJob,
+    handler: disabledEnterpriseWorkflowJob,
     job: recurringJobs.workflowsUsageSnapshot,
-    schedule: {
-      cronPattern: WORKFLOWS_USAGE_SNAPSHOT_DAILY_CRON_PATTERN,
-      kind: "cron",
-      timeZone: WORKFLOWS_USAGE_SNAPSHOT_TIME_ZONE,
-    },
+    schedule: { everyMs: 365 * 24 * 60 * 60 * 1_000, kind: "every" },
   },
+
 };
 
 export const RECURRING_JOB_REGISTRATIONS: readonly RecurringJobRegistration[] = Object.values(
@@ -154,7 +141,7 @@ export const getJobHandlerOverrides = (): JobHandlerOverrides => ({
     toJobHandlerOverride<TResponsePipelineJobData>(processResponsePipelineJob),
   [ONE_SHOT_JOB_NAMES.webhookDelivery]:
     toJobHandlerOverride<TWebhookDeliveryJobData>(processWebhookDeliveryJob),
-  [ONE_SHOT_JOB_NAMES.workflowRun]: toJobHandlerOverride<TWorkflowRunJobData>(processWorkflowRunJob),
+  [ONE_SHOT_JOB_NAMES.workflowRun]: toJobHandlerOverride(disabledEnterpriseWorkflowJob),
   ...Object.fromEntries(
     RECURRING_JOB_REGISTRATIONS.map((registration) => [
       registration.job.name,
