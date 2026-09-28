@@ -4,20 +4,17 @@ import { TMembership, ZMembership } from "@formbricks/types/memberships";
 import { TOrganization, ZOrganization } from "@formbricks/types/organizations";
 import { TUser, ZUser } from "@formbricks/types/user";
 import { TWorkspace, ZWorkspace } from "@formbricks/types/workspace";
-import {
-  TEnterpriseLicenseFeatures,
-  TLicenseStatus,
-} from "@/modules/ee/license-check/types/enterprise-license";
+import type { TTallynestLicenseFeatures } from "@/modules/tallynest-core/entitlements";
 import { TTeamPermission, ZTeamPermission } from "@/modules/tallynest-core/team-permissions";
 
 // Type for the enterprise license returned by getEnterpriseLicense()
 type TEnterpriseLicense = {
   active: boolean;
-  features: TEnterpriseLicenseFeatures | null;
+  features: TTallynestLicenseFeatures;
   lastChecked: Date;
   isPendingDowngrade: boolean;
   fallbackLevel: string;
-  status: TLicenseStatus;
+  status: "no-license" | "active";
 };
 
 export const ZWorkspaceAuth = z.object({
