@@ -70,3 +70,5 @@ for (const file of walk(web)) {
     fs.writeFileSync(file, 'import { notFound } from "next/navigation";\n\nexport default function EnterpriseFeatureUnavailable() {\n  notFound();\n}\n');
   }
 }
+
+// workflow trigger checkpoint
