@@ -703,7 +703,6 @@ export const processResponsePipelineJob: JobHandler<TResponsePipelineJobData> = 
         data,
         displayTimeZone: organization.displayTimeZone,
         logContext,
-        organizationId: organization.id,
         survey,
         workspaceId: data.workspaceId,
       });
