@@ -6,8 +6,6 @@ import { EditOrganizationSettingsForm } from "@/app/(app)/workspaces/[workspaceI
 import { SecurityListTip } from "@/app/(app)/workspaces/[workspaceId]/settings/organization/general/components/SecurityListTip";
 import { isInstanceAIConfigured } from "@/lib/ai/service";
 import {
-  ENTERPRISE_LICENSE_REQUEST_FORM_URL,
-  FB_LOGO_URL,
   IS_FORMBRICKS_CLOUD,
   IS_STORAGE_CONFIGURED,
 } from "@/lib/constants";
@@ -41,7 +39,6 @@ const Page = async (props: Readonly<{ params: Promise<{ organizationId: string }
 
   const isDeleteDisabled = !isOwner || !isMultiOrgEnabled;
   const currentUserRole = currentUserMembership?.role;
-  const isOwnerOrManager = isManager || isOwner;
 
   return (
     <PageContentWrapper>
@@ -71,17 +68,6 @@ const Page = async (props: Readonly<{ params: Promise<{ organizationId: string }
           enterpriseLicenseRequestFormUrl={""}
         />
       </SettingsCard>
-      <EmailCustomizationSettings
-        organization={organization}
-        hasWhiteLabelPermission={hasWhiteLabelPermission}
-        workspaceId={layoutData?.currentWorkspace?.id ?? ""}
-        isReadOnly={!isOwnerOrManager}
-        isFormbricksCloud={IS_FORMBRICKS_CLOUD}
-        fbLogoUrl={FB_LOGO_URL}
-        user={user}
-        isStorageConfigured={IS_STORAGE_CONFIGURED}
-        enterpriseLicenseRequestFormUrl={ENTERPRISE_LICENSE_REQUEST_FORM_URL}
-      />
       {isMultiOrgEnabled && (
         <>
           <SettingsCard
