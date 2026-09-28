@@ -1,11 +1,9 @@
 import "server-only";
-import { oauthProvider } from "@better-auth/oauth-provider";
 import { createId } from "@paralleldrive/cuid2";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { createAuthMiddleware } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
-import { genericOAuth, jwt, twoFactor } from "better-auth/plugins";
+import { jwt } from "better-auth/plugins";
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import type { TUserLocale } from "@formbricks/types/user";
@@ -26,9 +24,6 @@ import {
   accountDeletionConfig,
   requireDeletionConfirmationBeforeHandler,
 } from "@/modules/account/lib/better-auth-account-deletion";
-import { ssoDatabaseHooks, ssoLicenseGateBeforeHandler } from "@/modules/ee/sso/lib/better-auth-hooks";
-import { ssoGenericOAuthConfig, ssoSocialProviders } from "@/modules/ee/sso/lib/better-auth-providers";
-import { ssoRecoverySignInPlugin } from "@/modules/ee/sso/lib/better-auth-recovery-signin";
 import { runAfterAuthHooks } from "./after-auth-hooks";
 import { EMAIL_VERIFICATION_TTL_SECONDS, USE_SECURE_COOKIES } from "./auth-cookies";
 import { rejectInactiveUserOnSessionCreate } from "./better-auth-active-user-gate";
@@ -74,7 +69,7 @@ export const getUserLocale = async (userId: string): Promise<TUserLocale> => {
  * analytics / Sentry / logger wiring are all live in better-auth-observability.ts.
  */
 export const auth = betterAuth({
-  appName: "Formbricks",
+  appName: "Tallynest",
   // Resolved in lib/constants.ts, which documents the BETTER_AUTH_* / NEXTAUTH_* alias. Passing it
   // explicitly is what keeps BA's cookie signing on the same secret the forward-auth proxy verifies with
   // (session-cookie.ts) and lib/jwt.ts signs app JWTs with; a divergence between any two of them is an
@@ -110,7 +105,6 @@ export const auth = betterAuth({
   // SSO providers (Google/GitHub social + Azure/OIDC/SAML genericOAuth) live in
   // modules/ee/sso/lib/better-auth-providers.ts. The account-linking / verify-before-link flow is
   // the security-sensitive Phase 5 work, re-expressed via hooks separately (pending review, D7).
-  socialProviders: ssoSocialProviders,
 
   emailAndPassword: {
     // EMAIL_AUTH_DISABLED=1 has to switch the credential endpoints off here, not just hide the form on
@@ -287,13 +281,7 @@ export const auth = betterAuth({
     deleteUser: accountDeletionConfig,
   },
 
-  // SSO sign-up flow — email-verification, identity denormalization, and JIT provisioning
-  // (gate + writes) re-expressed as Better Auth database hooks (design doc §13). Verify-before-link
-  // recovery is the remaining Phase 5c work. The session hook composes the isActive gate (reject
-  // deactivated users before a session is created — parity with authOptions, covers every sign-in
-  // path) with the Phase 7 `signedIn` success audit.
   databaseHooks: {
-    ...ssoDatabaseHooks,
     session: {
       create: {
         before: rejectInactiveUserOnSessionCreate,
@@ -302,37 +290,15 @@ export const auth = betterAuth({
     },
   },
 
-  // Request hooks (parity with handleSsoCallback). Each slot is a single middleware, so related
-  // concerns are composed as plain handlers (calling a wrapped middleware would re-run the per-request
-  // context setup). `before`: re-check the SSO/SAML license on every SSO callback (covers existing-user
-  // sign-ins that skip user.create), then require an explicit confirmation factor on POST /delete-user
-  // (closes Better Auth's freshAge password bypass). `after`: turn an SSO "account not linked"
-  // collision into the verify-before-link recovery flow, then emit the failed-login audit (parity with
-  // NextAuth's `logAuthAttempt`). Recovery runs first; if it redirects (throws), the request is an SSO
-  // recovery rather than a credential failure, so skipping the audit is correct.
   hooks: {
-    before: createAuthMiddleware(async (ctx) => {
-      await ssoLicenseGateBeforeHandler(ctx);
+    before: async (ctx) => {
       await requireDeletionConfirmationBeforeHandler(ctx);
-      // ENG-2105: reject password-reset requests at the native Better Auth layer when the operator
-      // has disabled password resets (PASSWORD_RESET_DISABLED=1). See better-auth-password-reset-gate.ts.
       await requirePasswordResetEnabledBeforeHandler(ctx, PASSWORD_RESET_DISABLED);
-      // ENG-2293: enforce the closed-sign-up policy on Better Auth's native /sign-up/email, which is
-      // served beside createUserAction and used to bypass it entirely. Runs BEFORE the endpoint so the
-      // rejection can't double as an account-existence oracle (the handler looks the address up first,
-      // and an address that already has one never reaches a create hook). See signup-policy.ts.
-      // Ordered ahead of the breach check so a sign-up on a closed instance costs no outbound HIBP call.
-      // Path-disjoint from the reset gate above, so their relative order is not load-bearing.
       await signupPolicyBeforeHandler(ctx);
-      // ENG-1587: reject known-breached passwords on set (signup / reset) BEFORE the endpoint runs, so
-      // the reset token isn't consumed on a rejection. Fails open when api.pwnedpasswords.com is
-      // unreachable and honors PASSWORD_HIBP_CHECK_DISABLED. See better-auth-hibp.ts.
       await hibpBreachCheckBeforeHandler(ctx);
-      // ENG-3258: repair a NULL-issuer credential row before sign-in / reset-request looks it up. Last,
-      // so only a request every gate above let through can write. See credential-issuer-heal.ts.
       await healCredentialAccountIssuerBeforeHandler(ctx);
-    }),
-    after: createAuthMiddleware(runAfterAuthHooks),
+    },
+    after: runAfterAuthHooks,
   },
 
   rateLimit: {
@@ -403,23 +369,6 @@ export const auth = betterAuth({
     // Options extracted to mcp-oauth-provider-options.ts so the DCR/authorize scope semantics are
     // integration-testable against a throwaway Better Auth instance.
     oauthProvider(getMcpOauthProviderOptions()),
-    // TOTP + backup codes, matched to the current otplib setup (6 digits / 30s) and 10 encrypted
-    // backup codes. Trusted-device is left off (never passed client-side) so 2FA is required every
-    // login — strict parity. Cutover work (Phase 7): migrate secrets/backup codes out of
-    // User.twoFactorSecret|backupCodes into the twoFactor table, and move the login-time TOTP/
-    // backup challenge out of the credentials authorize into Better Auth's flow.
-    twoFactor({
-      issuer: "Formbricks",
-      skipVerificationOnEnable: false, // require a valid TOTP before 2FA is enabled
-      totpOptions: { digits: 6, period: 30 },
-      backupCodeOptions: { amount: 10, length: 10, storeBackupCodes: "encrypted" },
-    }),
-    // SSO via generic OAuth (Azure/OIDC + the BoxyHQ SAML bridge); empty config when no license or
-    // providers are configured. The account-linking/provisioning hooks are a separate reviewed pass.
-    genericOAuth({ config: ssoGenericOAuthConfig }),
-    // SSO-recovery magic-link sign-in — the BA replacement for the "token" provider's sso_recovery
-    // path (recovery-scoped, not a general magic-link). See better-auth-recovery-signin.ts.
-    ssoRecoverySignInPlugin,
     // nextCookies MUST remain the last plugin so server-action sign-in/out can set cookies.
     nextCookies(),
   ],
