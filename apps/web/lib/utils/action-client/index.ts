@@ -8,7 +8,7 @@ import { AUDIT_LOG_ENABLED, AUDIT_LOG_GET_USER_IP } from "@/lib/constants";
 import { getUser } from "@/lib/user/service";
 import { getClientIpFromHeaders } from "@/lib/utils/client-ip";
 import { getSession } from "@/modules/auth/lib/session";
-import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import { ActionClientCtx } from "./types/context";
 
 export const actionClient = createSafeActionClient({
@@ -32,7 +32,7 @@ export const actionClient = createSafeActionClient({
 }).use(async ({ next }) => {
   // Create a unique event id
   const eventId = uuidv4();
-  const ctx: ActionClientCtx = { auditLoggingCtx: { eventId, ipAddress: UNKNOWN_DATA } };
+  const ctx: ActionClientCtx = { auditLoggingCtx: { eventId, ipAddress: TALLYNEST_UNKNOWN_DATA } };
 
   if (AUDIT_LOG_ENABLED && AUDIT_LOG_GET_USER_IP) {
     try {
