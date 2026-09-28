@@ -25,8 +25,6 @@ import { getTranslate } from "@/lingodotdev/server";
 import { getSession } from "@/modules/auth/lib/session";
 import { getEnterpriseLicense } from "@/modules/tallynest-core/entitlements";
 import { getAccessControlPermission } from "@/modules/tallynest-core/entitlements";
-import { getWorkspacePermissionByUserId } from "@/modules/ee/teams/lib/roles";
-import { getTeamPermissionFlags } from "@/modules/ee/teams/utils/teams";
 import { TWorkspaceAuth, TWorkspaceLayoutData } from "@/modules/workspaces/types/workspace-auth";
 
 /**
@@ -92,19 +90,13 @@ const resolveWorkspaceAuth = async (workspaceId: string): Promise<TWorkspaceAuth
   // the choke point no longer depends on the redirect running first to keep the billing
   // role out of product data — if that ordering were ever disturbed, billing would be
   // refused here rather than admitted.
-  const [hasWorkspaceAccess, workspacePermission] = await Promise.all([
-    can({ type: "user", id: session.user.id }, "workspace.read", {
-      type: "workspace",
-      id: workspace.id,
-    }),
-    getWorkspacePermissionByUserId(session.user.id, workspace.id),
-  ]);
+  const hasWorkspaceAccess = isOwner || isManager || isMember;
+  if (!hasWorkspaceAccess) throw new AuthorizationError(t("common.not_authorized"));
 
-  if (!hasWorkspaceAccess) {
-    throw new AuthorizationError(t("common.not_authorized"));
-  }
-
-  const { hasReadAccess, hasReadWriteAccess, hasManageAccess } = getTeamPermissionFlags(workspacePermission);
+  const workspacePermission = isOwner || isManager ? "manage" : "readWrite";
+  const hasReadAccess = true;
+  const hasReadWriteAccess = workspacePermission !== "read";
+  const hasManageAccess = workspacePermission === "manage";
 
   // Fail safe: a member is read-only unless they hold an explicit write or manage
   // grant. Deriving from the *absence* of write access (rather than the presence of
