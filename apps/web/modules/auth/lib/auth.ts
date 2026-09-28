@@ -1,3 +1,4 @@
+import { oauthProvider } from "@better-auth/oauth-provider";
 import "server-only";
 import { createId } from "@paralleldrive/cuid2";
 import { betterAuth } from "better-auth";
