@@ -23,3 +23,6 @@ export type TApiAuditLog = {
 
 export type TAuditStatus = TallynestAuditStatus;
 export const UNKNOWN_DATA = TALLYNEST_UNKNOWN_DATA;
+
+export type TAuditAction = TTallynestAuditAction;
+export type TAuditTarget = TTallynestAuditTarget;
