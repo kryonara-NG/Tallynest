@@ -17,7 +17,7 @@ const ZDeleteActionClassAction = z.object({
 });
 
 export const deleteActionClassAction = authenticatedActionClient.inputSchema(ZDeleteActionClassAction).action(
-  withActivityContext("deleted", "actionClass", async ({ ctx, parsedInput }) => {
+  withAuditLogging("deleted", "actionClass", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromActionClassId(parsedInput.actionClassId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
       type: "workspace",
@@ -36,7 +36,7 @@ const ZUpdateActionClassAction = z.object({
 });
 
 export const updateActionClassAction = authenticatedActionClient.inputSchema(ZUpdateActionClassAction).action(
-  withActivityContext("updated", "actionClass", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "actionClass", async ({ ctx, parsedInput }) => {
     const actionClass = await getActionClass(parsedInput.actionClassId);
     if (actionClass === null) {
       throw new ResourceNotFoundError("ActionClass", parsedInput.actionClassId);

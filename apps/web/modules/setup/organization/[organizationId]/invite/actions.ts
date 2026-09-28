@@ -21,7 +21,7 @@ const ZInviteOrganizationMemberAction = z.object({
 export const inviteOrganizationMemberAction = authenticatedActionClient
   .inputSchema(ZInviteOrganizationMemberAction)
   .action(
-    withActivityContext("created", "invite", async ({ ctx, parsedInput }) => {
+    withAuditLogging("created", "invite", async ({ ctx, parsedInput }) => {
       if (INVITE_DISABLED) {
         throw new AuthenticationError("Invite disabled");
       }

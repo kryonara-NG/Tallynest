@@ -22,7 +22,7 @@ const ZCreateOrganizationAction = z.object({
 export const createOrganizationAction = authenticatedActionClient
   .inputSchema(ZCreateOrganizationAction)
   .action(
-    withActivityContext("created", "organization", async ({ ctx, parsedInput }) => {
+    withAuditLogging("created", "organization", async ({ ctx, parsedInput }) => {
       const isMultiOrgEnabled = await getIsMultiOrgEnabled();
       if (!isMultiOrgEnabled)
         throw new OperationNotAllowedError(

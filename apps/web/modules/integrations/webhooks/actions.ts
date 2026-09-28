@@ -34,7 +34,7 @@ const ZCreateWebhookAction = z.object({
 });
 
 export const createWebhookAction = authenticatedActionClient.inputSchema(ZCreateWebhookAction).action(
-  withActivityContext("created", "webhook", async ({ ctx, parsedInput }) => {
+  withAuditLogging("created", "webhook", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
       type: "workspace",
@@ -69,7 +69,7 @@ const ZDeleteWebhookAction = z.object({
 });
 
 export const deleteWebhookAction = authenticatedActionClient.inputSchema(ZDeleteWebhookAction).action(
-  withActivityContext("deleted", "webhook", async ({ ctx, parsedInput }) => {
+  withAuditLogging("deleted", "webhook", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWebhookId(parsedInput.id);
     const workspaceId = await getWorkspaceIdFromWebhookId(parsedInput.id);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
@@ -93,7 +93,7 @@ const ZUpdateWebhookAction = z.object({
 });
 
 export const updateWebhookAction = authenticatedActionClient.inputSchema(ZUpdateWebhookAction).action(
-  withActivityContext("updated", "webhook", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "webhook", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWebhookId(parsedInput.webhookId);
     const workspaceId = await getWorkspaceIdFromWebhookId(parsedInput.webhookId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {

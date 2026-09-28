@@ -29,7 +29,7 @@ const ZCreateOrUpdateIntegrationAction = z.object({
 export const createOrUpdateIntegrationAction = authenticatedActionClient
   .inputSchema(ZCreateOrUpdateIntegrationAction)
   .action(
-    withActivityContext("createdUpdated", "integration", async ({ ctx, parsedInput }) => {
+    withAuditLogging("createdUpdated", "integration", async ({ ctx, parsedInput }) => {
       // Bound before any lookup: every call past this point reads the stored integration and writes the
       // provider config plus an audit-log entry.
       await applyRateLimit(rateLimitConfigs.actions.integrationMutation, ctx.user.id);
@@ -85,7 +85,7 @@ const ZDeleteIntegrationAction = z.object({
 });
 
 export const deleteIntegrationAction = authenticatedActionClient.inputSchema(ZDeleteIntegrationAction).action(
-  withActivityContext("deleted", "integration", async ({ ctx, parsedInput }) => {
+  withAuditLogging("deleted", "integration", async ({ ctx, parsedInput }) => {
     // Same policy as the create/update path — a delete is the cheapest way to churn integration rows.
     await applyRateLimit(rateLimitConfigs.actions.integrationMutation, ctx.user.id);
 

@@ -13,7 +13,7 @@ const ZUpdateNotificationSettingsAction = z.object({
 export const updateNotificationSettingsAction = authenticatedActionClient
   .inputSchema(ZUpdateNotificationSettingsAction)
   .action(
-    withActivityContext("updated", "user", async ({ ctx, parsedInput }) => {
+    withAuditLogging("updated", "user", async ({ ctx, parsedInput }) => {
       const oldObject = await getUser(ctx.user.id);
       const result = await updateUser(ctx.user.id, {
         notificationSettings: parsedInput.notificationSettings,

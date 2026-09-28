@@ -60,7 +60,7 @@ const ZResetSurveyAction = z.object({
 });
 
 export const resetSurveyAction = authenticatedActionClient.inputSchema(ZResetSurveyAction).action(
-  withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromSurveyId(parsedInput.surveyId);
     const workspaceId = await getWorkspaceIdFromSurveyId(parsedInput.surveyId);
 
@@ -113,7 +113,7 @@ const ZGenerateExampleResponsesAction = z.object({
 export const generateExampleResponsesAction = authenticatedActionClient
   .inputSchema(ZGenerateExampleResponsesAction)
   .action(
-    withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
+    withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
       // Per-user limit (1 per minute). Closes the multi-click race window where
       // two clicks fired before the first LLM call returns could both pass the
       // responseCount === 0 check, and bounds a single user's overall LLM spend.

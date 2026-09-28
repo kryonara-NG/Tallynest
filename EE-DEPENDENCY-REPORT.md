@@ -1,6 +1,6 @@
 # Tallynest Enterprise Boundary Report
 
-Generated: 2026-09-28T20:41:59Z
+Generated: 2026-09-28T20:50:06Z
 
 Remaining references:
 .github/workflows/tallynest-core-extract.yml:27:          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > /tmp/ee.txt
@@ -19,14 +19,10 @@ apps/web/modules/api/v2/organizations/[organizationId]/users/lib/users.ts:222:  
 apps/web/modules/api/v2/organizations/[organizationId]/users/lib/utils.ts:101: * (modules/ee/role-management/actions.ts): an owner may assign any role, a manager may only assign
 apps/web/modules/auth/forgot-password/actions.test.ts:44:// Passthrough so the handler runs directly, matching modules/ee/billing/actions.test.ts. Importing the
 apps/web/modules/auth/lib/better-auth-schema-contract.test.ts:96:  user: { image: { file: "../../ee/sso/lib/better-auth-hooks.ts", strips: "image: undefined" } },
-apps/web/modules/auth/lib/better-auth-two-factor-backfill.ts:9: * ENG-1824 self-heal. The custom 2FA enable flow (`modules/ee/two-factor-auth`) historically wrote the
-apps/web/modules/auth/lib/sso-provisioning-reject-reasons.ts:19: * It lives in OSS `modules/auth`, not beside the gate in `modules/ee`, although the gate is the only
-apps/web/modules/auth/lib/sso-provisioning-reject-reasons.ts:20: * thing that produces these codes. `modules/ee` is under a separate licence, and the consumers here
 apps/web/modules/auth/lib/verification-links.ts:10: * against the completion path — and `.coderabbit.yaml` (`apps/web/modules/ee/**`) forbids OSS importing
 apps/web/modules/auth/lib/verification-links.ts:11: * from `modules/ee` outside the `license-check` gate. Route paths carry no entitlement, so the fix is
 apps/web/modules/organization/lib/utils.ts:20: * asymmetry is required, not an oversight: `modules/ee/billing/page.tsx` is the billing role's
 apps/web/modules/survey/lib/survey.ts:8:import { getOrganizationBillingWithReadThroughSync } from "@/modules/ee/billing/lib/organization-billing";
-apps/web/modules/ui/components/confirm-delete-segment-modal/index.tsx:5:import { TSegmentActivitySummary } from "@/modules/ee/contacts/segments/components/segment-activity-utils";
 apps/web/modules/ui/components/pending-downgrade-banner/index.tsx:9:import type { TLicenseStatus } from "@/modules/ee/license-check/types/enterprise-license";
 apps/web/vite.config.mts:130:        "modules/ee/billing/**", // Enterprise billing features
 apps/web/vite.config.mts:137:        "modules/ee/contacts/components/**", // Contact components

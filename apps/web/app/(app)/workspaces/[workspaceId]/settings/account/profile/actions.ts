@@ -92,7 +92,7 @@ async function handleEmailUpdate({
 }
 
 export const updateUserAction = authenticatedActionClient.inputSchema(ZUserPersonalInfoUpdateInput).action(
-  withActivityContext("updated", "user", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "user", async ({ ctx, parsedInput }) => {
     const oldObject = await getUser(ctx.user.id);
     assertNameUpdateAllowed({ ctx, parsedInput });
     let payload = buildUserUpdatePayload(parsedInput);
@@ -113,7 +113,7 @@ export const updateUserAction = authenticatedActionClient.inputSchema(ZUserPerso
 );
 
 export const resetPasswordAction = authenticatedActionClient.action(
-  withActivityContext("passwordReset", "user", async ({ ctx }) => {
+  withAuditLogging("passwordReset", "user", async ({ ctx }) => {
     if (PASSWORD_RESET_DISABLED) {
       throw new OperationNotAllowedError("Password reset is disabled");
     }

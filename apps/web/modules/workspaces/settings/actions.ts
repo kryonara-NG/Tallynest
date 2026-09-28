@@ -23,7 +23,7 @@ const ZUpdateWorkspaceAction = z.object({
 });
 
 export const updateWorkspaceAction = authenticatedActionClient.inputSchema(ZUpdateWorkspaceAction).action(
-  withActivityContext("updated", "workspace", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "workspace", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.manage", {

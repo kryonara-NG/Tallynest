@@ -24,7 +24,7 @@ const ZCreateLanguageAction = z.object({
 });
 
 export const createLanguageAction = authenticatedActionClient.inputSchema(ZCreateLanguageAction).action(
-  withActivityContext("created", "language", async ({ ctx, parsedInput }) => {
+  withAuditLogging("created", "language", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.manage", {
@@ -59,7 +59,7 @@ const ZDeleteLanguageAction = z.object({
 });
 
 export const deleteLanguageAction = authenticatedActionClient.inputSchema(ZDeleteLanguageAction).action(
-  withActivityContext("deleted", "language", async ({ ctx, parsedInput }) => {
+  withAuditLogging("deleted", "language", async ({ ctx, parsedInput }) => {
     const languageWorkspaceId = await getWorkspaceIdFromLanguageId(parsedInput.languageId);
 
     if (languageWorkspaceId !== parsedInput.workspaceId) {
@@ -106,7 +106,7 @@ const ZUpdateLanguageAction = z.object({
 });
 
 export const updateLanguageAction = authenticatedActionClient.inputSchema(ZUpdateLanguageAction).action(
-  withActivityContext("updated", "language", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "language", async ({ ctx, parsedInput }) => {
     const languageProductId = await getWorkspaceIdFromLanguageId(parsedInput.languageId);
 
     if (languageProductId !== parsedInput.workspaceId) {

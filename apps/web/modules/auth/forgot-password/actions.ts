@@ -70,7 +70,7 @@ const ZForgotPasswordAction = z.object({
 });
 
 export const forgotPasswordAction = actionClient.inputSchema(ZForgotPasswordAction).action(
-  withActivityContext("passwordReset", "user", async ({ ctx, parsedInput }) => {
+  withAuditLogging("passwordReset", "user", async ({ ctx, parsedInput }) => {
     await applyIPRateLimit(rateLimitConfigs.auth.forgotPassword);
 
     if (PASSWORD_RESET_DISABLED) {

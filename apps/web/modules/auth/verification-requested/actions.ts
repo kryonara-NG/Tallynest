@@ -110,7 +110,7 @@ const resolveSsoRecoveryResend = async ({
 };
 
 export const resendVerificationEmailAction = actionClient.inputSchema(ZResendVerificationEmailAction).action(
-  withActivityContext("verificationEmailSent", "user", async ({ ctx, parsedInput }) => {
+  withAuditLogging("verificationEmailSent", "user", async ({ ctx, parsedInput }) => {
     await applyIPRateLimit(rateLimitConfigs.auth.verifyEmail);
 
     const user = await getUserByEmail(parsedInput.email);

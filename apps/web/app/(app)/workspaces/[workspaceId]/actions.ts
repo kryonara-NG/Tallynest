@@ -25,7 +25,7 @@ const ZCreateWorkspaceAction = z.object({
 });
 
 export const createWorkspaceAction = authenticatedActionClient.inputSchema(ZCreateWorkspaceAction).action(
-  withActivityContext("created", "workspace", async ({ ctx, parsedInput }) => {
+  withAuditLogging("created", "workspace", async ({ ctx, parsedInput }) => {
     const { user } = ctx;
 
     const organizationId = parsedInput.organizationId;

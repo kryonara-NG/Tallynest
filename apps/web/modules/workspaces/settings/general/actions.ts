@@ -16,7 +16,7 @@ const shouldLogWorkspaceDeletionError = (error: unknown) => {
 };
 
 export const deleteWorkspaceAction = authenticatedActionClient.inputSchema(z.unknown()).action(
-  withActivityContext("deleted", "workspace", async ({ ctx, parsedInput }) => {
+  withAuditLogging("deleted", "workspace", async ({ ctx, parsedInput }) => {
     const workspaceIdForLogging = getWorkspaceIdForLogging(parsedInput);
 
     try {

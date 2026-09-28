@@ -22,7 +22,7 @@ const ZCopySurveyToOtherWorkspaceAction = z.object({
 export const copySurveyToOtherWorkspaceAction = authenticatedActionClient
   .inputSchema(ZCopySurveyToOtherWorkspaceAction)
   .action(
-    withActivityContext("copiedToOtherWorkspace", "survey", async ({ ctx, parsedInput }) => {
+    withAuditLogging("copiedToOtherWorkspace", "survey", async ({ ctx, parsedInput }) => {
       const sourceWorkspaceId = await getWorkspaceIdFromSurveyId(parsedInput.surveyId);
 
       const sourceOrganizationId = await getOrganizationIdFromWorkspaceId(sourceWorkspaceId);

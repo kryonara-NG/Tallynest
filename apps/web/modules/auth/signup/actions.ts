@@ -361,7 +361,7 @@ async function assertSignupPolicyAllows(
 }
 
 export const createUserAction = actionClient.inputSchema(ZCreateUserAction).action(
-  withActivityContext("created", "user", async ({ ctx, parsedInput }) => {
+  withAuditLogging("created", "user", async ({ ctx, parsedInput }) => {
     await applyIPRateLimit(rateLimitConfigs.auth.signup);
     await verifyTurnstileIfConfigured(parsedInput.turnstileToken);
 

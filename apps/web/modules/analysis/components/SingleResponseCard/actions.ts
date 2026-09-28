@@ -26,7 +26,7 @@ const ZCreateTagAction = z.object({
 });
 
 export const createTagAction = authenticatedActionClient.inputSchema(ZCreateTagAction).action(
-  withActivityContext("created", "tag", async ({ parsedInput, ctx }) => {
+  withAuditLogging("created", "tag", async ({ parsedInput, ctx }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
@@ -56,7 +56,7 @@ const ZCreateTagToResponseAction = z.object({
 export const createTagToResponseAction = authenticatedActionClient
   .inputSchema(ZCreateTagToResponseAction)
   .action(
-    withActivityContext("addedToResponse", "tag", async ({ parsedInput, ctx }) => {
+    withAuditLogging("addedToResponse", "tag", async ({ parsedInput, ctx }) => {
       const response = await getResponse(parsedInput.responseId);
       const tag = await getTag(parsedInput.tagId);
 
@@ -94,7 +94,7 @@ const ZDeleteTagOnResponseAction = z.object({
 export const deleteTagOnResponseAction = authenticatedActionClient
   .inputSchema(ZDeleteTagOnResponseAction)
   .action(
-    withActivityContext("removedFromResponse", "tag", async ({ parsedInput, ctx }) => {
+    withAuditLogging("removedFromResponse", "tag", async ({ parsedInput, ctx }) => {
       const response = await getResponse(parsedInput.responseId);
       const tag = await getTag(parsedInput.tagId);
       const organizationId = await getOrganizationIdFromResponseId(parsedInput.responseId);
@@ -128,7 +128,7 @@ const ZDeleteResponseAction = z.object({
 });
 
 export const deleteResponseAction = authenticatedActionClient.inputSchema(ZDeleteResponseAction).action(
-  withActivityContext("deleted", "response", async ({ parsedInput, ctx }) => {
+  withAuditLogging("deleted", "response", async ({ parsedInput, ctx }) => {
     const organizationId = await getOrganizationIdFromResponseId(parsedInput.responseId);
     const workspaceId = await getWorkspaceIdFromResponseId(parsedInput.responseId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {

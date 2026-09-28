@@ -50,7 +50,7 @@ const ZDeleteFeedbackSourceAction = z.object({
 export const deleteFeedbackSourceAction = authenticatedActionClient
   .inputSchema(ZDeleteFeedbackSourceAction)
   .action(
-    withActivityContext("deleted", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withAuditLogging("deleted", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.feedbackSourceId = parsedInput.feedbackSourceId;
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.feedbackSourceMutation, ctx.user.id);
@@ -133,7 +133,7 @@ const ZCreateFeedbackSourceWithMappingsAction = z
 export const createFeedbackSourceWithMappingsAction = authenticatedActionClient
   .inputSchema(ZCreateFeedbackSourceWithMappingsAction)
   .action(
-    withActivityContext("created", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withAuditLogging("created", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.feedbackSourceMutation, ctx.user.id);
 
@@ -209,7 +209,7 @@ const ZUpdateFeedbackSourceWithMappingsAction = z.object({
 export const updateFeedbackSourceWithMappingsAction = authenticatedActionClient
   .inputSchema(ZUpdateFeedbackSourceWithMappingsAction)
   .action(
-    withActivityContext("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withAuditLogging("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.feedbackSourceId = parsedInput.feedbackSourceId;
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.feedbackSourceMutation, ctx.user.id);
@@ -307,7 +307,7 @@ const ZImportHistoricalResponsesAction = z.object({
 export const importHistoricalResponsesAction = authenticatedActionClient
   .inputSchema(ZImportHistoricalResponsesAction)
   .action(
-    withActivityContext("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withAuditLogging("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.feedbackSourceId = parsedInput.feedbackSourceId;
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.historicalResponseImport, ctx.user.id);

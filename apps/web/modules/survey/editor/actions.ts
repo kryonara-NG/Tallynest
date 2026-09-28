@@ -190,7 +190,7 @@ const checkSurveyFollowUpsPermission = async (
 };
 
 export const updateSurveyDraftAction = authenticatedActionClient.inputSchema(ZSurveyDraft).action(
-  withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
     // Cast to TSurvey - ZSurveyDraft validates structure, full validation happens on publish
     const survey = parsedInput as TSurvey;
 
@@ -241,7 +241,7 @@ export const updateSurveyDraftAction = authenticatedActionClient.inputSchema(ZSu
 );
 
 export const updateSurveyAction = authenticatedActionClient.inputSchema(ZSurvey).action(
-  withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromSurveyId(parsedInput.id);
     const workspaceId = await getWorkspaceIdFromSurveyId(parsedInput.id);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
@@ -458,7 +458,7 @@ const ZCreateActionClassAction = z.object({
 });
 
 export const createActionClassAction = authenticatedActionClient.inputSchema(ZCreateActionClassAction).action(
-  withActivityContext("created", "actionClass", async ({ ctx, parsedInput }) => {
+  withAuditLogging("created", "actionClass", async ({ ctx, parsedInput }) => {
     const workspaceId = parsedInput.action.workspaceId;
     const organizationId = await getOrganizationIdFromWorkspaceId(workspaceId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {

@@ -20,7 +20,7 @@ const ZDeleteApiKeyAction = z.object({
 });
 
 export const deleteApiKeyAction = authenticatedActionClient.inputSchema(ZDeleteApiKeyAction).action(
-  withActivityContext("deleted", "apiKey", async ({ ctx, parsedInput }) => {
+  withAuditLogging("deleted", "apiKey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromApiKeyId(parsedInput.id);
     await assertCan({ type: "user", id: ctx.user.id }, "apiKey.manage", {
       type: "apiKey",
@@ -42,7 +42,7 @@ const ZCreateApiKeyAction = z.object({
 });
 
 export const createApiKeyAction = authenticatedActionClient.inputSchema(ZCreateApiKeyAction).action(
-  withActivityContext("created", "apiKey", async ({ ctx, parsedInput }) => {
+  withAuditLogging("created", "apiKey", async ({ ctx, parsedInput }) => {
     await assertCan({ type: "user", id: ctx.user.id }, "organization.manage_api_keys", {
       type: "organization",
       id: parsedInput.organizationId,
@@ -78,7 +78,7 @@ const ZUpdateApiKeyAction = z.object({
 });
 
 export const updateApiKeyAction = authenticatedActionClient.inputSchema(ZUpdateApiKeyAction).action(
-  withActivityContext("updated", "apiKey", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "apiKey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromApiKeyId(parsedInput.apiKeyId);
     await assertCan({ type: "user", id: ctx.user.id }, "apiKey.manage", {
       type: "apiKey",

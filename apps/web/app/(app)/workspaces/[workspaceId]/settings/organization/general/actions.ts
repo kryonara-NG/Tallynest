@@ -46,7 +46,7 @@ const ZUpdateOrganizationNameAction = z.object({
 export const updateOrganizationNameAction = authenticatedActionClient
   .inputSchema(ZUpdateOrganizationNameAction)
   .action(
-    withActivityContext(
+    withAuditLogging(
       "updated",
       "organization",
       async ({
@@ -109,7 +109,7 @@ const assertOrganizationAISettingsUpdateAllowed = ({
 export const updateOrganizationAISettingsAction = authenticatedActionClient
   .inputSchema(ZUpdateOrganizationAISettingsAction)
   .action(
-    withActivityContext(
+    withAuditLogging(
       "updated",
       "organization",
       async ({
@@ -150,7 +150,7 @@ export const updateOrganizationAISettingsAction = authenticatedActionClient
 export const updateOrganizationDisplayTimeZoneAction = authenticatedActionClient
   .inputSchema(ZUpdateOrganizationDisplayTimeZoneAction)
   .action(
-    withActivityContext(
+    withAuditLogging(
       "updated",
       "organization",
       async ({
@@ -176,7 +176,7 @@ const ZDeleteOrganizationAction = z.object({
 export const deleteOrganizationAction = authenticatedActionClient
   .inputSchema(ZDeleteOrganizationAction)
   .action(
-    withActivityContext("deleted", "organization", async ({ ctx, parsedInput }) => {
+    withAuditLogging("deleted", "organization", async ({ ctx, parsedInput }) => {
       const isMultiOrgEnabled = await getIsMultiOrgEnabled();
       if (!isMultiOrgEnabled) {
         const t = await getTranslate(ctx.user.locale);

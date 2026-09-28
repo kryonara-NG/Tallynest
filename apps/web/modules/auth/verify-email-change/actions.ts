@@ -10,7 +10,7 @@ import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 
 export const verifyEmailChangeAction = actionClient.inputSchema(z.object({ token: z.string() })).action(
-  withActivityContext("updated", "user", async ({ ctx, parsedInput }) => {
+  withAuditLogging("updated", "user", async ({ ctx, parsedInput }) => {
     await applyIPRateLimit(rateLimitConfigs.auth.verifyEmail);
 
     // Unauthenticated on purpose — the link is clicked from the new mailbox, often in another browser.
