@@ -1,0 +1,52 @@
+name: Tallynest Core Extraction
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/tallynest-core-extract.mjs"
+      - ".github/workflows/tallynest-core-extract.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply independent core boundary
+        run: node scripts/tallynest-core-extract.mjs
+
+      - name: Report remaining Enterprise imports
+        shell: bash
+        run: |
+          set +e
+          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' > /tmp/ee.txt
+          rc=$?
+          {
+            echo "# Tallynest Enterprise Boundary Report"
+            echo
+            echo "Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo
+            if [ "$rc" -eq 0 ]; then
+              echo "Remaining references:"
+              cat /tmp/ee.txt
+            else
+              echo "No remaining Enterprise module references were found."
+            fi
+          } > EE-DEPENDENCY-REPORT.md
+
+      - name: Commit extraction
+        run: |
+          git config user.name "tallynest-bot"
+          git config user.email "41898282+tallynest-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Extract Tallynest core boundary"
+            git push
+          fi
