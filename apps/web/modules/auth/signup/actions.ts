@@ -48,14 +48,11 @@ import {
   getInvite,
   resolveInviteMatch,
 } from "@/modules/auth/signup/lib/invite";
-import { createTeamMembership } from "@/modules/auth/signup/lib/team";
 import { verifyTurnstileToken } from "@/modules/auth/signup/lib/utils";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { ensureCloudStripeSetupForOrganization } from "@/modules/ee/billing/lib/organization-billing";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
-import { subscribeUserToMailingList } from "@/modules/ee/mailing/lib/mailing-subscription";
 import { sendInviteAcceptedEmail } from "@/modules/email";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 
@@ -232,16 +229,6 @@ async function handleInviteAcceptance(
     logger.warn({ error, organizationId: invite.organizationId }, "Failed to identify org group in PostHog");
   }
 
-  if (invite.teamIds) {
-    await createTeamMembership(
-      {
-        organizationId: invite.organizationId,
-        role: invite.role,
-        teamIds: invite.teamIds,
-      },
-      user.id
-    );
-  }
 
   await updateUser(user.id, {
     notificationSettings: {
@@ -271,16 +258,6 @@ async function handleOrganizationCreation(ctx: ActionClientCtx, user: TCreatedUs
     role: "owner",
     accepted: true,
   });
-
-  // Stripe setup must run AFTER membership is created so the owner email is available
-  if (IS_FORMBRICKS_CLOUD) {
-    ensureCloudStripeSetupForOrganization(organization.id).catch((error) => {
-      logger.error(
-        { error, organizationId: organization.id },
-        "Stripe setup failed after organization creation"
-      );
-    });
-  }
 
   const workspace = await createWorkspace(organization.id, {
     name: DEFAULT_WORKSPACE_NAME,
@@ -453,13 +430,6 @@ export const createUserAction = actionClient.inputSchema(ZCreateUserAction).acti
       }
 
       await handlePostUserCreation(ctx, outcome, inviteToken);
-
-      await subscribeUserToMailingList({
-        email: user.email,
-        isFormbricksCloud: IS_FORMBRICKS_CLOUD,
-        subscribeToSecurityUpdates: parsedInput.subscribeToSecurityUpdates,
-        subscribeToProductUpdates: parsedInput.subscribeToProductUpdates,
-      });
 
       const cookieStore = await cookies();
       const hasAttributionCookie = cookieStore.get(ATTRIBUTION_COOKIE_NAME) !== undefined;
