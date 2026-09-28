@@ -2,11 +2,8 @@
 
 import { RocketIcon } from "lucide-react";
 import Link from "next/link";
-import posthog from "posthog-js";
 import { useTranslation } from "react-i18next";
 import { TOrganization } from "@formbricks/types/organizations";
-import { TrialAlert } from "@/modules/ee/billing/components/trial-alert";
-import { TRIAL_BASE_RESPONSE_LIMIT, TrialBannerNew } from "@/modules/ee/billing/components/trial-banner-new";
 
 interface MainNavigationNoticesProps {
   isCollapsed: boolean;
@@ -50,9 +47,8 @@ export const MainNavigationNotices = ({
   }
 
   const showUpdateNotice = Boolean(latestVersion) && !isFormbricksCloud && !isDevelopment;
-  const billingHref = `/organizations/${organization.id}/settings/billing`;
-
   return (
+
     <>
       {showUpdateNotice && (
         <Link
