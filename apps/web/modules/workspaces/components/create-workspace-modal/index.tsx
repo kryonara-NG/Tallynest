@@ -10,7 +10,6 @@ import { z } from "zod";
 import { ZWorkspace } from "@formbricks/types/workspace";
 import { createWorkspaceAction } from "@/app/(app)/workspaces/[workspaceId]/actions";
 import { getFormattedErrorMessage } from "@/lib/utils/helper";
-import { TOrganizationTeam } from "@/modules/ee/teams/team-list/types/team";
 import { Button } from "@/modules/ui/components/button";
 import {
   Dialog,
@@ -30,8 +29,6 @@ import {
   FormProvider,
 } from "@/modules/ui/components/form";
 import { Input } from "@/modules/ui/components/input";
-import { MultiSelect } from "@/modules/ui/components/multi-select";
-import { getTeamsByOrganizationIdAction } from "@/modules/workspaces/settings/actions";
 
 const ZCreateWorkspaceForm = z.object({
   name: ZWorkspace.shape.name,
@@ -51,12 +48,11 @@ export const CreateWorkspaceModal = ({
   open,
   setOpen,
   organizationId,
-  isAccessControlAllowed,
+  isAccessControlAllowed: _isAccessControlAllowed,
 }: CreateWorkspaceModalProps) => {
   const { t } = useTranslation();
   const router = useRouter();
 
-  const [organizationTeams, setOrganizationTeams] = useState<TOrganizationTeam[]>([]);
 
   const form = useForm<TCreateWorkspaceForm>({
     resolver: zodResolver(ZCreateWorkspaceForm),
@@ -65,22 +61,6 @@ export const CreateWorkspaceModal = ({
       teamIds: [],
     },
   });
-
-  useEffect(() => {
-    if (!open) return;
-
-    const fetchModalData = async () => {
-      const teamsResponse = await getTeamsByOrganizationIdAction({ organizationId });
-
-      if (teamsResponse?.data) {
-        setOrganizationTeams(teamsResponse.data);
-      } else {
-        const errorMessage = getFormattedErrorMessage(teamsResponse);
-        toast.error(errorMessage);
-      }
-    };
-    fetchModalData();
-  }, [open, organizationId]);
 
   const { isSubmitting } = form.formState;
 
@@ -141,25 +121,7 @@ export const CreateWorkspaceModal = ({
                 )}
               />
 
-              {isAccessControlAllowed && organizationTeams.length > 0 && (
-                <FormField
-                  control={form.control}
-                  name="teamIds"
-                  render={({ field, fieldState: { error } }) => (
-                    <FormItem>
-                      <FormLabel>{t("common.team")}</FormLabel>
-                      <FormControl>
-                        <MultiSelect
-                          value={field.value || []}
-                          options={organizationTeamsOptions}
-                          onChange={(teamIds) => field.onChange(teamIds)}
-                          placeholder={t("common.select_teams")}
-                        />
-                      </FormControl>
-                      {error?.message && <FormError className="text-left">{error.message}</FormError>}
-                    </FormItem>
-                  )}
-                />
+               />
               )}
             </DialogBody>
 
