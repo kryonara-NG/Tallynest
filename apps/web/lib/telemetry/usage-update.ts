@@ -6,7 +6,6 @@ import { E2E_TESTING, IS_DEVELOPMENT, TELEMETRY_DISABLED } from "@/lib/constants
 import { env } from "@/lib/env";
 import { hashString } from "@/lib/hash-string";
 import { getInstanceInfo } from "@/lib/instance";
-import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
 import packageJson from "@/package.json";
 
 const TELEMETRY_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 hours
@@ -33,17 +32,13 @@ let nextTelemetryCheck = 0;
  */
 // Hashed license key for log context — allows correlating log entries to a specific license
 // without exposing the raw key. Computed once at module load.
-const hashedLicenseKey = env.ENTERPRISE_LICENSE_KEY ? hashString(env.ENTERPRISE_LICENSE_KEY) : null;
+const hashedLicenseKey = null;
 
 /**
  * Returns true if telemetry is disabled via env var AND there is no active EE license.
  * EE customers cannot opt out — telemetry is always enforced for license compliance.
  */
-const isTelemetryDisabledForCE = async (): Promise<boolean> => {
-  if (!TELEMETRY_DISABLED) return false;
-  const license = await getEnterpriseLicense();
-  return !license.active;
-};
+const isTelemetryDisabledForCE = async (): Promise<boolean> => TELEMETRY_DISABLED;
 
 /**
  * Runs the actual send once every check has passed and the lock is held. Pulled out of
