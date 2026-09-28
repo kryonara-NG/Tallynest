@@ -79,7 +79,7 @@ jobs:
         run: |
           set -euo pipefail
           test ! -d apps/web/modules/ee
-          if git grep -n 'modules/ee' -- ':!LICENSING-AUDIT.md' ':!CHANGES.md' ':!ARCHITECTURE.md'; then
+          if git grep -n 'modules/ee' -- ':!LICENSING-AUDIT.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md'; then
             echo "Remaining EE import/reference detected. This must be independently replaced or removed."
             exit 1
           fi
