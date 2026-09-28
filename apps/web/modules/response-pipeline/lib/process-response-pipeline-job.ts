@@ -482,7 +482,6 @@ const getAutoCompleteThreshold = (survey: TPipelineSurvey): number | null =>
 const handleSurveyAutoCompleteSafely = async ({
   finishedResponseCount,
   logContext,
-  organizationId,
   survey,
 }: {
   finishedResponseCount: number | null;
@@ -513,7 +512,6 @@ const handleSurveyAutoCompleteSafely = async ({
       },
     });
   } catch (error) {
-    logStatus = "failure";
     logger.error(
       {
         ...logContext,
