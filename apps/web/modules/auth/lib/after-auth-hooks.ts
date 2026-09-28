@@ -1,6 +1,7 @@
 import "server-only";
-import type { AuthHookContext } from "better-auth";
 import { auditFailedAuthAfter } from "./better-auth-observability";
+
+type AuthHookContext = Parameters<typeof auditFailedAuthAfter>[0];
 import { verificationAutoSignInAfterHandler } from "./better-auth-verification-autosignin";
 
 /**
