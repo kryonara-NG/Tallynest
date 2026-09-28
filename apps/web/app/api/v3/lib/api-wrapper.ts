@@ -11,7 +11,7 @@ import { getSession } from "@/modules/auth/lib/session";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import type { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
-import { TAuditAction, TAuditTarget } from "@/modules/ee/audit-logs/types/audit-log";
+import { TTallynestAuditAction, TTallynestAuditTarget } from "@/modules/tallynest-core/api-audit";
 import { buildV3AuditLog, queueV3AuditLog } from "./audit";
 import { mapV3ThrownError } from "./errors";
 import {
@@ -57,8 +57,8 @@ export type TWithV3ApiWrapperParams<S extends TV3Schemas | undefined, TProps = u
   schemas?: S;
   rateLimit?: boolean;
   customRateLimitConfig?: TRateLimitConfig;
-  action?: TAuditAction;
-  targetType?: TAuditTarget;
+  action?: TTallynestAuditAction;
+  targetType?: TTallynestAuditTarget;
   handler: (params: TV3HandlerParams<TV3ParsedInput<S>, TProps>) => MaybePromise<Response>;
 };
 
