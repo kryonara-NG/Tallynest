@@ -1,5 +1,12 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
-export default function EnterpriseFeatureUnavailable() {
-  notFound();
+interface PlanPageProps {
+  params: Promise<{ organizationId: string }>;
 }
+
+const Page = async (props: PlanPageProps) => {
+  const params = await props.params;
+  return redirect(`/organizations/${params.organizationId}/workspaces/new/survey`);
+};
+
+export default Page;
