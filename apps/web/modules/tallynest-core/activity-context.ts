@@ -1,18 +1,16 @@
 /**
- * Independently authored action wrapper used by Tallynest core.
- *
- * Enterprise audit-log persistence is intentionally not reproduced here.
- * The wrapper preserves the action-client execution contract so core mutations
- * continue to run normally without depending on Enterprise source.
+ * Independently authored action wrapper for Tallynest core mutations.
+ * Enterprise audit-event persistence is intentionally not included.
  */
-export const withActivityContext = <TArgs, TResult>(
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const withActivityContext = (
   _action: string,
   _targetType: string,
-  handler: (args: TArgs) => Promise<TResult>
-): ((args: TArgs) => Promise<TResult>) => handler;
+  handler: (args: any) => Promise<any>
+): ((args: any) => Promise<any>) => handler;
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export const queueAuditEvent = async (_event: unknown): Promise<void> => {};
 export const queueAuditEventBackground = async (_event: unknown): Promise<void> => {};
-
 export const withAuditLogging = withActivityContext;
 export const queueAuditEventWithoutRequest = queueAuditEvent;
