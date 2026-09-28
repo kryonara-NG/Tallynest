@@ -1,14 +1,14 @@
 import { logger } from "@formbricks/logger";
 import { getOrganizationIdFromWorkspaceId } from "@/lib/utils/helper";
 import { queueAuditEvent } from "@/modules/tallynest-core/activity-context";
-import { TAuditStatus, UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { TallynestAuditStatus, TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 const getOrgId = async (workspaceId: string): Promise<string> => {
   try {
     return await getOrganizationIdFromWorkspaceId(workspaceId);
   } catch (error) {
     logger.error({ error }, "Failed to get organization ID for workspace");
-    return UNKNOWN_DATA;
+    return TALLYNEST_UNKNOWN_DATA;
   }
 };
 
@@ -24,7 +24,7 @@ export const logFileDeletion = async ({
   workspaceId: string;
   accessType?: string;
   userId?: string;
-  status?: TAuditStatus;
+  status?: TallynestAuditStatus;
   failureReason?: string;
   oldObject?: Record<string, unknown>;
   apiUrl: string;
@@ -35,7 +35,7 @@ export const logFileDeletion = async ({
     await queueAuditEvent({
       action: "deleted",
       targetType: "file",
-      userId: userId || UNKNOWN_DATA, // NOSONAR // We want to check for empty user IDs too
+      userId: userId || TALLYNEST_UNKNOWN_DATA, // NOSONAR // We want to check for empty user IDs too
       userType: "user",
       targetId: `${workspaceId}:${accessType}`, // Generic target identifier
       organizationId,
