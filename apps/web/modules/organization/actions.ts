@@ -12,7 +12,6 @@ import { updateUser } from "@/lib/user/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { DEFAULT_WORKSPACE_NAME } from "@/lib/workspace/constants";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { ensureCloudStripeSetupForOrganization } from "@/modules/ee/billing/lib/organization-billing";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 
@@ -38,16 +37,6 @@ export const createOrganizationAction = authenticatedActionClient
         role: "owner",
         accepted: true,
       });
-
-      // Stripe setup must run AFTER membership is created so the owner email is available
-      if (IS_FORMBRICKS_CLOUD) {
-        ensureCloudStripeSetupForOrganization(newOrganization.id).catch((error) => {
-          logger.error(
-            { error, organizationId: newOrganization.id },
-            "Stripe setup failed after organization creation"
-          );
-        });
-      }
 
       const newWorkspace = await createWorkspace(newOrganization.id, {
         name: DEFAULT_WORKSPACE_NAME,
