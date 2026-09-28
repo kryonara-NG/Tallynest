@@ -30,7 +30,7 @@ jobs:
             echo
             echo "Generated from the Tallynest working tree. No Formbricks Enterprise source is permitted."
             echo
-            if git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md'; then
+            if git grep -n -E 'modules/ee|/ee/' -- apps/web packages; then
               echo
               echo "**Action required:** each listed dependency must be removed or replaced with independently authored Tallynest code."
             else
