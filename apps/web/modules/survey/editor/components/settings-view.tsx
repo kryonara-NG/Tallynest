@@ -5,8 +5,6 @@ import { TSurveyQuota } from "@formbricks/types/quota";
 import { TSegment } from "@formbricks/types/segment";
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { TUserLocale } from "@formbricks/types/user";
-import { TargetingCard } from "@/modules/ee/contacts/segments/components/targeting-card";
-import { QuotasCard } from "@/the excluded Enterprise quota modulecomponents/quotas-card";
 import { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import { HowToSendCard } from "@/modules/survey/editor/components/how-to-send-card";
 import { RecontactOptionsCard } from "@/modules/survey/editor/components/recontact-options-card";
@@ -70,30 +68,6 @@ export const SettingsView = ({
         appSetupCompleted={appSetupCompleted}
       />
 
-      {localSurvey.type === "app" ? (
-        <div>
-          {isUserTargetingAllowed ? (
-            <div className="relative">
-              <div className="blur-none">
-                <TargetingCard
-                  key={localSurvey.segment?.id}
-                  localSurvey={localSurvey}
-                  setLocalSurvey={setLocalSurvey}
-                  contactAttributeKeys={contactAttributeKeys}
-                  segments={segments}
-                  initialSegment={segments.find((segment) => segment.id === localSurvey.segment?.id)}
-                />
-              </div>
-            </div>
-          ) : (
-            <TargetingLockedCard
-              isFormbricksCloud={isFormbricksCloud}
-              enterpriseLicenseRequestFormUrl={enterpriseLicenseRequestFormUrl}
-            />
-          )}
-        </div>
-      ) : null}
-
       <WhenToSendCard
         localSurvey={localSurvey}
         setLocalSurvey={setLocalSurvey}
@@ -103,15 +77,6 @@ export const SettingsView = ({
         workspacePermission={workspacePermission}
         hasError={hasTriggerError}
       />
-      <QuotasCard
-        localSurvey={localSurvey}
-        isQuotasAllowed={isQuotasAllowed}
-        isFormbricksCloud={isFormbricksCloud}
-        quotas={quotas}
-        hasResponses={responseCount > 0}
-        enterpriseLicenseRequestFormUrl={enterpriseLicenseRequestFormUrl}
-      />
-
       <ResponseOptionsCard
         localSurvey={localSurvey}
         setLocalSurvey={setLocalSurvey}
