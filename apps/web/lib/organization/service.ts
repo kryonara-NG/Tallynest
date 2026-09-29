@@ -353,11 +353,6 @@ export const deleteOrganization = async (organizationId: string) => {
       })
     );
 
-    const stripeCustomerId = deletedOrganization.billing?.stripeCustomerId;
-    if (IS_FORMBRICKS_CLOUD && stripeCustomerId) {
-      await cleanupStripeCustomer(stripeCustomerId);
-    }
-
     // Best-effort: purge Hub-owned data (feedback records, embeddings, webhooks) for each
     // directory tenant. Failures are logged inside the gateway and do not roll back the
     // local delete.
