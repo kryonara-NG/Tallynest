@@ -13,8 +13,6 @@ import { getOrganizationByWorkspaceId } from "@/lib/organization/service";
 import { checkForInvalidMediaInBlocks } from "@/lib/survey/utils";
 import { validateInputs } from "@/lib/utils/validate";
 import { getTranslate } from "@/lingodotdev/server";
-import { getIsQuotasEnabled } from "@/modules/tallynest-core/entitlements";
-import { getQuotas } from "@/modules/tallynest-core/quotas";
 import { buildWhereClause } from "@/modules/survey/lib/utils";
 import { doesWorkspaceExist, getWorkspaceWithLanguages } from "@/modules/survey/list/lib/workspace";
 import type { TWorkspaceWithLanguages } from "@/modules/survey/list/types/surveys";
@@ -108,21 +106,21 @@ export const copySurveyToOtherWorkspace = async (
     const isSameWorkspace = workspaceId === targetWorkspaceId;
 
     // Fetch required resources
-    const [existingWorkspaceCheck, existingWorkspace, existingSurvey, existingQuotas, organization] =
+    const [existingWorkspaceCheck, existingWorkspace, existingSurvey, organization] =
       await Promise.all([
         doesWorkspaceExist(workspaceId),
         getWorkspaceWithLanguages(workspaceId),
         getExistingSurvey(surveyId),
-        getQuotas(surveyId),
         getOrganizationByWorkspaceId(workspaceId),
       ]);
+    const existingQuotas: never[] = [];
 
     if (!existingWorkspaceCheck) throw new ResourceNotFoundError("Workspace", workspaceId);
     if (!existingWorkspace) throw new ResourceNotFoundError("Workspace", workspaceId);
     if (!existingSurvey) throw new ResourceNotFoundError("Survey", surveyId);
     if (!organization) throw new ResourceNotFoundError("Organization", workspaceId);
 
-    const isQuotasAllowed = await getIsQuotasEnabled(organization.id);
+    const isQuotasAllowed = false;
 
     let targetWorkspace: TWorkspaceWithLanguages | null = null;
 
@@ -319,21 +317,7 @@ export const copySurveyToOtherWorkspace = async (
           })),
         },
       },
-      quotas: {
-        createMany: {
-          data:
-            isQuotasAllowed && existingQuotas.length > 0
-              ? existingQuotas.map((quota) => ({
-                  name: quota.name,
-                  logic: quota.logic,
-                  limit: quota.limit,
-                  action: quota.action,
-                  endingCardId: quota.endingCardId,
-                  countPartialSubmissions: quota.countPartialSubmissions,
-                }))
-              : [],
-        },
-      },
+
     };
 
     // Handle segment
