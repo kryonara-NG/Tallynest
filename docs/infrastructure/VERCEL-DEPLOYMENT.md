@@ -35,6 +35,21 @@ Recommended settings:
 - Build Command: use the repository `vercel.json`
 - Node.js: 20.x or the version declared by the repository toolchain
 
+For this monorepo, Vercel should be configured at the repository root so it can resolve the workspace lockfile and `apps/web` application. Vercel's current monorepo guidance supports a blank/root Root Directory for a single deployed app built from the monorepo root. 
+
+## Git-triggered redeploy verification
+
+A settings-only change does not necessarily create a new deployment for an already-existing commit. After correcting the Vercel project settings, a new commit on the connected branch is used to verify that the Git integration now creates a fresh deployment.
+
+Verification is complete only when:
+
+1. A new deployment references the new commit.
+2. The deployment reaches `READY`.
+3. The deployed URL responds successfully.
+4. The GitHub Vercel status is no longer `failure`.
+
+Do not treat an older failed deployment as evidence that the corrected settings are still failing.
+
 ## Database
 
 The current application uses Prisma. A production PostgreSQL database must be reachable through `DATABASE_URL`.
