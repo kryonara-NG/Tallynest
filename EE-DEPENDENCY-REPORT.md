@@ -1,11 +1,10 @@
 # Tallynest Enterprise Boundary Report
 
-Generated: 2026-09-29T05:03:55Z
+Generated: 2026-09-29T05:05:26Z
 
 Remaining references:
 .github/workflows/tallynest-core-extract.yml:27:          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > /tmp/ee.txt
 .github/workflows/verify.yml:33:            if git grep -n -E 'modules/ee|/ee/' -- apps/web packages; then
-apps/web/app/api/internal/feedback-datasets/lib/access.ts:6:import { getOrganizationIdFromDirectoryId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
 apps/web/lib/authorization/resource-inventory.test.ts:27:    join(REPOSITORY_ROOT, "apps/web/modules/ee/audit-logs/types/audit-log.ts"),
 apps/web/lib/utils/prisma-deadlock.ts:27: * cycle can form in the first place (see updateAttributes in modules/ee/contacts/lib/attributes.ts).
 apps/web/modules/api/v2/organizations/[organizationId]/users/lib/utils.ts:101: * (modules/ee/role-management/actions.ts): an owner may assign any role, a manager may only assign
