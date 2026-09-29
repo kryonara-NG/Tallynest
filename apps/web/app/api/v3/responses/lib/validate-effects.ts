@@ -11,7 +11,6 @@ import type {
 } from "@formbricks/types/responses";
 import { IS_FORMBRICKS_CLOUD } from "@/lib/constants";
 import { getOrganization } from "@/lib/organization/service";
-import { screenResponseQuotas } from "@/modules/tallynest-core/quotas";
 import type { TV3ResponseRow } from "./service";
 import type { TV3WriteSurveyRow } from "./write-service";
 
@@ -76,64 +75,11 @@ const asQuotaScreeningResponse = ({
  * `wouldCount: true, wouldFill: true`, which is what those two fields mean as defined — but it is
  * not the same situation as a quota this response fills for the first time.
  */
-const quotaEffects = async ({
-  surveyId,
-  response,
-  excludeResponseId,
-}: {
+const quotaEffects = async (_args: {
   surveyId: string;
   response: TEmbeddedValueResponse;
-  /** The response a patch is about, so its own existing link is not counted against it. */
   excludeResponseId?: string;
-}): Promise<TV3ResponseValidationEffects["quotas"]> => {
-  const screening = await screenResponseQuotas({
-    surveyId,
-    data: response.data,
-    variables: response.variables,
-    language: response.language ?? "default",
-    response,
-  });
-
-  if (!screening) return [];
-
-  const passedIds = new Set(screening.passedQuotas.map((quota) => quota.id));
-
-  const counts =
-    screening.passedQuotas.length > 0
-      ? await prisma.responseQuotaLink.groupBy({
-          by: ["quotaId"],
-          where: {
-            quotaId: { in: screening.passedQuotas.map((quota) => quota.id) },
-            status: "screenedIn",
-            // The same predicate `handleQuotas` counts with, exclusion included. A create has no
-            // response to exclude; a patch does, and without it a response that already holds a
-            // qualifying link is counted once by the query and again by the `+ 1` below. That
-            // reports `wouldFill: true` one response early, while the write it describes keeps the
-            // response screened in.
-            ...(excludeResponseId ? { response: { id: { not: excludeResponseId } } } : {}),
-            OR: [{ quota: { countPartialSubmissions: true } }, { response: { finished: true } }],
-          },
-          _count: { responseId: true },
-        })
-      : [];
-
-  const countsByQuota = new Map(counts.map((row) => [row.quotaId, row._count.responseId]));
-
-  return screening.quotas.map((quota) => {
-    const wouldCount = passedIds.has(quota.id);
-
-    if (!wouldCount) {
-      return { quotaId: quota.id, quotaName: quota.name, wouldCount: false };
-    }
-
-    return {
-      quotaId: quota.id,
-      quotaName: quota.name,
-      wouldCount: true,
-      wouldFill: (countsByQuota.get(quota.id) ?? 0) + 1 >= quota.limit,
-    };
-  });
-};
+}): Promise<TV3ResponseValidationEffects["quotas"]> => [];
 
 /**
  * Whether the write would consume one metered monthly response.
