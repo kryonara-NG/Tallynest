@@ -227,9 +227,8 @@ export const getWebhook = async (id: string): Promise<{ workspaceId: string } | 
 
 export const getQuota = reactCache(async (quotaId: string): Promise<{ surveyId: string }> => {
   validateInputs([quotaId, ZId]);
-
   const quota = await getQuotaService(quotaId);
-
+  if (!quota) throw new ResourceNotFoundError("Quota", quotaId);
   return { surveyId: quota.surveyId };
 });
 
