@@ -53,6 +53,9 @@ export type TTallynestLicenseFeatures = {
 export const getEnterpriseLicense = async () => ({
   active: false,
   status: "no-license" as const,
+  lastChecked: null,
+  isPendingDowngrade: false,
+  fallbackLevel: "core" as const,
   features: {
     workspaces: await getOrganizationWorkspacesLimit(),
     removeBranding: false as const,
