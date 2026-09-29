@@ -45,6 +45,17 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "modules/entitlements/lib/checks.test.ts",
+  "modules/api/v2/management/responses/lib/response.ts",
+  "modules/api/v2/management/responses/[responseId]/lib/response.ts",
+  "modules/api/v2/organizations/[organizationId]/users/lib/users.ts",
+  "modules/api/v2/organizations/[organizationId]/teams/[teamId]/route.ts",
+  "modules/api/v2/organizations/[organizationId]/teams/[teamId]/route.test.ts",
+  "app/api/v2/organizations/[organizationId]/workspace-teams",
+  "app/api/v2/organizations/[organizationId]/users",
+  "app/api/v3/surveys/targeting.ts",
+  "app/c/[jwt]",
+  "lib/feedback-source",
   "app/(app)/workspaces/[workspaceId]/workflows",
   "app/(app)/workspaces/[workspaceId]/unify",
   "app/(app)/workspaces/[workspaceId]/(analysis)/charts",
