@@ -45,6 +45,7 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "modules/setup/organization/[organizationId]/invite",
   "app/(app)/billing-confirmation",
   "app/api/v3/lib/list-meta.spec-drift.test.ts",
   "app/api/internal/feedback-datasets",
