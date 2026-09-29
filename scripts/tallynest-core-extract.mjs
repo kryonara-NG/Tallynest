@@ -45,6 +45,7 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "app/api/v3/lib/list-meta.spec-drift.test.ts",
   "app/api/internal/feedback-datasets",
   "modules/auth/lib/oauth-error.test.ts",
   "modules/auth/lib/oauth-error.ts",
