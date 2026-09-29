@@ -25,7 +25,7 @@ export const checkAITranslationAvailableAction = async (_input: { surveyId: stri
   return {
     data: {
       available: configured,
-      reason: configured ? undefined : ("instanceNotConfigured" as const),
+      reason: configured ? undefined : ("instance_not_configured" as const),
     },
   };
 };
