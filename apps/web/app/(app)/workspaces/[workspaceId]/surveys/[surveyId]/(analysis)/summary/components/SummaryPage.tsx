@@ -66,7 +66,7 @@ export const SummaryPage = ({
     initialSurveySummary || defaultSurveySummary
   );
 
-  const [tab, setTab] = useState<"dropOffs" | "impressions" | undefined>(undefined);
+  const [tab, setTab] = useState<"dropOffs" | "quotas" | "impressions" | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(!initialSurveySummary);
 
   const { selectedFilter, dateRange, resetState, registerAnalysisRefreshHandler } = useResponseFilter();
@@ -244,7 +244,6 @@ export const SummaryPage = ({
         />
       )}
       {tab === "dropOffs" && <SummaryDropOffs dropOff={surveySummary.dropOff} survey={surveyMemoized} />}
-      {isQuotasAllowed && tab === "quotas" && <QuotasSummary quotas={surveySummary.quotas} />}
       <div className="flex gap-1.5">
         <CustomFilter survey={surveyMemoized} />
       </div>
