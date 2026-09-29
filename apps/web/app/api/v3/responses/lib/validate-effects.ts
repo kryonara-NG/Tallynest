@@ -1,5 +1,4 @@
 import "server-only";
-import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import type { TEmbeddedValueResponse } from "@formbricks/types/embedded-data-resolver";
 import type {
