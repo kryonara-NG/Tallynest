@@ -50,12 +50,6 @@ type TParsedGatewayRoute = {
  * question — a workspace permission cannot identify whose records these are — and neither applies to
  * `create`.
  */
-const RECORD_MUTATING_OPERATIONS = new Set<TFeedbackRecordsGatewayOperation>([
-  "update",
-  "delete",
-  "bulkDelete",
-]);
-
 const parseFeedbackRecordsGatewayRoute = (method: string, pathname: string): TParsedGatewayRoute | null => {
   const normalizedPath = normalizeFeedbackRecordsPath(pathname);
   if (!normalizedPath) {
