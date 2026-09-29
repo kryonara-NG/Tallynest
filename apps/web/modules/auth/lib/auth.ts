@@ -293,11 +293,11 @@ export const auth = betterAuth({
 
   hooks: {
     before: async (ctx) => {
-      await requireDeletionConfirmationBeforeHandler(ctx);
-      await requirePasswordResetEnabledBeforeHandler(ctx, PASSWORD_RESET_DISABLED);
-      await signupPolicyBeforeHandler(ctx);
-      await hibpBreachCheckBeforeHandler(ctx);
-      await healCredentialAccountIssuerBeforeHandler(ctx);
+      await requireDeletionConfirmationBeforeHandler(ctx as never);
+      await requirePasswordResetEnabledBeforeHandler(ctx as never, PASSWORD_RESET_DISABLED);
+      await signupPolicyBeforeHandler(ctx as never);
+      await hibpBreachCheckBeforeHandler(ctx as never);
+      await healCredentialAccountIssuerBeforeHandler(ctx as never);
     },
     after: runAfterAuthHooks,
   },
