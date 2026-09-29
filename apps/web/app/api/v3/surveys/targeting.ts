@@ -3,7 +3,7 @@ import { InvalidInputError } from "@formbricks/types/errors";
 
 export const V3_CONTACTS_NOT_ENABLED_MESSAGE = "Contact targeting is not available in Tallynest core.";
 
-export const resolveV3ContactsEntitlement = async (_organizationId: string): Promise<boolean> => false;
+export const resolveV3ContactsEntitlement = async (workspaceId: string, organizationId?: string): Promise<{ resolvedOrganizationId: string | null; isContactsEnabled: boolean }> => ({ resolvedOrganizationId: organizationId ?? null, isContactsEnabled: false });
 
 export const assertV3SurveyTargetingFilterReferences = async (
   _workspaceId: string,
