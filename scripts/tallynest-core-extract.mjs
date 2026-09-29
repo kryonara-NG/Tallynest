@@ -34,6 +34,11 @@ for (const file of walk(web)) {
   let next = s;
   for (const [from, to] of replacements) next = next.split(from).join(to);
   next = next.replaceAll("withActivityContext(", "withAuditLogging(");
+  next = next.replaceAll('from "@/the excluded Enterprise SSO modulelib/better-auth-hooks"', 'from "@/modules/tallynest-core/noop-auth-hooks"');
+  next = next.replaceAll('from "@/the excluded Enterprise SSO modulecomponents/sso-options"', 'from "@/modules/tallynest-core/noop-auth-hooks"');
+  next = next.replaceAll('from "@/the excluded Enterprise SSO modulelib/recovery-intent"', 'from "@/modules/tallynest-core/noop-auth-hooks"');
+  next = next.replaceAll('from "@/the excluded Enterprise quota modulelib', 'from "@/modules/tallynest-core/quotas"');
+
   next = next.replaceAll("modules/ee/sso/", "the excluded Enterprise SSO module");
   next = next.replaceAll("modules/ee/quotas/", "the excluded Enterprise quota module");
   if (next !== s) fs.writeFileSync(file, next);
@@ -63,6 +68,17 @@ const removeTrees = [
   "modules/auth/lib/cutover/reencode-two-factor.integration.test.ts",
   "modules/auth/lib/sso-provisioning-reject-reasons.ts",
   "modules/ui/components/confirm-delete-segment-modal",
+  "modules/mcp/tools/workflows.test.ts",
+  "modules/mcp/tools/workflows.ts",
+  "modules/mcp/tools/schemas.ts",
+  "modules/mcp/tools/feedback-records.ts",
+  "modules/ui/components/pending-downgrade-banner",
+  "modules/setup/organization/[organizationId]/invite/actions.ts",
+  "modules/auth/verification-requested/actions.ts",
+  "modules/auth/lib/signup-policy.ts",
+  "modules/auth/lib/credential-issuer-heal.ts",
+  "modules/auth/lib/better-auth-verification-autosignin.ts",
+  "modules/auth/lib/better-auth-observability.ts",
 ];
 
 for (const rel of removeTrees) {
@@ -90,4 +106,4 @@ for (const file of walk(web)) {
   }
 }
 
-// workflow trigger checkpoint 6
+// workflow trigger checkpoint 7
