@@ -43,3 +43,4 @@ export const SurveyEditorPage = async (props: { params: Promise<{ workspaceId: s
     publicDomain={getPublicDomain()} enterpriseLicenseRequestFormUrl=""
   />;
 };
+export default SurveyEditorPage;
