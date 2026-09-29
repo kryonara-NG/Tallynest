@@ -77,7 +77,6 @@ const removeTrees = [
   "modules/auth/lib/credential-issuer-heal.test.ts",
   "modules/auth/lib/better-auth-verification-autosignin.test.ts",
   "modules/auth/lib/signup-policy.test.ts",
-  "modules/auth/lib/after-auth-hooks.ts",
   "modules/entitlements/lib/checks.test.ts",
   "modules/api/v2/organizations/[organizationId]/users/lib/users.ts",
   "modules/api/v2/organizations/[organizationId]/teams/[teamId]/route.ts",
