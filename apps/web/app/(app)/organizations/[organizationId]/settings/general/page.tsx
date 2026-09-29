@@ -28,7 +28,7 @@ const Page = async (props: Readonly<{ params: Promise<{ organizationId: string }
 
   await redirectBillingRoleFromRestrictedOrgSettings(params.organizationId);
 
-  const { session, currentUserMembership, organization, isOwner, isManager } = await getOrganizationAuth(
+  const { currentUserMembership, organization, isOwner } = await getOrganizationAuth(
     params.organizationId
   );
 
