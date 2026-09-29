@@ -27,7 +27,8 @@ export const SurveyStatusDropdown = () => {
     const updateSurveyActionResponse = await updateSurveyAction({ ...survey, status });
 
     if (updateSurveyActionResponse?.data) {
-      const { publishOn, status: resultingStatus } = updateSurveyActionResponse.data;
+      const { publishOn, status: resultingStatusRaw } = updateSurveyActionResponse.data;
+      const resultingStatus = resultingStatusRaw as TSurvey["status"];
       const isResultScheduled = resultingStatus === "paused" && publishOn !== null;
       const statusToToastMessage: Partial<Record<TSurvey["status"], string>> = {
         inProgress: t("common.survey_live"),
