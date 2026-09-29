@@ -45,6 +45,11 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "app/api/internal/feedback-datasets",
+  "modules/auth/lib/oauth-error.test.ts",
+  "modules/auth/lib/oauth-error.ts",
+  "app/(app)/account/settings/authorized-apps",
+  "app/(app)/account/authorize",
   "lib/feedback-source/access.ts",
   "lib/feedback-source/import.ts",
   "lib/feedback-source/utils.ts",
