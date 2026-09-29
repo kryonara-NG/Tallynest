@@ -24,4 +24,4 @@ The exact file/package classification remains the gate for each migration change
 
 No Enterprise source enters Tallynest production without explicit rights.
 
-Every substantial upstream-derived area must be recorded in SOURCE-INVENTORY.md and FORMbricks-DERIVATION.md before production use.
+Every substantial upstream-derived area must be recorded in SOURCE-INVENTORY.md and FORMBRICKS-DERIVATION.md before production use.
