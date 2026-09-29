@@ -79,8 +79,6 @@ const removeTrees = [
   "modules/auth/lib/signup-policy.test.ts",
   "modules/auth/lib/after-auth-hooks.ts",
   "modules/entitlements/lib/checks.test.ts",
-  "modules/api/v2/management/responses/lib/response.ts",
-  "modules/api/v2/management/responses/[responseId]/lib/response.ts",
   "modules/api/v2/organizations/[organizationId]/users/lib/users.ts",
   "modules/api/v2/organizations/[organizationId]/teams/[teamId]/route.ts",
   "modules/api/v2/organizations/[organizationId]/teams/[teamId]/route.test.ts",
