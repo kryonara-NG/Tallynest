@@ -45,6 +45,15 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "modules/mcp",
+  "app/c/[jwt]/page.tsx",
+  "app/api/v2/organizations/[organizationId]/workspace-teams/route.ts",
+  "app/api/v2/organizations/[organizationId]/users/route.ts",
+  "app/api/v2/organizations/[organizationId]/teams/[teamId]/route.ts",
+  "app/api/v2/management/surveys/[surveyId]/contact-links/segments/[segmentId]/route.ts",
+  "app/api/v2/management/surveys/[surveyId]/contact-links/contacts/[contactId]/route.ts",
+  "app/api/v2/management/contact-attribute-keys/route.ts",
+  "app/api/v2/management/contact-attribute-keys/[contactAttributeKeyId]/route.ts",
   "modules/setup/organization/[organizationId]/invite/components/invite-members.tsx",
   "modules/mcp/server.ts",
   "modules/mcp/tools/schemas.test.ts",
