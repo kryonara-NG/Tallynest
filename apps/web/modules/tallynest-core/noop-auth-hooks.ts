@@ -1,4 +1,6 @@
-export type SSOOptions = null;
+import type { ReactNode } from "react";
+export type SSOOptionsProps = Record<string, unknown>;
+export const SSOOptions = (_props: SSOOptionsProps): ReactNode => null;
 export const runWithSsoRequestContext = async <T>(handler: () => Promise<T>): Promise<T> => handler();
 export const createRecoveryIntent = async () => null;
 export const consumeRecoveryIntent = async () => null;
