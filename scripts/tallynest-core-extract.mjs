@@ -45,6 +45,12 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "lib/feedback-source/access.ts",
+  "lib/feedback-source/import.ts",
+  "lib/feedback-source/utils.ts",
+  "lib/feedback-source/csv-import.ts",
+  "lib/feedback-source/csv-file-import.ts",
+  "lib/feedback-source/actions.ts",
   "app/api/mcp",
   "modules/mcp",
   "app/c/[jwt]/page.tsx",
@@ -76,7 +82,6 @@ const removeTrees = [
   "app/api/v2/organizations/[organizationId]/workspace-teams",
   "app/api/v2/organizations/[organizationId]/users",
   "app/c/[jwt]",
-  "lib/feedback-source",
   "app/(app)/workspaces/[workspaceId]/workflows",
   "app/(app)/workspaces/[workspaceId]/unify",
   "app/(app)/workspaces/[workspaceId]/(analysis)/charts",
