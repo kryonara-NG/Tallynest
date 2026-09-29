@@ -11,7 +11,7 @@ import { TTeamPermission, ZTeamPermission } from "@/modules/tallynest-core/team-
 type TEnterpriseLicense = {
   active: boolean;
   features: TTallynestLicenseFeatures;
-  lastChecked: Date;
+  lastChecked: Date | null;
   isPendingDowngrade: boolean;
   fallbackLevel: string;
   status: "no-license" | "active";
