@@ -5,7 +5,6 @@ import { DatabaseError, ResourceNotFoundError } from "@formbricks/types/errors";
 import { TOrganizationBilling } from "@formbricks/types/organizations";
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { selectSurveyEmbeddedDataLinks } from "@/lib/embedded-data/survey-fields";
-import { getOrganizationBillingWithReadThroughSync } from "@/modules/ee/billing/lib/organization-billing";
 import { transformPrismaSurvey } from "@/modules/survey/lib/utils";
 
 export const selectSurvey = {
@@ -107,7 +106,8 @@ export const selectSurvey = {
 
 export const getOrganizationBilling = reactCache(
   async (organizationId: string): Promise<TOrganizationBilling> => {
-    const billing = await getOrganizationBillingWithReadThroughSync(organizationId);
+    const organization = await prisma.organization.findUnique({ where: { id: organizationId }, select: { billing: true } });
+    const billing = organization?.billing;
     if (!billing) throw new ResourceNotFoundError("Organization", organizationId);
     return billing;
   }
