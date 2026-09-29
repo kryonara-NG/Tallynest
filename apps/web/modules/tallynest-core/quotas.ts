@@ -21,6 +21,6 @@ export const reduceQuotaLimits = async (_quotaIds: string[], _tx: unknown): Prom
 
 export const getQuotas = async (_surveyId: string): Promise<[]> => [];
 
-export const createQuotaFullObject = (_quotaFull: unknown): Record<string, never> => {};
+export const createQuotaFullObject = (_quotaFull: unknown): Record<string, never> => ({});
 
 export const getQuota = async (_quotaId: string): Promise<null> => null;
