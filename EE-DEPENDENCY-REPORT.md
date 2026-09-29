@@ -1,28 +1,19 @@
 # Tallynest Enterprise Boundary Report
 
-Generated: 2026-09-29T04:43:28Z
+Generated: 2026-09-29T04:53:44Z
 
 Remaining references:
 .github/workflows/tallynest-core-extract.yml:27:          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > /tmp/ee.txt
 .github/workflows/verify.yml:33:            if git grep -n -E 'modules/ee|/ee/' -- apps/web packages; then
 apps/web/app/api/internal/feedback-datasets/lib/access.ts:6:import { getOrganizationIdFromDirectoryId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
-apps/web/app/api/v3/surveys/targeting.ts:14:import { getContactAttributeKeys } from "@/modules/ee/contacts/lib/contact-attribute-keys";
-apps/web/app/api/v3/surveys/targeting.ts:15:import { getExistingWorkspaceSurveyIds, getSegments } from "@/modules/ee/contacts/segments/lib/segments";
 apps/web/lib/authorization/resource-inventory.test.ts:27:    join(REPOSITORY_ROOT, "apps/web/modules/ee/audit-logs/types/audit-log.ts"),
-apps/web/lib/feedback-source/actions.ts:25:import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
-apps/web/lib/feedback-source/actions.ts:26:import { getContactIdsByUserIds } from "@/modules/ee/unify-feedback/lib/contacts";
-apps/web/lib/feedback-source/csv-file-import.ts:13:} from "@/modules/ee/unify-feedback/sources/types";
-apps/web/lib/feedback-source/csv-import.ts:4:import { CSV_IMPORT_MISSING_COLUMNS_ERROR_CODE } from "@/modules/ee/unify-feedback/sources/types";
-apps/web/lib/feedback-source/utils.ts:10:} from "@/modules/ee/unify-feedback/sources/types";
 apps/web/lib/utils/prisma-deadlock.ts:27: * cycle can form in the first place (see updateAttributes in modules/ee/contacts/lib/attributes.ts).
-apps/web/modules/api/v2/organizations/[organizationId]/users/lib/users.ts:222:    // Mirrors the last-owner guard in modules/ee/role-management/actions.ts: without it, this
 apps/web/modules/api/v2/organizations/[organizationId]/users/lib/utils.ts:101: * (modules/ee/role-management/actions.ts): an owner may assign any role, a manager may only assign
 apps/web/modules/auth/forgot-password/actions.test.ts:44:// Passthrough so the handler runs directly, matching modules/ee/billing/actions.test.ts. Importing the
 apps/web/modules/auth/lib/better-auth-schema-contract.test.ts:96:  user: { image: { file: "../../ee/sso/lib/better-auth-hooks.ts", strips: "image: undefined" } },
 apps/web/modules/auth/lib/verification-links.ts:10: * against the completion path — and `.coderabbit.yaml` (`apps/web/modules/ee/**`) forbids OSS importing
 apps/web/modules/auth/lib/verification-links.ts:11: * from `modules/ee` outside the `license-check` gate. Route paths carry no entitlement, so the fix is
 apps/web/modules/organization/lib/utils.ts:20: * asymmetry is required, not an oversight: `modules/ee/billing/page.tsx` is the billing role's
-apps/web/modules/survey/lib/survey.ts:8:import { getOrganizationBillingWithReadThroughSync } from "@/modules/ee/billing/lib/organization-billing";
 apps/web/vite.config.mts:130:        "modules/ee/billing/**", // Enterprise billing features
 apps/web/vite.config.mts:137:        "modules/ee/contacts/components/**", // Contact components
 docs/development/standards/organization/module-component-structure.mdx:32:Enterprise features are organized in a dedicated `modules/ee` directory:
