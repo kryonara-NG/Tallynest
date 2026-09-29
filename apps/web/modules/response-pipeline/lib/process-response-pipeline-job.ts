@@ -13,7 +13,6 @@ import { type TLinkedEmbeddedField } from "@formbricks/types/embedded-data-resol
 import { type TUserLocale, ZUserLocale } from "@formbricks/types/user";
 import { POSTHOG_KEY } from "@/lib/constants";
 import { selectSurveyEmbeddedDataLinks, withInlinedEmbeddedFields } from "@/lib/embedded-data/survey-fields";
-import { handleFeedbackSourcePipeline } from "@/lib/feedback-source/pipeline-handler";
 import { getIntegrations } from "@/lib/integration/service";
 import { isDatabasePoolExhaustionError } from "@/lib/jobs/pool-exhaustion";
 import { getResponseCountBySurveyId } from "@/lib/response/service";
@@ -587,17 +586,7 @@ const runResponseFinishedSideEffects = async ({
     }
   }
 
-  try {
-    await handleFeedbackSourcePipeline(data.response, survey, workspaceId);
-  } catch (error) {
-    logger.error(
-      {
-        ...logContext,
-        err: error,
-      },
-      "Response pipeline feedbackSource handling failed"
-    );
-  }
+
 
   await handleFollowUpsSafely({
     data,
