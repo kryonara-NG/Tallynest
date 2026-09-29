@@ -2,7 +2,6 @@
 
 import { cookies, headers } from "next/headers";
 import { z } from "zod";
-import { logger } from "@formbricks/logger";
 import {
   INVITE_TOKEN_INVALID_ERROR_CODE,
   InvalidInputError,
@@ -12,7 +11,7 @@ import {
   UnknownError,
 } from "@formbricks/types/errors";
 import { ZUser, ZUserEmail, ZUserLocale, ZUserName, ZUserPassword } from "@formbricks/types/user";
-import { IS_FORMBRICKS_CLOUD, IS_TURNSTILE_CONFIGURED, TURNSTILE_SECRET_KEY } from "@/lib/constants";
+import { IS_TURNSTILE_CONFIGURED, TURNSTILE_SECRET_KEY } from "@/lib/constants";
 import { verifyInviteToken } from "@/lib/jwt";
 import { createMembership } from "@/lib/membership/service";
 import { createOrganization, getOrganization } from "@/lib/organization/service";
