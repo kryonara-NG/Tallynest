@@ -7,7 +7,7 @@ import type { TResponse } from "@formbricks/types/responses";
  * Enterprise quota screening.
  */
 export type TQuotaEvaluationResult = {
-  quotaFull?: never;
+  quotaFull?: Record<string, unknown>;
   shouldEndSurvey: false;
   refreshedResponse?: TResponse;
 };
