@@ -25,8 +25,6 @@ const ZSendEmbedSurveyPreviewEmailAction = z.object({
 export const sendEmbedSurveyPreviewEmailAction = authenticatedActionClient
   .inputSchema(ZSendEmbedSurveyPreviewEmailAction)
   .action(async ({ ctx, parsedInput }) => {
-    const organizationId = await getOrganizationIdFromSurveyId(parsedInput.surveyId);
-
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.read", {
       type: "workspace",
       id: await getWorkspaceIdFromSurveyId(parsedInput.surveyId),
