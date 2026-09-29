@@ -45,6 +45,22 @@ for (const file of walk(web)) {
 }
 
 const removeTrees = [
+  "modules/setup/organization/[organizationId]/invite/components/invite-members.tsx",
+  "modules/mcp/server.ts",
+  "modules/mcp/tools/schemas.test.ts",
+  "app/api/v2/management/surveys/[surveyId]/contact-links/segments",
+  "app/api/v2/management/surveys/[surveyId]/contact-links/contacts",
+  "app/api/v2/management/contact-attribute-keys",
+  "app/api/(internal)/unify-feedback/sources/csv/import/route.test.ts",
+  "app/(app)/organizations/[organizationId]/settings/teams/page.tsx",
+  "modules/auth/lib/credential-issuer-heal.test.ts",
+  "modules/auth/lib/better-auth-verification-autosignin.test.ts",
+  "modules/auth/lib/signup-policy.test.ts",
+  "modules/auth/lib/signup-policy.ts",
+  "modules/auth/lib/credential-issuer-heal.ts",
+  "modules/auth/lib/better-auth-verification-autosignin.ts",
+  "modules/auth/lib/better-auth-observability.ts",
+  "modules/auth/lib/after-auth-hooks.ts",
   "modules/entitlements/lib/checks.test.ts",
   "modules/api/v2/management/responses/lib/response.ts",
   "modules/api/v2/management/responses/[responseId]/lib/response.ts",
@@ -85,11 +101,6 @@ const removeTrees = [
   "modules/mcp/tools/feedback-records.ts",
   "modules/ui/components/pending-downgrade-banner",
   "modules/setup/organization/[organizationId]/invite/actions.ts",
-  "modules/auth/verification-requested/actions.ts",
-  "modules/auth/lib/signup-policy.ts",
-  "modules/auth/lib/credential-issuer-heal.ts",
-  "modules/auth/lib/better-auth-verification-autosignin.ts",
-  "modules/auth/lib/better-auth-observability.ts",
 ];
 
 for (const rel of removeTrees) {
