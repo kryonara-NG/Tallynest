@@ -113,14 +113,12 @@ export const copySurveyToOtherWorkspace = async (
         getExistingSurvey(surveyId),
         getOrganizationByWorkspaceId(workspaceId),
       ]);
-    const existingQuotas: never[] = [];
 
     if (!existingWorkspaceCheck) throw new ResourceNotFoundError("Workspace", workspaceId);
     if (!existingWorkspace) throw new ResourceNotFoundError("Workspace", workspaceId);
     if (!existingSurvey) throw new ResourceNotFoundError("Survey", surveyId);
     if (!organization) throw new ResourceNotFoundError("Organization", workspaceId);
 
-    const isQuotasAllowed = false;
 
     let targetWorkspace: TWorkspaceWithLanguages | null = null;
 
