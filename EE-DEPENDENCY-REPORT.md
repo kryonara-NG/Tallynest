@@ -1,6 +1,6 @@
 # Tallynest Enterprise Boundary Report
 
-Generated: 2026-09-29T04:57:39Z
+Generated: 2026-09-29T05:03:55Z
 
 Remaining references:
 .github/workflows/tallynest-core-extract.yml:27:          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > /tmp/ee.txt
