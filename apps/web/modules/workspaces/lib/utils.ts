@@ -361,6 +361,7 @@ const resolveWorkspaceLayoutData = async (
     throw new AuthorizationError(t("common.membership_not_found"));
   }
 
+  const { isOwner, isManager } = getAccessFlags(membership.role);
   const license = await getEnterpriseLicense();
   const isAccessControlAllowed = false;
   const workspacePermission = isOwner || isManager ? "manage" : "readWrite";
