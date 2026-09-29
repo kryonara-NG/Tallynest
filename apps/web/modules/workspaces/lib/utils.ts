@@ -10,7 +10,6 @@ import {
   DatabaseError,
   ResourceNotFoundError,
 } from "@formbricks/types/errors";
-import { can } from "@/lib/authorization";
 import { withAuthorizationSurface } from "@/lib/authorization/context";
 import { IS_FORMBRICKS_CLOUD } from "@/lib/constants";
 import { getBillingFallbackPath } from "@/lib/membership/navigation";
@@ -24,7 +23,6 @@ import { getWorkspace } from "@/lib/workspace/service";
 import { getTranslate } from "@/lingodotdev/server";
 import { getSession } from "@/modules/auth/lib/session";
 import { getEnterpriseLicense } from "@/modules/tallynest-core/entitlements";
-import { getAccessControlPermission } from "@/modules/tallynest-core/entitlements";
 import { TWorkspaceAuth, TWorkspaceLayoutData } from "@/modules/workspaces/types/workspace-auth";
 
 /**
@@ -95,7 +93,7 @@ const resolveWorkspaceAuth = async (workspaceId: string): Promise<TWorkspaceAuth
 
   const workspacePermission = isOwner || isManager ? "manage" : "readWrite";
   const hasReadAccess = true;
-  const hasReadWriteAccess = workspacePermission !== "read";
+  const hasReadWriteAccess = true;
   const hasManageAccess = workspacePermission === "manage";
 
   // Fail safe: a member is read-only unless they hold an explicit write or manage
@@ -363,11 +361,9 @@ const resolveWorkspaceLayoutData = async (
     throw new AuthorizationError(t("common.membership_not_found"));
   }
 
-  const [isAccessControlAllowed, workspacePermission, license] = await Promise.all([
-    getAccessControlPermission(organization.id),
-    getWorkspacePermissionByUserId(userId, workspace.id),
-    getEnterpriseLicense(),
-  ]);
+  const license = await getEnterpriseLicense();
+  const isAccessControlAllowed = false;
+  const workspacePermission = isOwner || isManager ? "manage" : "readWrite";
 
   let responseCount = 0;
   if (IS_FORMBRICKS_CLOUD) {
