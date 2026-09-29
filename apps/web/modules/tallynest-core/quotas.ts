@@ -1,3 +1,4 @@
+import type { TResponse } from "@formbricks/types/responses";
 /**
  * Core quota boundary.
  *
@@ -8,7 +9,7 @@
 export type TQuotaEvaluationResult = {
   quotaFull?: never;
   shouldEndSurvey: false;
-  refreshedResponse?: never;
+  refreshedResponse?: TResponse;
 };
 
 export const evaluateResponseQuotas = async (_input: unknown): Promise<TQuotaEvaluationResult> => ({
