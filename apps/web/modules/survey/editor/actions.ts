@@ -150,7 +150,7 @@ const captureSurveyEditDiffEvents = (
   }
 
   // follow_up_added
-  const oldFollowUpIds = new Set((oldSurvey.followUps ?? []).map((f) => f.id));
+  const oldFollowUpIds = new Set((oldSurvey.followUps ?? []).map((f: { id: string }) => f.id));
   const newFollowUps = (newSurvey.followUps ?? []).filter((f) => !f.deleted);
   for (const followUp of newFollowUps) {
     if (!oldFollowUpIds.has(followUp.id)) {
@@ -211,7 +211,7 @@ export const updateSurveyDraftAction = authenticatedActionClient.inputSchema(ZSu
     const oldObject = await getSurvey(survey.id);
 
     if (survey.followUps.length) {
-      const oldFollowUpIds = new Set((oldObject?.followUps ?? []).map((f) => f.id));
+      const oldFollowUpIds = new Set((oldObject?.followUps ?? []).map((f: { id: string }) => f.id));
       await checkSurveyFollowUpsPermission(
         organizationId,
         survey.followUps.map((f) => f.id),
