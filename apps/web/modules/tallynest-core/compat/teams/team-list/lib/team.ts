@@ -1,0 +1,1 @@
+export const getTeam=async(..._args:any[])=>null; export const getTeams=async(..._args:any[])=>[];
