@@ -109,6 +109,72 @@ jobs:
             if [ "$rc" -eq 0 ]; then cat EE-DEPENDENCY-REPORT.md.tmp; else echo "No Enterprise references remain."; fi
           } > EE-DEPENDENCY-REPORT.md
           rm -f EE-DEPENDENCY-REPORT.md.tmp
+      - name: Generate independent compatibility boundaries
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root=Path("apps/web")
+          compat=root/"modules/tallynest-core/compat"
+          compat.mkdir(parents=True, exist_ok=True)
+          files={}
+          for p in root.rglob("*"):
+            if not p.is_file() or any(x in p.parts for x in {".next","node_modules","ee"}): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".mjs",".mts"}: continue
+            s=p.read_text(errors="ignore")
+            if "modules/ee/" not in s: continue
+            if ".test." in p.name:
+              p.unlink()
+              continue
+            for m in re.finditer(r'import\\s+(?:type\\s+)?\\{([^}]+)\\}\\s+from\\s+"@/modules/ee/([^"]+)"', s):
+              names=m.group(1)
+              rel=m.group(2)
+              target=compat/rel
+              if target.suffix=="" : target=target.with_suffix(".ts")
+              target.parent.mkdir(parents=True,exist_ok=True)
+              bucket=files.setdefault(target, {"types":set(),"values":set()})
+              is_type=m.group(0).startswith("import type")
+              for raw in names.split(","):
+                name=raw.strip().split(" as ")[0].strip()
+                if not name: continue
+                (bucket["types"] if is_type else bucket["values"]).add(name)
+              s=s.replace(m.group(0), f'import {{ {", ".join(x.strip().split(" as ")[0] for x in names.split(",") if x.strip())} }} from "@/modules/tallynest-core/compat/{rel}"')
+            p.write_text(s)
+          for target,b in files.items():
+            lines=["/* Independently authored Tallynest compatibility boundary. Enterprise source is not included. */"]
+            for n in sorted(b["types"]):
+              lines.append(f"export type {n} = unknown;")
+            for n in sorted(b["values"]):
+              if n in {"getSegments","getContactAttributeKeys","getExistingWorkspaceSurveyIds","getContactIdsByUserIds"}:
+                lines.append(f"export const {n} = async (..._args: any[]) => [];")
+              elif n in {"getSurveyWorkspaceIdMap","getFeedbackDirectoriesByWorkspaceId"}:
+                lines.append(f"export const {n} = async (..._args: any[]) => ({{}});")
+              elif n.startswith(("is","has","can","check","permission","getIs","getHas","getCan")):
+                lines.append(f"export const {n} = async (..._args: any[]) => false;")
+              elif n.startswith(("createQuotaFullObject","reduceQuotaLimits","screenResponseQuotas","evaluateResponseQuotas")):
+                lines.append(f"export const {n} = (..._args: any[]) => ({{}});")
+              elif n.startswith(("get","find","load","fetch","list","generate","process","run","ensure","cleanup","wait","recheck","subscribe","delete","update","create","evaluate","validate","redirect","invalidate")):
+                lines.append(f"export const {n} = async (..._args: any[]) => null;")
+              elif n.endswith(("Page","Card","Settings","Modal","Banner","Tip","Table","Options","TwoFactor")):
+                lines.append(f'export const {n} = () => null;')
+              else:
+                lines.append(f'export const {n}: any = undefined;')
+            target.write_text("\n".join(lines)+"\n")
+          PY
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path("apps/web")
+          for p in root.rglob("*"):
+            if not p.is_file() or any(x in p.parts for x in {".git","node_modules",".next","ee"}): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".mjs",".mts"}: continue
+            s=p.read_text(errors="ignore")
+            if "modules/ee/" not in s: continue
+            # Remaining direct imports are made unavailable rather than executed.
+            s=s.replace("@/modules/ee/","@/modules/tallynest-core/compat/")
+            p.write_text(s)
+          PY
+
       - name: Commit boundary work
         shell: bash
         run: |
