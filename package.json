@@ -52,7 +52,7 @@
     "api:v3:check": "node docs/api-v3-reference/scripts/bundle.mjs --check",
     "dev:setup": "bash scripts/setup-dev-env.sh",
     "dev:authzed": "bash scripts/dev-authzed-up.sh",
-    "compat:verify": "node scripts/ensure-tallynest-compat.mjs"
+    "compat:verify": "node scripts/ensure-tallynest-compat.mjs && echo compatibility-ok"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.11.3",
