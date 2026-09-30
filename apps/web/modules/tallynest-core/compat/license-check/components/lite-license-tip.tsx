@@ -1,0 +1,1 @@
+export const LiteLicenseTip=(_props:any)=>null;
