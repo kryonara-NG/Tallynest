@@ -8,7 +8,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, test, vi } from "vit
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
-import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import {
   auditFailedAuthAfter,
   auditPasswordReset,
@@ -152,7 +152,7 @@ describe("auditFailedAuthAfter (failed-login audit)", () => {
       "invalid_email_or_password",
       "credentials",
       "password",
-      TALLYNEST_UNKNOWN_DATA,
+      TALLYNEST_TALLYNEST_UNKNOWN_DATA,
       "ada@example.com"
     );
   });
@@ -212,7 +212,7 @@ describe("auditFailedAuthAfter (failed-login audit)", () => {
       reason,
       "credentials",
       "password",
-      TALLYNEST_UNKNOWN_DATA,
+      TALLYNEST_TALLYNEST_UNKNOWN_DATA,
       "ada@example.com"
     );
   });

@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const POST = "TALLYNEST_UNAVAILABLE";
+export const POST: any = (..._args: any[]) => undefined;

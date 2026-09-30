@@ -1,1 +1,0 @@
-import { notFound } from "next/navigation"; export const WorkspaceTeams=(_props:any)=>null; export default function WorkspaceTeamsPage(){notFound();}

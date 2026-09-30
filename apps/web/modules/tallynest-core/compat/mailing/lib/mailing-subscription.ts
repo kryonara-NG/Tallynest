@@ -1,2 +1,3 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const subscribeUserToMailingList: any = undefined;
+export const getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
+import { subscribeUserToMailingList: any = (..._args: any[]) => undefined;

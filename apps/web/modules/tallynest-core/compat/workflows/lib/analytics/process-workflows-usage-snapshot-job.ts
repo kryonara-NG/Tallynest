@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const processWorkflowsUsageSnapshotJob = async (..._args: any[]) => null;
+export const processWorkflowsUsageSnapshotJob: any = (..._args: any[]) => undefined;

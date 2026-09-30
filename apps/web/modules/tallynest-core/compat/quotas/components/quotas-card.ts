@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const QuotasCard = () => null;
+export const QuotasCard = (_props: any) => null;

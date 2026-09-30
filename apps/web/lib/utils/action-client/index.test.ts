@@ -56,7 +56,7 @@ vi.mock("@/lib/constants", () => ({
 
 // Mock audit log types
 vi.mock("@/modules/tallynest-core/api-audit", () => ({
-  TALLYNEST_UNKNOWN_DATA: "unknown",
+  TALLYNEST_TALLYNEST_UNKNOWN_DATA: "unknown",
 }));
 
 // ── shared helper tests (pure logic, no action client needed) ──────────

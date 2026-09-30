@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const PUT = "TALLYNEST_UNAVAILABLE";
+export const PUT: any = (..._args: any[]) => undefined;

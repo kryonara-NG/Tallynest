@@ -1,1 +1,0 @@
-export const FaviconCustomizationSettings=(_props:any)=>null;

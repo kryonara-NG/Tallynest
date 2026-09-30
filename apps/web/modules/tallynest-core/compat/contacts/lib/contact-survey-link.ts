@@ -1,2 +1,40 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const verifyContactSurveyToken: any = undefined;
+export type Metadata } from "next";
+import { notFound } from "next/navigation";
+import { findMatchingLocale } from "@/lib/utils/locale";
+import { getTranslate } from "@/lingodotdev/server";
+import { verifyContactSurveyToken = any;
+export const ZContactLinkParams: any = (..._args: any[]) => undefined;
+export const ZContactLinkQuery: any = (..._args: any[]) => undefined;
+export const ZContactLinksBySegmentQuery: any = (..._args: any[]) => undefined;
+export const can } from "@/lib/authorization";
+import { getWorkspaceAuthorizationActionForMethod } from "@/lib/authorization/permission-action";
+import { getOrganizationIdFromSurveyId } from "@/lib/utils/helper";
+import { authenticatedApiClient } from "@/modules/api/v2/auth/authenticated-api-client";
+import { responses } from "@/modules/api/v2/lib/response";
+import { handleApiError } from "@/modules/api/v2/lib/utils";
+import { getWorkspaceId } from "@/modules/api/v2/management/lib/helper";
+import { getContact } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/contacts/[contactId]/lib/contacts";
+import { getResponse } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/contacts/[contactId]/lib/response";
+import { getSurvey } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/contacts/[contactId]/lib/surveys";
+import {
+  TContactLinkParams: any = (..._args: any[]) => undefined;
+export const logger } from "@formbricks/logger";
+import { can } from "@/lib/authorization";
+import { getWorkspaceAuthorizationActionForMethod } from "@/lib/authorization/permission-action";
+import { getOrganizationIdFromSurveyId } from "@/lib/utils/helper";
+import { authenticatedApiClient } from "@/modules/api/v2/auth/authenticated-api-client";
+import { responses } from "@/modules/api/v2/lib/response";
+import { handleApiError } from "@/modules/api/v2/lib/utils";
+import { getWorkspaceId } from "@/modules/api/v2/management/lib/helper";
+import { calculateExpirationDate } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/lib/utils";
+import { getContactsInSegment } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/segments/[segmentId]/lib/contact";
+import {
+  ZContactLinksBySegmentParams: any = (..._args: any[]) => undefined;
+export const } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/contacts/[contactId]/types/survey";
+import { calculateExpirationDate } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/lib/utils";
+import { ApiErrorResponseV2 } from "@/modules/api/v2/types/api-error";
+import { getContactSurveyLink: any = (..._args: any[]) => undefined;
+export const } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/segments/[segmentId]/types/contact";
+import { ApiErrorResponseV2 } from "@/modules/api/v2/types/api-error";
+import { getContactSurveyLink: any = (..._args: any[]) => undefined;

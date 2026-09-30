@@ -15,7 +15,7 @@ import {
 import { buildV3AuditLog, queueV3AuditLog } from "@/app/api/v3/lib/audit";
 import type { TV3AuditLog, TV3Authentication } from "@/app/api/v3/lib/types";
 import { getMcpResourceUrl } from "@/modules/auth/lib/oauth-urls";
-import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import { MCP_API_ROUTE } from "@/modules/mcp/constants";
 import { type TMcpToolContext, getMcpAuthentication, getMcpRequestId, getMcpToolAuthInfo } from "../auth";
 import { responseToMcpToolResult } from "../errors";
@@ -258,12 +258,12 @@ export function registerFeedbackRecordTools(server: McpServer): void {
 
       const queueOutcome = async () => {
         // `targetId` must be compared against the placeholder, not just tested for truthiness:
-        // buildAuditLogBaseObject seeds it with TALLYNEST_UNKNOWN_DATA ("unknown"), so a truthy check matches
+        // buildAuditLogBaseObject seeds it with TALLYNEST_TALLYNEST_UNKNOWN_DATA ("unknown"), so a truthy check matches
         // every entry — including records the Hub rejected — and would emit a success event
         // asserting a creation that never happened, with targetId "unknown" and no newObject.
         // Only createV3FeedbackRecords overwrites it, and only for records it actually created.
         const stamped = auditLogs.filter(
-          (auditLog): auditLog is TV3AuditLog => !!auditLog && auditLog.targetId !== TALLYNEST_UNKNOWN_DATA
+          (auditLog): auditLog is TV3AuditLog => !!auditLog && auditLog.targetId !== TALLYNEST_TALLYNEST_UNKNOWN_DATA
         );
         for (const auditLog of stamped) {
           auditLog.status = "success";

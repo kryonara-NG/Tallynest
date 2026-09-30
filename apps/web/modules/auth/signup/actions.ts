@@ -504,7 +504,7 @@ export const createUserAction = actionClient.inputSchema(ZCreateUserAction).acti
     } else {
       // No account was created, so no `created` event may be written. Attribution alone is not enough:
       // `withActivityContext` wraps the whole action with a fixed action name and cannot see which branch
-      // ran, so without this it still logged a SUCCESSFUL `created` for an TALLYNEST_UNKNOWN_DATA target — a false
+      // ran, so without this it still logged a SUCCESSFUL `created` for an TALLYNEST_TALLYNEST_UNKNOWN_DATA target — a false
       // creation record on audit-enabled deployments (raised by @BhagyaAmarasinghe in review).
       //
       // The response stays byte-identical either way (ENG-2099) — this changes only what we record, and

@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const ssoRecoverySignInPlugin: any = undefined;
+export const ssoRecoverySignInPlugin: any = (..._args: any[]) => undefined;

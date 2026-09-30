@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const PricingPage = () => null;
+export const PricingPage = (_props: any) => null;

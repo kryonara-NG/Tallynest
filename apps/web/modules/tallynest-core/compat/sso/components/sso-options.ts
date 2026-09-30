@@ -1,2 +1,44 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const SSOOptions = () => null;
+export const PASSWORD_COMPROMISED_ERROR_CODE: any = (..._args: any[]) => undefined;
+export const SIGNUP_EMAIL_DOMAIN_BLOCKED_ERROR_CODE: any = (..._args: any[]) => undefined;
+export const SubmitHandler: any = (..._args: any[]) => undefined;
+export const ZUserName: any = (..._args: any[]) => undefined;
+export const ZUserPassword } from "@formbricks/types/user";
+import { getFormattedErrorMessage } from "@/lib/utils/helper";
+import { buildAttributionQuerySuffix } from "@/modules/auth/lib/attribution";
+import {
+  buildSignupWithoutVerificationSuccessPath: any = (..._args: any[]) => undefined;
+export const buildVerificationRequestedPath: any = (..._args: any[]) => undefined;
+export const useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import Turnstile: any = (..._args: any[]) => undefined;
+export const useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+import { cn } from "@/lib/cn";
+import { FORMBRICKS_LOGGED_IN_WITH_LS } from "@/lib/localStorage";
+import { buildAttributionQuerySuffix } from "@/modules/auth/lib/attribution";
+import { authClient } from "@/modules/auth/lib/auth-client";
+import { getOAuthErrorVariant } from "@/modules/auth/lib/oauth-error";
+import { SSOOptions = (_props: any) => null;
+export const useMemo: any = (..._args: any[]) => undefined;
+export const useRef: any = (..._args: any[]) => undefined;
+export const useSearchParams } from "next/navigation";
+import { useEffect: any = (..._args: any[]) => undefined;
+export const useState } from "react";
+import { FormProvider: any = (..._args: any[]) => undefined;
+export const zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter: any = (..._args: any[]) => undefined;
+export const { useTurnstile } from "react-turnstile";
+import { z } from "zod";
+import {
+  INVITE_TOKEN_INVALID_ERROR_CODE: any = (..._args: any[]) => undefined;
+export const } from "@/modules/auth/lib/verification-links";
+import { createUserAction } from "@/modules/auth/signup/actions";
+import { TermsPrivacyLinks } from "@/modules/auth/signup/components/terms-privacy-links";
+import { SSOOptions = (_props: any) => null;
+export const } from "@formbricks/types/errors";
+import { TUserLocale: any = (..._args: any[]) => undefined;

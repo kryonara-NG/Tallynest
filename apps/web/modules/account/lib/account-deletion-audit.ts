@@ -1,7 +1,7 @@
 import "server-only";
 import { logger } from "@formbricks/logger";
 import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
-import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export const queueAccountDeletionAuditEvent = async ({
   eventId,
@@ -23,7 +23,7 @@ export const queueAccountDeletionAuditEvent = async ({
       userId,
       userType: "user",
       targetId: targetUserId,
-      organizationId: TALLYNEST_UNKNOWN_DATA,
+      organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
       oldObject: oldUser,
       status,
       ...(eventId ? { eventId } : {}),

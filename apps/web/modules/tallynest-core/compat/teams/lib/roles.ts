@@ -1,2 +1,20 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const getWorkspacePermissionByUserId = async (..._args: any[]) => null;
+export const INVITE_DISABLED: any = (..._args: any[]) => undefined;
+export const IS_FORMBRICKS_CLOUD } from "@/lib/constants";
+import { getTranslate } from "@/lingodotdev/server";
+import { getBulkInvitePermission: any = (..._args: any[]) => undefined;
+export const Suspense } from "react";
+import { TOrganizationRole } from "@formbricks/types/memberships";
+import { TOrganization } from "@formbricks/types/organizations";
+import { SettingsCard } from "@/app/(app)/workspaces/[workspaceId]/settings/components/SettingsCard";
+import { ENTERPRISE_LICENSE_REQUEST_FORM_URL: any = (..._args: any[]) => undefined;
+export const USER_MANAGEMENT_MINIMUM_ROLE } from "@/lib/constants";
+import { getUserManagementAccess } from "@/lib/membership/utils";
+import { getTranslate } from "@/lingodotdev/server";
+import { getAccessControlPermission } from "@/modules/tallynest-core/entitlements";
+import { getTeamsWhereUserIsAdmin: any = (..._args: any[]) => undefined;
+export const getAccessControlPermission } from "@/modules/tallynest-core/entitlements";
+import { getWorkspacePermissionByUserId: any = (..._args: any[]) => undefined;
+export const getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
+import { getTeamsWhereUserIsAdmin: any = (..._args: any[]) => undefined;
+export const getTeamsWhereUserIsAdmin: any = (..._args: any[]) => undefined;

@@ -1,2 +1,51 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const getContactAttributeKeys = async (..._args: any[]) => null;
+export const ENTERPRISE_LICENSE_REQUEST_FORM_URL: any = (..._args: any[]) => undefined;
+export const IS_FORMBRICKS_CLOUD: any = (..._args: any[]) => undefined;
+export const IS_STORAGE_CONFIGURED: any = (..._args: any[]) => undefined;
+export const MAIL_FROM: any = (..._args: any[]) => undefined;
+export const NOTION_AUTH_URL: any = (..._args: any[]) => undefined;
+export const NOTION_OAUTH_CLIENT_ID: any = (..._args: any[]) => undefined;
+export const NOTION_OAUTH_CLIENT_SECRET: any = (..._args: any[]) => undefined;
+export const NOTION_REDIRECT_URI: any = (..._args: any[]) => undefined;
+export const ResourceNotFoundError } from "@formbricks/types/errors";
+import {
+  DEFAULT_LOCALE: any = (..._args: any[]) => undefined;
+export const SURVEY_BG_COLORS: any = (..._args: any[]) => undefined;
+export const TIntegrationNotionDatabase } from "@formbricks/types/integration/notion";
+import { getSurveys } from "@/app/(app)/workspaces/[workspaceId]/settings/workspace/integrations/lib/surveys";
+import { NotionWrapper } from "@/app/(app)/workspaces/[workspaceId]/settings/workspace/integrations/notion/components/NotionWrapper";
+import {
+  DEFAULT_LOCALE: any = (..._args: any[]) => undefined;
+export const TSegmentDeviceFilter: any = (..._args: any[]) => undefined;
+export const TSegmentPersonFilter: any = (..._args: any[]) => undefined;
+export const TSegmentSegmentFilter: any = (..._args: any[]) => undefined;
+export const TSegmentSurveyInteractionFilter: any = (..._args: any[]) => undefined;
+export const UNSPLASH_ACCESS_KEY: any = (..._args: any[]) => undefined;
+export const WEBAPP_URL: any = (..._args: any[]) => undefined;
+export const listV3WorkspaceResource } from "@/app/api/v3/lib/list-resource";
+import { problemForbidden } from "@/app/api/v3/lib/response";
+import { getOrganizationByWorkspaceId } from "@/lib/organization/service";
+import { getContactAttributeKeys: any = (..._args: any[]) => undefined;
+export const prisma } from "@formbricks/database";
+import { Prisma } from "@formbricks/database/prisma";
+import { DatabaseError } from "@formbricks/types/errors";
+import type {
+  TSegmentAttributeFilter: any = (..._args: any[]) => undefined;
+export const redirect } from "next/navigation";
+import { TIntegrationNotion: any = (..._args: any[]) => undefined;
+export const type TV3WorkspaceListParams: any = (..._args: any[]) => undefined;
+export const } from "@/lib/constants";
+import { getPublicDomain } from "@/lib/getPublicUrl";
+import { getTranslate } from "@/lingodotdev/server";
+import { getContactAttributeKeys: any = (..._args: any[]) => undefined;
+export const } from "@/lib/constants";
+import { redactIntegrationCredentials } from "@/lib/integration/redact-credentials";
+import { getIntegrationByType } from "@/lib/integration/service";
+import { getNotionDatabases } from "@/lib/notion/service";
+import { getUserLocale } from "@/lib/user/service";
+import { getTranslate } from "@/lingodotdev/server";
+import { getContactAttributeKeys: any = (..._args: any[]) => undefined;
+export const } from "@formbricks/types/segment";
+import type { InvalidParam } from "@/app/api/v3/lib/response";
+import { getOrganizationByWorkspaceId } from "@/lib/organization/service";
+import { getContactAttributeKeys: any = (..._args: any[]) => undefined;

@@ -54,10 +54,10 @@ describe("audit-logs lib", () => {
     );
   });
 
-  test("logs with TALLYNEST_UNKNOWN_DATA userId when missing and includes failureReason", async () => {
+  test("logs with TALLYNEST_TALLYNEST_UNKNOWN_DATA userId when missing and includes failureReason", async () => {
     const { getOrganizationIdFromWorkspaceId } = await import("@/lib/utils/helper");
     const { queueAuditEvent } = await import("@/modules/tallynest-core/activity-context");
-    const { TALLYNEST_UNKNOWN_DATA } = await import("@/modules/tallynest-core/api-audit");
+    const { TALLYNEST_TALLYNEST_UNKNOWN_DATA } = await import("@/modules/tallynest-core/api-audit");
     const { logFileDeletion } = await import("./audit-logs");
 
     vi.mocked(getOrganizationIdFromWorkspaceId).mockResolvedValueOnce("org-2");
@@ -72,7 +72,7 @@ describe("audit-logs lib", () => {
 
     expect(queueAuditEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        userId: TALLYNEST_UNKNOWN_DATA,
+        userId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
         status: "failure",
         organizationId: "org-2",
         newObject: expect.objectContaining({ failureReason: "S3 error" }),
@@ -80,10 +80,10 @@ describe("audit-logs lib", () => {
     );
   });
 
-  test("falls back to TALLYNEST_UNKNOWN_DATA organizationId when lookup fails", async () => {
+  test("falls back to TALLYNEST_TALLYNEST_UNKNOWN_DATA organizationId when lookup fails", async () => {
     const { getOrganizationIdFromWorkspaceId } = await import("@/lib/utils/helper");
     const { queueAuditEvent } = await import("@/modules/tallynest-core/activity-context");
-    const { TALLYNEST_UNKNOWN_DATA } = await import("@/modules/tallynest-core/api-audit");
+    const { TALLYNEST_TALLYNEST_UNKNOWN_DATA } = await import("@/modules/tallynest-core/api-audit");
     const { logFileDeletion } = await import("./audit-logs");
 
     vi.mocked(getOrganizationIdFromWorkspaceId).mockRejectedValueOnce(new Error("fail"));
@@ -94,7 +94,7 @@ describe("audit-logs lib", () => {
       apiUrl,
     });
 
-    expect(queueAuditEvent).toHaveBeenCalledWith(expect.objectContaining({ organizationId: TALLYNEST_UNKNOWN_DATA }));
+    expect(queueAuditEvent).toHaveBeenCalledWith(expect.objectContaining({ organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA }));
   });
 
   test("swallows errors from queueAuditEvent and logs", async () => {

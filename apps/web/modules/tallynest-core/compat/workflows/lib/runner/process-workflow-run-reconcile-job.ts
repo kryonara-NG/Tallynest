@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const processWorkflowRunReconcileJob = async (..._args: any[]) => null;
+export const processWorkflowRunReconcileJob: any = (..._args: any[]) => undefined;

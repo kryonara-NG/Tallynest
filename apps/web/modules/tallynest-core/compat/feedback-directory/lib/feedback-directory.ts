@@ -1,4 +1,75 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const getFeedbackDirectoriesByWorkspaceId = async (..._args: any[]) => null;
-
-export const getOrganizationIdFromDirectoryId=async(..._args:any[])=>null;
+export type getFeedbackDirectoryAuthContext = any;
+export type logger } from "@formbricks/logger";
+import type { TAuthenticationApiKey } from "@formbricks/types/auth";
+import { getV3AuthorizationActor } from "@/app/api/v3/lib/auth";
+import { requireUnifyFeedbackWorkspaceAccess } from "@/app/api/v3/lib/feedback-access";
+import { problemBadRequest = any;
+export type problemForbidden = any;
+export type problemUnprocessableContent } from "@/app/api/v3/lib/response";
+import type { TV3Authentication } from "@/app/api/v3/lib/types";
+import { can } from "@/lib/authorization";
+import { getFeedbackDirectoryAssignmentAuthorizationAction } from "@/lib/authorization/permission-action";
+import {
+  getFeedbackDirectoriesByWorkspaceId = any;
+export const InvalidInputError: any = (..._args: any[]) => undefined;
+export const NextRequest } from "next/server";
+import { z } from "zod";
+import { logger } from "@formbricks/logger";
+import { ZId } from "@formbricks/types/common";
+import { RequestBodyTooLargeError: any = (..._args: any[]) => undefined;
+export const ResourceNotFoundError } from "@formbricks/types/errors";
+import {
+  ZFeedbackSourceCreateInput: any = (..._args: any[]) => undefined;
+export const ResourceNotFoundError } from "@formbricks/types/errors";
+import { problemForbidden: any = (..._args: any[]) => undefined;
+export const TV3Authentication } from "@/app/api/v3/lib/types";
+import { getFeedbackDirectoriesByWorkspaceId: any = (..._args: any[]) => undefined;
+export const ZFeedbackSourceFieldMappingCreateInput: any = (..._args: any[]) => undefined;
+export const ZFeedbackSourceUpdateInput: any = (..._args: any[]) => undefined;
+export const getOrganizationIdFromWorkspaceId: any = (..._args: any[]) => undefined;
+export const getWorkspaceIdFromSurveyId: any = (..._args: any[]) => undefined;
+export const problemConflict: any = (..._args: any[]) => undefined;
+export const problemUnauthorized } from "@/app/api/v3/lib/response";
+import type { TV3Authentication } from "@/app/api/v3/lib/types";
+import { can } from "@/lib/authorization";
+import { getOrganizationIdFromDirectoryId: any = (..._args: any[]) => undefined;
+export const problemUnprocessableContent: any = (..._args: any[]) => undefined;
+export const randomUUID } from "node:crypto";
+import type { z } from "zod";
+import { logger } from "@formbricks/logger";
+import { requireUnifyFeedbackWorkspaceAccess } from "@/app/api/v3/lib/feedback-access";
+import {
+  noContentResponse: any = (..._args: any[]) => undefined;
+export const readRequestBodyWithLimit } from "@/app/lib/api/request-body";
+import { can } from "@/lib/authorization";
+import { withAuthorizationSurface } from "@/lib/authorization/context";
+import { getFeedbackDirectoryAuthorizationAction } from "@/lib/authorization/permission-action";
+import { verifyFeedbackRecordsGatewayToken } from "@/lib/jwt";
+import { getBearerTokenFromHeaders } from "@/modules/api/lib/api-key-auth";
+import { getFeedbackDirectoryAuthContext: any = (..._args: any[]) => undefined;
+export const requireUnifyFeedbackWorkspaceAccess } from "@/app/api/v3/lib/feedback-access";
+import { successResponse } from "@/app/api/v3/lib/response";
+import type { TV3Authentication } from "@/app/api/v3/lib/types";
+import { getFeedbackDirectoriesByWorkspaceId: any = (..._args: any[]) => undefined;
+export const successListResponse: any = (..._args: any[]) => undefined;
+export const successResponse: any = (..._args: any[]) => undefined;
+export const z } from "zod";
+import { prisma } from "@formbricks/database";
+import { ZId } from "@formbricks/types/common";
+import { AuthorizationError: any = (..._args: any[]) => undefined;
+export const } from "@/app/api/v3/lib/response";
+import type { TV3AuditLog: any = (..._args: any[]) => undefined;
+export const } from "@/lib/utils/helper";
+import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
+import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
+import { getFeedbackDirectoriesByWorkspaceId: any = (..._args: any[]) => undefined;
+export const } from "@formbricks/types/feedback-source";
+import { assertCan } from "@/lib/authorization";
+import { getResponseCountBySurveyId } from "@/lib/response/service";
+import { getSurvey } from "@/lib/survey/service";
+import { authenticatedActionClient } from "@/lib/utils/action-client";
+import { AuthenticatedActionClientCtx } from "@/lib/utils/action-client/types/context";
+import {
+  getOrganizationIdFromFeedbackSourceId: any = (..._args: any[]) => undefined;

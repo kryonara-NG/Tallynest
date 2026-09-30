@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/nextjs";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
-import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import {
   createAuditIdentifier,
   hashPassword,
@@ -744,7 +744,7 @@ describe("Auth Utils", () => {
         userId: "user_123",
         userType: "user",
         targetId: "user_123",
-        organizationId: TALLYNEST_UNKNOWN_DATA,
+        organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
         status: "failure",
         newObject: {
           failureReason: "invalid_token",
@@ -768,7 +768,7 @@ describe("Auth Utils", () => {
         userId: "user_123",
         userType: "user",
         targetId: "user_123",
-        organizationId: TALLYNEST_UNKNOWN_DATA,
+        organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
         status: "success",
         newObject: {
           provider: "session",
@@ -789,7 +789,7 @@ describe("Auth Utils", () => {
         userId: "user_123",
         userType: "user",
         targetId: "user_123",
-        organizationId: TALLYNEST_UNKNOWN_DATA,
+        organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
         status: "success",
         newObject: {
           provider: "session",

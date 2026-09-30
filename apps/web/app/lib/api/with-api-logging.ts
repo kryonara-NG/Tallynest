@@ -23,7 +23,7 @@ import { applyIPRateLimit, applyRateLimit } from "@/modules/core/rate-limit/help
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
 import { queueAuditEvent } from "@/modules/tallynest-core/activity-context";
-import { TAuditAction, TAuditTarget, TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TAuditAction, TAuditTarget, TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export type TApiAuditLog = Parameters<typeof queueAuditEvent>[0];
 export type TApiV1Authentication = TAuthenticationApiKey | Session | null;
@@ -373,9 +373,9 @@ export const buildAuditLogBaseObject = (
   return {
     action,
     targetType,
-    userId: TALLYNEST_UNKNOWN_DATA,
-    targetId: TALLYNEST_UNKNOWN_DATA,
-    organizationId: TALLYNEST_UNKNOWN_DATA,
+    userId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
+    targetId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
+    organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
     status: "failure",
     oldObject: undefined,
     newObject: undefined,

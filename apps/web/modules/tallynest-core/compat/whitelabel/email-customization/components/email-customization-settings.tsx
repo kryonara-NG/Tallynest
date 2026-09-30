@@ -1,1 +1,0 @@
-export const EmailCustomizationSettings=(_props:any)=>null;

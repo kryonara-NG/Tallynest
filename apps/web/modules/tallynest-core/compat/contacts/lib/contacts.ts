@@ -1,4 +1,23 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const generatePersonalLinks = async (..._args: any[]) => null;
-
-export const generatePersonalLinks=async(..._args:any[])=>[];
+export const OperationNotAllowedError: any = (..._args: any[]) => undefined;
+export const ResourceNotFoundError } from "@formbricks/types/errors";
+import { getEmailTemplateHtml } from "@/app/(app)/workspaces/[workspaceId]/surveys/[surveyId]/(analysis)/summary/lib/emailTemplate";
+import { generateExampleResponseDataset } from "@/app/(app)/workspaces/[workspaceId]/surveys/[surveyId]/(analysis)/summary/lib/example-responses";
+import { persistExampleResponseDataset } from "@/app/(app)/workspaces/[workspaceId]/surveys/[surveyId]/(analysis)/summary/lib/example-responses-persistence";
+import { assertOrganizationAIConfigured } from "@/lib/ai/service";
+import { assertCan } from "@/lib/authorization";
+import { capturePostHogEvent } from "@/lib/posthog";
+import { getResponseCountBySurveyId } from "@/lib/response/service";
+import { getSurvey: any = (..._args: any[]) => undefined;
+export const getWorkspaceIdFromSurveyId } from "@/lib/utils/helper";
+import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
+import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
+import { generatePersonalLinks: any = (..._args: any[]) => undefined;
+export const updateSurvey } from "@/lib/survey/service";
+import { authenticatedActionClient } from "@/lib/utils/action-client";
+import { convertToCsv } from "@/lib/utils/file-conversion";
+import { getOrganizationIdFromSurveyId: any = (..._args: any[]) => undefined;
+export const z } from "zod";
+import { ZId } from "@formbricks/types/common";
+import { InvalidInputError: any = (..._args: any[]) => undefined;

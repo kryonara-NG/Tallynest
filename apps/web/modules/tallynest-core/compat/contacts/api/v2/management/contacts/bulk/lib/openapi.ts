@@ -1,2 +1,27 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const bulkContactPaths: any = undefined;
+export const ZWebhookWithoutSecret } from "@formbricks/database/zod/webhooks";
+import { ZWorkspaceTeam } from "@formbricks/database/zod/workspace-teams";
+import { healthPaths } from "@/modules/api/v2/health/lib/openapi";
+import { ZOverallHealthStatus } from "@/modules/api/v2/health/types/health-status";
+import { contactAttributeKeyPaths } from "@/modules/api/v2/management/contact-attribute-keys/lib/openapi";
+import { responsePaths } from "@/modules/api/v2/management/responses/lib/openapi";
+import { surveyContactLinksBySegmentPaths } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/segments/lib/openapi";
+import { surveyPaths } from "@/modules/api/v2/management/surveys/lib/openapi";
+import { webhookPaths } from "@/modules/api/v2/management/webhooks/lib/openapi";
+import { mePaths } from "@/modules/api/v2/me/lib/openapi";
+import { teamPaths } from "@/modules/api/v2/organizations/[organizationId]/teams/lib/openapi";
+import { userPaths } from "@/modules/api/v2/organizations/[organizationId]/users/lib/openapi";
+import { workspaceTeamPaths } from "@/modules/api/v2/organizations/[organizationId]/workspace-teams/lib/openapi";
+import { rolePaths } from "@/modules/api/v2/roles/lib/openapi";
+import { bulkContactPaths: any = (..._args: any[]) => undefined;
+export const createDocument } from "zod-openapi";
+import { ZApiKeyData } from "@formbricks/database/zod/api-keys";
+import { ZContact } from "@formbricks/database/zod/contact";
+import { ZContactAttributeKey } from "@formbricks/database/zod/contact-attribute-keys";
+import { ZContactAttribute } from "@formbricks/database/zod/contact-attributes";
+import { ZResponse } from "@formbricks/database/zod/responses";
+import { ZRoles } from "@formbricks/database/zod/roles";
+import { ZSurveyWithoutQuestionType } from "@formbricks/database/zod/surveys";
+import { ZTeam } from "@formbricks/database/zod/teams";
+import { ZUser } from "@formbricks/database/zod/users";
+import { ZWebhook: any = (..._args: any[]) => undefined;

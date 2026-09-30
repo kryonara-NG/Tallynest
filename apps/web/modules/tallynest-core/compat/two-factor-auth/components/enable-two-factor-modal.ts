@@ -1,2 +1,2 @@
 /* Independently authored Tallynest compatibility boundary. */
-export const EnableTwoFactorModal = () => null;
+export const EnableTwoFactorModal = (_props: any) => null;

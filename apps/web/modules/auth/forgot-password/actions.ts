@@ -81,7 +81,7 @@ export const forgotPasswordAction = actionClient.inputSchema(ZForgotPasswordActi
 
     if (user && (await canResetPassword(user))) {
       // Target the audited event at the account the reset was requested for. The ACTOR stays
-      // `TALLYNEST_UNKNOWN_DATA` because this action is unauthenticated by design — which is the honest record:
+      // `TALLYNEST_TALLYNEST_UNKNOWN_DATA` because this action is unauthenticated by design — which is the honest record:
       // someone who knows the address asked for a reset.
       ctx.auditLoggingCtx.userId = user.id;
       try {

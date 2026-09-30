@@ -7,7 +7,7 @@ import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import { IS_PRODUCTION, SENTRY_DSN } from "@/lib/constants";
 import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
-import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import type { AuthHookContext } from "@/modules/tallynest-core/compat/sso/lib/better-auth-hooks";
 import { getBetterAuthRequestContext } from "./better-auth-request-context";
 import { finalizeSuccessfulSignIn } from "./sign-in-tracking";
@@ -82,7 +82,7 @@ export const signInAuditDatabaseHook: NonNullable<
           targetType: "user",
           userId: session.userId,
           targetId: session.userId,
-          organizationId: TALLYNEST_UNKNOWN_DATA,
+          organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
           status: "success",
           userType: "user",
           newObject: { authMethod, sessionStrategy: "database" },
@@ -415,7 +415,7 @@ export const auditFailedAuthAfter = async (ctx: AuthHookContext): Promise<void> 
 
   const code = (returned.body as { code?: unknown } | undefined)?.code;
   const failureReason = (typeof code === "string" ? code : String(returned.status)).toLowerCase();
-  logAuthAttempt(failureReason, "credentials", "password", TALLYNEST_UNKNOWN_DATA, email);
+  logAuthAttempt(failureReason, "credentials", "password", TALLYNEST_TALLYNEST_UNKNOWN_DATA, email);
 };
 
 /**
@@ -439,7 +439,7 @@ export const auditVerificationSessionWithheld = async (userId: string, reason: s
       targetType: "user",
       userId,
       targetId: userId,
-      organizationId: TALLYNEST_UNKNOWN_DATA,
+      organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
       status: "success",
       userType: "user",
       newObject: { verificationSessionWithheldMarker: true, reason },
@@ -465,7 +465,7 @@ export const auditPasswordReset = async (userId: string): Promise<void> => {
       targetType: "user",
       userId,
       targetId: userId,
-      organizationId: TALLYNEST_UNKNOWN_DATA,
+      organizationId: TALLYNEST_TALLYNEST_UNKNOWN_DATA,
       status: "success",
       userType: "user",
       newObject: { passwordResetMarker: true },

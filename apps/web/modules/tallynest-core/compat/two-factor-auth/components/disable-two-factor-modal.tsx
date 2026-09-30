@@ -1,1 +1,0 @@
-export const DisableTwoFactorModal=(_props:any)=>null;
