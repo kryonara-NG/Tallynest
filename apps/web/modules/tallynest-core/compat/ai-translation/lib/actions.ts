@@ -1,0 +1,1 @@
+export const translateSurvey=async(..._args:any[])=>null; export const translateText=async(..._args:any[])=>null;
