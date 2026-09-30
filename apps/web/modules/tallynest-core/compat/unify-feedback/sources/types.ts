@@ -1,0 +1,1 @@
+export type TFeedbackSource=Record<string,unknown>;
