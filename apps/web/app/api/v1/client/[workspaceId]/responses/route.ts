@@ -19,7 +19,7 @@ import { resolveClientApiIds } from "@/lib/utils/resolve-client-id";
 import { formatValidationErrorsForV1Api, validateResponseData } from "@/modules/api/lib/validation";
 import { verifyResponseRecaptcha } from "@/modules/api/lib/verify-response-recaptcha";
 import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";
-import { createQuotaFullObject } from "@/modules/ee/quotas/lib/helpers";
+import { createQuotaFullObject } from "@/modules/tallynest-core/compat/quotas/lib/helpers";
 import { validateClientFileUploads } from "@/modules/storage/utils";
 import { verifyLinkSurveyPinToken } from "@/modules/survey/link/lib/pin-token";
 import { enforceVerifiedEmailGate } from "@/modules/survey/link/lib/verify-email-gate";

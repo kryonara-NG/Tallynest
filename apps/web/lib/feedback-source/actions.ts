@@ -22,8 +22,8 @@ import {
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
-import { getContactIdsByUserIds } from "@/modules/ee/unify-feedback/lib/contacts";
+import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/tallynest-core/compat/feedback-directory/lib/feedback-directory";
+import { getContactIdsByUserIds } from "@/modules/tallynest-core/compat/unify-feedback/lib/contacts";
 import { listFeedbackRecords } from "@/modules/hub/service";
 import type { FeedbackRecordListParams, FeedbackRecordListResponse } from "@/modules/hub/types";
 import { assertFeedbackSourceDirectoryAccess } from "./access";

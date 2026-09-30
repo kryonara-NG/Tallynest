@@ -6,7 +6,7 @@ import { getPublicDomain } from "@/lib/getPublicUrl";
 import { getWorkspace } from "@/lib/workspace/service";
 import { getTranslate } from "@/lingodotdev/server";
 import { getRemoveBrandingPermission } from "@/modules/tallynest-core/entitlements";
-import { BrandingSettingsCard } from "@/modules/ee/whitelabel/remove-branding/components/branding-settings-card";
+import { BrandingSettingsCard } from "@/modules/tallynest-core/compat/whitelabel/remove-branding/components/branding-settings-card";
 import { Alert, AlertDescription } from "@/modules/ui/components/alert";
 import { PageContentWrapper } from "@/modules/ui/components/page-content-wrapper";
 import { PageHeader } from "@/modules/ui/components/page-header";

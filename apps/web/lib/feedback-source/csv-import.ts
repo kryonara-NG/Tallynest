@@ -1,7 +1,7 @@
 import "server-only";
 import { InvalidInputError } from "@formbricks/types/errors";
 import { TFeedbackSourceWithMappings } from "@formbricks/types/feedback-source";
-import { CSV_IMPORT_MISSING_COLUMNS_ERROR_CODE } from "@/modules/ee/unify-feedback/sources/types";
+import { CSV_IMPORT_MISSING_COLUMNS_ERROR_CODE } from "@/modules/tallynest-core/compat/unify-feedback/sources/types";
 import { createFeedbackRecordsBatch } from "@/modules/hub";
 import { transformCsvRowsToFeedbackRecords } from "./csv-transform";
 import { TImportResult } from "./import";

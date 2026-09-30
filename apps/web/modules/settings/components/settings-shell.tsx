@@ -5,7 +5,7 @@ import {
   IS_FORMBRICKS_CLOUD,
   IS_FORMBRICKS_SURVEYS_CONFIGURED,
 } from "@/lib/constants";
-import { getPendingDowngradeSchedule } from "@/modules/ee/license-check/lib/license";
+import { getPendingDowngradeSchedule } from "@/modules/tallynest-core/compat/license-check/lib/license";
 import { SettingsNavigation } from "@/modules/settings/components/settings-navigation";
 import type { TSettingsLayoutData } from "@/modules/settings/lib/navigation-data";
 import { LimitsReachedBanner } from "@/modules/ui/components/limits-reached-banner";

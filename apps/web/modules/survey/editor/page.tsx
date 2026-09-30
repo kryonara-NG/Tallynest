@@ -10,15 +10,15 @@ import {
 } from "@/lib/constants";
 import { getPublicDomain } from "@/lib/getPublicUrl";
 import { getTranslate } from "@/lingodotdev/server";
-import { getContactAttributeKeys } from "@/modules/ee/contacts/lib/contact-attribute-keys";
-import { getSegments } from "@/modules/ee/contacts/segments/lib/segments";
+import { getContactAttributeKeys } from "@/modules/tallynest-core/compat/contacts/lib/contact-attribute-keys";
+import { getSegments } from "@/modules/tallynest-core/compat/contacts/segments/lib/segments";
 import {
   getIsContactsEnabled,
   getIsQuotasEnabled,
   getIsSpamProtectionEnabled,
   getIsWorkflowsEnabled,
 } from "@/modules/tallynest-core/entitlements";
-import { getQuotas } from "@/modules/ee/quotas/lib/quotas";
+import { getQuotas } from "@/modules/tallynest-core/compat/quotas/lib/quotas";
 import { getTeamMemberDetails } from "@/modules/survey/editor/lib/team";
 import { getUserEmail } from "@/modules/survey/editor/lib/user";
 import { getWorkspaceLanguages } from "@/modules/survey/editor/lib/workspace";

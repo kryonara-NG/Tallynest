@@ -11,7 +11,7 @@ import { capturePostHogEvent, getEmailDomain, groupIdentifyPostHog } from "@/lib
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { DEFAULT_WORKSPACE_NAME } from "@/lib/workspace/constants";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { ensureCloudStripeSetupForOrganization } from "@/modules/ee/billing/lib/organization-billing";
+import { ensureCloudStripeSetupForOrganization } from "@/modules/tallynest-core/compat/billing/lib/organization-billing";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 

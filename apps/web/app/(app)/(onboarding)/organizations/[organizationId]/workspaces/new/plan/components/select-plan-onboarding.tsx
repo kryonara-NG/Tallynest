@@ -1,4 +1,4 @@
-import { SelectPlanCard } from "@/modules/ee/billing/components/select-plan-card";
+import { SelectPlanCard } from "@/modules/tallynest-core/compat/billing/components/select-plan-card";
 
 interface SelectPlanOnboardingProps {
   organizationId: string;

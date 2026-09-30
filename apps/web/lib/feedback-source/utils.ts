@@ -7,7 +7,7 @@ import {
   CSV_HIDDEN_STATIC_MAPPINGS,
   CSV_PROTECTED_TARGET_IDS,
   CSV_REQUIRED_UI_FIELDS,
-} from "@/modules/ee/unify-feedback/sources/types";
+} from "@/modules/tallynest-core/compat/unify-feedback/sources/types";
 
 export const sanitizeCsvFieldMappings = (
   fieldMappings: TFeedbackSourceFieldMappingCreateInput[] | undefined

@@ -9,7 +9,7 @@ import { withAuthorizationSurface } from "@/lib/authorization/context";
 import { getFeedbackDirectoryAuthorizationAction } from "@/lib/authorization/permission-action";
 import { verifyFeedbackRecordsGatewayToken } from "@/lib/jwt";
 import { getBearerTokenFromHeaders } from "@/modules/api/lib/api-key-auth";
-import { getFeedbackDirectoryAuthContext } from "@/modules/ee/feedback-directory/lib/feedback-directory";
+import { getFeedbackDirectoryAuthContext } from "@/modules/tallynest-core/compat/feedback-directory/lib/feedback-directory";
 import { getIsFeedbackDirectoriesEnabled } from "@/modules/tallynest-core/entitlements";
 import {
   TGatewayAuthenticatedPrincipal,

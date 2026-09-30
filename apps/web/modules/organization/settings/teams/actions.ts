@@ -19,8 +19,8 @@ import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { getBulkInvitePermission, getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
-import { checkRoleManagementPermission } from "@/modules/ee/role-management/actions";
-import { getTeamsWhereUserIsAdmin } from "@/modules/ee/teams/lib/roles";
+import { checkRoleManagementPermission } from "@/modules/tallynest-core/compat/role-management/actions";
+import { getTeamsWhereUserIsAdmin } from "@/modules/tallynest-core/compat/teams/lib/roles";
 import { sendInviteMemberEmail } from "@/modules/email";
 import {
   deleteMembership,

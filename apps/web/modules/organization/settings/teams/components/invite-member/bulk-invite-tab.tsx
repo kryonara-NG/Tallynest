@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TOrganizationRole } from "@formbricks/types/memberships";
 import { cn } from "@/lib/cn";
-import type { TOrganizationTeam } from "@/modules/ee/teams/team-list/types/team";
+import type { TOrganizationTeam } from "@/modules/tallynest-core/compat/teams/team-list/types/team";
 import { ZInvitees } from "@/modules/organization/settings/teams/types/invites";
 import { organizationSettingsPath } from "@/modules/settings/lib/routes";
 import { Alert, AlertDescription } from "@/modules/ui/components/alert";

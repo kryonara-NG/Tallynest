@@ -4,7 +4,7 @@ import type { TFunction } from "i18next";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { SettingsCard } from "@/app/(app)/workspaces/[workspaceId]/settings/components/SettingsCard";
-import type { TEnterpriseLicenseFeatures } from "@/modules/ee/license-check/types/enterprise-license";
+import type { TEnterpriseLicenseFeatures } from "@/modules/tallynest-core/compat/license-check/types/enterprise-license";
 import { Badge } from "@/modules/ui/components/badge";
 import { SettingsTable, type TSettingsTableColumn } from "@/modules/ui/components/settings-table";
 

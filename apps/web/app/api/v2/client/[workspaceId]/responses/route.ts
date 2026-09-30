@@ -18,7 +18,7 @@ import { resolveClientApiIds } from "@/lib/utils/resolve-client-id";
 import { formatValidationErrorsForV1Api, validateResponseData } from "@/modules/api/lib/validation";
 import { validateOtherOptionLengthForMultipleChoice } from "@/modules/api/v2/lib/element";
 import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";
-import { createQuotaFullObject } from "@/modules/ee/quotas/lib/helpers";
+import { createQuotaFullObject } from "@/modules/tallynest-core/compat/quotas/lib/helpers";
 import { validateClientFileUploads } from "@/modules/storage/utils";
 import { createResponseWithQuotaEvaluation } from "./lib/response";
 import { TResponseInputV2, ZResponseInputV2 } from "./types/response";

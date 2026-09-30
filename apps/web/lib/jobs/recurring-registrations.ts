@@ -18,11 +18,11 @@ import { processUsageTelemetryJob } from "@/lib/telemetry/process-usage-telemetr
 import {
   WORKFLOWS_USAGE_SNAPSHOT_DAILY_CRON_PATTERN,
   WORKFLOWS_USAGE_SNAPSHOT_TIME_ZONE,
-} from "@/modules/ee/workflows/lib/analytics/constants";
-import { processWorkflowsUsageSnapshotJob } from "@/modules/ee/workflows/lib/analytics/process-workflows-usage-snapshot-job";
-import { processWorkflowRunJob } from "@/modules/ee/workflows/lib/runner/process-workflow-run-job";
-import { processWorkflowRunReconcileJob } from "@/modules/ee/workflows/lib/runner/process-workflow-run-reconcile-job";
-import { WORKFLOW_RUN_RECONCILE_INTERVAL_MS } from "@/modules/ee/workflows/lib/runner/reconcile-constants";
+} from "@/modules/tallynest-core/compat/workflows/lib/analytics/constants";
+import { processWorkflowsUsageSnapshotJob } from "@/modules/tallynest-core/compat/workflows/lib/analytics/process-workflows-usage-snapshot-job";
+import { processWorkflowRunJob } from "@/modules/tallynest-core/compat/workflows/lib/runner/process-workflow-run-job";
+import { processWorkflowRunReconcileJob } from "@/modules/tallynest-core/compat/workflows/lib/runner/process-workflow-run-reconcile-job";
+import { WORKFLOW_RUN_RECONCILE_INTERVAL_MS } from "@/modules/tallynest-core/compat/workflows/lib/runner/reconcile-constants";
 import { processResponsePipelineJob } from "@/modules/response-pipeline/lib/process-response-pipeline-job";
 import { processWebhookDeliveryJob } from "@/modules/response-pipeline/lib/process-webhook-delivery-job";
 import {

@@ -1,3 +1,3 @@
-import { AnalysisListLoading } from "@/modules/ee/analysis/loading";
+import { AnalysisListLoading } from "@/modules/tallynest-core/compat/analysis/loading";
 
 export default AnalysisListLoading;

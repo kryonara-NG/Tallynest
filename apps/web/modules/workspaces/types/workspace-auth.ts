@@ -7,7 +7,7 @@ import { TWorkspace, ZWorkspace } from "@formbricks/types/workspace";
 import {
   TEnterpriseLicenseFeatures,
   TLicenseStatus,
-} from "@/modules/ee/license-check/types/enterprise-license";
+} from "@/modules/tallynest-core/compat/license-check/types/enterprise-license";
 import { TTeamPermission, ZTeamPermission } from "@/modules/tallynest-core/team-permissions";
 
 // Type for the enterprise license returned by getEnterpriseLicense()

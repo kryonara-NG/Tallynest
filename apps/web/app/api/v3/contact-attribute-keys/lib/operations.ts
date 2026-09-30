@@ -2,7 +2,7 @@ import "server-only";
 import { type TV3WorkspaceListParams, listV3WorkspaceResource } from "@/app/api/v3/lib/list-resource";
 import { problemForbidden } from "@/app/api/v3/lib/response";
 import { getOrganizationByWorkspaceId } from "@/lib/organization/service";
-import { getContactAttributeKeys } from "@/modules/ee/contacts/lib/contact-attribute-keys";
+import { getContactAttributeKeys } from "@/modules/tallynest-core/compat/contacts/lib/contact-attribute-keys";
 import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";
 import { serializeV3ContactAttributeKey } from "../serializers";
 

@@ -53,9 +53,9 @@ import { verifyTurnstileToken } from "@/modules/auth/signup/lib/utils";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { ensureCloudStripeSetupForOrganization } from "@/modules/ee/billing/lib/organization-billing";
+import { ensureCloudStripeSetupForOrganization } from "@/modules/tallynest-core/compat/billing/lib/organization-billing";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
-import { subscribeUserToMailingList } from "@/modules/ee/mailing/lib/mailing-subscription";
+import { subscribeUserToMailingList } from "@/modules/tallynest-core/compat/mailing/lib/mailing-subscription";
 import { sendInviteAcceptedEmail } from "@/modules/email";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";
 

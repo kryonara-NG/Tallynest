@@ -3,7 +3,7 @@ import { ResourceNotFoundError } from "@formbricks/types/errors";
 import { problemForbidden, problemUnauthorized } from "@/app/api/v3/lib/response";
 import type { TV3Authentication } from "@/app/api/v3/lib/types";
 import { can } from "@/lib/authorization";
-import { getOrganizationIdFromDirectoryId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
+import { getOrganizationIdFromDirectoryId } from "@/modules/tallynest-core/compat/feedback-directory/lib/feedback-directory";
 import { getIsFeedbackDirectoriesEnabled } from "@/modules/tallynest-core/entitlements";
 
 /**

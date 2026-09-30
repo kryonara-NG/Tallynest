@@ -9,6 +9,10 @@
 .github/workflows/tallynest-core-boundary.yml:69:            "@/modules/ee/teams/workspace-teams/types/team":"@/modules/tallynest-core/team-permissions",
 .github/workflows/tallynest-core-boundary.yml:70:            "@/modules/ee/audit-logs/types/audit-log":"@/modules/tallynest-core/api-audit",
 .github/workflows/tallynest-core-boundary.yml:104:          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > EE-DEPENDENCY-REPORT.md.tmp
+.github/workflows/tallynest-core-boundary.yml:126:            if "modules/ee/" not in s: continue
+.github/workflows/tallynest-core-boundary.yml:130:            for m in re.finditer(r'import\\s+(?:type\\s+)?\\{([^}]+)\\}\\s+from\\s+"@/modules/ee/([^"]+)"', s):
+.github/workflows/tallynest-core-boundary.yml:172:            if "modules/ee/" not in s: continue
+.github/workflows/tallynest-core-boundary.yml:174:            s=s.replace("@/modules/ee/","@/modules/tallynest-core/compat/")
 apps/web/app/(app)/(onboarding)/organizations/[organizationId]/workspaces/new/layout.tsx:9:import { invalidateOrganizationBillingCache } from "@/modules/ee/billing/lib/organization-billing";
 apps/web/app/(app)/(onboarding)/organizations/[organizationId]/workspaces/new/plan/components/select-plan-onboarding.tsx:1:import { SelectPlanCard } from "@/modules/ee/billing/components/select-plan-card";
 apps/web/app/(app)/(onboarding)/organizations/[organizationId]/workspaces/new/plan/page.tsx:9:} from "@/modules/ee/billing/lib/organization-billing";

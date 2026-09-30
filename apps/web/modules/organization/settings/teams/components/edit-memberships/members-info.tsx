@@ -9,7 +9,7 @@ import { TOrganization } from "@formbricks/types/organizations";
 import { getReportingTimeZone } from "@/lib/date-ranges";
 import { getAccessFlags } from "@/lib/membership/utils";
 import { formatDateForDisplay, formatDateWithOrdinal } from "@/lib/utils/datetime";
-import { EditMembershipRole } from "@/modules/ee/role-management/components/edit-membership-role";
+import { EditMembershipRole } from "@/modules/tallynest-core/compat/role-management/components/edit-membership-role";
 import { MemberActions } from "@/modules/organization/settings/teams/components/edit-memberships/member-actions";
 import {
   type TLastSignInSort,

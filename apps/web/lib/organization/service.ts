@@ -24,7 +24,7 @@ import { IS_FORMBRICKS_CLOUD, ITEMS_PER_PAGE } from "@/lib/constants";
 import { updateUser } from "@/lib/user/service";
 import { getBillingUsageCycleWindow } from "@/lib/utils/billing";
 import { getWorkspaces } from "@/lib/workspace/service";
-import { cleanupStripeCustomer } from "@/modules/ee/billing/lib/organization-billing";
+import { cleanupStripeCustomer } from "@/modules/tallynest-core/compat/billing/lib/organization-billing";
 import { deleteHubTenantData } from "@/modules/hub/service";
 import { countOrganizationResponses } from "@/modules/organization/usage/lib/response-count";
 import { deleteWorkspaceFilesBestEffort } from "@/modules/storage/service";

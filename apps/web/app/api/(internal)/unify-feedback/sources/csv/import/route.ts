@@ -16,7 +16,7 @@ import {
   CSV_FILE_TOO_LARGE_ERROR_CODE,
   CSV_IMPORT_FAILED_ERROR_CODE,
   MAX_CSV_VALUES,
-} from "@/modules/ee/unify-feedback/sources/types";
+} from "@/modules/tallynest-core/compat/unify-feedback/sources/types";
 
 const CSV_IMPORT_REQUEST_BODY_LIMIT = MAX_CSV_VALUES.FILE_SIZE + 1024 * 1024;
 

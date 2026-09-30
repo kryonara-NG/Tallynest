@@ -8,7 +8,7 @@ import { getOrganizationIdFromWorkspaceId } from "@/lib/utils/helper";
 import {
   type TWorkflowAnalyticsVia,
   WORKFLOW_LIFECYCLE_EVENTS,
-} from "@/modules/ee/workflows/lib/analytics-events";
+} from "@/modules/tallynest-core/compat/workflows/lib/analytics-events";
 
 const HOUR_MS = 60 * 60 * 1000;
 

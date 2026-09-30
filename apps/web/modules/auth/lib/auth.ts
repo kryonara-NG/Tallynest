@@ -26,9 +26,9 @@ import {
   accountDeletionConfig,
   requireDeletionConfirmationBeforeHandler,
 } from "@/modules/account/lib/better-auth-account-deletion";
-import { ssoDatabaseHooks, ssoLicenseGateBeforeHandler } from "@/modules/ee/sso/lib/better-auth-hooks";
-import { ssoGenericOAuthConfig, ssoSocialProviders } from "@/modules/ee/sso/lib/better-auth-providers";
-import { ssoRecoverySignInPlugin } from "@/modules/ee/sso/lib/better-auth-recovery-signin";
+import { ssoDatabaseHooks, ssoLicenseGateBeforeHandler } from "@/modules/tallynest-core/compat/sso/lib/better-auth-hooks";
+import { ssoGenericOAuthConfig, ssoSocialProviders } from "@/modules/tallynest-core/compat/sso/lib/better-auth-providers";
+import { ssoRecoverySignInPlugin } from "@/modules/tallynest-core/compat/sso/lib/better-auth-recovery-signin";
 import { runAfterAuthHooks } from "./after-auth-hooks";
 import { EMAIL_VERIFICATION_TTL_SECONDS, USE_SECURE_COOKIES } from "./auth-cookies";
 import { rejectInactiveUserOnSessionCreate } from "./better-auth-active-user-gate";

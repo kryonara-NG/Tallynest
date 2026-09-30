@@ -5,8 +5,8 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import { useTranslation } from "react-i18next";
 import { TOrganization } from "@formbricks/types/organizations";
-import { TrialAlert } from "@/modules/ee/billing/components/trial-alert";
-import { TRIAL_BASE_RESPONSE_LIMIT, TrialBannerNew } from "@/modules/ee/billing/components/trial-banner-new";
+import { TrialAlert } from "@/modules/tallynest-core/compat/billing/components/trial-alert";
+import { TRIAL_BASE_RESPONSE_LIMIT, TrialBannerNew } from "@/modules/tallynest-core/compat/billing/components/trial-banner-new";
 
 interface MainNavigationNoticesProps {
   isCollapsed: boolean;

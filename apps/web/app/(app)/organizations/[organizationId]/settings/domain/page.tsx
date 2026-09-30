@@ -5,7 +5,7 @@ import { PrettyUrlsTable } from "@/app/(app)/workspaces/[workspaceId]/settings/o
 import { IS_FORMBRICKS_CLOUD, IS_STORAGE_CONFIGURED } from "@/lib/constants";
 import { getTranslate } from "@/lingodotdev/server";
 import { getWhiteLabelPermission } from "@/modules/tallynest-core/entitlements";
-import { FaviconCustomizationSettings } from "@/modules/ee/whitelabel/favicon-customization/components/favicon-customization-settings";
+import { FaviconCustomizationSettings } from "@/modules/tallynest-core/compat/whitelabel/favicon-customization/components/favicon-customization-settings";
 import { getOrganizationAuth } from "@/modules/organization/lib/utils";
 import { getSettingsLayoutData } from "@/modules/settings/lib/navigation-data";
 import { redirectBillingRoleFromRestrictedOrgSettings } from "@/modules/settings/lib/redirect-billing-role";

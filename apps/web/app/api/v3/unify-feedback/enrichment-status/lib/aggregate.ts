@@ -1,7 +1,7 @@
 import {
   ENRICHMENT_KINDS,
   type TEnrichmentProgress,
-} from "@/modules/ee/unify-feedback/enrichment-status/lib/enrichment";
+} from "@/modules/tallynest-core/compat/unify-feedback/enrichment-status/lib/enrichment";
 import type { EnrichmentStatusResponse, EnrichmentTypeStatus } from "@/modules/hub/types";
 
 /**

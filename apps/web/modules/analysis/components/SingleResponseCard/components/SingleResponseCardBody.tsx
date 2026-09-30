@@ -15,7 +15,7 @@ import { getLocalizedValue } from "@/lib/i18n/utils";
 import { buildServerEmbeddedValues } from "@/lib/surveyLogic/utils";
 import { getSurveyDateFormatMap } from "@/lib/utils/date-display";
 import { parseRecallInfo } from "@/lib/utils/recall";
-import { ResponseCardQuotas } from "@/modules/ee/quotas/components/single-response-card-quotas";
+import { ResponseCardQuotas } from "@/modules/tallynest-core/compat/quotas/components/single-response-card-quotas";
 import { getElementsFromBlocks } from "@/modules/survey/lib/client-utils";
 import { isValidValue, splitRecallHighlights } from "../util";
 import { ElementSkip } from "./ElementSkip";

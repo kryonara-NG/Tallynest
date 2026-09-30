@@ -17,10 +17,10 @@ import { getOrganizationIdFromSurveyId, getWorkspaceIdFromSurveyId } from "@/lib
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
-import { generatePersonalLinks } from "@/modules/ee/contacts/lib/contacts";
-import { NO_CONTACTS_IN_SEGMENT_ERROR_CODE } from "@/modules/ee/contacts/lib/personal-link-errors";
+import { generatePersonalLinks } from "@/modules/tallynest-core/compat/contacts/lib/contacts";
+import { NO_CONTACTS_IN_SEGMENT_ERROR_CODE } from "@/modules/tallynest-core/compat/contacts/lib/personal-link-errors";
 import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";
-import { getOrganizationLogoUrl } from "@/modules/ee/whitelabel/email-customization/lib/organization";
+import { getOrganizationLogoUrl } from "@/modules/tallynest-core/compat/whitelabel/email-customization/lib/organization";
 import { sendEmbedSurveyPreviewEmail } from "@/modules/email";
 import { deleteResponsesAndDisplaysForSurvey } from "./lib/survey";
 

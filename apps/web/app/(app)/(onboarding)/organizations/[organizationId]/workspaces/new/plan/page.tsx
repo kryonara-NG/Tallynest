@@ -6,7 +6,7 @@ import { IS_FORMBRICKS_CLOUD } from "@/lib/constants";
 import {
   getOrganizationBillingWithReadThroughSync,
   getProTrialDays,
-} from "@/modules/ee/billing/lib/organization-billing";
+} from "@/modules/tallynest-core/compat/billing/lib/organization-billing";
 import { getOrganizationAuth } from "@/modules/organization/lib/utils";
 import { SelectPlanOnboarding } from "./components/select-plan-onboarding";
 

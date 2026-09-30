@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { LiteLicenseTip } from "@/modules/ee/license-check/components/lite-license-tip";
+import { LiteLicenseTip } from "@/modules/tallynest-core/compat/license-check/components/lite-license-tip";
 import { Dialog, DialogContent, DialogTitle } from "@/modules/ui/components/dialog";
 import { ModalButton, UpgradePrompt } from "@/modules/ui/components/upgrade-prompt";
 

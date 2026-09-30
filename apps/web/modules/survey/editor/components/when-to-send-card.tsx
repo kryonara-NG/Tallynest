@@ -9,7 +9,7 @@ import { TActionClass } from "@formbricks/types/action-classes";
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { cn } from "@/lib/cn";
 import { getAccessFlags } from "@/lib/membership/utils";
-import { getTeamPermissionFlags } from "@/modules/ee/teams/utils/teams";
+import { getTeamPermissionFlags } from "@/modules/tallynest-core/compat/teams/utils/teams";
 import { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import { AddActionModal } from "@/modules/survey/editor/components/add-action-modal";
 import { ActionClassInfo } from "@/modules/ui/components/action-class-info";

@@ -2,7 +2,7 @@ import "server-only";
 import { createLocalAccountIssuer } from "@better-auth/core/db";
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
-import type { AuthHookContext } from "@/modules/ee/sso/lib/better-auth-hooks";
+import type { AuthHookContext } from "@/modules/tallynest-core/compat/sso/lib/better-auth-hooks";
 
 /** Sign-in and the reset-link request: the two doors a user with a NULL-issuer credential row is stuck at. */
 const HEALED_PATHS = new Set(["/sign-in/email", "/request-password-reset"]);

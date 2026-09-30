@@ -18,7 +18,7 @@ import {
   getIsMultiOrgEnabled,
   getWhiteLabelPermission,
 } from "@/modules/tallynest-core/entitlements";
-import { EmailCustomizationSettings } from "@/modules/ee/whitelabel/email-customization/components/email-customization-settings";
+import { EmailCustomizationSettings } from "@/modules/tallynest-core/compat/whitelabel/email-customization/components/email-customization-settings";
 import { getOrganizationAuth } from "@/modules/organization/lib/utils";
 import { getSettingsLayoutData } from "@/modules/settings/lib/navigation-data";
 import { redirectBillingRoleFromRestrictedOrgSettings } from "@/modules/settings/lib/redirect-billing-role";
