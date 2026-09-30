@@ -22,13 +22,13 @@ import {
 interface LandingSidebarProps {
   user: TUser;
   organization: TOrganization;
-  isFormbricksSurveysConfigured: boolean;
+  isTallynestSurveysConfigured: boolean;
 }
 
 export const LandingSidebar = ({
   user,
   organization,
-  isFormbricksSurveysConfigured,
+  isTallynestSurveysConfigured,
 }: Readonly<LandingSidebarProps>) => {
   const [isOrgDropdownOpen, setIsOrgDropdownOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -102,7 +102,7 @@ export const LandingSidebar = ({
           user={user}
           organizationId={organization.id}
           className="rounded-br-xl"
-          isFormbricksSurveysConfigured={isFormbricksSurveysConfigured}
+          isTallynestSurveysConfigured={isTallynestSurveysConfigured}
         />
       </div>
     </aside>

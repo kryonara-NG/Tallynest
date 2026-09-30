@@ -8,7 +8,7 @@ export const FORMBRICKS_CLIENT_IP_HEADER = "x-formbricks-client-ip";
 /** Collapse IPv6 identities to a stable network prefix before rate limiting or persistence. */
 export const CLIENT_IP_IPV6_SUBNET_PREFIX = 64;
 
-/** Better Auth must consume exactly the same private request identity as the rest of Formbricks. */
+/** Better Auth must consume exactly the same private request identity as the rest of Tallynest. */
 export const BETTER_AUTH_IP_ADDRESS_CONFIG = {
   ipAddressHeaders: [FORMBRICKS_CLIENT_IP_HEADER],
   ipv6Subnet: CLIENT_IP_IPV6_SUBNET_PREFIX,

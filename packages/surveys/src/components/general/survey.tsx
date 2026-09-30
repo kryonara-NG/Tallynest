@@ -28,7 +28,7 @@ import { TSurveyElement } from "@formbricks/types/surveys/elements";
 import { BlockConditional } from "@/components/general/block-conditional";
 import { EndingCard } from "@/components/general/ending-card";
 import { ErrorComponent } from "@/components/general/error-component";
-import { FormbricksBranding } from "@/components/general/formbricks-branding";
+import { TallynestBranding } from "@/components/general/formbricks-branding";
 import { LanguageSwitch } from "@/components/general/language-switch";
 import { ProgressBar } from "@/components/general/progress-bar";
 import { RecaptchaBranding } from "@/components/general/recaptcha-branding";
@@ -249,7 +249,7 @@ export function Survey({
               // host-supplied code (js-core's event bus → the host page). A throw here would be
               // caught as a SEND failure — the respondent shown an error and a retry for a response
               // the server already created. Never let a host page do that.
-              console.error("Formbricks: onResponseCreated handler threw", error);
+              console.error("Tallynest: onResponseCreated handler threw", error);
             }
           },
         },
@@ -377,7 +377,7 @@ export function Survey({
       Object.entries(result.data).filter(([key]) => {
         if (!elementIdSet.has(key)) return true;
         console.warn(
-          `Formbricks: "${key}" ${INGEST_DROP_MESSAGES.element_id_collision}, so the value was ignored.`
+          `Tallynest: "${key}" ${INGEST_DROP_MESSAGES.element_id_collision}, so the value was ignored.`
         );
         return false;
       })
@@ -673,7 +673,7 @@ export function Survey({
                 surveyState.enableBootstrapResponseCreate();
                 await persistSurveyStateSnapshot({ displayId: null });
               } else {
-                console.error("Formbricks: Failed to recover responseId from displayId", {
+                console.error("Tallynest: Failed to recover responseId from displayId", {
                   displayId: progress.surveyStateSnapshot.displayId,
                   error: responseLookup.error,
                 });
@@ -742,7 +742,7 @@ export function Survey({
         setPendingSyncCount(0);
 
         if (result.syncedCount > 0) {
-          console.log(`Formbricks: Synced ${result.syncedCount} offline response(s)`);
+          console.log(`Tallynest: Synced ${result.syncedCount} offline response(s)`);
         }
 
         // Clean up IndexedDB and mark sending as finished after successful sync
@@ -1533,7 +1533,7 @@ export function Survey({
                 "flex flex-col justify-center gap-2",
                 isCloseButtonVisible || isLanguageSwitchVisible ? "p-2" : "p-3"
               )}>
-              {isBrandingEnabled ? <FormbricksBranding /> : null}
+              {isBrandingEnabled ? <TallynestBranding /> : null}
               {isSpamProtectionEnabled ? <RecaptchaBranding /> : null}
             </div>
           </div>

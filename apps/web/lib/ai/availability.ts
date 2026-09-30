@@ -22,7 +22,7 @@ export type TAIUnavailableAction = {
  * context (`useDeploymentInfo`) instead, which the server layouts fill in.
  */
 export type TDeploymentInfo = {
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   enterpriseLicenseRequestFormUrl: string;
 };
 
@@ -42,7 +42,7 @@ export const getAIUnavailableAction = (
   if (reason === "not_in_plan") {
     // Same split every other gated feature uses (see the UpgradePrompt call sites): cloud sends
     // people to billing, self-hosted to the enterprise licence request form.
-    return deployment.isFormbricksCloud
+    return deployment.isTallynestCloud
       ? {
           href: organizationSettingsPath(organizationId, "billing"),
           type: "upgrade_plan",

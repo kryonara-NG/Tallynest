@@ -18,7 +18,7 @@ import {
 import { findMatchingLocale } from "@/lib/utils/locale";
 import { getTranslate } from "@/lingodotdev/server";
 import { SignupForm } from "@/modules/auth/signup/components/signup-form";
-import { getIsSamlSsoEnabled, getIsSsoEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsSamlSsoEnabled, getIsSsoEnabled } from "@/modules/tallynest-core/entitlements";
 
 export const metadata: Metadata = {
   title: "Sign up",
@@ -54,7 +54,7 @@ export const SignupPage = async () => {
         samlSsoEnabled={samlSsoEnabled}
         isTurnstileConfigured={IS_TURNSTILE_CONFIGURED}
         turnstileSiteKey={TURNSTILE_SITE_KEY}
-        isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+        isTallynestCloud={IS_FORMBRICKS_CLOUD}
       />
     </div>
   );

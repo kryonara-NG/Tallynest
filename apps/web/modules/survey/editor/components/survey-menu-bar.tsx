@@ -601,7 +601,7 @@ export const SurveyMenuBar = ({
       setIsSurveyPublishing(false);
 
       // When the user publishes their second survey, fire an in-app code action so a
-      // Formbricks survey can be triggered from the dashboard. The flag is computed
+      // Tallynest survey can be triggered from the dashboard. The flag is computed
       // server-side in updateSurveyAction, so there's no extra round-trip here.
       if (publishResult.data.isSecondPublish) {
         formbricks.track("second_survey_published").catch(() => undefined);
@@ -712,7 +712,7 @@ export const SurveyMenuBar = ({
               <AlertButton className="flex items-center justify-center">
                 <a
                   className="flex h-full w-full items-center justify-center bg-white!"
-                  href="https://formbricks.com/docs/self-hosting/configuration/file-uploads"
+                  href="https://tallynest.app/docs/self-hosting/configuration/file-uploads"
                   target="_blank"
                   rel="noopener noreferrer">
                   <span>{t("common.learn_more")}</span>

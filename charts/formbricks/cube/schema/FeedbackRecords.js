@@ -1,4 +1,4 @@
-// This schema maps to the `feedback_records` table owned by the Formbricks Hub Postgres.
+// This schema maps to the `feedback_records` table owned by the Tallynest Hub Postgres.
 // If the Hub changes column names or types, this schema must be updated to match.
 cube(`FeedbackRecords`, {
   sql: `SELECT * FROM feedback_records`,

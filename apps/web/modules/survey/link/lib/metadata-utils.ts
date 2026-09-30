@@ -14,7 +14,7 @@ type TBasicSurveyMetadata = {
   title: string;
   /**
    * Title for social previews (og:title / twitter:title and the OG image). These are not run through
-   * `title.template`, so on Cloud this carries the " | Formbricks" suffix itself, unless the author set
+   * `title.template`, so on Cloud this carries the " | Tallynest" suffix itself, unless the author set
    * a custom link-metadata title.
    */
   ogTitle: string;
@@ -90,9 +90,9 @@ export const getBasicSurveyMetadata = async (
   // Get OG image from link metadata if available
   const ogImage = metadata?.ogImage;
 
-  // Only the social-preview title is branded here: `<title>` already gets " | Formbricks" from the
+  // Only the social-preview title is branded here: `<title>` already gets " | Tallynest" from the
   // root layout's template, so suffixing `title` too rendered it twice on Cloud.
-  const ogTitle = !titleFromMetadata && IS_FORMBRICKS_CLOUD ? `${title} | Formbricks` : title;
+  const ogTitle = !titleFromMetadata && IS_FORMBRICKS_CLOUD ? `${title} | Tallynest` : title;
 
   return {
     title,

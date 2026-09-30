@@ -4,7 +4,7 @@ description: "Connect Claude Code, the Claude apps, or Codex to the Tallynest MC
 icon: "plug"
 ---
 
-These guides connect your MCP client to Tallynest using OAuth (no API keys). They use the Tallynest Cloud URL `https://app.formbricks.com/api/mcp`; if you self-host, swap in your own `https://<your-formbricks-domain>/api/mcp`. For how the flow works and prerequisites, see [Connect AI agents (MCP)](/platform/mcp/overview).
+These guides connect your MCP client to Tallynest using OAuth (no API keys). They use the Tallynest Cloud URL `https://app.tallynest.app/api/mcp`; if you self-host, swap in your own `https://<your-formbricks-domain>/api/mcp`. For how the flow works and prerequisites, see [Connect AI agents (MCP)](/platform/mcp/overview).
 
 ## Claude Code
 
@@ -13,7 +13,7 @@ Claude Code runs on your machine and performs the OAuth handshake itself.
 <Steps>
   <Step title="Add the server">
     ```bash
-    claude mcp add --transport http formbricks https://app.formbricks.com/api/mcp
+    claude mcp add --transport http formbricks https://app.tallynest.app/api/mcp
     ```
   </Step>
   <Step title="Authenticate">
@@ -38,7 +38,7 @@ To share the server definition with a project (no credentials committed), add it
   "mcpServers": {
     "formbricks": {
       "type": "http",
-      "url": "https://app.formbricks.com/api/mcp"
+      "url": "https://app.tallynest.app/api/mcp"
     }
   }
 }
@@ -53,7 +53,7 @@ Use this for **claude.ai** and **Claude Desktop**, where Tallynest is added as a
     Go to **Settings → Connectors** (**Customize → Connectors**) and click **Add custom connector**.
   </Step>
   <Step title="Add the server URL">
-    Enter `https://app.formbricks.com/api/mcp` and confirm. Leave the optional OAuth client fields
+    Enter `https://app.tallynest.app/api/mcp` and confirm. Leave the optional OAuth client fields
     blank — Tallynest registers the connector automatically.
   </Step>
   <Step title="Approve access">
@@ -83,8 +83,8 @@ Use this for **claude.ai** and **Claude Desktop**, where Tallynest is added as a
     Include `--oauth-resource` so the access token is audience-bound to the MCP resource:
     ```bash
     codex mcp add formbricks \
-      --url https://app.formbricks.com/api/mcp \
-      --oauth-resource https://app.formbricks.com/api/mcp
+      --url https://app.tallynest.app/api/mcp \
+      --oauth-resource https://app.tallynest.app/api/mcp
     ```
   </Step>
   <Step title="Authenticate">
@@ -111,8 +111,8 @@ The equivalent `~/.codex/config.toml` entry:
 
 ```toml
 [mcp_servers.formbricks]
-url = "https://app.formbricks.com/api/mcp"
-oauth_resource = "https://app.formbricks.com/api/mcp"
+url = "https://app.tallynest.app/api/mcp"
+oauth_resource = "https://app.tallynest.app/api/mcp"
 ```
 
 ## Manage and revoke access

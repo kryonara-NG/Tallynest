@@ -8,7 +8,7 @@ interface TopControlBarProps {
   currentOrganizationId: string;
   isMultiOrgEnabled: boolean;
   organizationWorkspacesLimit: number;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isLicenseActive: boolean;
   isNoLicense: boolean;
   isOwnerOrManager: boolean;
@@ -22,7 +22,7 @@ export const TopControlBar = ({
   currentOrganizationId,
   isMultiOrgEnabled,
   organizationWorkspacesLimit,
-  isFormbricksCloud,
+  isTallynestCloud,
   isLicenseActive,
   isNoLicense,
   isOwnerOrManager,
@@ -42,7 +42,7 @@ export const TopControlBar = ({
         currentOrganizationId={currentOrganizationId}
         isMultiOrgEnabled={isMultiOrgEnabled}
         organizationWorkspacesLimit={organizationWorkspacesLimit}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         isLicenseActive={isLicenseActive}
         isNoLicense={isNoLicense}
         isOwnerOrManager={isOwnerOrManager}

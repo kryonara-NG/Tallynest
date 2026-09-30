@@ -123,7 +123,7 @@ describe("shipped bundles", () => {
 });
 
 describe("loadLanguage", () => {
-  const appUrl = "https://app.formbricks.com";
+  const appUrl = "https://app.tallynest.app";
   const baseUrl = `${appUrl}/js/locales`;
   let fetchMock: ReturnType<typeof vi.fn>;
 

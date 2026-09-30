@@ -33,7 +33,7 @@ export const SettingsShell = ({ data, children }: Readonly<SettingsShellProps>) 
 
   const shell = (
     <div className="flex h-screen min-h-screen flex-col overflow-hidden">
-      {data.isFormbricksCloud && (
+      {data.isTallynestCloud && (
         <LimitsReachedBanner organization={organization} responseCount={data.responseCount} />
       )}
 
@@ -54,8 +54,8 @@ export const SettingsShell = ({ data, children }: Readonly<SettingsShellProps>) 
           organizationId={data.organization.id}
           organizationName={data.organization.name}
           membershipRole={data.membershipRole}
-          isFormbricksCloud={data.isFormbricksCloud}
-          isFormbricksSurveysConfigured={IS_FORMBRICKS_SURVEYS_CONFIGURED}
+          isTallynestCloud={data.isTallynestCloud}
+          isTallynestSurveysConfigured={IS_FORMBRICKS_SURVEYS_CONFIGURED}
           backUrl={data.backUrl}
         />
         <div id="mainContent" className="flex flex-1 flex-col overflow-hidden bg-slate-50">
@@ -66,7 +66,7 @@ export const SettingsShell = ({ data, children }: Readonly<SettingsShellProps>) 
               currentOrganizationId={data.organization.id}
               isMultiOrgEnabled={data.isMultiOrgEnabled}
               organizationWorkspacesLimit={data.organizationWorkspacesLimit}
-              isFormbricksCloud={data.isFormbricksCloud}
+              isTallynestCloud={data.isTallynestCloud}
               isLicenseActive={active}
               isNoLicense={status === "no-license"}
               isOwnerOrManager={data.isOwnerOrManager}
@@ -91,7 +91,7 @@ export const SettingsShell = ({ data, children }: Readonly<SettingsShellProps>) 
         workspace={data.currentWorkspace}
         organization={organization}
         deployment={{
-          isFormbricksCloud: IS_FORMBRICKS_CLOUD,
+          isTallynestCloud: IS_FORMBRICKS_CLOUD,
           enterpriseLicenseRequestFormUrl: ENTERPRISE_LICENSE_REQUEST_FORM_URL,
         }}>
         {shell}

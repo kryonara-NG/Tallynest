@@ -188,25 +188,25 @@ describe("buildSurveyResponseEmailHtml", () => {
   test("keeps inline formatting and links inside list items", async () => {
     const body = await sanitizedBodyOf(
       "<ul><li><b><strong>bold</strong></b> <i><em>italic</em></i><br />" +
-        '<a href="https://formbricks.com">link</a></li></ul>'
+        '<a href="https://tallynest.app">link</a></li></ul>'
     );
 
     expect(body).toBe(
       "<ul><li><b><strong>bold</strong></b> <i><em>italic</em></i><br />" +
-        '<a href="https://formbricks.com">link</a></li></ul>'
+        '<a href="https://tallynest.app">link</a></li></ul>'
     );
   });
 
   test("keeps http(s) links but drops other schemes, inline styles and event handlers", async () => {
     const body = await sanitizedBodyOf(
       '<p style="color:red" onclick="steal()">' +
-        '<a href="https://formbricks.com" target="_blank" rel="noopener">ok</a>' +
+        '<a href="https://tallynest.app" target="_blank" rel="noopener">ok</a>' +
         '<a href="javascript:alert(1)">bad</a>' +
         "</p>"
     );
 
     expect(body).toBe(
-      '<p><a href="https://formbricks.com" target="_blank" rel="noopener">ok</a><a>bad</a></p>'
+      '<p><a href="https://tallynest.app" target="_blank" rel="noopener">ok</a><a>bad</a></p>'
     );
   });
 
@@ -315,7 +315,7 @@ describe("buildSurveyResponseEmailHtml", () => {
   });
 
   // Callers pass `""` when the organization has no whitelabel logo; that must stay falsy so the
-  // template falls back to the default Formbricks logo instead of resolving an empty path.
+  // template falls back to the default Tallynest logo instead of resolving an empty path.
   test.each([
     ["an empty logo url", ""],
     ["no logo url", undefined],

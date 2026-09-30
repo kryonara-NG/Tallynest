@@ -600,7 +600,7 @@ describe("storage utils", () => {
     describe("legacy 4-part URLs (management replay of pre-#8044 responses)", () => {
       const legacyEnvironmentId = "env_legacy_abc";
 
-      test("accepts a legacy URL whose prefix is the workspace id (Formbricks 5 shape)", () => {
+      test("accepts a legacy URL whose prefix is the workspace id (Tallynest 5 shape)", () => {
         const responseData = {
           [elementId]: [`/storage/${workspaceId}/private/resume--fid--u1.pdf`],
         };
@@ -616,7 +616,7 @@ describe("storage utils", () => {
         ).toBe(true);
       });
 
-      test("accepts a legacy URL whose prefix is the workspace's legacyEnvironmentId (pre-Formbricks 5 shape)", () => {
+      test("accepts a legacy URL whose prefix is the workspace's legacyEnvironmentId (pre-Tallynest 5 shape)", () => {
         const responseData = {
           [elementId]: [`/storage/${legacyEnvironmentId}/private/resume--fid--u1.pdf`],
         };
@@ -822,7 +822,7 @@ describe("storage utils", () => {
       expect(isValidImageFile("https://example.com/document.docx")).toBe(false);
       expect(isValidImageFile("https://example.com/document.txt")).toBe(false);
       // ENG-1329: the allowlist is kept a subset of the upload allowlist (so the "upload to
-      // Formbricks" hint is truthful). gif/avif/bmp aren't uploadable, and svg is an XSS vector.
+      // Tallynest" hint is truthful). gif/avif/bmp aren't uploadable, and svg is an XSS vector.
       expect(isValidImageFile("https://example.com/image.gif")).toBe(false);
       expect(isValidImageFile("https://example.com/image.avif")).toBe(false);
       expect(isValidImageFile("https://example.com/image.bmp")).toBe(false);

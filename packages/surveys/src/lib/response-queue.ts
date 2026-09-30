@@ -108,7 +108,7 @@ export class ResponseQueue {
   }
 
   private logOfflinePersistenceError(message: string, error: unknown) {
-    console.error(`Formbricks: ${message}`, {
+    console.error(`Tallynest: ${message}`, {
       error,
       surveyId: this.config.surveyId,
     });
@@ -516,14 +516,14 @@ export class ResponseQueue {
         }
 
         if (attempts > 0) {
-          console.log(`Formbricks: Response sent successfully after ${attempts + 1} attempts`);
+          console.log(`Tallynest: Response sent successfully after ${attempts + 1} attempts`);
         }
 
         return { success: true, quotaFullResponse: quotaFullResponse ?? undefined };
       }
 
       if (this.isRecaptchaError(res.error)) {
-        console.error("Formbricks: Recaptcha verification failed", {
+        console.error("Tallynest: Recaptcha verification failed", {
           error: res.error,
           responseId: this.surveyState.responseId,
         });
@@ -533,7 +533,7 @@ export class ResponseQueue {
       // Permanent 4xx rejection — don't retry (backoff or manual Retry would just loop on the
       // same rejection). Signal the caller to drop the item from the queue.
       if (this.isTerminalClientError(res.error)) {
-        console.error("Formbricks: Response rejected permanently, dropping from queue", {
+        console.error("Tallynest: Response rejected permanently, dropping from queue", {
           error: res.error,
           responseId: this.surveyState.responseId,
           queueLength: this.queue.length,
@@ -545,7 +545,7 @@ export class ResponseQueue {
         };
       }
 
-      console.error(`Formbricks: Response send failed`, {
+      console.error(`Tallynest: Response send failed`, {
         attempt: attempts + 1,
         maxAttempts: this.config.retryAttempts,
         error: res.error,
@@ -559,7 +559,7 @@ export class ResponseQueue {
       attempts++;
     }
 
-    console.error(`Formbricks: Failed to send response after ${this.config.retryAttempts} attempts`, {
+    console.error(`Tallynest: Failed to send response after ${this.config.retryAttempts} attempts`, {
       queueLength: this.queue.length,
       responseId: this.surveyState.responseId,
       surveyId: this.surveyState.surveyId,
@@ -691,7 +691,7 @@ export class ResponseQueue {
 
       return ok(true);
     } catch (error) {
-      console.error("Formbricks: Error sending response", error);
+      console.error("Tallynest: Error sending response", error);
       return err({
         code: "internal_server_error",
         message: "An error occurred while sending the response.",

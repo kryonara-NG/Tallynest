@@ -26,7 +26,7 @@ const windowMock = {
   location: {
     search: "formbricksDebug=true",
     protocol: "https:",
-    host: "formbricks.com",
+    host: "tallynest.app",
     pathname: "/",
   },
   setInterval: vi.fn(),

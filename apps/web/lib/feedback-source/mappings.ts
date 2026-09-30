@@ -59,7 +59,7 @@ const resolveSurveyMappings = async (
 };
 
 /**
- * Builds the Formbricks-survey mapping input for a feedback source, and is the single place that
+ * Builds the Tallynest-survey mapping input for a feedback source, and is the single place that
  * binds the mapped surveys to the workspace the caller was authorized on. Every survey must live in
  * `workspaceId`; unknown elements and element types with no Hub field are skipped with a warning.
  *
@@ -67,7 +67,7 @@ const resolveSurveyMappings = async (
  * to one of these surveys should be mapped automatically. It is derived here rather than accepted from
  * the caller so it can never disagree with the mapping rows it describes.
  */
-export const resolveFormbricksMappingsInput = async (
+export const resolveTallynestMappingsInput = async (
   entries: { surveyId: string; elementIds: string[] }[],
   workspaceId: string
 ): Promise<TMappingsInput> => {

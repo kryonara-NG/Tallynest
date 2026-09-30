@@ -8,7 +8,7 @@ import { AUDIT_LOG_ENABLED, AUDIT_LOG_GET_USER_IP } from "@/lib/constants";
 import { getUser } from "@/lib/user/service";
 import { getClientIpFromHeaders } from "@/lib/utils/client-ip";
 import { getSession } from "@/modules/auth/lib/session";
-import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import { ActionClientCtx } from "./types/context";
 
 export const actionClient = createSafeActionClient({

@@ -122,7 +122,7 @@ test.describe("Auto-captured browser context on responses @slow", () => {
 
     const meta = await readStoredMeta(surveyId ?? "");
 
-    // The page the respondent answered on. On a link survey this is the Formbricks-hosted survey
+    // The page the respondent answered on. On a link survey this is the Tallynest-hosted survey
     // page itself. `url` carries the whole thing including the query; `pagePath` is the query-free
     // page identity. There is no `pageUrl` - it read the same `location.href` as `url`.
     expect(meta.url).toContain(`/s/${surveyId}`);

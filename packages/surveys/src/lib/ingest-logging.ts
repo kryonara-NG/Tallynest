@@ -47,9 +47,9 @@ const SELF_INJECTED_KEYS = new Set(["verifiedemail"]);
 export const logIngestResult = ({ dropped, flags }: TIngestResult): void => {
   for (const { key, reason } of dropped) {
     if (SELF_INJECTED_KEYS.has(key.toLowerCase())) continue;
-    console.warn(`Formbricks: "${key}" ${INGEST_DROP_MESSAGES[reason]}, so the value was ignored.`);
+    console.warn(`Tallynest: "${key}" ${INGEST_DROP_MESSAGES[reason]}, so the value was ignored.`);
   }
   for (const { key, reason } of flags) {
-    console.warn(`Formbricks: the value for "${key}" ${INGEST_FLAG_MESSAGES[reason]}.`);
+    console.warn(`Tallynest: the value for "${key}" ${INGEST_FLAG_MESSAGES[reason]}.`);
   }
 };

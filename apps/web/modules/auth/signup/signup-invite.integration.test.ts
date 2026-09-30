@@ -35,8 +35,8 @@ vi.mock("@/lib/constants", async (importOriginal) => ({
   SIGNUP_ENABLED: true,
 }));
 
-vi.mock("@/modules/ee/license-check/lib/utils", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/modules/ee/license-check/lib/utils")>()),
+vi.mock("@/modules/tallynest-core/entitlements", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/modules/tallynest-core/entitlements")>()),
   getIsMultiOrgEnabled: vi.fn(async () => true),
 }));
 
@@ -44,8 +44,8 @@ vi.mock("@/modules/ee/mailing/lib/mailing-subscription", () => ({
   subscribeUserToMailingList: vi.fn(async () => undefined),
 }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/modules/ee/audit-logs/lib/handler")>();
+vi.mock("@/modules/tallynest-core/activity-context", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/modules/tallynest-core/activity-context")>();
   return { ...actual, queueAuditEventBackground: vi.fn(async () => undefined) };
 });
 
@@ -113,7 +113,7 @@ describe("ENG-2091: accepting an invite via sign-up", () => {
 
   test("invitee who ALREADY has an account: no side effects touch it, invite survives", async () => {
     const { inviteToken, organizationId } = await seedInvite();
-    // The invitee already signed up for Formbricks earlier with the same corporate address.
+    // The invitee already signed up for Tallynest earlier with the same corporate address.
     const existing = await prisma.user.create({
       data: {
         name: "Invitee",
@@ -268,7 +268,7 @@ describe("plain sign-up (no invite) with an address that already exists", () => 
     // "already have an account? log in" line). This is the enumeration-safety boundary.
     expect(result?.data).toEqual({ success: true });
     expect(sendVerificationLinkEmail).not.toHaveBeenCalled();
-    // On Formbricks Cloud getIsMultiOrgEnabled() is true, so before the fix this branch created an
+    // On Tallynest Cloud getIsMultiOrgEnabled() is true, so before the fix this branch created an
     // organization + owner membership on someone else's account, once per request.
     expect({
       orgs: await prisma.organization.count(),

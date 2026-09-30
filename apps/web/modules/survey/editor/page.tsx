@@ -17,7 +17,7 @@ import {
   getIsQuotasEnabled,
   getIsSpamProtectionEnabled,
   getIsWorkflowsEnabled,
-} from "@/modules/ee/license-check/lib/utils";
+} from "@/modules/tallynest-core/entitlements";
 import { getQuotas } from "@/modules/ee/quotas/lib/quotas";
 import { getTeamMemberDetails } from "@/modules/survey/editor/lib/team";
 import { getUserEmail } from "@/modules/survey/editor/lib/user";
@@ -144,12 +144,12 @@ export const SurveyEditorPage = async (props: {
       isUserTargetingAllowed={isUserTargetingAllowed}
       isSpamProtectionAllowed={isSpamProtectionAllowed}
       workspaceLanguages={workspaceLanguages}
-      isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+      isTallynestCloud={IS_FORMBRICKS_CLOUD}
       isUnsplashConfigured={!!UNSPLASH_ACCESS_KEY}
       isCxMode={isCxMode}
       surveySchedulingConfig={SURVEY_SCHEDULING_CONFIG}
       locale={locale ?? DEFAULT_LOCALE}
-      mailFrom={MAIL_FROM ?? "hola@formbricks.com"}
+      mailFrom={MAIL_FROM ?? "hola@tallynest.app"}
       isSurveyFollowUpsAllowed={isSurveyFollowUpsAllowed}
       isWorkflowsAllowed={isWorkflowsAllowed}
       userEmail={userEmail}

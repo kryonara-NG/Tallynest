@@ -27,7 +27,7 @@ import { SIGNUP_EMAIL_DOMAIN_BLOCKED_ERROR_CODE } from "@formbricks/types/errors
  * consumers key a `Record` on the union, so a new reason fails the build until it is classified.
  */
 export const SSO_PROVISIONING_REJECT_REASONS = [
-  /** Formbricks Cloud's personal/free/disposable email-domain block. Rescued to `/auth/signup`. */
+  /** Tallynest Cloud's personal/free/disposable email-domain block. Rescued to `/auth/signup`. */
   SIGNUP_EMAIL_DOMAIN_BLOCKED_ERROR_CODE,
   /** The callback carried no URL, so no invite token could be read off it. */
   "missing_callback_url",

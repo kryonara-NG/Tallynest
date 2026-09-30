@@ -1,8 +1,8 @@
-# 🚀 Join the Formbricks Tribe! 🧱
+# 🚀 Join the Tallynest Tribe! 🧱
 
-First and foremost, we're absolutely thrilled that you're considering becoming a part of the Formbricks Tribe! 🤗
+First and foremost, we're absolutely thrilled that you're considering becoming a part of the Tallynest Tribe! 🤗
 
-Discover a myriad of ways to leave your mark on Formbricks — whether it's by squashing bugs, crafting new features, or enhancing our documentation.
+Discover a myriad of ways to leave your mark on Tallynest — whether it's by squashing bugs, crafting new features, or enhancing our documentation.
 
 ## 🐛 Issue Hunters
 
@@ -10,7 +10,7 @@ Did you stumble upon a bug? Encountered a hiccup in deployment? Perhaps you have
 
 ## 💡 Feature Architects
 
-Are you brimming with brilliant ideas? For new features that can elevate Formbricks, create an issue and slap on the "Enhancement" tag. We adore every concept that you throw our way. Just make sure to provide us with the "why" behind your idea. We're all ears!
+Are you brimming with brilliant ideas? For new features that can elevate Tallynest, create an issue and slap on the "Enhancement" tag. We adore every concept that you throw our way. Just make sure to provide us with the "why" behind your idea. We're all ears!
 
 ## 🛠 Crafting Pull Requests
 
@@ -18,6 +18,6 @@ For the time being, we don't have the capacity to properly facilitate community 
 
 ## 🚀 Aspiring Features
 
-If you spot a feature that isn't part of our official plan but could propel Formbricks forward, don't hesitate. Raise it as an enhancement issue, and let us know you're ready to take the lead. We'll be quick to respond.
+If you spot a feature that isn't part of our official plan but could propel Tallynest forward, don't hesitate. Raise it as an enhancement issue, and let us know you're ready to take the lead. We'll be quick to respond.
 
-Together, let's craft the future of Formbricks, making it better, bolder, and more brilliant! 🚀🧱🌟
+Together, let's craft the future of Tallynest, making it better, bolder, and more brilliant! 🚀🧱🌟

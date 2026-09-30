@@ -394,7 +394,7 @@ export const ZV3FeedbackRecordCreateBodyFields = z.object({
         "a chart groups by. NOT filterable or searchable through this API — metadata is read back " +
         "with a record, so narrowing by a metadata value means fetching and filtering client-side. " +
         "On update the whole object is REPLACED, not merged, so send every key you want to keep. " +
-        "Avoid personal data: it is stored unredacted (and the Formbricks survey pipeline repeats " +
+        "Avoid personal data: it is stored unredacted (and the Tallynest survey pipeline repeats " +
         "its own metadata on every record of a submission)."
     ),
 });

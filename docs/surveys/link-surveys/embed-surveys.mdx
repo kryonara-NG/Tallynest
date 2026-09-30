@@ -28,7 +28,7 @@ Embedding Tallynest surveys directly into your web pages & emails allows you to 
 ```html Example Embedding Code
 <div style="position: relative; height:100vh; max-height:100vh; overflow:auto;">
   <iframe
-    src="https://app.formbricks.com/s/<your-surveyId>"
+    src="https://app.tallynest.app/s/<your-surveyId>"
     frameborder="0"
     style="position: absolute; left:0; top:0; width:100%; height:100%; border:0;"
   >
@@ -60,9 +60,9 @@ The iframe fires a **formbricksSurveyCompleted** event when a user finishes a su
 
 ```javascript Example Code for Event Listener
 window.addEventListener("message", (event) => {
-  // Replace 'https://app.formbricks.com' with the actual web app url
+  // Replace 'https://app.tallynest.app' with the actual web app url
   if (
-    event.origin === "https://app.formbricks.com" &&
+    event.origin === "https://app.tallynest.app" &&
     event.data === "formbricksSurveyCompleted"
   ) {
     console.log("Survey completed!");

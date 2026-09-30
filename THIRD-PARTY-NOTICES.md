@@ -2,11 +2,11 @@
 
 Tallynest contains or may contain components originating from third-party projects. Their licenses remain applicable independently of the Tallynest AGPLv3 license.
 
-## Formbricks Core
+## Tallynest Core
 
-Copyright © 2024 Formbricks GmbH and other contributors, as stated in the upstream repository. Formbricks Core is used under the upstream AGPLv3 terms. See `LICENSE` and the upstream repository for provenance.
+Copyright © 2024 Tallynest GmbH and other contributors, as stated in the upstream repository. Tallynest Core is used under the upstream AGPLv3 terms. See `LICENSE` and the upstream repository for provenance.
 
-## Formbricks MIT components
+## Tallynest MIT components
 
 The upstream root license identifies `packages/js/`, `packages/android/`, `packages/ios/`, and `packages/api/` as MIT-licensed where those directories exist. MIT copyright and permission notices must remain with redistributed copies of those components.
 
@@ -20,4 +20,4 @@ The JavaScript/TypeScript dependency graph includes many independent open-source
 
 ## Proprietary / excluded material
 
-Formbricks Enterprise Edition under `apps/web/modules/ee` is intentionally **not included**. No Enterprise License text, proprietary EE source, or Enterprise license enforcement code is copied into Tallynest.
+Tallynest Enterprise Edition under `apps/web/modules/ee` is intentionally **not included**. No Enterprise License text, proprietary EE source, or Enterprise license enforcement code is copied into Tallynest.

@@ -189,10 +189,10 @@ describe("workspace lib", () => {
     // the row still points at.
     test("deletes nothing when the url is re-spelled but resolves to the same object", async () => {
       withStoredLogo(`${LOGO_PREFIX}/my%20logo--fid--1.png`);
-      resolvesTo({ logo: { url: "https://app.formbricks.com/storage/p1/public/my logo--fid--1.png" } });
+      resolvesTo({ logo: { url: "https://app.tallynest.app/storage/p1/public/my logo--fid--1.png" } });
 
       await updateWorkspace("p1", {
-        logo: { url: "https://app.formbricks.com/storage/p1/public/my logo--fid--1.png" },
+        logo: { url: "https://app.tallynest.app/storage/p1/public/my logo--fid--1.png" },
         expectedUpdatedAt: loadedAt,
       });
 
@@ -276,7 +276,7 @@ describe("workspace lib", () => {
     // The organization stores an absolute url while the workspace logo holds the relative one; both
     // resolve to the same object, so a raw string compare would miss it.
     test("matches an organization asset across url forms", async () => {
-      orgClaims({ logoUrl: "https://app.formbricks.com/storage/p1/public/shared%20asset--fid--888.png" });
+      orgClaims({ logoUrl: "https://app.tallynest.app/storage/p1/public/shared%20asset--fid--888.png" });
       withStoredLogo(`${LOGO_PREFIX}/shared asset--fid--888.png`);
       resolvesTo({ logo: null });
 

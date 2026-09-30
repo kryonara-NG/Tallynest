@@ -20,7 +20,7 @@ interface AISettingsToggleProps {
   membershipRole?: TOrganizationRole;
   isInstanceAIConfigured: boolean;
   hasAIPermission: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   enterpriseLicenseRequestFormUrl: string;
 }
 
@@ -29,7 +29,7 @@ export const AISettingsToggle = ({
   membershipRole,
   isInstanceAIConfigured,
   hasAIPermission,
-  isFormbricksCloud,
+  isTallynestCloud,
   enterpriseLicenseRequestFormUrl,
 }: Readonly<AISettingsToggleProps>) => {
   const organizationBillingPath = organizationSettingsPath(organization.id, "billing");
@@ -78,12 +78,12 @@ export const AISettingsToggle = ({
 
   const upgradeButtons: [ModalButton, ModalButton] = [
     {
-      text: isFormbricksCloud ? t("common.upgrade_plan") : t("common.request_trial_license"),
-      href: isFormbricksCloud ? organizationBillingPath : enterpriseLicenseRequestFormUrl,
+      text: isTallynestCloud ? t("common.upgrade_plan") : t("common.request_trial_license"),
+      href: isTallynestCloud ? organizationBillingPath : enterpriseLicenseRequestFormUrl,
     },
     {
       text: t("common.learn_more"),
-      href: "https://formbricks.com/docs/platform/features/ai-features",
+      href: "https://tallynest.app/docs/platform/features/ai-features",
     },
   ];
 

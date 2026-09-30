@@ -7,7 +7,7 @@ import { getMembershipByUserIdOrganizationId } from "@/lib/membership/service";
 import { getAccessFlags } from "@/lib/membership/utils";
 import { getUser } from "@/lib/user/service";
 import { getTranslate } from "@/lingodotdev/server";
-import { getAccessControlPermission, getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getAccessControlPermission, getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { getOrganizationAuth } from "@/modules/organization/lib/utils";
 import { Header } from "@/modules/ui/components/header";
 
@@ -37,7 +37,7 @@ const Page = async (props: { params: Promise<{ organizationId: string }> }) => {
       <LandingSidebar
         user={user}
         organization={organization}
-        isFormbricksSurveysConfigured={IS_FORMBRICKS_SURVEYS_CONFIGURED}
+        isTallynestSurveysConfigured={IS_FORMBRICKS_SURVEYS_CONFIGURED}
       />
       <div className="flex-1">
         <div className="flex h-full flex-col">
@@ -48,7 +48,7 @@ const Page = async (props: { params: Promise<{ organizationId: string }> }) => {
               currentOrganizationName={organization.name}
               isMultiOrgEnabled={isMultiOrgEnabled}
               organizationWorkspacesLimit={0}
-              isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+              isTallynestCloud={IS_FORMBRICKS_CLOUD}
               isLicenseActive={false}
               isNoLicense={false}
               isOwnerOrManager={false}

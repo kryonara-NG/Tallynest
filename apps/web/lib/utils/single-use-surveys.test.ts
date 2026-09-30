@@ -196,7 +196,7 @@ describe("Single Use Surveys", () => {
   });
 
   describe("encrypted single-use links are bound to their survey (ENG-2758)", () => {
-    // Two surveys that, on Formbricks Cloud, would belong to two different organisations: one
+    // Two surveys that, on Tallynest Cloud, would belong to two different organisations: one
     // deployment, one ENCRYPTION_KEY, every tenant.
     const SURVEY_A = "cm0aaaaaaaaaaaaaaaaaaaaa1"; // the attacker's own survey
     const SURVEY_B = "cm0bbbbbbbbbbbbbbbbbbbbb2"; // the victim's survey

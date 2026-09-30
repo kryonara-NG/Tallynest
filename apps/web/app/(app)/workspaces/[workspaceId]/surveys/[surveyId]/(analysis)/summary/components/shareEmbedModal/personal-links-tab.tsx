@@ -34,7 +34,7 @@ interface PersonalLinksTabProps {
   surveyId: string;
   segments: TSegment[];
   isContactsEnabled: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   enterpriseLicenseRequestFormUrl: string;
 }
 
@@ -55,7 +55,7 @@ export const PersonalLinksTab = ({
   segments,
   surveyId,
   isContactsEnabled,
-  isFormbricksCloud,
+  isTallynestCloud,
   enterpriseLicenseRequestFormUrl,
 }: PersonalLinksTabProps) => {
   const { t, i18n } = useTranslation();
@@ -149,16 +149,16 @@ export const PersonalLinksTab = ({
         feature="personal_links"
         buttons={[
           {
-            text: isFormbricksCloud ? t("common.upgrade_plan") : t("common.request_trial_license"),
-            href: isFormbricksCloud
+            text: isTallynestCloud ? t("common.upgrade_plan") : t("common.request_trial_license"),
+            href: isTallynestCloud
               ? `/organizations/${workspace?.organizationId}/settings/billing`
               : enterpriseLicenseRequestFormUrl,
           },
           {
             text: t("common.learn_more"),
-            href: isFormbricksCloud
+            href: isTallynestCloud
               ? `/organizations/${workspace?.organizationId}/settings/billing`
-              : "https://formbricks.com/learn-more-self-hosting-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=ee_lock_personal_links",
+              : "https://tallynest.app/learn-more-self-hosting-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=ee_lock_personal_links",
           },
         ]}
       />
@@ -244,7 +244,7 @@ export const PersonalLinksTab = ({
         links={[
           {
             title: t("workspace.surveys.share.personal_links.work_with_segments"),
-            href: "https://formbricks.com/docs/surveys/website-app-surveys/advanced-targeting#segment-configuration",
+            href: "https://tallynest.app/docs/surveys/website-app-surveys/advanced-targeting#segment-configuration",
           },
         ]}
       />

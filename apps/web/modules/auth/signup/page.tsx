@@ -24,7 +24,7 @@ import {
   getIsMultiOrgEnabled,
   getIsSamlSsoEnabled,
   getIsSsoEnabled,
-} from "@/modules/ee/license-check/lib/utils";
+} from "@/modules/tallynest-core/entitlements";
 import { SignupForm } from "./components/signup-form";
 
 export const SignupPage = async ({
@@ -76,7 +76,7 @@ export const SignupPage = async ({
         samlSsoEnabled={samlSsoEnabled}
         isTurnstileConfigured={IS_TURNSTILE_CONFIGURED}
         turnstileSiteKey={TURNSTILE_SITE_KEY}
-        isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+        isTallynestCloud={IS_FORMBRICKS_CLOUD}
       />
     </FormWrapper>
   );

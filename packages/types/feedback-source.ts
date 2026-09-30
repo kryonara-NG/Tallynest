@@ -10,7 +10,7 @@ export const ZFeedbackSourceStatus = z.enum(["active", "paused", "error"]);
 export type TFeedbackSourceStatus = z.infer<typeof ZFeedbackSourceStatus>;
 
 /**
- * Which survey responses a Formbricks feedback source imports into Hub.
+ * Which survey responses a Tallynest feedback source imports into Hub.
  *
  * `completedOnly` matches the live ingestion path, which only runs on `responseFinished`.
  * `all` additionally imports partial responses — answers a respondent typed but never submitted —
@@ -107,8 +107,8 @@ export const ZFeedbackSource = z.object({
 });
 export type TFeedbackSource = z.infer<typeof ZFeedbackSource>;
 
-// Formbricks element mapping
-export const ZFeedbackSourceFormbricksMapping = z.object({
+// Tallynest element mapping
+export const ZFeedbackSourceTallynestMapping = z.object({
   id: z.cuid2(),
   createdAt: z.date(),
   feedbackSourceId: z.cuid2(),
@@ -118,7 +118,7 @@ export const ZFeedbackSourceFormbricksMapping = z.object({
   hubFieldType: ZHubFieldType,
   customFieldLabel: z.string().nullable(),
 });
-export type TFeedbackSourceFormbricksMapping = z.infer<typeof ZFeedbackSourceFormbricksMapping>;
+export type TFeedbackSourceTallynestMapping = z.infer<typeof ZFeedbackSourceTallynestMapping>;
 
 export const ZFeedbackSourceFieldMapping = z.object({
   id: z.cuid2(),
@@ -132,7 +132,7 @@ export const ZFeedbackSourceFieldMapping = z.object({
 export type TFeedbackSourceFieldMapping = z.infer<typeof ZFeedbackSourceFieldMapping>;
 
 export const ZFeedbackSourceWithMappings = ZFeedbackSource.extend({
-  formbricksMappings: z.array(ZFeedbackSourceFormbricksMapping),
+  formbricksMappings: z.array(ZFeedbackSourceTallynestMapping),
   fieldMappings: z.array(ZFeedbackSourceFieldMapping),
   creatorName: z.string().nullable().optional(),
 });
@@ -149,15 +149,15 @@ export const ZFeedbackSourceCreateInput = z.object({
 });
 export type TFeedbackSourceCreateInput = z.infer<typeof ZFeedbackSourceCreateInput>;
 
-// Create Formbricks mapping input
-export const ZFeedbackSourceFormbricksMappingCreateInput = z.object({
+// Create Tallynest mapping input
+export const ZFeedbackSourceTallynestMappingCreateInput = z.object({
   surveyId: z.cuid2(),
   elementId: z.string(),
   hubFieldType: ZHubFieldType,
   customFieldLabel: z.string().optional(),
 });
-export type TFeedbackSourceFormbricksMappingCreateInput = z.infer<
-  typeof ZFeedbackSourceFormbricksMappingCreateInput
+export type TFeedbackSourceTallynestMappingCreateInput = z.infer<
+  typeof ZFeedbackSourceTallynestMappingCreateInput
 >;
 
 // Create field mapping input

@@ -153,7 +153,7 @@ export const WorkspaceLookSettingsLoading = () => {
       </SettingsCard>
 
       <SettingsCard
-        title="Formbricks Signature"
+        title="Tallynest Signature"
         description="We love your support but understand if you toggle it off.">
         <div className="w-full items-center">
           <div className="pointer-events-none flex cursor-not-allowed items-center gap-x-2 select-none">

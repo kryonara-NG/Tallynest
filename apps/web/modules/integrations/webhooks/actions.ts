@@ -18,7 +18,7 @@ import {
 } from "@/modules/api/v2/management/webhooks/[webhookId]/lib/webhook";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import {
   createWebhook,
   deleteWebhook,
@@ -34,7 +34,7 @@ const ZCreateWebhookAction = z.object({
 });
 
 export const createWebhookAction = authenticatedActionClient.inputSchema(ZCreateWebhookAction).action(
-  withAuditLogging("created", "webhook", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "webhook", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
       type: "workspace",
@@ -69,7 +69,7 @@ const ZDeleteWebhookAction = z.object({
 });
 
 export const deleteWebhookAction = authenticatedActionClient.inputSchema(ZDeleteWebhookAction).action(
-  withAuditLogging("deleted", "webhook", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "webhook", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWebhookId(parsedInput.id);
     const workspaceId = await getWorkspaceIdFromWebhookId(parsedInput.id);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
@@ -93,7 +93,7 @@ const ZUpdateWebhookAction = z.object({
 });
 
 export const updateWebhookAction = authenticatedActionClient.inputSchema(ZUpdateWebhookAction).action(
-  withAuditLogging("updated", "webhook", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "webhook", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWebhookId(parsedInput.webhookId);
     const workspaceId = await getWorkspaceIdFromWebhookId(parsedInput.webhookId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {

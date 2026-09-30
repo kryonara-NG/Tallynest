@@ -27,7 +27,7 @@ interface WorkspaceBreadcrumbProps {
   currentWorkspaceName?: string; // Optional: pass directly if context not available
   isOwnerOrManager: boolean;
   organizationWorkspacesLimit: number;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isLicenseActive: boolean;
   isNoLicense: boolean;
   currentOrganizationId: string;
@@ -41,7 +41,7 @@ export const WorkspaceBreadcrumb = ({
   currentWorkspaceName,
   isOwnerOrManager,
   organizationWorkspacesLimit,
-  isFormbricksCloud,
+  isTallynestCloud,
   isLicenseActive,
   isNoLicense,
   currentOrganizationId,
@@ -108,7 +108,7 @@ export const WorkspaceBreadcrumb = ({
   };
 
   const getLimitModalButtons = (): [ModalButton, ModalButton] => {
-    if (isFormbricksCloud) {
+    if (isTallynestCloud) {
       return [
         {
           text: t("workspace.settings.billing.upgrade"),
@@ -126,7 +126,7 @@ export const WorkspaceBreadcrumb = ({
         text: t("workspace.settings.billing.upgrade"),
         href: isLicenseActive
           ? `/organizations/${currentOrganizationId}/settings/enterprise`
-          : "https://formbricks.com/upgrade-self-hosted-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=upgrade_prompt_breadcrumb",
+          : "https://tallynest.app/upgrade-self-hosted-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=upgrade_prompt_breadcrumb",
       },
       {
         text: t("common.cancel"),
@@ -195,7 +195,7 @@ export const WorkspaceBreadcrumb = ({
           setOpen={setOpenLimitModal}
           buttons={getLimitModalButtons()}
           workspaceLimit={organizationWorkspacesLimit}
-          showLiteLicenseTip={!isFormbricksCloud && isNoLicense}
+          showLiteLicenseTip={!isTallynestCloud && isNoLicense}
         />
       )}
       {openCreateWorkspaceModal && (

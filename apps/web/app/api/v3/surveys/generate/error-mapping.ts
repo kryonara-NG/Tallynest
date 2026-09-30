@@ -30,7 +30,7 @@ type TAIUnavailableCode = Exclude<TAIErrorCode, typeof AI_ERROR_CODES.QUOTA_EXCE
 const AI_UNAVAILABLE_DETAILS: Record<TAIUnavailableCode, string> = {
   [AI_ERROR_CODES.FEATURES_NOT_ENABLED]: "AI smart tools are not available for this organization.",
   [AI_ERROR_CODES.SMART_TOOLS_DISABLED]: "AI smart tools are disabled for this organization.",
-  [AI_ERROR_CODES.INSTANCE_NOT_CONFIGURED]: "AI is not configured for this Formbricks instance.",
+  [AI_ERROR_CODES.INSTANCE_NOT_CONFIGURED]: "AI is not configured for this Tallynest instance.",
 };
 
 function isAIUnavailableCode(value: string): value is TAIUnavailableCode {

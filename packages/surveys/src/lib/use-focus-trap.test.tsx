@@ -135,13 +135,13 @@ describe("useFocusTrap", () => {
   test("allows links to receive initial focus", async () => {
     render(
       <FocusTrapFixture>
-        <a href="https://formbricks.com">Formbricks link</a>
+        <a href="https://tallynest.app">Tallynest link</a>
         <button>Survey action</button>
       </FocusTrapFixture>
     );
 
     await waitFor(() => {
-      expect(document.activeElement).toBe(screen.getByRole("link", { name: "Formbricks link" }));
+      expect(document.activeElement).toBe(screen.getByRole("link", { name: "Tallynest link" }));
     });
   });
 

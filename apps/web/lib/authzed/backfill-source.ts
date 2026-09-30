@@ -65,7 +65,7 @@ export type TAuthzedOrganizationSource = Readonly<{
   /**
    * Workspace-team grants whose team and workspace belong to different organizations.
    *
-   * Formbricks never creates one, and it would break the closed-unit invariant, so these are reported
+   * Tallynest never creates one, and it would break the closed-unit invariant, so these are reported
    * and then left strictly alone — neither projected nor pruned.
    */
   invalidWorkspaceTeamGrants: ReadonlyArray<TAuthzedWorkspaceTeamTarget>;

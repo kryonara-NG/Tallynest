@@ -18,7 +18,7 @@ export const AppConnectionPage = async ({ params }: { params: Promise<{ workspac
   const t = await getTranslate();
   const { workspaceId } = await params;
   const workspaceIdMigrationUrl =
-    "https://formbricks.com/docs/surveys/website-app-surveys/workspace-id-migration";
+    "https://tallynest.app/docs/surveys/website-app-surveys/workspace-id-migration";
 
   const { workspace, organization, session } = await getWorkspaceAuth(workspaceId);
   const showAIPrompt = session?.user.id
@@ -26,7 +26,7 @@ export const AppConnectionPage = async ({ params }: { params: Promise<{ workspac
       "test"
     : false;
 
-  const aiPrompt = `Integrate Formbricks into my app. 
+  const aiPrompt = `Integrate Tallynest into my app. 
   
 Detect my framework from the project files and follow the matching instructions below.
 
@@ -38,14 +38,14 @@ App URL      : ${WEBAPP_URL}
 ## HTML (no framework)
 Paste this snippet into your <head> on every page:
 
-  <!-- START Formbricks Surveys -->
+  <!-- START Tallynest Surveys -->
   <script type="text/javascript">
   !function(){
       var appUrl = "${WEBAPP_URL}";
       var workspaceId = "${workspace.id}";
   var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=appUrl+"/js/formbricks.umd.cjs";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e),setTimeout(function(){window.formbricks.setup({workspaceId: workspaceId, appUrl: appUrl})},500)}();
   </script>
-  <!-- END Formbricks Surveys -->
+  <!-- END Tallynest Surveys -->
 
 ## React.js
 1. Install: npm install @formbricks/js zod
@@ -65,7 +65,7 @@ Paste this snippet into your <head> on every page:
   import { useEffect } from "react";
   import formbricks from "@formbricks/js";
 
-  export default function FormbricksProvider() {
+  export default function TallynestProvider() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     useEffect(() => {
@@ -78,9 +78,9 @@ Paste this snippet into your <head> on every page:
 3. In app/layout.tsx, add inside <html>:
 
   import { Suspense } from "react";
-  import FormbricksProvider from "./formbricks";
+  import TallynestProvider from "./formbricks";
   // ...
-  <Suspense><FormbricksProvider /></Suspense>
+  <Suspense><TallynestProvider /></Suspense>
 
 ## Next.js — Pages Router
 1. Install: npm install @formbricks/js zod
@@ -123,26 +123,26 @@ Paste this snippet into your <head> on every page:
 1. Install: npm install @formbricks/react-native
 2. In App.js/App.tsx:
 
-  import Formbricks from "@formbricks/react-native";
+  import Tallynest from "@formbricks/react-native";
   const config = { workspaceId: "${workspace.id}", appUrl: "${WEBAPP_URL}" };
-  // Render <Formbricks initConfig={config} /> inside your root component.
+  // Render <Tallynest initConfig={config} /> inside your root component.
 
 ## Flutter
 1. Add to pubspec.yaml: formbricks (run flutter pub add formbricks)
 2. Mount the widget high in your widget tree:
 
-  Formbricks(appUrl: "${WEBAPP_URL}", workspaceId: "${workspace.id}")
+  Tallynest(appUrl: "${WEBAPP_URL}", workspaceId: "${workspace.id}")
 
-3. Drive it via static API: await Formbricks.track("event"), Formbricks.setUserId("uid"), etc.
+3. Drive it via static API: await Tallynest.track("event"), Tallynest.setUserId("uid"), etc.
 
 ## iOS (Swift)
 1. Add via Swift Package Manager: https://github.com/formbricks/ios.git
 2. Initialize on app launch:
 
-  import FormbricksSDK
-  let config = FormbricksConfig.Builder(appUrl: "${WEBAPP_URL}", workspaceId: "${workspace.id}").build()
-  Formbricks.setup(with: config)
-  Formbricks.setUserId("your-user-id")
+  import TallynestSDK
+  let config = TallynestConfig.Builder(appUrl: "${WEBAPP_URL}", workspaceId: "${workspace.id}").build()
+  Tallynest.setup(with: config)
+  Tallynest.setUserId("your-user-id")
 
 ## Android (Kotlin)
 1. Add to build.gradle.kts:
@@ -150,10 +150,10 @@ Paste this snippet into your <head> on every page:
    Also enable dataBinding = true under android.buildFeatures.
 2. Initialize in your Activity:
 
-  val config = FormbricksConfig.Builder("${WEBAPP_URL}", "${workspace.id}")
+  val config = TallynestConfig.Builder("${WEBAPP_URL}", "${workspace.id}")
     .setFragmentManager(supportFragmentManager).build()
-  Formbricks.setup(this, config)
-  Formbricks.setUserId("your-user-id")
+  Tallynest.setup(this, config)
+  Tallynest.setUserId("your-user-id")
 
 ---
 
@@ -170,14 +170,14 @@ Call setUserId with the authenticated user's ID. Call logout() on sign-out.
 Go to Settings → ${t("common.web_and_mobile_sdk")}. The widget indicator should turn green.
 To debug, add ?formbricksDebug=true to your app URL and check the browser console.`;
 
-  const htmlSnippet = `<!-- START Formbricks Surveys -->
+  const htmlSnippet = `<!-- START Tallynest Surveys -->
 <script type="text/javascript">
 !function(){
     var appUrl = "${WEBAPP_URL}";
     var workspaceId = "${workspace.id}";
 var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=appUrl+"/js/formbricks.umd.cjs";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e),setTimeout(function(){window.formbricks.setup({workspaceId: workspaceId, appUrl: appUrl})},500)}();
 </script>
-<!-- END Formbricks Surveys -->`;
+<!-- END Tallynest Surveys -->`;
 
   const nextjsSnippet = `"use client";
 
@@ -185,7 +185,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import formbricks from "@formbricks/js";
 
-export default function FormbricksProvider() {
+export default function TallynestProvider() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -220,7 +220,7 @@ if (typeof window !== "undefined") {
 
 export default formbricks;`;
 
-  const reactNativeSnippet = `import Formbricks from "@formbricks/react-native";
+  const reactNativeSnippet = `import Tallynest from "@formbricks/react-native";
 
 const config = {
   workspaceId: "${workspace.id}",
@@ -231,32 +231,32 @@ export default function App() {
   return (
     <>
       {/* Your app content */}
-      <Formbricks initConfig={config} />
+      <Tallynest initConfig={config} />
     </>
   );
 }`;
 
-  const androidSnippet = `val config = FormbricksConfig.Builder(
+  const androidSnippet = `val config = TallynestConfig.Builder(
     "${WEBAPP_URL}",
     "${workspace.id}"
 )
   .setFragmentManager(supportFragmentManager)
   .build()
 
-Formbricks.setup(this, config)`;
+Tallynest.setup(this, config)`;
 
-  const swiftSnippet = `import FormbricksSDK
+  const swiftSnippet = `import TallynestSDK
 
-let config = FormbricksConfig.Builder(
+let config = TallynestConfig.Builder(
     appUrl: "${WEBAPP_URL}",
     workspaceId: "${workspace.id}"
 ).build()
 
-Formbricks.setup(with: config)`;
+Tallynest.setup(with: config)`;
 
   const flutterSnippet = `import 'package:formbricks/formbricks.dart';
 
-Formbricks(
+Tallynest(
   appUrl: "${WEBAPP_URL}",
   workspaceId: "${workspace.id}",
 );`;

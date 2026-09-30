@@ -25,7 +25,7 @@ import {
   ZUserInput,
   ZUserInputPatch,
 } from "@/modules/api/v2/organizations/[organizationId]/users/types/users";
-import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export const GET = async (request: NextRequest, props: { params: Promise<{ organizationId: string }> }) =>
   authenticatedApiClient({
@@ -40,7 +40,7 @@ export const GET = async (request: NextRequest, props: { params: Promise<{ organ
       if (IS_FORMBRICKS_CLOUD) {
         return handleApiError(request, {
           type: "bad_request",
-          details: [{ field: "organizationId", issue: "This endpoint is not supported on Formbricks Cloud" }],
+          details: [{ field: "organizationId", issue: "This endpoint is not supported on Tallynest Cloud" }],
         });
       }
 
@@ -83,7 +83,7 @@ export const POST = async (request: Request, props: { params: Promise<{ organiza
           {
             type: "bad_request",
             details: [
-              { field: "organizationId", issue: "This endpoint is not supported on Formbricks Cloud" },
+              { field: "organizationId", issue: "This endpoint is not supported on Tallynest Cloud" },
             ],
           },
           auditLog
@@ -165,7 +165,7 @@ export const PATCH = async (request: Request, props: { params: Promise<{ organiz
           {
             type: "bad_request",
             details: [
-              { field: "organizationId", issue: "This endpoint is not supported on Formbricks Cloud" },
+              { field: "organizationId", issue: "This endpoint is not supported on Tallynest Cloud" },
             ],
           },
           auditLog

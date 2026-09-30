@@ -50,7 +50,7 @@ interface ShareSurveyModalProps {
   user: TUser;
   segments: TSegment[];
   isContactsEnabled: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isReadOnly: boolean;
   isStorageConfigured: boolean;
   workspaceCustomScripts?: string | null;
@@ -66,7 +66,7 @@ export const ShareSurveyModal = ({
   user,
   segments,
   isContactsEnabled,
-  isFormbricksCloud,
+  isTallynestCloud,
   isReadOnly,
   isStorageConfigured,
   workspaceCustomScripts,
@@ -107,7 +107,7 @@ export const ShareSurveyModal = ({
           surveyId: survey.id,
           segments,
           isContactsEnabled,
-          isFormbricksCloud,
+          isTallynestCloud,
           enterpriseLicenseRequestFormUrl,
         },
         disabled: survey.singleUse?.enabled,
@@ -198,8 +198,8 @@ export const ShareSurveyModal = ({
       },
     ];
 
-    // Filter out tabs that should not be shown on Formbricks Cloud
-    return isFormbricksCloud
+    // Filter out tabs that should not be shown on Tallynest Cloud
+    return isTallynestCloud
       ? tabs.filter(
           (tab) => tab.id !== ShareSettingsType.PRETTY_URL && tab.id !== ShareSettingsType.CUSTOM_HTML
         )
@@ -213,7 +213,7 @@ export const ShareSurveyModal = ({
     isReadOnly,
     segments,
     isContactsEnabled,
-    isFormbricksCloud,
+    isTallynestCloud,
     email,
     isStorageConfigured,
     workspaceCustomScripts,

@@ -17,11 +17,11 @@ import { createResponse, createResponseWithQuotaEvaluation } from "./response";
 
 vi.mock("server-only", () => ({}));
 
-let mockIsFormbricksCloud = false;
+let mockIsTallynestCloud = false;
 
 vi.mock("@/lib/constants", () => ({
   get IS_FORMBRICKS_CLOUD() {
-    return mockIsFormbricksCloud;
+    return mockIsTallynestCloud;
   },
   ENCRYPTION_KEY: "test",
 }));
@@ -124,7 +124,7 @@ describe("createResponse", () => {
   });
 
   afterEach(() => {
-    mockIsFormbricksCloud = false;
+    mockIsTallynestCloud = false;
   });
 
   test("should handle finished response and calculate TTC", async () => {
@@ -213,7 +213,7 @@ describe("createResponseWithQuotaEvaluation", () => {
   });
 
   afterEach(() => {
-    mockIsFormbricksCloud = false;
+    mockIsTallynestCloud = false;
   });
 
   test("should return response without quotaFull when no quota violations", async () => {

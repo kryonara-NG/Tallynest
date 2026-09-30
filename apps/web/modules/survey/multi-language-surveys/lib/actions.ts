@@ -16,7 +16,7 @@ import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromWorkspaceId, getWorkspaceIdFromLanguageId } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 
 const ZCreateLanguageAction = z.object({
   workspaceId: ZId,
@@ -24,7 +24,7 @@ const ZCreateLanguageAction = z.object({
 });
 
 export const createLanguageAction = authenticatedActionClient.inputSchema(ZCreateLanguageAction).action(
-  withAuditLogging("created", "language", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "language", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromWorkspaceId(parsedInput.workspaceId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.manage", {
@@ -59,7 +59,7 @@ const ZDeleteLanguageAction = z.object({
 });
 
 export const deleteLanguageAction = authenticatedActionClient.inputSchema(ZDeleteLanguageAction).action(
-  withAuditLogging("deleted", "language", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "language", async ({ ctx, parsedInput }) => {
     const languageWorkspaceId = await getWorkspaceIdFromLanguageId(parsedInput.languageId);
 
     if (languageWorkspaceId !== parsedInput.workspaceId) {
@@ -106,7 +106,7 @@ const ZUpdateLanguageAction = z.object({
 });
 
 export const updateLanguageAction = authenticatedActionClient.inputSchema(ZUpdateLanguageAction).action(
-  withAuditLogging("updated", "language", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "language", async ({ ctx, parsedInput }) => {
     const languageProductId = await getWorkspaceIdFromLanguageId(parsedInput.languageId);
 
     if (languageProductId !== parsedInput.workspaceId) {

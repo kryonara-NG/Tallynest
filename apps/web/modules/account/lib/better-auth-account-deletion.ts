@@ -10,14 +10,14 @@ import { deleteOrganization, getOrganizationsWhereUserIsSingleOwner } from "@/li
 import { capturePostHogEvent } from "@/lib/posthog";
 import { ACCOUNT_DELETION_SOLE_OWNER_BLOCK_MESSAGE } from "@/modules/account/constants";
 import { deleteBrevoCustomerByEmail } from "@/modules/auth/lib/brevo";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import type { AuthHookContext } from "@/modules/ee/sso/lib/better-auth-hooks";
 import { queueAccountDeletionAuditEvent } from "./account-deletion-audit";
 
 type DeleteUserConfig = NonNullable<NonNullable<BetterAuthOptions["user"]>["deleteUser"]>;
 
 /**
- * Better Auth `user.deleteUser` config (ENG-1054, design doc §14) — re-expresses Formbricks' account
+ * Better Auth `user.deleteUser` config (ENG-1054, design doc §14) — re-expresses Tallynest' account
  * deletion on Better Auth's native flow, replacing the prior bespoke SSO IdP re-authentication.
  *
  * The confirmation friction is asymmetric and lives at the edges (Phase 6, not here): credential users

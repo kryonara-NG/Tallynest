@@ -1,6 +1,6 @@
 import { Config } from "@/lib/common/config";
 import { CONTAINER_ID, LIVE_REGION_ID } from "@/lib/common/constants";
-import { FORMBRICKS_EVENTS, emitFormbricksEvent } from "@/lib/common/events";
+import { FORMBRICKS_EVENTS, emitTallynestEvent } from "@/lib/common/events";
 import { Logger } from "@/lib/common/logger";
 import { executeRecaptcha, loadRecaptchaScript } from "@/lib/common/recaptcha";
 import { TimeoutStack } from "@/lib/common/timeout-stack";
@@ -147,9 +147,9 @@ export const renderWidget = async (
   const placement = workspaceOverwrites.placement ?? settings.placement;
   const isBrandingEnabled = settings.inAppSurveyBranding;
 
-  let formbricksSurveys: TFormbricksSurveys;
+  let formbricksSurveys: TTallynestSurveys;
   try {
-    formbricksSurveys = await loadFormbricksSurveysExternally();
+    formbricksSurveys = await loadTallynestSurveysExternally();
   } catch (error) {
     logger.error(`Failed to load surveys library: ${String(error)}`);
     setIsSurveyRunning(false);
@@ -182,7 +182,7 @@ export const renderWidget = async (
     // close for a survey that never reported an open — and a slow POST against a quick dismissal
     // would deliver the two out of order. What was persisted is the dashboard's Displays count; this
     // event is what the respondent saw.
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: survey.id });
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: survey.id });
 
     formbricksSurveys.renderSurvey({
       appUrl: config.get().appUrl,
@@ -263,7 +263,7 @@ export const renderWidget = async (
         // client-minted — it is what lets the host link a session replay to this response. Emitted
         // last for the same reason as in onDisplayCreated: this callback runs inside the response
         // queue's try block, and a host-page throw here would mark a persisted response as failed.
-        emitFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, {
+        emitTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, {
           surveyId: survey.id,
           responseId,
           finished: false,
@@ -277,7 +277,7 @@ export const renderWidget = async (
         // "completed X → show Y" targeting would never fire until the person-state TTL expired.
         refreshSegmentsAfterInteraction(config.get().user.data.userId, survey, "onFinished");
 
-        emitFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, {
+        emitTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, {
           surveyId: survey.id,
           responseId,
           finished: true,
@@ -321,7 +321,7 @@ export const closeSurvey = (surveyId?: string): void => {
   // rendered survey.
   for (const closedSurveyId of surveyId === undefined ? [...openSurveyIds] : [surveyId]) {
     if (!openSurveyIds.delete(closedSurveyId)) continue;
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyClosed, { surveyId: closedSurveyId });
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyClosed, { surveyId: closedSurveyId });
   }
 };
 
@@ -362,11 +362,11 @@ export const removeWidgetContainer = (): void => {
 const SURVEYS_LOAD_TIMEOUT_MS = 10000;
 const SURVEYS_POLL_INTERVAL_MS = 200;
 
-type TFormbricksSurveys = NonNullable<typeof globalThis.window.formbricksSurveys>;
+type TTallynestSurveys = NonNullable<typeof globalThis.window.formbricksSurveys>;
 
-let surveysLoadPromise: Promise<TFormbricksSurveys> | null = null;
+let surveysLoadPromise: Promise<TTallynestSurveys> | null = null;
 
-const waitForSurveysGlobal = (): Promise<TFormbricksSurveys> => {
+const waitForSurveysGlobal = (): Promise<TTallynestSurveys> => {
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
 
@@ -381,7 +381,7 @@ const waitForSurveysGlobal = (): Promise<TFormbricksSurveys> => {
       }
 
       if (Date.now() - startTime >= SURVEYS_LOAD_TIMEOUT_MS) {
-        reject(new Error("Formbricks Surveys library did not become available within timeout"));
+        reject(new Error("Tallynest Surveys library did not become available within timeout"));
         return;
       }
 
@@ -392,7 +392,7 @@ const waitForSurveysGlobal = (): Promise<TFormbricksSurveys> => {
   });
 };
 
-const loadFormbricksSurveysExternally = (): Promise<TFormbricksSurveys> => {
+const loadTallynestSurveysExternally = (): Promise<TTallynestSurveys> => {
   if (globalThis.window.formbricksSurveys) {
     return Promise.resolve(globalThis.window.formbricksSurveys);
   }
@@ -401,7 +401,7 @@ const loadFormbricksSurveysExternally = (): Promise<TFormbricksSurveys> => {
     return surveysLoadPromise;
   }
 
-  surveysLoadPromise = new Promise<TFormbricksSurveys>((resolve, reject: (error: unknown) => void) => {
+  surveysLoadPromise = new Promise<TTallynestSurveys>((resolve, reject: (error: unknown) => void) => {
     const config = Config.getInstance();
     const script = document.createElement("script");
     script.src = `${config.get().appUrl}/js/surveys.umd.cjs`;
@@ -411,14 +411,14 @@ const loadFormbricksSurveysExternally = (): Promise<TFormbricksSurveys> => {
         .then(resolve)
         .catch((error: unknown) => {
           surveysLoadPromise = null;
-          console.error("Failed to load Formbricks Surveys library:", error);
-          reject(new Error(`Failed to load Formbricks Surveys library`));
+          console.error("Failed to load Tallynest Surveys library:", error);
+          reject(new Error(`Failed to load Tallynest Surveys library`));
         });
     };
     script.onerror = (error) => {
       surveysLoadPromise = null;
-      console.error("Failed to load Formbricks Surveys library:", error);
-      reject(new Error(`Failed to load Formbricks Surveys library`));
+      console.error("Failed to load Tallynest Surveys library:", error);
+      reject(new Error(`Failed to load Tallynest Surveys library`));
     };
     document.head.appendChild(script);
   });

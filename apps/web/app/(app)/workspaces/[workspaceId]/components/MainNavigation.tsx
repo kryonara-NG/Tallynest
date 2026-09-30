@@ -50,7 +50,7 @@ interface NavigationProps {
   user: TUser;
   organization: TOrganization;
   workspace: { id: string; name: string };
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isDevelopment: boolean;
   membershipRole?: TOrganizationRole;
   organizationWorkspacesLimit: number;
@@ -59,7 +59,7 @@ interface NavigationProps {
   isAccessControlAllowed: boolean;
   responseCount: number;
   newTrialBannerVariant: string | boolean;
-  isFormbricksSurveysConfigured: boolean;
+  isTallynestSurveysConfigured: boolean;
   // Whole days left in the trial, or null when there is no trial to count down. Computed by the
   // server layout: deriving it here would mean reading `Date.now()` during render, which diverges
   // between the server pass and hydration and then goes stale as the tab sits open (ENG-2366).
@@ -129,7 +129,7 @@ export const MainNavigation = ({
   user,
   workspace,
   membershipRole,
-  isFormbricksCloud,
+  isTallynestCloud,
   isDevelopment,
   organizationWorkspacesLimit,
   isLicenseActive,
@@ -137,7 +137,7 @@ export const MainNavigation = ({
   isAccessControlAllowed,
   responseCount,
   newTrialBannerVariant,
-  isFormbricksSurveysConfigured,
+  isTallynestSurveysConfigured,
   trialDaysRemaining,
 }: Readonly<NavigationProps>) => {
   const router = useRouter();
@@ -288,7 +288,7 @@ export const MainNavigation = ({
   }, [isOrganizationDropdownOpen, loadOrganizations]);
 
   const mainNavigationLink = isBilling
-    ? getBillingFallbackPath(organization.id, isFormbricksCloud)
+    ? getBillingFallbackPath(organization.id, isTallynestCloud)
     : `/workspaces/${workspace.id}/surveys/`;
 
   const handleWorkspaceChange = (workspaceId: string) => {
@@ -325,7 +325,7 @@ export const MainNavigation = ({
   };
 
   const workspaceLimitModalButtons = (): [ModalButton, ModalButton] => {
-    if (isFormbricksCloud) {
+    if (isTallynestCloud) {
       return [
         {
           text: t("workspace.settings.billing.upgrade"),
@@ -343,7 +343,7 @@ export const MainNavigation = ({
         text: t("workspace.settings.billing.upgrade"),
         href: isLicenseActive
           ? `/organizations/${organization.id}/settings/enterprise`
-          : "https://formbricks.com/upgrade-self-hosted-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=upgrade_prompt_nav",
+          : "https://tallynest.app/upgrade-self-hosted-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=upgrade_prompt_nav",
       },
       {
         text: t("common.cancel"),
@@ -406,7 +406,7 @@ export const MainNavigation = ({
                 organizationId={organization.id}
                 organizationName={organization.name}
                 membershipRole={membershipRole}
-                isFormbricksCloud={isFormbricksCloud}
+                isTallynestCloud={isTallynestCloud}
                 isCollapsed={false}
                 isTextVisible={false}
                 workspaces={workspaceSwitcher.items}
@@ -494,7 +494,7 @@ export const MainNavigation = ({
               <MainNavigationNotices
                 isCollapsed={isCollapsed}
                 isOwnerOrManager={isOwnerOrManager}
-                isFormbricksCloud={isFormbricksCloud}
+                isTallynestCloud={isTallynestCloud}
                 isDevelopment={isDevelopment}
                 latestVersion={latestVersion}
                 trialDaysRemaining={trialDaysRemaining}
@@ -591,7 +591,7 @@ export const MainNavigation = ({
                 isCollapsed={isCollapsed}
                 isTextVisible={isTextVisible}
                 className="rounded-br-xl"
-                isFormbricksSurveysConfigured={isFormbricksSurveysConfigured}
+                isTallynestSurveysConfigured={isTallynestSurveysConfigured}
               />
             </div>
           </div>
@@ -603,7 +603,7 @@ export const MainNavigation = ({
           setOpen={setOpenWorkspaceLimitModal}
           buttons={workspaceLimitModalButtons()}
           workspaceLimit={organizationWorkspacesLimit}
-          showLiteLicenseTip={!isFormbricksCloud && isNoLicense}
+          showLiteLicenseTip={!isTallynestCloud && isNoLicense}
         />
       )}
       {openCreateWorkspaceModal && (

@@ -10,11 +10,11 @@ This guide explains the settings you need to use to configure SAML with your Ide
 
 > **Note:** Please do not add a trailing slash at the end of the URLs. Create them exactly as shown below.
 
-**Assertion consumer service URL / Single Sign-On URL / Destination URL:** [https://app.formbricks.com/api/auth/saml/callback](https://app.formbricks.com/api/auth/saml/callback)
+**Assertion consumer service URL / Single Sign-On URL / Destination URL:** [https://app.tallynest.app/api/auth/saml/callback](https://app.tallynest.app/api/auth/saml/callback)
 
-**Entity ID / Identifier / Audience URI / Audience Restriction:** [https://saml.formbricks.com](https://saml.formbricks.com)
+**Entity ID / Identifier / Audience URI / Audience Restriction:** [https://saml.tallynest.app](https://saml.tallynest.app)
 
-> **Note:** [https://saml.formbricks.com](https://saml.formbricks.com) is hardcoded in Tallynest — do not replace it with your instance URL. It is the fixed SP Entity ID and must match exactly as shown in SAML assertions.
+> **Note:** [https://saml.tallynest.app](https://saml.tallynest.app) is hardcoded in Tallynest — do not replace it with your instance URL. It is the fixed SP Entity ID and must match exactly as shown in SAML assertions.
 
 **Response:** Signed
 
@@ -85,7 +85,7 @@ This guide explains the settings you need to use to configure SAML with your Ide
   </Step>
   <Step title="Enter the SAML Integration Settings as shown and click Next">
     - **Single Sign-On URL**: `https://<your-formbricks-instance>/api/auth/saml/callback` or `http://localhost:3000/api/auth/saml/callback` (if you are running Tallynest locally)
-    - **Audience URI (SP Entity ID)**: `https://saml.formbricks.com` (hardcoded; do not replace with your instance URL)
+    - **Audience URI (SP Entity ID)**: `https://saml.tallynest.app` (hardcoded; do not replace with your instance URL)
     <img src="/images/self-hosting/configuration/auth-sso/okta/saml-integration-settings.webp" />
   </Step>
   <Step title="Fill the fields mapping as shown and click Next">

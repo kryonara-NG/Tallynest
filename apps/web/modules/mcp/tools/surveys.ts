@@ -107,7 +107,7 @@ export function registerSurveyTools(server: McpServer): void {
     "list_surveys",
     {
       title: "List surveys",
-      description: "List surveys in a Formbricks workspace using the v3 Surveys API contract.",
+      description: "List surveys in a Tallynest workspace using the v3 Surveys API contract.",
       inputSchema: ZMcpListSurveysInput,
       annotations: {
         readOnlyHint: true,
@@ -136,7 +136,7 @@ export function registerSurveyTools(server: McpServer): void {
     "get_survey",
     {
       title: "Get survey",
-      description: "Get one Formbricks survey using the v3 Surveys API contract.",
+      description: "Get one Tallynest survey using the v3 Surveys API contract.",
       inputSchema: ZMcpGetSurveyInput,
       annotations: {
         readOnlyHint: true,
@@ -166,7 +166,7 @@ export function registerSurveyTools(server: McpServer): void {
     "create_survey",
     {
       title: "Create survey",
-      description: "Create a Formbricks link survey using the v3 Surveys API contract.",
+      description: "Create a Tallynest link survey using the v3 Surveys API contract.",
       inputSchema: ZMcpCreateSurveyInput,
       audit: { action: "created", targetType: "survey" },
       annotations: {
@@ -365,7 +365,7 @@ export function registerSurveyTools(server: McpServer): void {
     "delete_survey",
     {
       title: "Delete survey",
-      description: "Delete a Formbricks survey using the v3 Surveys API contract.",
+      description: "Delete a Tallynest survey using the v3 Surveys API contract.",
       inputSchema: ZMcpDeleteSurveyInput,
       audit: { action: "deleted", targetType: "survey", targetIdArg: "surveyId" },
       annotations: {

@@ -339,7 +339,7 @@ const isScopedPrivateUploadUrl = ({
     );
   }
 
-  // Legacy shapes uploaded before #8044 (pre-Formbricks-5 environment-id prefix, or the Formbricks-5
+  // Legacy shapes uploaded before #8044 (pre-Tallynest-5 environment-id prefix, or the Tallynest-5
   // workspace-id prefix) never recorded a survey or element, so they are only 4 parts:
   // /storage/{prefix}/private/{file}. A read-then-write of such a response (backfills, re-imports,
   // two-way integrations) must still validate — but only when {prefix} is a storage namespace THIS

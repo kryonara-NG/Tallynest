@@ -10,7 +10,7 @@ const PAID_BILLING_PLANS = new Set<TCloudBillingPlan>(["pro", "scale"]);
  * Resolved server-side so the active-customer label can be attached to Plain
  * threads at init time, before the user opens their first thread.
  *
- * Stripe billing plans only exist on Formbricks Cloud, so self-hosted instances
+ * Stripe billing plans only exist on Tallynest Cloud, so self-hosted instances
  * short-circuit to false instead of querying the user's organizations.
  */
 export const getIsActiveCustomer = async (userId: string): Promise<boolean> => {

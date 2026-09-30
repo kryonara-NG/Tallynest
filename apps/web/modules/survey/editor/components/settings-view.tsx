@@ -7,7 +7,7 @@ import { TSurvey } from "@formbricks/types/surveys/types";
 import { TUserLocale } from "@formbricks/types/user";
 import { TargetingCard } from "@/modules/ee/contacts/segments/components/targeting-card";
 import { QuotasCard } from "@/modules/ee/quotas/components/quotas-card";
-import { TTeamPermission } from "@/modules/ee/teams/workspace-teams/types/team";
+import { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import { HowToSendCard } from "@/modules/survey/editor/components/how-to-send-card";
 import { RecontactOptionsCard } from "@/modules/survey/editor/components/recontact-options-card";
 import { ResponseOptionsCard } from "@/modules/survey/editor/components/response-options-card";
@@ -28,7 +28,7 @@ interface SettingsViewProps {
   isUserTargetingAllowed?: boolean;
   isSpamProtectionAllowed: boolean;
   workspacePermission: TTeamPermission | null;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isQuotasAllowed: boolean;
   quotas: TSurveyQuota[];
   surveySchedulingConfig: TSurveySchedulingConfig;
@@ -52,7 +52,7 @@ export const SettingsView = ({
   isSpamProtectionAllowed,
   isQuotasAllowed,
   workspacePermission,
-  isFormbricksCloud,
+  isTallynestCloud,
   quotas,
   surveySchedulingConfig,
   locale,
@@ -87,7 +87,7 @@ export const SettingsView = ({
             </div>
           ) : (
             <TargetingLockedCard
-              isFormbricksCloud={isFormbricksCloud}
+              isTallynestCloud={isTallynestCloud}
               enterpriseLicenseRequestFormUrl={enterpriseLicenseRequestFormUrl}
             />
           )}
@@ -106,7 +106,7 @@ export const SettingsView = ({
       <QuotasCard
         localSurvey={localSurvey}
         isQuotasAllowed={isQuotasAllowed}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         quotas={quotas}
         hasResponses={responseCount > 0}
         enterpriseLicenseRequestFormUrl={enterpriseLicenseRequestFormUrl}

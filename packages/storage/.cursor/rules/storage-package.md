@@ -1,8 +1,8 @@
-# Storage Package Rules for Formbricks
+# Storage Package Rules for Tallynest
 
 ## Package Purpose & Design Philosophy
 
-The `@formbricks/storage` package provides a **type-safe, environment-agnostic S3 storage abstraction** for Formbricks. It's designed as a standalone library that can work with any S3-compatible storage provider (AWS S3, RustFS, LocalStack, etc.).
+The `@formbricks/storage` package provides a **type-safe, environment-agnostic S3 storage abstraction** for Tallynest. It's designed as a standalone library that can work with any S3-compatible storage provider (AWS S3, RustFS, LocalStack, etc.).
 
 ### Key Design Decisions
 
@@ -162,7 +162,7 @@ for (let i = 0; i < keys.length; i += 1000) {
 
 ## Integration Patterns
 
-### In Formbricks Web App
+### In Tallynest Web App
 
 ```typescript
 // Survey file cleanup when survey is deleted

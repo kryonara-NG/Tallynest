@@ -70,7 +70,7 @@ export function FileUploadElement({
         console.error(`Error decoding file name: ${e}`);
       }
 
-      // Clean up Formbricks storage pattern: name--fid--uuid.ext
+      // Clean up Tallynest storage pattern: name--fid--uuid.ext
       if (fileName.includes("--fid--")) {
         const parts = fileName.split("--fid--");
         const extension = fileName.split(".").pop();

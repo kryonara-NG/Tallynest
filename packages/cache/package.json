@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "homepage": "https://formbricks.com",
-  "description": "Unified Redis cache for Formbricks",
+  "homepage": "https://tallynest.app",
+  "description": "Unified Redis cache for Tallynest",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
@@ -12,7 +12,7 @@
     "url": "https://github.com/formbricks/formbricks"
   },
   "keywords": [
-    "Formbricks",
+    "Tallynest",
     "cache",
     "redis",
     "caching"
@@ -38,7 +38,7 @@
     "test:coverage": "vitest run --coverage",
     "go": "vite build --watch --mode dev"
   },
-  "author": "Formbricks <hola@formbricks.com>",
+  "author": "Tallynest <hola@tallynest.app>",
   "dependencies": {
     "@formbricks/logger": "workspace:*",
     "redis": "catalog:",

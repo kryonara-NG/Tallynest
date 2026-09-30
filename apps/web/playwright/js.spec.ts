@@ -25,7 +25,7 @@ const HTML_TEMPLATE = `<head>
           );
           window.formbricks.setup({workspaceId: "WORKSPACE_ID", appUrl: "http://localhost:3000"});
         } else {
-          console.error("Formbricks library failed to load properly. The formbricks object is not available.");
+          console.error("Tallynest library failed to load properly. The formbricks object is not available.");
         }
       };
       e.parentNode.insertBefore(t, e);
@@ -34,7 +34,7 @@ const HTML_TEMPLATE = `<head>
 </head>
 
 <body style="background-color: #fff">
-  <p>This is my sample page using the Formbricks JS javascript widget</p>
+  <p>This is my sample page using the Tallynest JS javascript widget</p>
 </body>
 `;
 
@@ -128,7 +128,7 @@ test.describe("JS Package Test", async () => {
     await expect(widget.getByText(/\[deprecated] survey name omitted/)).toHaveCount(0);
 
     await expect(
-      page.locator("#questionCard-0").getByRole("link", { name: "Powered by Formbricks" })
+      page.locator("#questionCard-0").getByRole("link", { name: "Powered by Tallynest" })
     ).toBeVisible();
 
     // Fill the survey

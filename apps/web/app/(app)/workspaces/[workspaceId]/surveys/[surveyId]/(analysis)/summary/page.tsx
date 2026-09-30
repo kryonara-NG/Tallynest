@@ -16,7 +16,7 @@ import { getSurvey } from "@/lib/survey/service";
 import { getUser } from "@/lib/user/service";
 import { getTranslate } from "@/lingodotdev/server";
 import { getSegments } from "@/modules/ee/contacts/segments/lib/segments";
-import { getIsContactsEnabled, getIsQuotasEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsContactsEnabled, getIsQuotasEnabled } from "@/modules/tallynest-core/entitlements";
 import { getOrganizationBilling } from "@/modules/survey/lib/survey";
 import { getSurveyAuth } from "@/modules/survey/lib/survey-auth";
 import { IdBadge } from "@/modules/ui/components/id-badge";
@@ -81,7 +81,7 @@ const SurveyPage = async (
             responseCount={initialSurveySummary?.meta.totalResponses ?? 0}
             segments={segments}
             isContactsEnabled={isContactsEnabled}
-            isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+            isTallynestCloud={IS_FORMBRICKS_CLOUD}
             isStorageConfigured={IS_STORAGE_CONFIGURED}
             enterpriseLicenseRequestFormUrl={ENTERPRISE_LICENSE_REQUEST_FORM_URL}
             aiUnavailableReason={aiUnavailableReason}

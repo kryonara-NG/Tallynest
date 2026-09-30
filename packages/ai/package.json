@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "homepage": "https://formbricks.com",
-  "description": "Shared AI provider configuration and model resolution for Formbricks",
+  "homepage": "https://tallynest.app",
+  "description": "Shared AI provider configuration and model resolution for Tallynest",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
@@ -13,7 +13,7 @@
     "url": "https://github.com/formbricks/formbricks"
   },
   "keywords": [
-    "Formbricks",
+    "Tallynest",
     "ai",
     "llm",
     "providers"
@@ -37,7 +37,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
-  "author": "Formbricks <hola@formbricks.com>",
+  "author": "Tallynest <hola@tallynest.app>",
   "dependencies": {
     "@ai-sdk/amazon-bedrock": "4.0.104",
     "@ai-sdk/azure": "3.0.64",

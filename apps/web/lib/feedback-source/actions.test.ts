@@ -50,7 +50,7 @@ vi.mock("@/lib/utils/helper", () => ({
 vi.mock("@/lib/survey/service", () => ({ getSurvey: mocks.getSurvey }));
 vi.mock("@/lib/response/service", () => ({ getResponseCountBySurveyId: vi.fn() }));
 vi.mock("@/modules/core/rate-limit/helpers", () => ({ applyRateLimit: mocks.applyRateLimit }));
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   withAuditLogging: vi.fn((_event, _target, handler) => handler),
 }));
 vi.mock("@/modules/ee/feedback-directory/lib/feedback-directory", () => ({
@@ -62,7 +62,7 @@ vi.mock("./access", () => ({
   assertFeedbackSourceDirectoryAccess: mocks.assertFeedbackSourceDirectoryAccess,
 }));
 vi.mock("./import", () => ({ importHistoricalResponses: mocks.importHistoricalResponses }));
-vi.mock("./mappings", () => ({ resolveFormbricksMappingsInput: vi.fn() }));
+vi.mock("./mappings", () => ({ resolveTallynestMappingsInput: vi.fn() }));
 vi.mock("./service", () => ({
   createFeedbackSourceWithMappings: mocks.createFeedbackSourceWithMappings,
   deleteFeedbackSource: mocks.deleteFeedbackSource,

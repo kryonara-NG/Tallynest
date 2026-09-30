@@ -21,13 +21,13 @@ vi.mock("./signup-intent", () => ({
 vi.mock("./better-auth-observability", () => ({
   auditVerificationSessionWithheld: mocks.auditVerificationSessionWithheld,
 }));
-vi.mock("@/lib/constants", () => ({ WEBAPP_URL: "https://app.formbricks.com" }));
+vi.mock("@/lib/constants", () => ({ WEBAPP_URL: "https://app.tallynest.app" }));
 vi.mock("@formbricks/logger", () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
 /** What the handler redirects to whenever it withholds the session. */
-const LOGIN_VERIFIED = "https://app.formbricks.com/auth/login?verified=1";
+const LOGIN_VERIFIED = "https://app.tallynest.app/auth/login?verified=1";
 
 const { verificationAutoSignInAfterHandler } = await import("./better-auth-verification-autosignin");
 

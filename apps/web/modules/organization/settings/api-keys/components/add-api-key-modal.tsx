@@ -41,7 +41,7 @@ interface AddApiKeyModalProps {
   }) => Promise<void>;
   workspaces: TOrganizationWorkspace[];
   isCreatingAPIKey: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   /**
    * Whether the signed-in user clears USER_MANAGEMENT_MINIMUM_ROLE (ENG-3075). A key with
    * organization write access can manage the org's users, teams and workspace-team grants, so the
@@ -70,7 +70,7 @@ export const AddApiKeyModal = ({
   onSubmit,
   workspaces,
   isCreatingAPIKey,
-  isFormbricksCloud,
+  isTallynestCloud,
   canGrantOrganizationWriteAccess,
 }: Readonly<AddApiKeyModalProps>) => {
   const { t } = useTranslation();
@@ -346,7 +346,7 @@ export const AddApiKeyModal = ({
                   )}
                 </div>
               ))}
-              {isFormbricksCloud && (
+              {isTallynestCloud && (
                 <Alert variant="info" role="status">
                   <AlertDescription>
                     {t("workspace.api_keys.organization_access_cloud_note")}

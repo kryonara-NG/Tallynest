@@ -186,7 +186,7 @@ export async function streamV3SurveyGeneration({
     headers: {
       "Content-Type": SURVEY_GENERATION_STREAM_CONTENT_TYPE,
       // no-transform is the RFC 9111 signal that forbids an intermediary coalescing or re-encoding
-      // the body; X-Accel-Buffering is for self-hosters fronting Formbricks with nginx-ingress,
+      // the body; X-Accel-Buffering is for self-hosters fronting Tallynest with nginx-ingress,
       // where proxy_buffering is on by default and would hold the whole response.
       "Cache-Control": "no-cache, no-store, no-transform",
       "X-Accel-Buffering": "no",

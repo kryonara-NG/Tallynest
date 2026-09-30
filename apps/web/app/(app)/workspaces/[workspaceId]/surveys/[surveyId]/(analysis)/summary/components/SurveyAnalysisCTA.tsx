@@ -33,7 +33,7 @@ interface SurveyAnalysisCTAProps {
   responseCount: number;
   segments: TSegment[];
   isContactsEnabled: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isStorageConfigured: boolean;
   enterpriseLicenseRequestFormUrl: string;
   aiUnavailableReason: TAIUnavailableReason | null;
@@ -51,7 +51,7 @@ export const SurveyAnalysisCTA = ({
   responseCount,
   segments,
   isContactsEnabled,
-  isFormbricksCloud,
+  isTallynestCloud,
   isStorageConfigured,
   enterpriseLicenseRequestFormUrl,
   aiUnavailableReason,
@@ -314,7 +314,7 @@ export const SurveyAnalysisCTA = ({
           modalView={modalState.start ? "start" : "share"}
           segments={segments}
           isContactsEnabled={isContactsEnabled}
-          isFormbricksCloud={isFormbricksCloud}
+          isTallynestCloud={isTallynestCloud}
           isReadOnly={isReadOnly}
           isStorageConfigured={isStorageConfigured}
           workspaceCustomScripts={workspace.customHeadScripts}

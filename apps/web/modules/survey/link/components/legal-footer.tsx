@@ -61,7 +61,7 @@ export const LegalFooter = ({
           )}
           {IS_FORMBRICKS_CLOUD && (
             <Link
-              href={`https://app.formbricks.com/s/clxbivtla014iye2vfrn436xd?surveyUrl=${surveyUrl}`}
+              href={`https://app.tallynest.app/s/clxbivtla014iye2vfrn436xd?surveyUrl=${surveyUrl}`}
               target="_blank"
               className="hover:underline">
               {t("common.report_survey")}

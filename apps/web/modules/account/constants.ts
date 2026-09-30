@@ -5,7 +5,7 @@
 // INVALID_CALLBACK_URL for anything outside `trustedOrigins`, which killed SSO account deletion on
 // staging (ENG-3260). Reach it through `getPostAccountDeletionRedirectUrl` rather than reading it here.
 export const FORMBRICKS_CLOUD_ACCOUNT_DELETION_SURVEY_URL =
-  "https://app.formbricks.com/s/clri52y3z8f221225wjdhsoo2";
+  "https://app.tallynest.app/s/clri52y3z8f221225wjdhsoo2";
 
 // Where the emailed SSO deletion link lands once Better Auth has deleted the account. Relative on
 // purpose — that is the one shape `originCheck` accepts on every deployment (it allows relative paths,

@@ -55,7 +55,7 @@ vi.mock("@/lib/constants", () => ({
 }));
 
 // Mock audit log types
-vi.mock("@/modules/ee/audit-logs/types/audit-log", () => ({
+vi.mock("@/modules/tallynest-core/api-audit", () => ({
   UNKNOWN_DATA: "unknown",
 }));
 

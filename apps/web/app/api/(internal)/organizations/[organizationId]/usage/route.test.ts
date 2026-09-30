@@ -26,7 +26,7 @@ vi.mock("@/app/api/v1/auth", () => ({ authenticateRequest: vi.fn() }));
 vi.mock("@/modules/core/rate-limit/helpers", () => ({
   applyRateLimit: vi.fn().mockResolvedValue(undefined),
 }));
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   queueAuditEvent: vi.fn().mockResolvedValue(undefined),
 }));
 vi.mock("@/app/lib/api/with-api-logging", () => ({
@@ -87,7 +87,7 @@ describe("GET /api/organizations/[organizationId]/usage", () => {
     expect(mockGetOrganizationUsage).not.toHaveBeenCalled();
   });
 
-  test("refuses every caller on Formbricks Cloud", async () => {
+  test("refuses every caller on Tallynest Cloud", async () => {
     constants.IS_FORMBRICKS_CLOUD = true;
 
     const response = await get("?preset=this_year");

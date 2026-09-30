@@ -184,7 +184,7 @@ describe("legal footer", () => {
 });
 
 describe("custom branding", () => {
-  test("response-finished notification falls back to the Formbricks logo when no organization logo is set", async () => {
+  test("response-finished notification falls back to the Tallynest logo when no organization logo is set", async () => {
     const html = await renderResponseFinishedEmail({
       ...exampleData.responseFinishedEmail,
       elements: responseFinishedElements,

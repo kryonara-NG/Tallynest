@@ -23,7 +23,7 @@ const seedFollowUp = async ({ surveyId, name, to }: { surveyId: string; name: st
         type: "send-email",
         properties: {
           to,
-          from: "hola@formbricks.com",
+          from: "hola@tallynest.app",
           replyTo: [to],
           subject: "Thanks for responding",
           body: "<p>Thanks!</p>",

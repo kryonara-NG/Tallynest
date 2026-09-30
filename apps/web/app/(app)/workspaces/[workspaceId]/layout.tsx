@@ -36,7 +36,7 @@ const WorkspaceLayout = async (props: {
         workspace={layoutData.workspace}
         organization={layoutData.organization}
         deployment={{
-          isFormbricksCloud: IS_FORMBRICKS_CLOUD,
+          isTallynestCloud: IS_FORMBRICKS_CLOUD,
           enterpriseLicenseRequestFormUrl: ENTERPRISE_LICENSE_REQUEST_FORM_URL,
         }}>
         <WorkspaceLayoutComponent layoutData={layoutData}>{children}</WorkspaceLayoutComponent>

@@ -189,7 +189,7 @@ export const useFocusTrap = <TElement extends HTMLElement>({
 
     const yieldToPage = () => {
       hasYieldedToPage = true;
-      console.warn("Formbricks: focus trap turned off, another focus handler on the page keeps taking focus");
+      console.warn("Tallynest: focus trap turned off, another focus handler on the page keeps taking focus");
     };
 
     const hasRedirectBudget = () => {

@@ -21,14 +21,14 @@ import {
 } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/ee/feedback-directory/lib/feedback-directory";
 import { getContactIdsByUserIds } from "@/modules/ee/unify-feedback/lib/contacts";
 import { listFeedbackRecords } from "@/modules/hub/service";
 import type { FeedbackRecordListParams, FeedbackRecordListResponse } from "@/modules/hub/types";
 import { assertFeedbackSourceDirectoryAccess } from "./access";
 import { importHistoricalResponses } from "./import";
-import { resolveFormbricksMappingsInput } from "./mappings";
+import { resolveTallynestMappingsInput } from "./mappings";
 import {
   TMappingsInput,
   createFeedbackSourceWithMappings,
@@ -50,7 +50,7 @@ const ZDeleteFeedbackSourceAction = z.object({
 export const deleteFeedbackSourceAction = authenticatedActionClient
   .inputSchema(ZDeleteFeedbackSourceAction)
   .action(
-    withAuditLogging("deleted", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withActivityContext("deleted", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.feedbackSourceId = parsedInput.feedbackSourceId;
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.feedbackSourceMutation, ctx.user.id);
@@ -85,7 +85,7 @@ export const deleteFeedbackSourceAction = authenticatedActionClient
     })
   );
 
-const ZFormbricksSurveyMapping = z.object({
+const ZTallynestSurveyMapping = z.object({
   surveyId: ZId,
   elementIds: z.array(z.string()).min(1),
 });
@@ -107,7 +107,7 @@ const ZCreateFeedbackSourceWithMappingsAction = z
   .object({
     workspaceId: ZId,
     feedbackSourceInput: ZFeedbackSourceCreateInput,
-    formbricksMappings: z.array(ZFormbricksSurveyMapping).optional(),
+    formbricksMappings: z.array(ZTallynestSurveyMapping).optional(),
     fieldMappings: z.array(ZFeedbackSourceFieldMappingCreateInput).optional(),
   })
   .superRefine((data, ctx) => {
@@ -116,7 +116,7 @@ const ZCreateFeedbackSourceWithMappingsAction = z
         ctx.addIssue({
           code: "custom",
           path: ["formbricksMappings"],
-          message: "At least one survey mapping is required for Formbricks feedbackSources",
+          message: "At least one survey mapping is required for Tallynest feedbackSources",
         });
       }
     } else if (data.feedbackSourceInput.type === "csv") {
@@ -133,7 +133,7 @@ const ZCreateFeedbackSourceWithMappingsAction = z
 export const createFeedbackSourceWithMappingsAction = authenticatedActionClient
   .inputSchema(ZCreateFeedbackSourceWithMappingsAction)
   .action(
-    withAuditLogging("created", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withActivityContext("created", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.feedbackSourceMutation, ctx.user.id);
 
@@ -176,7 +176,7 @@ export const createFeedbackSourceWithMappingsAction = authenticatedActionClient
       const { formbricksMappings, fieldMappings } = parsedInput;
 
       if (formbricksMappings?.length) {
-        mappingsInput = await resolveFormbricksMappingsInput(formbricksMappings, parsedInput.workspaceId);
+        mappingsInput = await resolveTallynestMappingsInput(formbricksMappings, parsedInput.workspaceId);
       } else if (fieldMappings?.length) {
         mappingsInput = {
           type: "field",
@@ -202,14 +202,14 @@ const ZUpdateFeedbackSourceWithMappingsAction = z.object({
   feedbackSourceId: ZId,
   workspaceId: ZId,
   feedbackSourceInput: ZFeedbackSourceUpdateInput,
-  formbricksMappings: z.array(ZFormbricksSurveyMapping).min(1).optional(),
+  formbricksMappings: z.array(ZTallynestSurveyMapping).min(1).optional(),
   fieldMappings: z.array(ZFeedbackSourceFieldMappingCreateInput).optional(),
 });
 
 export const updateFeedbackSourceWithMappingsAction = authenticatedActionClient
   .inputSchema(ZUpdateFeedbackSourceWithMappingsAction)
   .action(
-    withAuditLogging("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withActivityContext("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.feedbackSourceId = parsedInput.feedbackSourceId;
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.feedbackSourceMutation, ctx.user.id);
@@ -243,7 +243,7 @@ export const updateFeedbackSourceWithMappingsAction = authenticatedActionClient
       let mappingsInput: TMappingsInput | undefined;
 
       if (parsedInput.formbricksMappings?.length) {
-        mappingsInput = await resolveFormbricksMappingsInput(
+        mappingsInput = await resolveTallynestMappingsInput(
           parsedInput.formbricksMappings,
           parsedInput.workspaceId
         );
@@ -307,7 +307,7 @@ const ZImportHistoricalResponsesAction = z.object({
 export const importHistoricalResponsesAction = authenticatedActionClient
   .inputSchema(ZImportHistoricalResponsesAction)
   .action(
-    withAuditLogging("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
+    withActivityContext("updated", "feedbackSource", async ({ ctx, parsedInput }) => {
       ctx.auditLoggingCtx.feedbackSourceId = parsedInput.feedbackSourceId;
       ctx.auditLoggingCtx.workspaceId = parsedInput.workspaceId;
       await applyRateLimit(rateLimitConfigs.actions.historicalResponseImport, ctx.user.id);
@@ -421,7 +421,7 @@ const ZGetFeedbackRecordContactsAction = z.object({
   userIds: z.array(z.string()).max(1000),
 });
 
-// Resolves a page of feedback records' user_ids to Formbricks contact ids (batched, deduped).
+// Resolves a page of feedback records' user_ids to Tallynest contact ids (batched, deduped).
 export const getFeedbackRecordContactsAction = authenticatedActionClient
   .inputSchema(ZGetFeedbackRecordContactsAction)
   .action(

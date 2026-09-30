@@ -311,7 +311,7 @@ describe("setup.ts", () => {
       const result = await setup({ workspaceId: "ws_123", appUrl: "https://my.url" });
       expect(result.ok).toBe(true);
       expect(mockLogger.debug).toHaveBeenCalledWith(
-        "Formbricks is in error state, but debug mode is active. Resetting config and continuing."
+        "Tallynest is in error state, but debug mode is active. Resetting config and continuing."
       );
     });
 

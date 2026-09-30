@@ -4,13 +4,13 @@ import { resetDb } from "@/integration/reset-db";
 import { auth } from "@/modules/auth/lib/auth";
 import { runWithEmailVerificationRequestContext } from "@/modules/auth/lib/email-verification-request-context";
 import { SIGNUP_INTENT_COOKIE_NAME, createSignupIntentToken } from "@/modules/auth/lib/signup-intent";
-import { queueAuditEventBackground } from "@/modules/ee/audit-logs/lib/handler";
+import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
 import { sendVerificationLinkEmail } from "@/modules/email";
 
 // Spy the audit queue so the signedIn trail can be asserted without the real setImmediate/headers()
 // emission (which has no request scope under vitest).
-vi.mock("@/modules/ee/audit-logs/lib/handler", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/modules/ee/audit-logs/lib/handler")>()),
+vi.mock("@/modules/tallynest-core/activity-context", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/modules/tallynest-core/activity-context")>()),
   queueAuditEventBackground: vi.fn().mockResolvedValue(undefined),
 }));
 

@@ -13,7 +13,7 @@ import { auth } from "@/modules/auth/lib/auth";
 import { getUserByEmail } from "@/modules/auth/lib/user";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 
 /**
  * Whether this user has a password to reset. Pure SSO users do not, and are silently skipped — Better
@@ -70,7 +70,7 @@ const ZForgotPasswordAction = z.object({
 });
 
 export const forgotPasswordAction = actionClient.inputSchema(ZForgotPasswordAction).action(
-  withAuditLogging("passwordReset", "user", async ({ ctx, parsedInput }) => {
+  withActivityContext("passwordReset", "user", async ({ ctx, parsedInput }) => {
     await applyIPRateLimit(rateLimitConfigs.auth.forgotPassword);
 
     if (PASSWORD_RESET_DISABLED) {

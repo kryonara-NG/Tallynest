@@ -48,7 +48,7 @@ interface SettingsSidebarContentProps {
   organizationId: string;
   organizationName: string;
   membershipRole?: TOrganizationRole;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isCollapsed: boolean;
   isTextVisible: boolean;
   // Hidden when the user has no workspace (org/account settings still render).
@@ -270,7 +270,7 @@ export const SettingsSidebarContent = ({
   organizationId,
   organizationName,
   membershipRole,
-  isFormbricksCloud,
+  isTallynestCloud,
   isCollapsed,
   isTextVisible,
   hideWorkspaceSection = false,
@@ -390,21 +390,21 @@ export const SettingsSidebarContent = ({
       label: t("common.domain"),
       href: organizationSettingsPath(organizationId, "domain"),
       icon: <GlobeIcon className={iconClassName} />,
-      hidden: isFormbricksCloud,
+      hidden: isTallynestCloud,
     },
     {
       id: "org-billing",
       label: t("common.billing"),
       href: organizationSettingsPath(organizationId, "billing"),
       icon: <CreditCardIcon className={iconClassName} />,
-      hidden: !isFormbricksCloud,
+      hidden: !isTallynestCloud,
     },
     {
       id: "org-enterprise",
       label: t("common.enterprise_license"),
       href: organizationSettingsPath(organizationId, "enterprise"),
       icon: <ShieldIcon className={iconClassName} />,
-      hidden: isFormbricksCloud,
+      hidden: isTallynestCloud,
       disabled: isMember || isBilling,
     },
     {
@@ -412,7 +412,7 @@ export const SettingsSidebarContent = ({
       label: t("workspace.settings.usage.nav_label"),
       href: organizationSettingsPath(organizationId, "usage"),
       icon: <ChartColumnIcon className={iconClassName} />,
-      hidden: !isOwnerOrManager || isFormbricksCloud,
+      hidden: !isOwnerOrManager || isTallynestCloud,
     },
   ];
 

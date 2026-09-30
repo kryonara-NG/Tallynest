@@ -43,7 +43,7 @@ describe("instrumentation register", () => {
 
   test("rejects missing authorization configuration before starting background work", async () => {
     mockAssertAuthzedRuntimeConfiguration.mockImplementation(() => {
-      throw new Error("Formbricks v6 requires AUTHZED_ENABLED=true");
+      throw new Error("Tallynest v6 requires AUTHZED_ENABLED=true");
     });
     const { register } = await import("./instrumentation");
 

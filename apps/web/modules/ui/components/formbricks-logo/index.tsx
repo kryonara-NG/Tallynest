@@ -1,8 +1,8 @@
-interface FormbricksLogoProps {
+interface TallynestLogoProps {
   className?: string;
 }
 
-export const FormbricksLogo = ({ className }: FormbricksLogoProps) => {
+export const TallynestLogo = ({ className }: TallynestLogoProps) => {
   return (
     <svg
       width="220"

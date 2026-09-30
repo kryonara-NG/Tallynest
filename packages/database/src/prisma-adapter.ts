@@ -173,7 +173,7 @@ export const createPrismaPgAdapter = (databaseUrl = process.env.DATABASE_URL): T
 
   if (databaseUrl.startsWith("prisma://") || databaseUrl.startsWith("prisma+postgres://")) {
     throw new Error(
-      "Prisma Accelerate URLs are not supported by Formbricks' PostgreSQL adapter. Use a direct PostgreSQL DATABASE_URL."
+      "Prisma Accelerate URLs are not supported by Tallynest' PostgreSQL adapter. Use a direct PostgreSQL DATABASE_URL."
     );
   }
 

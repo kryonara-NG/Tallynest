@@ -171,7 +171,7 @@ describe("release workflows", () => {
       (step) => step.name === "Update Chart.yaml with new version"
     );
     const imageStep = workflow.jobs?.publish?.steps?.find(
-      (step) => step.name === "Validate default Formbricks image tag"
+      (step) => step.name === "Validate default Tallynest image tag"
     );
 
     expect(reusableInputs?.VERSION?.required).toBe(true);

@@ -6,7 +6,7 @@ import { assertCan } from "@/lib/authorization";
 import { capturePostHogEvent } from "@/lib/posthog";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromApiKeyId } from "@/lib/utils/helper";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import {
   createApiKey,
   deleteApiKey,
@@ -20,7 +20,7 @@ const ZDeleteApiKeyAction = z.object({
 });
 
 export const deleteApiKeyAction = authenticatedActionClient.inputSchema(ZDeleteApiKeyAction).action(
-  withAuditLogging("deleted", "apiKey", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "apiKey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromApiKeyId(parsedInput.id);
     await assertCan({ type: "user", id: ctx.user.id }, "apiKey.manage", {
       type: "apiKey",
@@ -42,7 +42,7 @@ const ZCreateApiKeyAction = z.object({
 });
 
 export const createApiKeyAction = authenticatedActionClient.inputSchema(ZCreateApiKeyAction).action(
-  withAuditLogging("created", "apiKey", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "apiKey", async ({ ctx, parsedInput }) => {
     await assertCan({ type: "user", id: ctx.user.id }, "organization.manage_api_keys", {
       type: "organization",
       id: parsedInput.organizationId,
@@ -78,7 +78,7 @@ const ZUpdateApiKeyAction = z.object({
 });
 
 export const updateApiKeyAction = authenticatedActionClient.inputSchema(ZUpdateApiKeyAction).action(
-  withAuditLogging("updated", "apiKey", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "apiKey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromApiKeyId(parsedInput.apiKeyId);
     await assertCan({ type: "user", id: ctx.user.id }, "apiKey.manage", {
       type: "apiKey",

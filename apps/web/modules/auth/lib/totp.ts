@@ -43,12 +43,12 @@ export const generateTotpSecret = (): string => {
 };
 
 /**
- * Build the `otpauth://` URI an authenticator app scans, for `label` (the user) under the Formbricks
+ * Build the `otpauth://` URI an authenticator app scans, for `label` (the user) under the Tallynest
  * issuer. Period, digits and algorithm are otplib 13's defaults (30s / 6 / SHA-1) and match what
  * otplib 12 wrote into the URI explicitly, so existing apps enrol the same way.
  */
 export const generateTotpKeyUri = (label: string, secret: string): string =>
-  generateURI({ issuer: "Formbricks", label, secret });
+  generateURI({ issuer: "Tallynest", label, secret });
 
 /**
  * Checks the validity of a TOTP token using a base32-encoded secret.

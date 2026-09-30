@@ -25,7 +25,7 @@ interface FileUploadFormProps {
   elementIdx: number;
   updateElement: (elementIdx: number, updatedAttributes: Partial<TSurveyElement>) => void;
   isInvalid: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   locale: TUserLocale;
   isStorageConfigured: boolean;
   isExternalUrlsAllowed?: boolean;
@@ -38,7 +38,7 @@ export const FileUploadElementForm = ({
   updateElement,
   isInvalid,
   workspace,
-  isFormbricksCloud,
+  isTallynestCloud,
   locale,
   isStorageConfigured = true,
   isExternalUrlsAllowed,
@@ -70,7 +70,7 @@ export const FileUploadElementForm = ({
   }, [billingInfo, billingInfoError, billingInfoLoading]);
 
   const handleMaxSizeInMBToggle = (checked: boolean) => {
-    const defaultMaxSizeInMB = isFormbricksCloud ? maxSizeInMBLimit : 1024;
+    const defaultMaxSizeInMB = isTallynestCloud ? maxSizeInMBLimit : 1024;
 
     updateElement(elementIdx, { maxSizeInMB: checked ? defaultMaxSizeInMB : undefined });
   };
@@ -160,7 +160,7 @@ export const FileUploadElementForm = ({
                       onChange={(e) => {
                         const parsedValue = Number.parseInt(e.target.value, 10);
 
-                        if (isFormbricksCloud && parsedValue > maxSizeInMBLimit) {
+                        if (isTallynestCloud && parsedValue > maxSizeInMBLimit) {
                           toast.error(
                             t("workspace.surveys.edit.max_file_size_limit_is_mb", {
                               maxSize: maxSizeInMBLimit,

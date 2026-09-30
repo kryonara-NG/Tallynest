@@ -18,7 +18,7 @@ interface OrphanedFeedbackSource {
  * This is the primary, logged cleanup pass before the composite FK migration
  * (20260706000001_add_feedback_source_directory_workspace_fk); that migration also deletes (and
  * logs via RAISE WARNING) any straggler created in the deploy window between the two, so the pair
- * stays convergent. Mappings (FeedbackSourceFormbricksMapping / FeedbackSourceFieldMapping)
+ * stays convergent. Mappings (FeedbackSourceTallynestMapping / FeedbackSourceFieldMapping)
  * cascade-delete with the source. Each deleted row is logged for the audit trail.
  */
 export const deleteOrphanedFeedbackSources: MigrationScript = {

@@ -2,7 +2,7 @@ import { FORMBRICKS_CLOUD_ACCOUNT_DELETION_SURVEY_URL } from "@/modules/account/
 
 /**
  * Where a visitor goes once their account has actually been deleted: the Cloud offboarding survey on
- * Formbricks Cloud (ENG-1780), the login page everywhere else.
+ * Tallynest Cloud (ENG-1780), the login page everywhere else.
  *
  * Both deletion paths navigate here from the BROWSER — the credential one from DeleteAccountModal after
  * `authClient.deleteUser` resolves, the SSO email-link one from the `/auth/account-deleted` page the
@@ -11,8 +11,8 @@ import { FORMBRICKS_CLOUD_ACCOUNT_DELETION_SURVEY_URL } from "@/modules/account/
  * `callbackURL` and the emailed link dies with INVALID_CALLBACK_URL (ENG-3260). A client-side navigation
  * has no such gate, and one helper keeps the two paths from drifting apart again.
  *
- * `isFormbricksCloud` is a parameter rather than a read of `@/lib/constants` so this stays importable
+ * `isTallynestCloud` is a parameter rather than a read of `@/lib/constants` so this stays importable
  * from client components; callers on the server pass `IS_FORMBRICKS_CLOUD`.
  */
-export const getPostAccountDeletionRedirectUrl = (isFormbricksCloud: boolean): string =>
-  isFormbricksCloud ? FORMBRICKS_CLOUD_ACCOUNT_DELETION_SURVEY_URL : "/auth/login";
+export const getPostAccountDeletionRedirectUrl = (isTallynestCloud: boolean): string =>
+  isTallynestCloud ? FORMBRICKS_CLOUD_ACCOUNT_DELETION_SURVEY_URL : "/auth/login";

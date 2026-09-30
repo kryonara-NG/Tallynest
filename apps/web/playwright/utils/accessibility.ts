@@ -135,7 +135,7 @@ const buildKitchenSinkQuestions = (baseURL: string) => [
   // NOTE: no `cal` question on purpose — the Cal.com embed loads a live third-party
   // iframe, which would make the unattended axe walk depend on external network and
   // markup we do not control (its violations would all be wontfix-allowlisted anyway).
-  // The wrapper Formbricks DOES own is scanned in `buildAnsweredStatesQuestions`
+  // The wrapper Tallynest DOES own is scanned in `buildAnsweredStatesQuestions`
   // below, where the spec blocks the embed origin instead of loading it.
   {
     id: createId(),

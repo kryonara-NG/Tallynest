@@ -76,7 +76,7 @@ interface ElementsViewProps {
   invalidElements: string[] | null;
   setInvalidElements: React.Dispatch<SetStateAction<string[] | null>>;
   selectedLanguageCode: string;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isCxMode: boolean;
   locale: TUserLocale;
   responseCount: number;
@@ -95,7 +95,7 @@ export const ElementsView = ({
   invalidElements,
   setInvalidElements,
   selectedLanguageCode,
-  isFormbricksCloud,
+  isTallynestCloud,
   isCxMode,
   locale,
   responseCount,
@@ -921,7 +921,7 @@ export const ElementsView = ({
           setActiveElementId={setActiveElementId}
           invalidElements={invalidElements}
           addElement={stableAddElement}
-          isFormbricksCloud={isFormbricksCloud}
+          isTallynestCloud={isTallynestCloud}
           isCxMode={isCxMode}
           locale={locale}
           responseCount={responseCount}
@@ -958,7 +958,7 @@ export const ElementsView = ({
                   activeElementId={activeElementId}
                   isInvalid={invalidElements ? invalidElements.includes(ending.id) : false}
                   addEndingCard={addEndingCard}
-                  isFormbricksCloud={isFormbricksCloud}
+                  isTallynestCloud={isTallynestCloud}
                   locale={locale}
                   isStorageConfigured={isStorageConfigured}
                   quotas={quotas}

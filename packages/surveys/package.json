@@ -3,8 +3,8 @@
   "license": "MIT",
   "version": "1.0.0",
   "private": true,
-  "description": "Formbricks-surveys is a helper library to embed surveys into your application.",
-  "homepage": "https://formbricks.com",
+  "description": "Tallynest-surveys is a helper library to embed surveys into your application.",
+  "homepage": "https://tallynest.app",
   "type": "module",
   "repository": {
     "type": "git",

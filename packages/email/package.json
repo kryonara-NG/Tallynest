@@ -2,7 +2,7 @@
   "name": "@formbricks/email",
   "version": "1.0.0",
   "private": true,
-  "description": "Email templates for Formbricks with React Email preview server",
+  "description": "Email templates for Tallynest with React Email preview server",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",

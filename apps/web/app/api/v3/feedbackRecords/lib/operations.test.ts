@@ -7,7 +7,7 @@ import {
   getFeedbackDirectoriesByWorkspaceId,
   getFeedbackDirectoryAuthContext,
 } from "@/modules/ee/feedback-directory/lib/feedback-directory";
-import { getIsFeedbackDirectoriesEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsFeedbackDirectoriesEnabled } from "@/modules/tallynest-core/entitlements";
 import {
   countFeedbackRecords,
   createFeedbackRecord,
@@ -44,7 +44,7 @@ vi.mock("@/app/api/v3/lib/auth", () => ({
   requireV3WorkspaceAccess: vi.fn(),
 }));
 vi.mock("@/lib/authorization", () => ({ can: vi.fn() }));
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({ getIsFeedbackDirectoriesEnabled: vi.fn() }));
+vi.mock("@/modules/tallynest-core/entitlements", () => ({ getIsFeedbackDirectoriesEnabled: vi.fn() }));
 vi.mock("@/modules/ee/feedback-directory/lib/feedback-directory", () => ({
   getFeedbackDirectoriesByWorkspaceId: vi.fn(),
   getFeedbackDirectoryAuthContext: vi.fn(),

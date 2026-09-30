@@ -7,7 +7,7 @@ export const getRoles = (): Result<{ data: string[] }, ApiErrorResponseV2> => {
   try {
     const roles = Object.values(OrganizationRole);
 
-    // Filter out the billing role if not in Formbricks Cloud
+    // Filter out the billing role if not in Tallynest Cloud
     const filteredRoles = roles.filter((role) => !(role === "billing" && !IS_FORMBRICKS_CLOUD));
     return ok({
       data: filteredRoles,

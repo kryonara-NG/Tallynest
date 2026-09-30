@@ -7,23 +7,23 @@ import { embedSurveyPreviewEmailHtml } from "./fixtures/embed-survey-preview-ema
 
 export const exampleData = {
   verificationEmail: {
-    verifyLink: "https://app.formbricks.com/auth/verify?token=example-verification-token",
-    verificationRequestLink: "https://app.formbricks.com/auth/verification-requested",
+    verifyLink: "https://app.tallynest.app/auth/verify?token=example-verification-token",
+    verificationRequestLink: "https://app.tallynest.app/auth/verification-requested",
   },
 
   forgotPasswordEmail: {
-    verifyLink: "https://app.formbricks.com/auth/forgot-password/reset?token=example-reset-token",
+    verifyLink: "https://app.tallynest.app/auth/forgot-password/reset?token=example-reset-token",
     linkValidityInMinutes: 30,
   },
 
   deleteAccountEmail: {
     deleteLink:
-      "https://app.formbricks.com/api/auth/delete-user/callback?token=example-delete-token&callbackURL=/",
+      "https://app.tallynest.app/api/auth/delete-user/callback?token=example-delete-token&callbackURL=/",
     linkValidityInMinutes: 60,
   },
 
   newEmailVerification: {
-    verifyLink: "https://app.formbricks.com/verify-email-change?token=example-email-change-token",
+    verifyLink: "https://app.tallynest.app/verify-email-change?token=example-email-change-token",
   },
 
   passwordResetNotifyEmail: {
@@ -34,13 +34,13 @@ export const exampleData = {
     passwordRemoved: true,
     twoFactorRemoved: true,
     apiKeysRemoved: true,
-    securitySettingsLink: "https://app.formbricks.com/account/settings/profile",
+    securitySettingsLink: "https://app.tallynest.app/account/settings/profile",
   },
 
   inviteEmail: {
     inviteeName: "Jane Smith",
     inviterName: "John Doe",
-    verifyLink: "https://app.formbricks.com/invite?token=example-invite-token",
+    verifyLink: "https://app.tallynest.app/invite?token=example-invite-token",
   },
 
   inviteAcceptedEmail: {
@@ -51,7 +51,7 @@ export const exampleData = {
   linkSurveyEmail: {
     surveyName: "Customer Satisfaction Survey",
     surveyLink:
-      "https://app.formbricks.com/s/example-survey-id?verify=example-token&suId=example-single-use-id",
+      "https://app.tallynest.app/s/example-survey-id?verify=example-token&suId=example-single-use-id",
   },
 
   embedSurveyPreviewEmail: {
@@ -126,7 +126,7 @@ export const exampleData = {
       language: "default",
       displayId: null,
     } as unknown as TResponse,
-    WEBAPP_URL: "https://app.formbricks.com",
+    WEBAPP_URL: "https://app.tallynest.app",
     workspaceId: "workspace-123",
     organization: {
       id: "org-123",
@@ -186,10 +186,10 @@ export const exampleData = {
   },
 
   legalProps: {
-    privacyUrl: "https://formbricks.com/privacy",
-    termsUrl: "https://formbricks.com/terms",
-    imprintUrl: "https://formbricks.com/imprint",
-    imprintAddress: "Formbricks GmbH, Example Street 123, 12345 Berlin, Germany",
+    privacyUrl: "https://tallynest.app/privacy",
+    termsUrl: "https://tallynest.app/terms",
+    imprintUrl: "https://tallynest.app/imprint",
+    imprintAddress: "Tallynest GmbH, Example Street 123, 12345 Berlin, Germany",
   },
 };
 

@@ -74,7 +74,7 @@ export const CustomScriptsInjector = ({
       injectedRef.current = true;
     } catch (error) {
       // Log error but don't break the survey - self-hosted admins can check console
-      console.warn("[Formbricks] Error injecting custom scripts:", error);
+      console.warn("[Tallynest] Error injecting custom scripts:", error);
     }
   }, [workspaceScripts, surveyScripts, scriptsMode]);
 

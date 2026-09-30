@@ -10,8 +10,8 @@ import { deleteOrganization, getOrganization, updateOrganization } from "@/lib/o
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { AuthenticatedActionClientCtx } from "@/lib/utils/action-client/types/context";
 import { getTranslate } from "@/lingodotdev/server";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import {
   ZOrganizationAISettingsInput,
   ZUpdateOrganizationAISettingsAction,
@@ -46,7 +46,7 @@ const ZUpdateOrganizationNameAction = z.object({
 export const updateOrganizationNameAction = authenticatedActionClient
   .inputSchema(ZUpdateOrganizationNameAction)
   .action(
-    withAuditLogging(
+    withActivityContext(
       "updated",
       "organization",
       async ({
@@ -109,7 +109,7 @@ const assertOrganizationAISettingsUpdateAllowed = ({
 export const updateOrganizationAISettingsAction = authenticatedActionClient
   .inputSchema(ZUpdateOrganizationAISettingsAction)
   .action(
-    withAuditLogging(
+    withActivityContext(
       "updated",
       "organization",
       async ({
@@ -150,7 +150,7 @@ export const updateOrganizationAISettingsAction = authenticatedActionClient
 export const updateOrganizationDisplayTimeZoneAction = authenticatedActionClient
   .inputSchema(ZUpdateOrganizationDisplayTimeZoneAction)
   .action(
-    withAuditLogging(
+    withActivityContext(
       "updated",
       "organization",
       async ({
@@ -176,7 +176,7 @@ const ZDeleteOrganizationAction = z.object({
 export const deleteOrganizationAction = authenticatedActionClient
   .inputSchema(ZDeleteOrganizationAction)
   .action(
-    withAuditLogging("deleted", "organization", async ({ ctx, parsedInput }) => {
+    withActivityContext("deleted", "organization", async ({ ctx, parsedInput }) => {
       const isMultiOrgEnabled = await getIsMultiOrgEnabled();
       if (!isMultiOrgEnabled) {
         const t = await getTranslate(ctx.user.locale);

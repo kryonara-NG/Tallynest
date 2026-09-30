@@ -135,7 +135,7 @@ interface EditAPIKeysProps {
   apiKeys: TApiKeyWithEnvironmentPermission[];
   locale: TUserLocale;
   workspaces: TOrganizationWorkspace[];
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   canGrantOrganizationWriteAccess: boolean;
 }
 
@@ -144,7 +144,7 @@ export const EditAPIKeys = ({
   apiKeys,
   locale,
   workspaces,
-  isFormbricksCloud,
+  isTallynestCloud,
   canGrantOrganizationWriteAccess,
 }: Readonly<EditAPIKeysProps>) => {
   const { t } = useTranslation();
@@ -277,7 +277,7 @@ export const EditAPIKeys = ({
         onSubmit={handleAddAPIKey}
         workspaces={workspaces}
         isCreatingAPIKey={isLoading}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         canGrantOrganizationWriteAccess={canGrantOrganizationWriteAccess}
       />
       {activeKey && (

@@ -7,7 +7,7 @@ interface ApiKeyListProps {
   organizationId: string;
   locale: TUserLocale;
   workspaces: TOrganizationWorkspace[];
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   canGrantOrganizationWriteAccess: boolean;
 }
 
@@ -15,7 +15,7 @@ export const ApiKeyList = async ({
   organizationId,
   locale,
   workspaces,
-  isFormbricksCloud,
+  isTallynestCloud,
   canGrantOrganizationWriteAccess,
 }: Readonly<ApiKeyListProps>) => {
   const apiKeys = await getApiKeysWithEnvironmentPermissions(organizationId);
@@ -26,7 +26,7 @@ export const ApiKeyList = async ({
       apiKeys={apiKeys}
       locale={locale}
       workspaces={workspaces}
-      isFormbricksCloud={isFormbricksCloud}
+      isTallynestCloud={isTallynestCloud}
       canGrantOrganizationWriteAccess={canGrantOrganizationWriteAccess}
     />
   );

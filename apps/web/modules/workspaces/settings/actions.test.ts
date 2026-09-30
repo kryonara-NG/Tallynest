@@ -40,11 +40,11 @@ vi.mock("@/lib/workspace/service", () => ({
   getWorkspace: mocks.getWorkspace,
 }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   withAuditLogging: vi.fn((_eventName, _objectType, fn) => fn),
 }));
 
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({
+vi.mock("@/modules/tallynest-core/entitlements", () => ({
   getRemoveBrandingPermission: mocks.getRemoveBrandingPermission,
 }));
 

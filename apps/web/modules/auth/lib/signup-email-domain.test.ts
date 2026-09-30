@@ -84,7 +84,7 @@ describe("isBlockedEmailDomain", () => {
   test("returns false for company domains", () => {
     for (const email of [
       "alice@acme-corp.com",
-      "bob@formbricks.com",
+      "bob@tallynest.app",
       "carol@stripe.com",
       "dave@my-company.co.uk",
     ]) {
@@ -144,7 +144,7 @@ describe("isSignupEmailDomainBlocked", () => {
     expect(await isSignupEmailDomainBlocked("user@gmail.com", validInvite)).toBe(true);
   });
 
-  test("never blocks when not on Formbricks Cloud", async () => {
+  test("never blocks when not on Tallynest Cloud", async () => {
     constantsOverrides.IS_FORMBRICKS_CLOUD = false;
     expect(await isSignupEmailDomainBlocked("user@gmail.com", noInvite)).toBe(false);
     expect(await isSignupEmailDomainBlocked("user@mailinator.com", validInvite)).toBe(false);

@@ -191,7 +191,7 @@ function toAudienceList(aud: JWTPayload["aud"]): string[] {
  * granted scopes the authorization server treats its own UserInfo endpoint as an implicit second
  * resource and appends it to `aud` — that is current behaviour, not something the pending provider
  * upgrade introduces — so a perfectly ordinary MCP token is multi-valued. Those two identifiers are
- * the only ones a Formbricks-issued MCP token may carry; anything else means the token was minted
+ * the only ones a Tallynest-issued MCP token may carry; anything else means the token was minted
  * for somebody else and must not be honoured here.
  */
 function hasAcceptedMcpAudience(payload: JWTPayload): boolean {

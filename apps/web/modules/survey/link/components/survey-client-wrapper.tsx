@@ -215,7 +215,7 @@ export const SurveyClientWrapper = ({
   // cannot do this: the step lives in the renderer's state, which the server never sees.
   //
   // The base is the server-rendered title, captured once on mount, so the author's custom link
-  // metadata title and the "| Formbricks" template are respected without reimplementing
+  // metadata title and the "| Tallynest" template are respected without reimplementing
   // getBasicSurveyMetadata's priority chain here. Restored on unmount for the same reason the
   // lang/dir effect restores: a client-side navigation away must not leave a stale title behind.
   //

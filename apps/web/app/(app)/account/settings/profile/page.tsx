@@ -16,7 +16,7 @@ import { requiresPasswordConfirmationForAccountDeletion } from "@/modules/accoun
 import { getSession } from "@/modules/auth/lib/session";
 import { LiteLicenseTip } from "@/modules/ee/license-check/components/lite-license-tip";
 import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
-import { getIsMultiOrgEnabled, getIsTwoFactorAuthEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsMultiOrgEnabled, getIsTwoFactorAuthEnabled } from "@/modules/tallynest-core/entitlements";
 import { getSettingsLayoutData } from "@/modules/settings/lib/navigation-data";
 import { getOrganizationBillingPath } from "@/modules/settings/lib/routes";
 import { IdBadge } from "@/modules/ui/components/id-badge";
@@ -76,7 +76,7 @@ const Page = async () => {
             text: t("common.learn_more"),
             href: IS_FORMBRICKS_CLOUD
               ? billingUpgradeHref
-              : "https://formbricks.com/learn-more-self-hosting-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=ee_lock_two_factor",
+              : "https://tallynest.app/learn-more-self-hosting-license?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=ee_lock_two_factor",
           },
         ]}
       />

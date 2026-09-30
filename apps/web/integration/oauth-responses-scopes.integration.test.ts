@@ -34,7 +34,7 @@ const PRE_ENG2862_SCOPES = [
 
 const seedResource = async (identifier: string, allowedScopes: string[]) =>
   prisma.oauthResource.create({
-    data: { identifier, name: "Formbricks MCP", allowedScopes },
+    data: { identifier, name: "Tallynest MCP", allowedScopes },
   });
 
 const scopesOf = async (identifier: string): Promise<string[]> =>
@@ -120,7 +120,7 @@ describe("ENG-2862 responses scope grant", () => {
       `INSERT INTO "oauthResource" ("id", "identifier", "name", "allowedScopes") VALUES ($1, $2, $3, NULL)`,
       "clnullscope000000000001",
       identifier,
-      "Formbricks MCP"
+      "Tallynest MCP"
     );
 
     await runGrant();

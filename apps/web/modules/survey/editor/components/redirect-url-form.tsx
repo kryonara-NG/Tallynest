@@ -55,7 +55,7 @@ export const RedirectUrlForm = ({ localSurvey, endingCard, updateSurvey }: Redir
                   id="redirectUrl"
                   name="redirectUrl"
                   className="relative text-black caret-black"
-                  placeholder="https://formbricks.com"
+                  placeholder="https://tallynest.app"
                   value={
                     recallToHeadline(
                       {
@@ -80,7 +80,7 @@ export const RedirectUrlForm = ({ localSurvey, endingCard, updateSurvey }: Redir
           id="redirectUrlLabel"
           name="redirectUrlLabel"
           className="bg-white"
-          placeholder="Formbricks App"
+          placeholder="Tallynest App"
           value={endingCard.label ?? ""}
           onChange={(e) => updateSurvey({ label: e.target.value })}
         />

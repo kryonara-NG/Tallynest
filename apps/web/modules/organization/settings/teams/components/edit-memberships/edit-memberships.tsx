@@ -45,7 +45,7 @@ export const EditMemberships = async ({
       members={visibleMembers}
       currentUserRole={role}
       isAccessControlAllowed={isAccessControlAllowed}
-      isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+      isTallynestCloud={IS_FORMBRICKS_CLOUD}
       isUserManagementDisabledFromUi={isUserManagementDisabledFromUi}
     />
   );

@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "homepage": "https://formbricks.com",
+  "homepage": "https://tallynest.app",
   "license": "MIT",
-  "description": "Logger for Formbricks",
+  "description": "Logger for Tallynest",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
@@ -13,7 +13,7 @@
     "url": "https://github.com/formbricks/formbricks"
   },
   "keywords": [
-    "Formbricks",
+    "Tallynest",
     "logger",
     "logging"
   ],
@@ -37,7 +37,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
-  "author": "Formbricks <hola@formbricks.com>",
+  "author": "Tallynest <hola@tallynest.app>",
   "dependencies": {
     "pino": "catalog:",
     "pino-opentelemetry-transport": "3.0.0",

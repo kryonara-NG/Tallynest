@@ -83,7 +83,7 @@ describe("survey/action.ts", () => {
       const result = await trackAction("testAction");
 
       expect(result.ok).toBe(true);
-      expect(mockLogger.debug).toHaveBeenCalledWith('Formbricks: Action "testAction" tracked');
+      expect(mockLogger.debug).toHaveBeenCalledWith('Tallynest: Action "testAction" tracked');
     });
 
     test("logs debug message with alias if provided", async () => {
@@ -92,7 +92,7 @@ describe("survey/action.ts", () => {
       const result = await trackAction("testAction", "aliasName");
 
       expect(result.ok).toBe(true);
-      expect(mockLogger.debug).toHaveBeenCalledWith('Formbricks: Action "aliasName" tracked');
+      expect(mockLogger.debug).toHaveBeenCalledWith('Tallynest: Action "aliasName" tracked');
     });
 
     test("triggers survey if action matches survey trigger", async () => {
@@ -204,7 +204,7 @@ describe("survey/action.ts", () => {
       const result = await trackCodeAction("valid_code");
 
       expect(result.ok).toBe(true);
-      expect(mockLogger.debug).toHaveBeenCalledWith('Formbricks: Action "valid_code" tracked');
+      expect(mockLogger.debug).toHaveBeenCalledWith('Tallynest: Action "valid_code" tracked');
     });
   });
 
@@ -215,7 +215,7 @@ describe("survey/action.ts", () => {
       const result = await trackNoCodeAction("noCodeAction");
 
       expect(result.ok).toBe(true);
-      expect(mockLogger.debug).toHaveBeenCalledWith('Formbricks: Action "noCodeAction" tracked');
+      expect(mockLogger.debug).toHaveBeenCalledWith('Tallynest: Action "noCodeAction" tracked');
     });
   });
 });

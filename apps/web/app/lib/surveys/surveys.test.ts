@@ -1289,7 +1289,7 @@ describe("surveys", () => {
         filter: [
           {
             elementType: { type: "Meta", label: "url", id: "url" },
-            filterType: { filterValue: "Contains", filterComboBoxValue: "formbricks.com" },
+            filterType: { filterValue: "Contains", filterComboBoxValue: "tallynest.app" },
           },
           {
             elementType: { type: "Meta", label: "source", id: "source" },
@@ -1300,7 +1300,7 @@ describe("surveys", () => {
 
       const result = getFormattedFilters(survey, selectedFilter, dateRange);
 
-      expect(result.reserved?.url).toEqual({ op: "contains", value: "formbricks.com" });
+      expect(result.reserved?.url).toEqual({ op: "contains", value: "tallynest.app" });
       expect(result.reserved?.source).toEqual({ op: "equals", value: "newsletter" });
     });
 

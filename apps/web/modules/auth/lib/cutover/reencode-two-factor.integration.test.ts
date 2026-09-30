@@ -78,7 +78,7 @@ describe("2FA secret re-encode (real Postgres)", () => {
     expect(challenge.status).toBe(200);
     expect(await prisma.session.count()).toBe(0);
 
-    // the user's CURRENT authenticator code (from the original Formbricks secret) completes the challenge
+    // the user's CURRENT authenticator code (from the original Tallynest secret) completes the challenge
     await auth.api.verifyTOTP({
       body: { code: generateSync({ secret: fbSecret }) },
       headers: { cookie: allCookies(challenge) },

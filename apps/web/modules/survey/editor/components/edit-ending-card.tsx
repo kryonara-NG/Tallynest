@@ -36,7 +36,7 @@ interface EditEndingCardProps {
   activeElementId: string | null;
   isInvalid: boolean;
   addEndingCard: (index: number) => void;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   locale: TUserLocale;
   isStorageConfigured: boolean;
   quotas: TSurveyQuota[];
@@ -51,7 +51,7 @@ export const EditEndingCard = ({
   activeElementId,
   isInvalid,
   addEndingCard,
-  isFormbricksCloud,
+  isTallynestCloud,
   locale,
   isStorageConfigured,
   quotas,
@@ -65,7 +65,7 @@ export const EditEndingCard = ({
     [localSurvey.endings, endingCardIndex]
   );
 
-  const isRedirectToUrlDisabled = isFormbricksCloud
+  const isRedirectToUrlDisabled = isTallynestCloud
     ? !isExternalUrlsAllowed && endingCard.type !== "redirectToUrl"
     : false;
 

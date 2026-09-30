@@ -22,7 +22,7 @@ interface DeleteAccountModalProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   user: TUser;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   organizationsWithSingleOwner: TOrganization[];
 }
 
@@ -31,7 +31,7 @@ export const DeleteAccountModal = ({
   setOpen,
   open,
   user,
-  isFormbricksCloud,
+  isTallynestCloud,
   organizationsWithSingleOwner,
 }: Readonly<DeleteAccountModalProps>) => {
   const { t } = useTranslation();
@@ -91,7 +91,7 @@ export const DeleteAccountModal = ({
 
     // Same destination, and the same client-side hop, as the SSO email-link path's /auth/account-deleted
     // page — one helper so the two cannot drift apart again (ENG-3260).
-    globalThis.location.replace(getPostAccountDeletionRedirectUrl(isFormbricksCloud));
+    globalThis.location.replace(getPostAccountDeletionRedirectUrl(isTallynestCloud));
   };
 
   // SSO users have no password, so deletion is confirmed via an email link. The account is removed only

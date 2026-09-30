@@ -165,9 +165,9 @@ describe("hubErrorToProblemResponse", () => {
     const body = await hubErrorToProblemResponse(
       hubError(400, {
         message:
-          '400 {"type":"https://hub.formbricks.com/problems/validation","instance":"/v1/taxonomy/runs","request_id":"019fa-internal"}',
+          '400 {"type":"https://hub.tallynest.app/problems/validation","instance":"/v1/taxonomy/runs","request_id":"019fa-internal"}',
         detail:
-          '400 {"type":"https://hub.formbricks.com/problems/validation","instance":"/v1/taxonomy/runs","request_id":"019fa-internal"}',
+          '400 {"type":"https://hub.tallynest.app/problems/validation","instance":"/v1/taxonomy/runs","request_id":"019fa-internal"}',
         problemDetail: "One or more request parameters are invalid",
       }),
       requestId,
@@ -176,7 +176,7 @@ describe("hubErrorToProblemResponse", () => {
 
     expect(body.detail).toBe("One or more request parameters are invalid");
     const serialized = JSON.stringify(body);
-    expect(serialized).not.toContain("hub.formbricks.com");
+    expect(serialized).not.toContain("hub.tallynest.app");
     expect(serialized).not.toContain("/v1/taxonomy/runs");
     expect(serialized).not.toContain("019fa-internal");
   });

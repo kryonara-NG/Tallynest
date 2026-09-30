@@ -14,7 +14,7 @@ vi.mock("@formbricks/database", () => ({
   prisma: {
     feedbackSource: { update: vi.fn(), updateMany: vi.fn().mockResolvedValue({ count: 1 }) },
     survey: { findUnique: vi.fn() },
-    feedbackSourceFormbricksMapping: {
+    feedbackSourceTallynestMapping: {
       count: vi.fn(),
       createMany: vi.fn(),
       deleteMany: vi.fn(),
@@ -58,7 +58,7 @@ const mapping = (elementId: string, hubFieldType: string, surveyId = SURVEY_ID) 
 const mockTx = () => {
   const tx = {
     feedbackSource: { update: vi.fn(), updateMany: vi.fn().mockResolvedValue({ count: 1 }) },
-    feedbackSourceFormbricksMapping: {
+    feedbackSourceTallynestMapping: {
       count: vi.fn().mockResolvedValue(1),
       createMany: vi.fn(),
       deleteMany: vi.fn(),
@@ -348,7 +348,7 @@ describe("applyReconciliationToFeedbackSource", () => {
       toUpdate: [],
     });
 
-    expect(tx.feedbackSourceFormbricksMapping.deleteMany).toHaveBeenCalledWith({
+    expect(tx.feedbackSourceTallynestMapping.deleteMany).toHaveBeenCalledWith({
       where: {
         feedbackSourceId: SOURCE_ID,
         workspaceId: WORKSPACE_ID,
@@ -372,8 +372,8 @@ describe("applyReconciliationToFeedbackSource", () => {
     });
 
     // Three changed elements, two distinct target types -> two statements, not three.
-    expect(tx.feedbackSourceFormbricksMapping.updateMany).toHaveBeenCalledTimes(2);
-    expect(tx.feedbackSourceFormbricksMapping.updateMany).toHaveBeenCalledWith({
+    expect(tx.feedbackSourceTallynestMapping.updateMany).toHaveBeenCalledTimes(2);
+    expect(tx.feedbackSourceTallynestMapping.updateMany).toHaveBeenCalledWith({
       where: {
         feedbackSourceId: SOURCE_ID,
         workspaceId: WORKSPACE_ID,
@@ -382,7 +382,7 @@ describe("applyReconciliationToFeedbackSource", () => {
       },
       data: { hubFieldType: "nps" },
     });
-    expect(tx.feedbackSourceFormbricksMapping.updateMany).toHaveBeenCalledWith({
+    expect(tx.feedbackSourceTallynestMapping.updateMany).toHaveBeenCalledWith({
       where: {
         feedbackSourceId: SOURCE_ID,
         workspaceId: WORKSPACE_ID,
@@ -402,7 +402,7 @@ describe("applyReconciliationToFeedbackSource", () => {
       toUpdate: [],
     });
 
-    expect(tx.feedbackSourceFormbricksMapping.createMany).toHaveBeenCalledWith({
+    expect(tx.feedbackSourceTallynestMapping.createMany).toHaveBeenCalledWith({
       data: [
         {
           feedbackSourceId: SOURCE_ID,
@@ -426,9 +426,9 @@ describe("applyReconciliationToFeedbackSource", () => {
     });
 
     expect(prisma.$transaction).toHaveBeenCalledTimes(1);
-    expect(tx.feedbackSourceFormbricksMapping.deleteMany).toHaveBeenCalledTimes(1);
-    expect(tx.feedbackSourceFormbricksMapping.updateMany).toHaveBeenCalledTimes(1);
-    expect(tx.feedbackSourceFormbricksMapping.createMany).toHaveBeenCalledTimes(1);
+    expect(tx.feedbackSourceTallynestMapping.deleteMany).toHaveBeenCalledTimes(1);
+    expect(tx.feedbackSourceTallynestMapping.updateMany).toHaveBeenCalledTimes(1);
+    expect(tx.feedbackSourceTallynestMapping.createMany).toHaveBeenCalledTimes(1);
   });
 
   test("rejects a malformed id without writing, and still does not throw", async () => {
@@ -442,7 +442,7 @@ describe("applyReconciliationToFeedbackSource", () => {
       })
     ).resolves.toBeUndefined();
 
-    expect(tx.feedbackSourceFormbricksMapping.deleteMany).not.toHaveBeenCalled();
+    expect(tx.feedbackSourceTallynestMapping.deleteMany).not.toHaveBeenCalled();
     expect(logger.error).toHaveBeenCalled();
   });
 
@@ -451,7 +451,7 @@ describe("applyReconciliationToFeedbackSource", () => {
   // the source out of the publish path until someone re-maps it.
   test("flags the source as errored when the delete leaves it with no mappings at all", async () => {
     const tx = mockTx();
-    tx.feedbackSourceFormbricksMapping.count.mockResolvedValue(0);
+    tx.feedbackSourceTallynestMapping.count.mockResolvedValue(0);
 
     await applyReconciliationToFeedbackSource(SOURCE_ID, WORKSPACE_ID, SURVEY_ID, {
       toCreate: [],
@@ -471,7 +471,7 @@ describe("applyReconciliationToFeedbackSource", () => {
 
   test("does not flag, or log, a source that was already paused", async () => {
     const tx = mockTx();
-    tx.feedbackSourceFormbricksMapping.count.mockResolvedValue(0);
+    tx.feedbackSourceTallynestMapping.count.mockResolvedValue(0);
     // No row matched the `active` filter — the source is paused.
     tx.feedbackSource.updateMany.mockResolvedValue({ count: 0 });
 
@@ -489,7 +489,7 @@ describe("applyReconciliationToFeedbackSource", () => {
   // Counted across every survey, so a source still serving a sibling survey keeps working.
   test("leaves the source alone when mappings for another survey survive", async () => {
     const tx = mockTx();
-    tx.feedbackSourceFormbricksMapping.count.mockResolvedValue(2);
+    tx.feedbackSourceTallynestMapping.count.mockResolvedValue(2);
 
     await applyReconciliationToFeedbackSource(SOURCE_ID, WORKSPACE_ID, SURVEY_ID, {
       toCreate: [],
@@ -503,7 +503,7 @@ describe("applyReconciliationToFeedbackSource", () => {
   // The count must run after the creates, or a source about to regain rows gets flagged.
   test("does not flag the source when a create replaces everything deleted", async () => {
     const tx = mockTx();
-    tx.feedbackSourceFormbricksMapping.count.mockResolvedValue(1);
+    tx.feedbackSourceTallynestMapping.count.mockResolvedValue(1);
 
     await applyReconciliationToFeedbackSource(SOURCE_ID, WORKSPACE_ID, SURVEY_ID, {
       toCreate: [{ elementId: "el-new", hubFieldType: "rating" }],
@@ -511,8 +511,8 @@ describe("applyReconciliationToFeedbackSource", () => {
       toUpdate: [],
     });
 
-    const countOrder = tx.feedbackSourceFormbricksMapping.count.mock.invocationCallOrder[0];
-    const createOrder = tx.feedbackSourceFormbricksMapping.createMany.mock.invocationCallOrder[0];
+    const countOrder = tx.feedbackSourceTallynestMapping.count.mock.invocationCallOrder[0];
+    const createOrder = tx.feedbackSourceTallynestMapping.createMany.mock.invocationCallOrder[0];
     expect(countOrder).toBeGreaterThan(createOrder);
     expect(tx.feedbackSource.update).not.toHaveBeenCalled();
   });
@@ -539,7 +539,7 @@ describe("applyReconciliationToFeedbackSource", () => {
 
   test("does not clear the error flag when nothing is being created", async () => {
     const tx = mockTx();
-    tx.feedbackSourceFormbricksMapping.count.mockResolvedValue(2);
+    tx.feedbackSourceTallynestMapping.count.mockResolvedValue(2);
 
     await applyReconciliationToFeedbackSource(SOURCE_ID, WORKSPACE_ID, SURVEY_ID, {
       toCreate: [],
@@ -592,7 +592,7 @@ describe("reconcileFeedbackSourcesForSurvey", () => {
 
     expect(getFeedbackSourcesToReconcile).toHaveBeenCalledWith(SURVEY_ID);
     // The sibling survey's row must survive; only this survey's stale row is removed.
-    expect(tx.feedbackSourceFormbricksMapping.deleteMany).toHaveBeenCalledWith({
+    expect(tx.feedbackSourceTallynestMapping.deleteMany).toHaveBeenCalledWith({
       where: {
         feedbackSourceId: SOURCE_ID,
         workspaceId: WORKSPACE_ID,
@@ -681,7 +681,7 @@ describe("scheduleFeedbackSourceReconciliation", () => {
     await scheduled[0]();
 
     const deleted = vi
-      .mocked(tx.feedbackSourceFormbricksMapping.deleteMany)
+      .mocked(tx.feedbackSourceTallynestMapping.deleteMany)
       .mock.calls.flatMap((call: any) => call[0]?.where?.elementId?.in ?? []);
     expect(deleted).not.toContain("el-new");
     expect(deleted).toEqual([]);

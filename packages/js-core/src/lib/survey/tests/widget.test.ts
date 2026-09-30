@@ -1,6 +1,6 @@
 import { type Mock, type MockInstance, afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { Config } from "@/lib/common/config";
-import { onFormbricksEvent, resetFormbricksEventSubscribers } from "@/lib/common/events";
+import { onTallynestEvent, resetTallynestEventSubscribers } from "@/lib/common/events";
 import { Logger } from "@/lib/common/logger";
 import type * as CommonUtils from "@/lib/common/utils";
 import { filterSurveys, getLanguageCode, shouldDisplayBasedOnPercentage } from "@/lib/common/utils";
@@ -73,12 +73,12 @@ describe("widget-file", () => {
     configure: vi.fn(),
   };
 
-  const createMockFormbricksSurveys = (): NonNullable<Window["formbricksSurveys"]> => ({
+  const createMockTallynestSurveys = (): NonNullable<Window["formbricksSurveys"]> => ({
     renderSurvey: vi.fn(),
     setNonce: vi.fn(),
   });
 
-  const getFormbricksSurveys = (): NonNullable<Window["formbricksSurveys"]> => {
+  const getTallynestSurveys = (): NonNullable<Window["formbricksSurveys"]> => {
     const formbricksSurveys = window.formbricksSurveys;
     if (!formbricksSurveys) {
       throw new Error("window.formbricksSurveys is not set");
@@ -163,7 +163,7 @@ describe("widget-file", () => {
     (filterSurveys as Mock).mockReturnValue([]);
     widget.setIsSurveyRunning(false);
 
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
 
     vi.useFakeTimers();
 
@@ -175,7 +175,7 @@ describe("widget-file", () => {
 
     vi.advanceTimersByTime(mockSurvey.delay * 1000);
 
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalledWith(
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalledWith(
       expect.objectContaining({
         survey: mockSurvey,
         appUrl: "https://fake.app",
@@ -357,7 +357,7 @@ describe("widget-file", () => {
     getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
     widget.setIsSurveyRunning(false);
 
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
 
     vi.useFakeTimers();
 
@@ -371,7 +371,7 @@ describe("widget-file", () => {
 
     vi.advanceTimersByTime(0);
 
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalledWith(
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalledWith(
       expect.objectContaining({
         contactId: "contact_abc",
       })
@@ -417,7 +417,7 @@ describe("widget-file", () => {
 
     getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
     widget.setIsSurveyRunning(false);
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
     vi.useFakeTimers();
 
     // A key the survey declares, one it does not, and one the old filter would have stripped.
@@ -431,7 +431,7 @@ describe("widget-file", () => {
 
     vi.advanceTimersByTime(0);
 
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalledWith(
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalledWith(
       expect.objectContaining({ hiddenFieldsRecord: hiddenFields })
     );
 
@@ -474,7 +474,7 @@ describe("widget-file", () => {
 
     getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
     widget.setIsSurveyRunning(false);
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
     vi.useFakeTimers();
 
     const store = EmbeddedDataStore.getInstance();
@@ -490,7 +490,7 @@ describe("widget-file", () => {
     // A write after render: must not appear on the record already handed to the renderer.
     store.setEmbeddedData({ pageType: "changed-later" });
 
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalledWith(
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalledWith(
       expect.objectContaining({
         hiddenFieldsRecord: { pageType: "product", plan: "from-track" },
       })
@@ -534,7 +534,7 @@ describe("widget-file", () => {
     getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
     widget.setIsSurveyRunning(false);
 
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
 
     vi.useFakeTimers();
 
@@ -547,7 +547,7 @@ describe("widget-file", () => {
     expect(mockUpdateQueue.waitForPendingWork).not.toHaveBeenCalled();
 
     vi.advanceTimersByTime(0);
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalled();
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalled();
 
     vi.useRealTimers();
   });
@@ -591,7 +591,7 @@ describe("widget-file", () => {
     mockUpdateQueue.waitForPendingWork.mockResolvedValue(true);
     widget.setIsSurveyRunning(false);
 
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
 
     vi.useFakeTimers();
 
@@ -603,7 +603,7 @@ describe("widget-file", () => {
     vi.advanceTimersByTime(0);
 
     // The contactId passed to renderSurvey should be read after the wait
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalledWith(
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalledWith(
       expect.objectContaining({
         contactId: "contact_after_identification",
       })
@@ -618,7 +618,7 @@ describe("widget-file", () => {
 
     widget.setIsSurveyRunning(false);
 
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
 
     await widget.renderWidget({
       ...mockSurvey,
@@ -630,10 +630,10 @@ describe("widget-file", () => {
     expect(mockLogger.debug).toHaveBeenCalledWith(
       "User identification failed. Skipping survey with segment filters."
     );
-    expect(getFormbricksSurveys().renderSurvey).not.toHaveBeenCalled();
+    expect(getTallynestSurveys().renderSurvey).not.toHaveBeenCalled();
   });
 
-  describe("loadFormbricksSurveysExternally and waitForSurveysGlobal", () => {
+  describe("loadTallynestSurveysExternally and waitForSurveysGlobal", () => {
     const scriptLoadMockConfig = {
       get: vi.fn().mockReturnValue({
         appUrl: "https://fake.app",
@@ -702,7 +702,7 @@ describe("widget-file", () => {
 
       // renderWidget catches the error internally — it resolves, not rejects
       await renderPromise;
-      expect(consoleSpy).toHaveBeenCalledWith("Failed to load Formbricks Surveys library:", "Network error");
+      expect(consoleSpy).toHaveBeenCalledWith("Failed to load Tallynest Surveys library:", "Network error");
 
       consoleSpy.mockRestore();
     });
@@ -730,7 +730,7 @@ describe("widget-file", () => {
       await renderPromise;
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        "Failed to load Formbricks Surveys library:",
+        "Failed to load Tallynest Surveys library:",
         expect.any(Error)
       );
 
@@ -758,7 +758,7 @@ describe("widget-file", () => {
       (scriptEl.onload as () => void)();
 
       // Set the global after script "loads" — simulates browser finishing execution
-      window.formbricksSurveys = createMockFormbricksSurveys();
+      window.formbricksSurveys = createMockTallynestSurveys();
 
       // Advance one polling interval for waitForSurveysGlobal to find it
       await vi.advanceTimersByTimeAsync(200);
@@ -768,8 +768,8 @@ describe("widget-file", () => {
       // Run remaining timers for survey.delay setTimeout
       vi.runAllTimers();
 
-      expect(getFormbricksSurveys().setNonce).toHaveBeenCalledWith("test-nonce-123");
-      expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalledWith(
+      expect(getTallynestSurveys().setNonce).toHaveBeenCalledWith("test-nonce-123");
+      expect(getTallynestSurveys().renderSurvey).toHaveBeenCalledWith(
         expect.objectContaining({
           appUrl: "https://fake.app",
           workspaceId: "env_123",
@@ -792,7 +792,7 @@ describe("widget-file", () => {
 
       const appendChildSpy = vi.spyOn(document.head, "appendChild");
 
-      window.formbricksSurveys = createMockFormbricksSurveys();
+      window.formbricksSurveys = createMockTallynestSurveys();
 
       vi.useFakeTimers();
 
@@ -810,7 +810,7 @@ describe("widget-file", () => {
       });
       expect(scriptAppendCalls.length).toBe(0);
 
-      expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalled();
+      expect(getTallynestSurveys().renderSurvey).toHaveBeenCalled();
 
       vi.useRealTimers();
     });
@@ -870,7 +870,7 @@ describe("widget-file", () => {
     getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
     widget.setIsSurveyRunning(false);
 
-    window.formbricksSurveys = createMockFormbricksSurveys();
+    window.formbricksSurveys = createMockTallynestSurveys();
 
     vi.useFakeTimers();
 
@@ -885,7 +885,7 @@ describe("widget-file", () => {
     );
 
     vi.advanceTimersByTime(0);
-    expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalled();
+    expect(getTallynestSurveys().renderSurvey).toHaveBeenCalled();
 
     vi.useRealTimers();
   });
@@ -921,14 +921,14 @@ describe("widget-file", () => {
       getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
       (filterSurveys as Mock).mockReturnValue([]);
       widget.setIsSurveyRunning(false);
-      window.formbricksSurveys = createMockFormbricksSurveys();
+      window.formbricksSurveys = createMockTallynestSurveys();
 
       vi.useFakeTimers();
       await widget.renderWidget({ ...mockSurvey, delay: 0 });
       vi.advanceTimersByTime(0);
       vi.useRealTimers();
 
-      return (getFormbricksSurveys().renderSurvey as Mock).mock.calls[0][0] as {
+      return (getTallynestSurveys().renderSurvey as Mock).mock.calls[0][0] as {
         onDisplayCreated: () => void;
         onResponseCreated: (responseId?: string) => void;
         onFinished: (responseId?: string) => void;
@@ -991,14 +991,14 @@ describe("widget-file", () => {
       getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
       (filterSurveys as Mock).mockReturnValue([]);
       widget.setIsSurveyRunning(false);
-      window.formbricksSurveys = createMockFormbricksSurveys();
+      window.formbricksSurveys = createMockTallynestSurveys();
 
       vi.useFakeTimers();
       await widget.renderWidget({ ...mockSurvey, delay: 0 });
       vi.advanceTimersByTime(0);
       vi.useRealTimers();
 
-      return (getFormbricksSurveys().renderSurvey as Mock).mock.calls[0][0] as {
+      return (getTallynestSurveys().renderSurvey as Mock).mock.calls[0][0] as {
         onDisplayCreated: () => void;
         onResponseCreated: (responseId?: string) => void;
         onClose: () => void;
@@ -1008,13 +1008,13 @@ describe("widget-file", () => {
     beforeEach(() => {
       // Drop any survey an earlier test left on screen, then start from a subscriber-free registry.
       widget.closeSurvey();
-      resetFormbricksEventSubscribers();
+      resetTallynestEventSubscribers();
       delete (window as { dataLayer?: unknown }).dataLayer;
     });
 
     test("notifies formbricks_survey_shown subscribers when the survey renders, not when the display acks", async () => {
       const handler = vi.fn();
-      onFormbricksEvent("formbricks_survey_shown", handler);
+      onTallynestEvent("formbricks_survey_shown", handler);
 
       const callbacks = await renderAndGetLifecycleCallbacks();
 
@@ -1028,7 +1028,7 @@ describe("widget-file", () => {
 
     test("notifies formbricks_response_submitted subscribers with the server-acked responseId", async () => {
       const handler = vi.fn();
-      onFormbricksEvent("formbricks_response_submitted", handler);
+      onTallynestEvent("formbricks_response_submitted", handler);
 
       const callbacks = await renderAndGetLifecycleCallbacks();
       callbacks.onResponseCreated("resp_123");
@@ -1043,7 +1043,7 @@ describe("widget-file", () => {
 
     test("emits formbricks_survey_closed once — to subscribers AND the dataLayer — and not again on a repeated close", async () => {
       const handler = vi.fn();
-      onFormbricksEvent("formbricks_survey_closed", handler);
+      onTallynestEvent("formbricks_survey_closed", handler);
 
       const callbacks = await renderAndGetLifecycleCallbacks();
       callbacks.onClose();
@@ -1064,7 +1064,7 @@ describe("widget-file", () => {
 
     test("each close names its own survey when a second one renders over the first", async () => {
       const handler = vi.fn();
-      onFormbricksEvent("formbricks_survey_closed", handler);
+      onTallynestEvent("formbricks_survey_closed", handler);
 
       const surveyA = await renderAndGetLifecycleCallbacks();
 
@@ -1081,7 +1081,7 @@ describe("widget-file", () => {
       vi.advanceTimersByTime(0);
       vi.useRealTimers();
 
-      const renderCalls = (getFormbricksSurveys().renderSurvey as Mock).mock.calls;
+      const renderCalls = (getTallynestSurveys().renderSurvey as Mock).mock.calls;
       const surveyB = renderCalls[renderCalls.length - 1][0] as { onClose: () => void };
 
       // Each close reports only its own survey: A's must not carry B's id, nor close B on its behalf.
@@ -1094,7 +1094,7 @@ describe("widget-file", () => {
 
     test("a close landing after logout already tore the survey down still emits once", async () => {
       const handler = vi.fn();
-      onFormbricksEvent("formbricks_survey_closed", handler);
+      onTallynestEvent("formbricks_survey_closed", handler);
 
       const callbacks = await renderAndGetLifecycleCallbacks();
 
@@ -1109,7 +1109,7 @@ describe("widget-file", () => {
 
     test("emits nothing when closeSurvey runs with no survey on screen", () => {
       const handler = vi.fn();
-      onFormbricksEvent("formbricks_survey_closed", handler);
+      onTallynestEvent("formbricks_survey_closed", handler);
 
       widget.closeSurvey();
 
@@ -1129,14 +1129,14 @@ describe("widget-file", () => {
 
     test("a throwing host handler does not break the survey it is reporting on", async () => {
       const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
-      onFormbricksEvent("formbricks_survey_shown", () => {
+      onTallynestEvent("formbricks_survey_shown", () => {
         throw new Error("host blew up");
       });
 
       const callbacks = await renderAndGetLifecycleCallbacks();
 
       // The throw now lands while the widget is rendering, so the survey still has to reach the screen.
-      expect(getFormbricksSurveys().renderSurvey).toHaveBeenCalled();
+      expect(getTallynestSurveys().renderSurvey).toHaveBeenCalled();
       expect(errorSpy).toHaveBeenCalled();
 
       expect(() => {
@@ -1180,7 +1180,7 @@ describe("widget-file", () => {
       getInstanceConfigMock.mockReturnValue(mockConfigValue as unknown as Config);
       (filterSurveys as Mock).mockReturnValue([]);
       widget.setIsSurveyRunning(false);
-      window.formbricksSurveys = createMockFormbricksSurveys();
+      window.formbricksSurveys = createMockTallynestSurveys();
 
       vi.useFakeTimers();
       await widget.renderWidget({
@@ -1191,7 +1191,7 @@ describe("widget-file", () => {
       vi.advanceTimersByTime(0);
       vi.useRealTimers();
 
-      return (getFormbricksSurveys().renderSurvey as Mock).mock.calls[0][0] as {
+      return (getTallynestSurveys().renderSurvey as Mock).mock.calls[0][0] as {
         onDisplayCreated: () => void;
         onResponseCreated: () => void;
         onFinished: () => void;

@@ -47,7 +47,7 @@ export const isBlockedEmailDomain = (email: string): boolean => {
 /**
  * Sign-up policy: should this email be blocked from creating a new account?
  *
- * - Enforced only on Formbricks Cloud (`IS_FORMBRICKS_CLOUD`); self-hosted is never affected.
+ * - Enforced only on Tallynest Cloud (`IS_FORMBRICKS_CLOUD`); self-hosted is never affected.
  * - Invited users are exempt unless the `SIGNUP_DOMAIN_CHECK_ON_INVITES` kill-switch is enabled.
  *   The exemption is decided by a caller-supplied check (a validated invite token whose email
  *   matches the address), invoked lazily so the token/DB work only runs when the domain is

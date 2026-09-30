@@ -23,7 +23,7 @@ vi.mock("@formbricks/database", () => ({
       update: vi.fn(),
       delete: vi.fn(),
     },
-    feedbackSourceFormbricksMapping: {
+    feedbackSourceTallynestMapping: {
       create: vi.fn(),
       deleteMany: vi.fn(),
     },
@@ -436,7 +436,7 @@ describe("createFeedbackSourceWithMappings", () => {
         create: vi.fn(),
         findUniqueOrThrow: vi.fn(),
       },
-      feedbackSourceFormbricksMapping: {
+      feedbackSourceTallynestMapping: {
         create: vi.fn(),
       },
       feedbackSourceFieldMapping: {
@@ -472,7 +472,7 @@ describe("createFeedbackSourceWithMappings", () => {
         },
       })
     );
-    expect(tx.feedbackSourceFormbricksMapping.create).not.toHaveBeenCalled();
+    expect(tx.feedbackSourceTallynestMapping.create).not.toHaveBeenCalled();
     expect(tx.feedbackSourceFieldMapping.create).not.toHaveBeenCalled();
     expect(result).toEqual(mockFeedbackSourceWithMappings);
   });
@@ -502,7 +502,7 @@ describe("createFeedbackSourceWithMappings", () => {
   test("creates feedbackSource with formbricks mappings", async () => {
     const tx = setupTransaction();
     tx.feedbackSource.create.mockResolvedValue({ id: FEEDBACK_SOURCE_ID, workspaceId: ENV_ID });
-    tx.feedbackSourceFormbricksMapping.create.mockResolvedValue({});
+    tx.feedbackSourceTallynestMapping.create.mockResolvedValue({});
     tx.feedbackSource.findUniqueOrThrow.mockResolvedValue(mockFeedbackSourceWithMappingsFromDb);
 
     await createFeedbackSourceWithMappings(
@@ -523,8 +523,8 @@ describe("createFeedbackSourceWithMappings", () => {
     expect(tx.feedbackSource.create).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ elementScope: "all" }) })
     );
-    expect(tx.feedbackSourceFormbricksMapping.create).toHaveBeenCalledTimes(2);
-    expect(tx.feedbackSourceFormbricksMapping.create).toHaveBeenCalledWith(
+    expect(tx.feedbackSourceTallynestMapping.create).toHaveBeenCalledTimes(2);
+    expect(tx.feedbackSourceTallynestMapping.create).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
           feedbackSourceId: FEEDBACK_SOURCE_ID,
@@ -692,7 +692,7 @@ describe("createFeedbackSourceWithMappings", () => {
 
   test("throws DatabaseError on an unrelated foreign-key violation", async () => {
     vi.mocked(prisma.$transaction).mockRejectedValue(
-      makeForeignKeyError("FeedbackSourceFormbricksMapping_surveyId_workspaceId_fkey")
+      makeForeignKeyError("FeedbackSourceTallynestMapping_surveyId_workspaceId_fkey")
     );
 
     await expect(
@@ -755,7 +755,7 @@ describe("updateFeedbackSourceWithMappings", () => {
         updateMany: vi.fn(applyStatus),
         findUniqueOrThrow: vi.fn(),
       },
-      feedbackSourceFormbricksMapping: {
+      feedbackSourceTallynestMapping: {
         create: vi.fn(),
         deleteMany: vi.fn(),
       },
@@ -784,15 +784,15 @@ describe("updateFeedbackSourceWithMappings", () => {
         data: expect.objectContaining({ name: "Updated" }),
       })
     );
-    expect(tx.feedbackSourceFormbricksMapping.deleteMany).not.toHaveBeenCalled();
+    expect(tx.feedbackSourceTallynestMapping.deleteMany).not.toHaveBeenCalled();
     expect(tx.feedbackSourceFieldMapping.deleteMany).not.toHaveBeenCalled();
     expect(result).toEqual(mockFeedbackSourceWithMappings);
   });
 
   test("replaces formbricks mappings when provided", async () => {
     const tx = setupTransaction();
-    tx.feedbackSourceFormbricksMapping.deleteMany.mockResolvedValue({ count: 1 });
-    tx.feedbackSourceFormbricksMapping.create.mockResolvedValue({});
+    tx.feedbackSourceTallynestMapping.deleteMany.mockResolvedValue({ count: 1 });
+    tx.feedbackSourceTallynestMapping.create.mockResolvedValue({});
     tx.feedbackSource.findUniqueOrThrow.mockResolvedValue(mockFeedbackSourceWithMappingsFromDb);
 
     await updateFeedbackSourceWithMappings(
@@ -806,10 +806,10 @@ describe("updateFeedbackSourceWithMappings", () => {
       }
     );
 
-    expect(tx.feedbackSourceFormbricksMapping.deleteMany).toHaveBeenCalledWith({
+    expect(tx.feedbackSourceTallynestMapping.deleteMany).toHaveBeenCalledWith({
       where: { feedbackSourceId: FEEDBACK_SOURCE_ID, workspaceId: ENV_ID },
     });
-    expect(tx.feedbackSourceFormbricksMapping.create).toHaveBeenCalledTimes(1);
+    expect(tx.feedbackSourceTallynestMapping.create).toHaveBeenCalledTimes(1);
     // Re-derived on every save in the same transaction as the rows: this is also what gives sources
     // created before the column existed their real scope.
     expect(tx.feedbackSource.update).toHaveBeenCalledWith(
@@ -823,8 +823,8 @@ describe("updateFeedbackSourceWithMappings", () => {
   // dark forever, reachable only through the unrelated pause/resume toggle.
   const seedUpdateTransaction = () => {
     const tx = setupTransaction();
-    tx.feedbackSourceFormbricksMapping.deleteMany.mockResolvedValue({ count: 1 });
-    tx.feedbackSourceFormbricksMapping.create.mockResolvedValue({});
+    tx.feedbackSourceTallynestMapping.deleteMany.mockResolvedValue({ count: 1 });
+    tx.feedbackSourceTallynestMapping.create.mockResolvedValue({});
     tx.feedbackSource.findUniqueOrThrow.mockResolvedValue(mockFeedbackSourceWithMappingsFromDb);
     return tx;
   };

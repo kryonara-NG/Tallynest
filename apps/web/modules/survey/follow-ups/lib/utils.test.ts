@@ -38,7 +38,7 @@ describe("getSurveyFollowUpsPermission", () => {
     expect(result).toBe(false);
   });
 
-  test("should return true for any plan when not on Formbricks Cloud", async () => {
+  test("should return true for any plan when not on Tallynest Cloud", async () => {
     vi.spyOn(constants, "IS_FORMBRICKS_CLOUD", "get").mockReturnValue(false);
     const result = await getSurveyFollowUpsPermission("org_123");
     expect(result).toBe(true);

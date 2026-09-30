@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 /**
  * Vitest globalSetup for the Better Auth integration harness (ENG-1054).
  *
- * Provisions an isolated, BA-shaped copy of the Formbricks schema in a throwaway database:
+ * Provisions an isolated, BA-shaped copy of the Tallynest schema in a throwaway database:
  *  1. copy the dev DB's schema (schema-only) into `formbricks_ba_test`, then
  *  2. apply the two cutover adjustments Better Auth needs — `emailVerified` Date→Boolean and
  *     `Account.type` nullable.

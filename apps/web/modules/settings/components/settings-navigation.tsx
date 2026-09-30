@@ -21,8 +21,8 @@ interface SettingsNavigationProps {
   organizationId: string;
   organizationName: string;
   membershipRole?: TOrganizationRole;
-  isFormbricksCloud: boolean;
-  isFormbricksSurveysConfigured: boolean;
+  isTallynestCloud: boolean;
+  isTallynestSurveysConfigured: boolean;
   // Where the back arrow returns to (the surveys list of the current workspace).
   backUrl: string;
 }
@@ -37,8 +37,8 @@ export const SettingsNavigation = ({
   organizationId,
   organizationName,
   membershipRole,
-  isFormbricksCloud,
-  isFormbricksSurveysConfigured,
+  isTallynestCloud,
+  isTallynestSurveysConfigured,
   backUrl,
 }: Readonly<SettingsNavigationProps>) => {
   const router = useRouter();
@@ -86,7 +86,7 @@ export const SettingsNavigation = ({
           organizationId={organizationId}
           organizationName={organizationName}
           membershipRole={membershipRole}
-          isFormbricksCloud={isFormbricksCloud}
+          isTallynestCloud={isTallynestCloud}
           isCollapsed={false}
           isTextVisible={false}
           hideWorkspaceSection={!workspaceId}
@@ -111,7 +111,7 @@ export const SettingsNavigation = ({
       <UserDropdown
         user={user}
         organizationId={organizationId}
-        isFormbricksSurveysConfigured={isFormbricksSurveysConfigured}
+        isTallynestSurveysConfigured={isTallynestSurveysConfigured}
       />
     </aside>
   );

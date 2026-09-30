@@ -74,7 +74,7 @@ const Page = async () => {
         cta={
           <Button asChild variant="secondary" size="sm">
             <a
-              href="https://formbricks.com/docs/platform/mcp/overview"
+              href="https://tallynest.app/docs/platform/mcp/overview"
               target="_blank"
               rel="noopener noreferrer">
               {t("auth.oauth.mcp_docs_link")}

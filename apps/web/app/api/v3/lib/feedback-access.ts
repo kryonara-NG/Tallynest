@@ -1,6 +1,6 @@
 import "server-only";
-import { getIsFeedbackDirectoriesEnabled } from "@/modules/ee/license-check/lib/utils";
-import type { TTeamPermission } from "@/modules/ee/teams/workspace-teams/types/team";
+import { getIsFeedbackDirectoriesEnabled } from "@/modules/tallynest-core/entitlements";
+import type { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import { requireV3WorkspaceAccess } from "./auth";
 import { problemForbidden } from "./response";
 import type { TV3Authentication } from "./types";

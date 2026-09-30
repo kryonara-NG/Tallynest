@@ -1,7 +1,7 @@
 import type { Iso639Code } from "@formbricks/i18n-utils";
 
 /**
- * Native-script display names for every ISO 639 code Formbricks supports.
+ * Native-script display names for every ISO 639 code Tallynest supports.
  *
  * Each language is shown in its own script (e.g. "Deutsch", "français", "日本語")
  * so users can recognise their language regardless of the current UI locale.

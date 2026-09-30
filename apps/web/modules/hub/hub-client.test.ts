@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import FormbricksHub from "@formbricks/hub";
+import TallynestHub from "@formbricks/hub";
 
 vi.mock("server-only", () => ({}));
 
 vi.mock("@formbricks/hub", () => {
   // Must use `function` (not arrow) so it's valid as a `new` target.
-  const MockFormbricksHub = vi.fn(function () {});
-  return { default: MockFormbricksHub };
+  const MockTallynestHub = vi.fn(function () {});
+  return { default: MockTallynestHub };
 });
 
 vi.mock("@/lib/env", () => ({
@@ -21,7 +21,7 @@ const { env } = await import("@/lib/env");
 const mutableEnv = env as unknown as Record<string, string>;
 
 const globalForHub = globalThis as unknown as {
-  formbricksHubClientRepeatArrays: FormbricksHub | undefined;
+  formbricksHubClientRepeatArrays: TallynestHub | undefined;
 };
 
 /**
@@ -31,7 +31,7 @@ const globalForHub = globalThis as unknown as {
  * `buildURL` is unused by the `getHubClient` tests in this file; kept on the fake because it costs nothing
  * and keeps one shared fixture instead of two near-identical ones.
  */
-const fakeClient = ({ repeated }: { repeated: boolean }): FormbricksHub =>
+const fakeClient = ({ repeated }: { repeated: boolean }): TallynestHub =>
   ({
     feedbackRecords: {},
     buildURL: (path: string, query: Record<string, unknown>) => {
@@ -44,7 +44,7 @@ const fakeClient = ({ repeated }: { repeated: boolean }): FormbricksHub =>
         .join("&");
       return `https://hub.test${path}?${search}`;
     },
-  }) as unknown as FormbricksHub;
+  }) as unknown as TallynestHub;
 
 describe("getHubClient", () => {
   beforeEach(() => {
@@ -59,20 +59,20 @@ describe("getHubClient", () => {
     const client = getHubClient();
 
     expect(client).toBeNull();
-    expect(FormbricksHub).not.toHaveBeenCalled();
+    expect(TallynestHub).not.toHaveBeenCalled();
   });
 
   test("creates and caches a new client when HUB_API_KEY is set", async () => {
     mutableEnv.HUB_API_KEY = "test-key";
     const mockInstance = fakeClient({ repeated: true });
-    vi.mocked(FormbricksHub).mockImplementation(function () {
+    vi.mocked(TallynestHub).mockImplementation(function () {
       return mockInstance as any;
     });
 
     const { getHubClient } = await import("./hub-client");
     const client = getHubClient();
 
-    expect(FormbricksHub).toHaveBeenCalledWith({ apiKey: "test-key", baseURL: "https://hub.test" });
+    expect(TallynestHub).toHaveBeenCalledWith({ apiKey: "test-key", baseURL: "https://hub.test" });
     expect(client).toBe(mockInstance);
     expect(globalForHub.formbricksHubClientRepeatArrays).toBe(mockInstance);
   });
@@ -85,7 +85,7 @@ describe("getHubClient", () => {
     const client = getHubClient();
 
     expect(client).toBe(cachedInstance);
-    expect(FormbricksHub).not.toHaveBeenCalled();
+    expect(TallynestHub).not.toHaveBeenCalled();
   });
 
   test("does not cache null result so a later call with the key set can create the client", async () => {
@@ -98,7 +98,7 @@ describe("getHubClient", () => {
 
     mutableEnv.HUB_API_KEY = "now-set";
     const mockInstance = fakeClient({ repeated: true });
-    vi.mocked(FormbricksHub).mockImplementation(function () {
+    vi.mocked(TallynestHub).mockImplementation(function () {
       return mockInstance as any;
     });
 
@@ -113,7 +113,7 @@ describe("getHubClient", () => {
   test("does not verify array-param support at construction", async () => {
     mutableEnv.HUB_API_KEY = "test-key";
     const commaJoining = fakeClient({ repeated: false });
-    vi.mocked(FormbricksHub).mockImplementation(function () {
+    vi.mocked(TallynestHub).mockImplementation(function () {
       return commaJoining as any;
     });
 
@@ -149,7 +149,7 @@ describe("assertRepeatedArrayParams", () => {
     const { assertRepeatedArrayParams } = await import("./hub-client");
     const goodClient = fakeClient({ repeated: true });
     const laterBrokenBuildURL = vi.fn(() => "https://hub.test/probe?p=a%2Cb");
-    const laterBrokenClient = { ...goodClient, buildURL: laterBrokenBuildURL } as unknown as FormbricksHub;
+    const laterBrokenClient = { ...goodClient, buildURL: laterBrokenBuildURL } as unknown as TallynestHub;
 
     assertRepeatedArrayParams(goodClient);
     expect(() => assertRepeatedArrayParams(laterBrokenClient)).not.toThrow();

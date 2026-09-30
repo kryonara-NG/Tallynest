@@ -101,7 +101,7 @@ export function ElementConditional({
   useEffect(() => {
     if (!isRecognizedType) {
       console.warn(
-        `[Formbricks] Unrecognized element type "${element.type}" for element with id "${element.id}". No component will be rendered.`
+        `[Tallynest] Unrecognized element type "${element.type}" for element with id "${element.id}". No component will be rendered.`
       );
     }
   }, [element.type, element.id, isRecognizedType]);

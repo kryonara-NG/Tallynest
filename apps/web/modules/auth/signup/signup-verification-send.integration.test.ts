@@ -27,8 +27,8 @@ vi.mock("@/modules/ee/mailing/lib/mailing-subscription", () => ({
   subscribeUserToMailingList: vi.fn(async () => undefined),
 }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/modules/ee/audit-logs/lib/handler")>();
+vi.mock("@/modules/tallynest-core/activity-context", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/modules/tallynest-core/activity-context")>();
   return { ...actual, queueAuditEventBackground: vi.fn(async () => undefined) };
 });
 

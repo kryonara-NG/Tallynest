@@ -193,7 +193,7 @@ describe("env", () => {
       const { assertAuthzedRuntimeConfiguration } = await import("./env");
       const log = vi.spyOn(console, "error").mockImplementation(() => {});
       try {
-        expect(assertAuthzedRuntimeConfiguration).toThrow("Formbricks v6 requires AUTHZED_ENABLED=true");
+        expect(assertAuthzedRuntimeConfiguration).toThrow("Tallynest v6 requires AUTHZED_ENABLED=true");
         expect(log.mock.calls[0][0]).toContain("AUTHZED_ENDPOINT");
         expect(log.mock.calls[0][0]).toContain("AUTHZED_TOKEN");
         expect(log.mock.calls[0][0]).toContain("AUTHZED_SYSTEM_KEY");
@@ -353,7 +353,7 @@ describe("env", () => {
   test.each([
     "ab",
     `a${"b".repeat(63)}1`,
-    "Formbricks",
+    "Tallynest",
     "form-bricks",
     "form/bricks",
     "form bricks",

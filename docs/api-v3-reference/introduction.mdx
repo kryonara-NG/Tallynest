@@ -25,7 +25,7 @@ Create a management API key — **API Keys** in the organization dropdown of the
 permissions — `read`, `write` or `manage` — and every operation states which one it needs.
 
 ```bash
-curl "https://app.formbricks.com/api/v3/surveys?workspaceId=<workspaceId>" \
+curl "https://app.tallynest.app/api/v3/surveys?workspaceId=<workspaceId>" \
   -H "x-api-key: $FORMBRICKS_API_KEY"
 ```
 
@@ -106,7 +106,7 @@ allowed. The organization must hold the Unify Feedback entitlement.
 
 ```bash
 # The 20 most recent negative text answers in a dataset
-curl "https://app.formbricks.com/api/v3/feedbackRecords?tenant_id=<datasetId>&field_type=text&sentiment=negative&sentiment=very_negative&limit=20" \
+curl "https://app.tallynest.app/api/v3/feedbackRecords?tenant_id=<datasetId>&field_type=text&sentiment=negative&sentiment=very_negative&limit=20" \
   -H "x-api-key: $FORMBRICKS_API_KEY"
 ```
 
@@ -115,4 +115,4 @@ absent on the last page.
 
 ## Feedback
 
-Beta feedback goes to your Tallynest contact or to [hola@formbricks.com](mailto:hola@formbricks.com).
+Beta feedback goes to your Tallynest contact or to [hola@tallynest.app](mailto:hola@tallynest.app).

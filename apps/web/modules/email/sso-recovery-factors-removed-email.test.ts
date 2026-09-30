@@ -14,8 +14,8 @@ const t = (key: string): string => {
     "emails.sso_recovery_factors_removed_email_did_not_expect":
       "If you did not just sign in, contact support.",
     "emails.email_footer_text_1": "Have a great day!",
-    "emails.email_footer_text_2": "The Formbricks Team",
-    "emails.email_template_text_1": "This email was sent via Formbricks.",
+    "emails.email_footer_text_2": "The Tallynest Team",
+    "emails.email_template_text_1": "This email was sent via Tallynest.",
   };
   return translations[key] ?? key;
 };
@@ -33,7 +33,7 @@ describe("renderSsoRecoveryFactorsRemovedEmail", () => {
     apiKeysRemoved?: boolean;
   }) =>
     renderSsoRecoveryFactorsRemovedEmail({
-      securitySettingsLink: "https://app.formbricks.com/account/settings/profile",
+      securitySettingsLink: "https://app.tallynest.app/account/settings/profile",
       t,
       apiKeysRemoved: false,
       ...overrides,
@@ -76,7 +76,7 @@ describe("renderSsoRecoveryFactorsRemovedEmail", () => {
   test("drops the security-settings hint and link when only API keys were deleted", async () => {
     const html = await render({ passwordRemoved: false, twoFactorRemoved: false, apiKeysRemoved: true });
 
-    expect(html).not.toContain("https://app.formbricks.com/account/settings/profile");
+    expect(html).not.toContain("https://app.tallynest.app/account/settings/profile");
     expect(html).not.toContain("You can keep signing in with single sign-on.");
     expect(html).toContain("API keys you had created were deleted.");
   });
@@ -89,7 +89,7 @@ describe("renderSsoRecoveryFactorsRemovedEmail", () => {
   test("links to the account page that actually hosts both factors", async () => {
     const html = await render({ passwordRemoved: true, twoFactorRemoved: true });
 
-    expect(html).toContain("https://app.formbricks.com/account/settings/profile");
+    expect(html).toContain("https://app.tallynest.app/account/settings/profile");
     expect(html).not.toContain("/settings/security");
   });
 });

@@ -20,11 +20,11 @@ import { evaluateResponseQuotas } from "@/modules/ee/quotas/lib/evaluation-servi
 import { getContact } from "./contact";
 import { createResponse, createResponseWithQuotaEvaluation } from "./response";
 
-let mockIsFormbricksCloud = false;
+let mockIsTallynestCloud = false;
 
 vi.mock("@/lib/constants", () => ({
   get IS_FORMBRICKS_CLOUD() {
-    return mockIsFormbricksCloud;
+    return mockIsTallynestCloud;
   },
   IS_PRODUCTION: false,
   POSTHOG_KEY: undefined,
@@ -180,7 +180,7 @@ describe("createResponse V2", () => {
   });
 
   afterEach(() => {
-    mockIsFormbricksCloud = false;
+    mockIsTallynestCloud = false;
   });
 
   test("should throw ResourceNotFoundError if organization not found", async () => {

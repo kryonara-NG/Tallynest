@@ -59,7 +59,7 @@ describe("i18n", () => {
   });
 
   describe("getTranslations", () => {
-    // "default" is Formbricks' own marker, not a locale: resolving it would reset the respondent's
+    // "default" is Tallynest' own marker, not a locale: resolving it would reset the respondent's
     // chosen language to English (#7515), so it keeps whatever the instance is already on.
     test('keeps the current language for the internal "default" code', async () => {
       i18n.addResourceBundle("de-DE", "translation", { common: { required: "Pflichtfeld" } });

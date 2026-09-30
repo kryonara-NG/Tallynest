@@ -1,4 +1,4 @@
-import { FormbricksProvider } from "@/app/formbricks/components/formbricks-provider";
+import { TallynestProvider } from "@/app/formbricks/components/formbricks-provider";
 import { PlainChat } from "@/app/plain/components/plain-chat";
 import { getIsActiveCustomer } from "@/app/plain/lib/customer";
 import { computePlainEmailHash } from "@/app/plain/lib/identity";
@@ -54,7 +54,7 @@ const AppLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) 
         />
       )}
       {IS_FORMBRICKS_SURVEYS_CONFIGURED && FORMBRICKS_WORKSPACE_ID && (
-        <FormbricksProvider
+        <TallynestProvider
           workspaceId={FORMBRICKS_WORKSPACE_ID}
           appUrl={FORMBRICKS_APP_URL}
           userId={user?.id}

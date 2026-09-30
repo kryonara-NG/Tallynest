@@ -5,7 +5,7 @@ import { logger } from "@formbricks/logger";
 import { ZId } from "@formbricks/types/common";
 import {
   TFeedbackSourceElementScope,
-  TFeedbackSourceFormbricksMapping,
+  TFeedbackSourceTallynestMapping,
   THubFieldType,
 } from "@formbricks/types/feedback-source";
 import { TSurveyBlock } from "@formbricks/types/surveys/blocks";
@@ -34,7 +34,7 @@ export const isEmptyReconciliation = (reconciliation: TFeedbackSourceReconciliat
   reconciliation.toDelete.length === 0 &&
   reconciliation.toUpdate.length === 0;
 
-type TMappingElementId = Pick<TFeedbackSourceFormbricksMapping, "surveyId" | "elementId" | "hubFieldType">;
+type TMappingElementId = Pick<TFeedbackSourceTallynestMapping, "surveyId" | "elementId" | "hubFieldType">;
 
 type TMappingHubFieldType = { elementId: string; hubFieldType: THubFieldType };
 
@@ -142,7 +142,7 @@ const resolveDeletions = (
  * minimal reconciliation delta.
  *
  * - Elements retyped to a type with no Hub field → `toDelete`, always (the creation path in
- *   `resolveFormbricksMappingsInput` refuses to map these, so keeping the row would let an element
+ *   `resolveTallynestMappingsInput` refuses to map these, so keeping the row would let an element
  *   the product explicitly excludes keep publishing under a stale hubFieldType)
  * - Elements removed from the survey → `toDelete`, unless that would leave the survey with no rows
  *   at all; see `resolveDeletions`
@@ -215,7 +215,7 @@ export const applyReconciliationToFeedbackSource = async (
 
     await prisma.$transaction(async (tx) => {
       if (toDelete.length > 0) {
-        await tx.feedbackSourceFormbricksMapping.deleteMany({
+        await tx.feedbackSourceTallynestMapping.deleteMany({
           where: { feedbackSourceId, workspaceId, surveyId, elementId: { in: toDelete } },
         });
       }
@@ -233,14 +233,14 @@ export const applyReconciliationToFeedbackSource = async (
       }
 
       for (const [hubFieldType, elementIds] of elementIdsByHubFieldType) {
-        await tx.feedbackSourceFormbricksMapping.updateMany({
+        await tx.feedbackSourceTallynestMapping.updateMany({
           where: { feedbackSourceId, workspaceId, surveyId, elementId: { in: elementIds } },
           data: { hubFieldType },
         });
       }
 
       if (toCreate.length > 0) {
-        await tx.feedbackSourceFormbricksMapping.createMany({
+        await tx.feedbackSourceTallynestMapping.createMany({
           data: toCreate.map(({ elementId, hubFieldType }) => ({
             feedbackSourceId,
             workspaceId,
@@ -278,7 +278,7 @@ export const applyReconciliationToFeedbackSource = async (
       }
 
       if (toDelete.length > 0) {
-        const remainingMappings = await tx.feedbackSourceFormbricksMapping.count({
+        const remainingMappings = await tx.feedbackSourceTallynestMapping.count({
           where: { feedbackSourceId, workspaceId },
         });
 

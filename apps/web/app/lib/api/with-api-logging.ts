@@ -22,8 +22,8 @@ import {
 import { applyIPRateLimit, applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
-import { queueAuditEvent } from "@/modules/ee/audit-logs/lib/handler";
-import { TAuditAction, TAuditTarget, UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
+import { queueAuditEvent } from "@/modules/tallynest-core/activity-context";
+import { TAuditAction, TAuditTarget, UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export type TApiAuditLog = Parameters<typeof queueAuditEvent>[0];
 export type TApiV1Authentication = TAuthenticationApiKey | Session | null;

@@ -30,7 +30,7 @@ describe("getMetadataForLinkSurvey", () => {
   const mockSurveyId = "survey-123";
   const mockSurveyName = "Test Survey";
   // Distinct from the page title so the tests can tell which one reaches the social previews.
-  const mockOgTitle = "Test Survey | Formbricks";
+  const mockOgTitle = "Test Survey | Tallynest";
   const mockDescription = "Please complete this survey.";
   const mockOgImageUrl = "https://example.com/custom-image.png";
 

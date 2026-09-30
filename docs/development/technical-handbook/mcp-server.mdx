@@ -26,7 +26,7 @@ rate limiting, response handling, and audit logging paths as the REST routes.
 Use the streamable HTTP MCP endpoint on the Tallynest app:
 
 ```text
-https://app.formbricks.com/api/mcp
+https://app.tallynest.app/api/mcp
 ```
 
 For local development:
@@ -57,7 +57,7 @@ route this handler is mounted on is the only mount point.
 OAuth clients discover the protected resource metadata here:
 
 ```text
-https://app.formbricks.com/.well-known/oauth-protected-resource/api/mcp
+https://app.tallynest.app/.well-known/oauth-protected-resource/api/mcp
 ```
 
 The metadata advertises `/api/mcp` as the protected resource and points clients to the Better Auth
@@ -75,13 +75,13 @@ registration claiming any other redirect URI — including an `https` one — is
 authorization code at. The MCP protected resource is:
 
 ```text
-https://app.formbricks.com/api/mcp
+https://app.tallynest.app/api/mcp
 ```
 
 The authorization server issuer is:
 
 ```text
-https://app.formbricks.com/api/auth
+https://app.tallynest.app/api/auth
 ```
 
 Discovery endpoints:

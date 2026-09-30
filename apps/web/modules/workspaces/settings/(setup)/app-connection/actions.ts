@@ -9,7 +9,7 @@ import { assertCan } from "@/lib/authorization";
 import { getSurveysByActionClassId } from "@/lib/survey/service";
 import { actionClient, authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromActionClassId, getWorkspaceIdFromActionClassId } from "@/lib/utils/helper";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { getLatestStableFbRelease } from "./lib/github";
 
 const ZDeleteActionClassAction = z.object({
@@ -17,7 +17,7 @@ const ZDeleteActionClassAction = z.object({
 });
 
 export const deleteActionClassAction = authenticatedActionClient.inputSchema(ZDeleteActionClassAction).action(
-  withAuditLogging("deleted", "actionClass", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "actionClass", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromActionClassId(parsedInput.actionClassId);
     await assertCan({ type: "user", id: ctx.user.id }, "workspace.write", {
       type: "workspace",
@@ -36,7 +36,7 @@ const ZUpdateActionClassAction = z.object({
 });
 
 export const updateActionClassAction = authenticatedActionClient.inputSchema(ZUpdateActionClassAction).action(
-  withAuditLogging("updated", "actionClass", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "actionClass", async ({ ctx, parsedInput }) => {
     const actionClass = await getActionClass(parsedInput.actionClassId);
     if (actionClass === null) {
       throw new ResourceNotFoundError("ActionClass", parsedInput.actionClassId);

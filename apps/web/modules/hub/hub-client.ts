@@ -1,5 +1,5 @@
 import "server-only";
-import FormbricksHub from "@formbricks/hub";
+import TallynestHub from "@formbricks/hub";
 import { env } from "@/lib/env";
 import { serializeHubQuery } from "./hub-query";
 
@@ -11,7 +11,7 @@ import { serializeHubQuery } from "./hub-query";
  * runtime, so a subclass is the whole fix, and it keeps every generated resource method (and its response
  * types) intact rather than hand-building requests.
  */
-class FormbricksHubWithRepeatedArrayParams extends FormbricksHub {
+class TallynestHubWithRepeatedArrayParams extends TallynestHub {
   protected override stringifyQuery(query: object | Record<string, unknown>): string {
     return serializeHubQuery(query);
   }
@@ -127,11 +127,11 @@ const isTerminalConflict = async (response: Response): Promise<boolean> => {
  * Only when the base method is actually there: if a future SDK renames it, the SDK stops calling
  * ours too and the behaviour degrades to today's extra retries rather than to a broken client.
  */
-const baseShouldRetry = withShouldRetry(FormbricksHub.prototype).shouldRetry;
+const baseShouldRetry = withShouldRetry(TallynestHub.prototype).shouldRetry;
 
 if (typeof baseShouldRetry === "function") {
-  withShouldRetry(FormbricksHubWithRepeatedArrayParams.prototype).shouldRetry = async function (
-    this: FormbricksHub,
+  withShouldRetry(TallynestHubWithRepeatedArrayParams.prototype).shouldRetry = async function (
+    this: TallynestHub,
     response: Response
   ): Promise<boolean> {
     if (await isTerminalConflict(response)) return false;
@@ -161,7 +161,7 @@ let repeatedArrayParamsVerified = false;
  * same relayed Hub error every other failure on those paths produces, and every other Hub consumer is
  * unaffected. Memoized because the property can't change within a process once true.
  */
-export const assertRepeatedArrayParams = (client: FormbricksHub): void => {
+export const assertRepeatedArrayParams = (client: TallynestHub): void => {
   if (repeatedArrayParamsVerified) return;
 
   const probe = new URL(client.buildURL("/probe", { p: ["a", "b"] }));
@@ -182,23 +182,23 @@ export const assertRepeatedArrayParams = (client: FormbricksHub): void => {
 // key could hand back a client built from the pre-override class and comma-join in dev while every test
 // passed.
 const globalForHub = globalThis as unknown as {
-  formbricksHubClientRepeatArrays: FormbricksHub | undefined;
+  formbricksHubClientRepeatArrays: TallynestHub | undefined;
 };
 
 /**
- * Returns a shared Formbricks Hub API client when HUB_API_KEY is set.
+ * Returns a shared Tallynest Hub API client when HUB_API_KEY is set.
  * Uses a global singleton so the same instance is reused across the process
  * (and across Next.js HMR in development). When the key is not set, returns
  * null and does not cache that result so a later call with the key set
  * can create the client.
  */
-export const getHubClient = (): FormbricksHub | null => {
+export const getHubClient = (): TallynestHub | null => {
   if (globalForHub.formbricksHubClientRepeatArrays) {
     return globalForHub.formbricksHubClientRepeatArrays;
   }
   const apiKey = env.HUB_API_KEY;
   if (!apiKey) return null;
-  const client = new FormbricksHubWithRepeatedArrayParams({ apiKey, baseURL: env.HUB_API_URL });
+  const client = new TallynestHubWithRepeatedArrayParams({ apiKey, baseURL: env.HUB_API_URL });
   globalForHub.formbricksHubClientRepeatArrays = client;
   return client;
 };

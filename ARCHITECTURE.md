@@ -2,7 +2,7 @@
 
 ## Upstream technical foundation
 
-The current Formbricks repository is a TypeScript monorepo using Turborepo and pnpm. The web application is a Next.js application under `apps/web`, with React UI, server-side route/action logic, Prisma-backed persistence, authentication, background jobs, integrations, SDK packages, and supporting services.
+The current Tallynest repository is a TypeScript monorepo using Turborepo and pnpm. The web application is a Next.js application under `apps/web`, with React UI, server-side route/action logic, Prisma-backed persistence, authentication, background jobs, integrations, SDK packages, and supporting services.
 
 The inspected development stack includes:
 
@@ -22,7 +22,7 @@ The inspected development stack includes:
 
 Tallynest has a hard source boundary:
 
-`Tallynest Core` → AGPLv3 Formbricks Core + permitted third-party components
+`Tallynest Core` → AGPLv3 Tallynest Core + permitted third-party components
 
 Enterprise functionality is **not** a source dependency:
 

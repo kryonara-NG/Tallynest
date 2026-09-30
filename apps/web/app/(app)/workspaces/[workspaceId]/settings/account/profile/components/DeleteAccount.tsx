@@ -41,7 +41,7 @@ export const DeleteAccount = ({
         open={isModalOpen}
         setOpen={setModalOpen}
         user={user}
-        isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+        isTallynestCloud={IS_FORMBRICKS_CLOUD}
         organizationsWithSingleOwner={organizationsWithSingleOwner}
       />
       <p className="text-sm text-slate-700">

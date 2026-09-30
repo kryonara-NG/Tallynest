@@ -28,7 +28,7 @@ interface IndividualInviteTabProps {
   teams: TOrganizationTeam[];
   organizationId: string;
   isAccessControlAllowed: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   membershipRole?: TOrganizationRole;
   showTeamAdminRestrictions: boolean;
   enterpriseLicenseRequestFormUrl: string;
@@ -40,7 +40,7 @@ export const IndividualInviteTab = ({
   teams,
   organizationId,
   isAccessControlAllowed,
-  isFormbricksCloud,
+  isTallynestCloud,
   membershipRole,
   showTeamAdminRestrictions,
   enterpriseLicenseRequestFormUrl,
@@ -135,7 +135,7 @@ export const IndividualInviteTab = ({
               <AddMemberRole
                 control={control}
                 isAccessControlAllowed={isAccessControlAllowed}
-                isFormbricksCloud={isFormbricksCloud}
+                isTallynestCloud={isTallynestCloud}
                 membershipRole={membershipRole}
               />
               {watch("role") === "member" && (
@@ -190,7 +190,7 @@ export const IndividualInviteTab = ({
                 className="ml-1 underline"
                 target="_blank"
                 href={
-                  isFormbricksCloud
+                  isTallynestCloud
                     ? organizationSettingsPath(organizationId, "billing")
                     : enterpriseLicenseRequestFormUrl
                 }>

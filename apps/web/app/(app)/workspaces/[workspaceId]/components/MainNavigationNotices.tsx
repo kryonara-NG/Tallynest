@@ -11,7 +11,7 @@ import { TRIAL_BASE_RESPONSE_LIMIT, TrialBannerNew } from "@/modules/ee/billing/
 interface MainNavigationNoticesProps {
   isCollapsed: boolean;
   isOwnerOrManager: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isDevelopment: boolean;
   latestVersion: string;
   // Whole days left in the trial, or null when there is no trial to count down. Derived by the
@@ -34,7 +34,7 @@ interface MainNavigationNoticesProps {
 export const MainNavigationNotices = ({
   isCollapsed,
   isOwnerOrManager,
-  isFormbricksCloud,
+  isTallynestCloud,
   isDevelopment,
   latestVersion,
   trialDaysRemaining,
@@ -49,7 +49,7 @@ export const MainNavigationNotices = ({
     return null;
   }
 
-  const showUpdateNotice = Boolean(latestVersion) && !isFormbricksCloud && !isDevelopment;
+  const showUpdateNotice = Boolean(latestVersion) && !isTallynestCloud && !isDevelopment;
   const billingHref = `/organizations/${organization.id}/settings/billing`;
 
   return (
@@ -67,7 +67,7 @@ export const MainNavigationNotices = ({
       )}
 
       {/* Condition kept inline so `trialDaysRemaining` narrows to a number for the two cards. */}
-      {isFormbricksCloud &&
+      {isTallynestCloud &&
         trialDaysRemaining !== null &&
         (newTrialBannerVariant === "test" ? (
           <TrialBannerNew

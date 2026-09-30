@@ -65,7 +65,7 @@ vi.mock("@/modules/api/v2/lib/element", () => ({
   validateOtherOptionLengthForMultipleChoice: mocks.validateOtherOptionLengthForMultipleChoice,
 }));
 
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({
+vi.mock("@/modules/tallynest-core/entitlements", () => ({
   getIsContactsEnabled: mocks.getIsContactsEnabled,
 }));
 

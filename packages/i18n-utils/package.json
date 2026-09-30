@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://formbricks.com",
+  "homepage": "https://tallynest.app",
   "license": "MIT",
-  "description": "Utility functions for multilingual support in Formbricks projects",
+  "description": "Utility functions for multilingual support in Tallynest projects",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -36,7 +36,7 @@
     "url": "https://github.com/formbricks/formbricks"
   },
   "keywords": [
-    "Formbricks",
+    "Tallynest",
     "i18n",
     "internationalization",
     "localization"

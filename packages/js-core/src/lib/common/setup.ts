@@ -1,7 +1,7 @@
 import { Config } from "@/lib/common/config";
 import { JS_LOCAL_STORAGE_KEY } from "@/lib/common/constants";
 import { addCleanupEventListeners, addEventListeners } from "@/lib/common/event-listeners";
-import { FORMBRICKS_EVENTS, emitFormbricksEvent } from "@/lib/common/events";
+import { FORMBRICKS_EVENTS, emitTallynestEvent } from "@/lib/common/events";
 import { Logger } from "@/lib/common/logger";
 import { getIsSetup, setIsSetup } from "@/lib/common/status";
 import { filterSurveys, getIsDebug, isNowExpired, wrapThrows } from "@/lib/common/utils";
@@ -150,21 +150,21 @@ export const setup = async (
   if (existingConfig?.status.value === "error") {
     if (isDebug) {
       logger.debug(
-        "Formbricks is in error state, but debug mode is active. Resetting config and continuing."
+        "Tallynest is in error state, but debug mode is active. Resetting config and continuing."
       );
       config.resetConfig();
       return okVoid();
     }
 
-    console.error("🧱 Formbricks - Formbricks was set to an error state.");
+    console.error("🧱 Tallynest - Tallynest was set to an error state.");
 
     const expiresAt = existingConfig.status.expiresAt;
 
     if (expiresAt && !isNowExpired(new Date(expiresAt))) {
-      console.error("🧱 Formbricks - Error state is not expired, skipping initialization");
+      console.error("🧱 Tallynest - Error state is not expired, skipping initialization");
       return okVoid();
     }
-    console.error("🧱 Formbricks - Error state is expired. Continuing with initialization.");
+    console.error("🧱 Tallynest - Error state is expired. Continuing with initialization.");
   }
 
   logger.debug("Start setup");
@@ -409,7 +409,7 @@ export const setup = async (
   // the host's tags.
   // `effectiveId`, not `config.get().workspaceId`: the input is what this setup just ran with, and
   // it is already resolved through the legacy `environmentId` shim above.
-  emitFormbricksEvent(FORMBRICKS_EVENTS.setupSuccessful, { workspaceId: effectiveId });
+  emitTallynestEvent(FORMBRICKS_EVENTS.setupSuccessful, { workspaceId: effectiveId });
 
   return okVoid();
 };
@@ -457,7 +457,7 @@ export const handleErrorOnFirstSetup = (e: { code: string; responseMessage: stri
   throw new Error("Could not set up formbricks");
 };
 
-export const putFormbricksInErrorState = (formbricksConfig: Config): void => {
+export const putTallynestInErrorState = (formbricksConfig: Config): void => {
   const logger = Logger.getInstance();
 
   if (getIsDebug()) {

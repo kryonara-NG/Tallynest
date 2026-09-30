@@ -59,9 +59,9 @@ export const OIDC_DISPLAY_NAME = env.OIDC_DISPLAY_NAME;
 export const OIDC_SIGNING_ALGORITHM = env.OIDC_SIGNING_ALGORITHM;
 
 export const SAML_DATABASE_URL = env.SAML_DATABASE_URL;
-export const SAML_TENANT = "formbricks.com";
+export const SAML_TENANT = "tallynest.app";
 export const SAML_PRODUCT = "formbricks";
-export const SAML_AUDIENCE = "https://saml.formbricks.com";
+export const SAML_AUDIENCE = "https://saml.tallynest.app";
 export const SAML_PATH = "/api/auth/saml/callback";
 
 export const SIGNUP_ENABLED = IS_FORMBRICKS_CLOUD || IS_DEVELOPMENT || E2E_TESTING;
@@ -244,7 +244,7 @@ export const RATE_LIMITING_DISABLED = env.RATE_LIMITING_DISABLED === "1";
  * Number of reverse proxies in front of the app whose `X-Forwarded-For` entries may be believed.
  *
  * Defaults to 1 because that matches every supported topology — the Helm chart's Traefik/Envoy ingress,
- * docker-compose behind a proxy, and Formbricks Cloud — and because Next 16 gives route handlers no
+ * docker-compose behind a proxy, and Tallynest Cloud — and because Next 16 gives route handlers no
  * socket peer address to fall back on, so a default of 0 would leave IP-based rate limiting unable to
  * tell clients apart until an operator set this. Deployments with a longer proxy chain must raise it;
  * setting it higher than the real chain lets a caller spoof the address by prepending entries.
@@ -291,10 +291,10 @@ export const PLAIN_APP_ID = env.PLAIN_APP_ID;
 export const PLAIN_ACTIVE_CUSTOMER_LABEL_TYPE_ID = env.PLAIN_ACTIVE_CUSTOMER_LABEL_TYPE_ID;
 export const IS_PLAIN_CHAT_CONFIGURED = Boolean(env.PLAIN_APP_ID);
 
-// Formbricks-in-Formbricks: in-app surveys served by a Formbricks instance
-// (defaults to Formbricks Cloud). The widget only mounts when a workspace id is set.
+// Tallynest-in-Tallynest: in-app surveys served by a Tallynest instance
+// (defaults to Tallynest Cloud). The widget only mounts when a workspace id is set.
 export const FORMBRICKS_WORKSPACE_ID = env.FORMBRICKS_WORKSPACE_ID;
-export const FORMBRICKS_APP_URL = env.FORMBRICKS_APP_URL || "https://app.formbricks.com";
+export const FORMBRICKS_APP_URL = env.FORMBRICKS_APP_URL || "https://app.tallynest.app";
 export const IS_FORMBRICKS_SURVEYS_CONFIGURED = Boolean(env.FORMBRICKS_WORKSPACE_ID);
 
 export const POSTHOG_KEY = env.POSTHOG_KEY;

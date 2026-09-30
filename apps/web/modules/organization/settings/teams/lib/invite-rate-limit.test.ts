@@ -1,20 +1,20 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
-import { getBulkInvitePermission } from "@/modules/ee/license-check/lib/utils";
+import { getBulkInvitePermission } from "@/modules/tallynest-core/entitlements";
 import { applyInviteRateLimit, getInviteRateLimitConfig } from "./invite-rate-limit";
 
 const constants = vi.hoisted(() => ({
-  isFormbricksCloud: false,
+  isTallynestCloud: false,
 }));
 
 vi.mock("@/lib/constants", () => ({
   get IS_FORMBRICKS_CLOUD() {
-    return constants.isFormbricksCloud;
+    return constants.isTallynestCloud;
   },
   INVITE_RATE_LIMIT_PER_24_HOURS: 75,
 }));
 
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({
+vi.mock("@/modules/tallynest-core/entitlements", () => ({
   getBulkInvitePermission: vi.fn(),
 }));
 
@@ -25,7 +25,7 @@ vi.mock("@/modules/core/rate-limit/helpers", () => ({
 describe("getInviteRateLimitConfig", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    constants.isFormbricksCloud = false;
+    constants.isTallynestCloud = false;
   });
 
   test("uses the configured instance limit on self-hosted deployments", async () => {
@@ -40,7 +40,7 @@ describe("getInviteRateLimitConfig", () => {
   });
 
   test("uses the default limit on cloud without the bulk-invite entitlement", async () => {
-    constants.isFormbricksCloud = true;
+    constants.isTallynestCloud = true;
     vi.mocked(getBulkInvitePermission).mockResolvedValueOnce(false);
 
     const config = await getInviteRateLimitConfig("org_1");
@@ -50,7 +50,7 @@ describe("getInviteRateLimitConfig", () => {
   });
 
   test("raises the cloud limit for organizations with the bulk-invite entitlement", async () => {
-    constants.isFormbricksCloud = true;
+    constants.isTallynestCloud = true;
     vi.mocked(getBulkInvitePermission).mockResolvedValueOnce(true);
 
     const config = await getInviteRateLimitConfig("org_1");

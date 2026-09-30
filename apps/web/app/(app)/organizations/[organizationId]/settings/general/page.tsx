@@ -17,7 +17,7 @@ import {
   getIsAISmartToolsEnabled,
   getIsMultiOrgEnabled,
   getWhiteLabelPermission,
-} from "@/modules/ee/license-check/lib/utils";
+} from "@/modules/tallynest-core/entitlements";
 import { EmailCustomizationSettings } from "@/modules/ee/whitelabel/email-customization/components/email-customization-settings";
 import { getOrganizationAuth } from "@/modules/organization/lib/utils";
 import { getSettingsLayoutData } from "@/modules/settings/lib/navigation-data";
@@ -75,7 +75,7 @@ const Page = async (props: Readonly<{ params: Promise<{ organizationId: string }
           membershipRole={currentUserRole}
           isInstanceAIConfigured={isInstanceAIConfigured()}
           hasAIPermission={hasAIPermission}
-          isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+          isTallynestCloud={IS_FORMBRICKS_CLOUD}
           enterpriseLicenseRequestFormUrl={ENTERPRISE_LICENSE_REQUEST_FORM_URL}
         />
       </SettingsCard>
@@ -84,7 +84,7 @@ const Page = async (props: Readonly<{ params: Promise<{ organizationId: string }
         hasWhiteLabelPermission={hasWhiteLabelPermission}
         workspaceId={layoutData?.currentWorkspace?.id ?? ""}
         isReadOnly={!isOwnerOrManager}
-        isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+        isTallynestCloud={IS_FORMBRICKS_CLOUD}
         fbLogoUrl={FB_LOGO_URL}
         user={user}
         isStorageConfigured={IS_STORAGE_CONFIGURED}

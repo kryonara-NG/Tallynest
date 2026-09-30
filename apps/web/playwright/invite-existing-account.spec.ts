@@ -3,7 +3,7 @@ import { prisma } from "@formbricks/database";
 import { test } from "./lib/fixtures";
 
 /**
- * ENG-2091: an invitee who already has a Formbricks account used to be sent to "please confirm your
+ * ENG-2091: an invitee who already has a Tallynest account used to be sent to "please confirm your
  * email address" for a verification email that is never sent, in front of a resend button that no-ops
  * for an already-verified address — and their invite was consumed on the way, so logging in afterwards
  * showed "Invite Not Found".
@@ -14,7 +14,7 @@ import { test } from "./lib/fixtures";
  */
 test.describe("Invite sign-up with an address that already has an account @slow", async () => {
   test("routes to login with the invite intact", async ({ page, users, browser }) => {
-    // The invitee already has a Formbricks account with this address — the precondition for the bug.
+    // The invitee already has a Tallynest account with this address — the precondition for the bug.
     const inviteeEmail = `invitee-existing-${Date.now()}@corporate-example.com`;
     const invitee = await users.create({ email: inviteeEmail, skipSurveySeed: true });
 

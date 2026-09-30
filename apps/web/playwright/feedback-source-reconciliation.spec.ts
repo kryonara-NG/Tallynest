@@ -59,7 +59,7 @@ const seedSource = async (params: {
     },
   });
 
-  await prisma.feedbackSourceFormbricksMapping.createMany({
+  await prisma.feedbackSourceTallynestMapping.createMany({
     data: params.mappings.map((mapping) => ({
       ...mapping,
       feedbackSourceId: source.id,
@@ -77,7 +77,7 @@ const saveDraft = async (page: Page): Promise<void> => {
 };
 
 const mappedElementIds = async (feedbackSourceId: string, surveyId: string): Promise<string[]> => {
-  const rows = await prisma.feedbackSourceFormbricksMapping.findMany({
+  const rows = await prisma.feedbackSourceTallynestMapping.findMany({
     where: { feedbackSourceId, surveyId },
     select: { elementId: true },
     orderBy: { elementId: "asc" },
@@ -184,7 +184,7 @@ test.describe("Feedback source reconciliation @slow", () => {
       .toEqual([retypeTarget!.id]);
 
     // ...and it was retyped rather than left stale.
-    const retyped = await prisma.feedbackSourceFormbricksMapping.findFirstOrThrow({
+    const retyped = await prisma.feedbackSourceTallynestMapping.findFirstOrThrow({
       where: { feedbackSourceId: curatedRetypedSourceId, surveyId, elementId: retypeTarget!.id },
       select: { hubFieldType: true },
     });
@@ -232,7 +232,7 @@ test.describe("Feedback source reconciliation @slow", () => {
     await expect
       .poll(
         async () => {
-          const row = await prisma.feedbackSourceFormbricksMapping.findFirstOrThrow({
+          const row = await prisma.feedbackSourceTallynestMapping.findFirstOrThrow({
             where: { feedbackSourceId: sourceId, surveyId, elementId: target.id },
             select: { hubFieldType: true },
           });

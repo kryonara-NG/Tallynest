@@ -17,8 +17,8 @@ import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromInviteId } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
-import { getBulkInvitePermission, getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { getBulkInvitePermission, getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { checkRoleManagementPermission } from "@/modules/ee/role-management/actions";
 import { getTeamsWhereUserIsAdmin } from "@/modules/ee/teams/lib/roles";
 import { sendInviteMemberEmail } from "@/modules/email";
@@ -43,7 +43,7 @@ const ZDeleteInviteAction = z.object({
 });
 
 export const deleteInviteAction = authenticatedActionClient.inputSchema(ZDeleteInviteAction).action(
-  withAuditLogging("deleted", "invite", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "invite", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromInviteId(parsedInput.inviteId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "organization.manage", {
@@ -63,7 +63,7 @@ const ZCreateInviteTokenAction = z.object({
 });
 
 export const createInviteTokenAction = authenticatedActionClient.inputSchema(ZCreateInviteTokenAction).action(
-  withAuditLogging("updated", "invite", async ({ parsedInput, ctx }) => {
+  withActivityContext("updated", "invite", async ({ parsedInput, ctx }) => {
     const organizationId = await getOrganizationIdFromInviteId(parsedInput.inviteId);
 
     await assertCan({ type: "user", id: ctx.user.id }, "organization.manage", {
@@ -105,7 +105,7 @@ const ZDeleteMembershipAction = z.object({
 });
 
 export const deleteMembershipAction = authenticatedActionClient.inputSchema(ZDeleteMembershipAction).action(
-  withAuditLogging("deleted", "membership", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "membership", async ({ ctx, parsedInput }) => {
     await assertCan({ type: "user", id: ctx.user.id }, "organization.manage", {
       type: "organization",
       id: parsedInput.organizationId,
@@ -161,7 +161,7 @@ const ZResendInviteAction = z.object({
 });
 
 export const resendInviteAction = authenticatedActionClient.inputSchema(ZResendInviteAction).action(
-  withAuditLogging("updated", "invite", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "invite", async ({ ctx, parsedInput }) => {
     if (INVITE_DISABLED) {
       throw new OperationNotAllowedError("Invite are disabled");
     }
@@ -285,7 +285,7 @@ const ZInviteUserAction = z.object({
 });
 
 export const inviteUserAction = authenticatedActionClient.inputSchema(ZInviteUserAction).action(
-  withAuditLogging("created", "invite", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "invite", async ({ ctx, parsedInput }) => {
     if (INVITE_DISABLED) {
       throw new AuthenticationError("Invite disabled");
     }
@@ -392,7 +392,7 @@ const ZBulkInviteUsersAction = z.object({
 });
 
 export const bulkInviteUsersAction = authenticatedActionClient.inputSchema(ZBulkInviteUsersAction).action(
-  withAuditLogging("created", "invite", async ({ ctx, parsedInput }) => {
+  withActivityContext("created", "invite", async ({ ctx, parsedInput }) => {
     if (INVITE_DISABLED) {
       throw new AuthenticationError("Invite disabled");
     }
@@ -498,7 +498,7 @@ const ZLeaveOrganizationAction = z.object({
 });
 
 export const leaveOrganizationAction = authenticatedActionClient.inputSchema(ZLeaveOrganizationAction).action(
-  withAuditLogging("deleted", "membership", async ({ ctx, parsedInput }) => {
+  withActivityContext("deleted", "membership", async ({ ctx, parsedInput }) => {
     await assertCan({ type: "user", id: ctx.user.id }, "organization.read", {
       type: "organization",
       id: parsedInput.organizationId,

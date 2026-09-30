@@ -29,7 +29,7 @@ interface BlocksDroppableProps {
   setActiveElementId: (elementId: string | null) => void;
   invalidElements: string[] | null;
   addElement: (element: any, index?: number) => void;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isCxMode: boolean;
   locale: TUserLocale;
   responseCount: number;
@@ -62,7 +62,7 @@ export const BlocksDroppable = ({
   updateBlockName,
   updateBlockButtonLabel,
   addElement,
-  isFormbricksCloud,
+  isTallynestCloud,
   isCxMode,
   locale,
   responseCount,
@@ -115,7 +115,7 @@ export const BlocksDroppable = ({
               lastElementIndex={lastElementIndex}
               invalidElements={invalidElements ?? undefined}
               addElement={addElement}
-              isFormbricksCloud={isFormbricksCloud}
+              isTallynestCloud={isTallynestCloud}
               isCxMode={isCxMode}
               locale={locale}
               responseCount={responseCount}

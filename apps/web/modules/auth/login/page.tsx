@@ -22,7 +22,7 @@ import {
   getIsMultiOrgEnabled,
   getIsSamlSsoEnabled,
   getIsSsoEnabled,
-} from "@/modules/ee/license-check/lib/utils";
+} from "@/modules/tallynest-core/entitlements";
 import { LoginForm } from "./components/login-form";
 
 export const metadata: Metadata = {

@@ -116,7 +116,7 @@ vi.mock("./posthog", () => ({
   captureSurveyResponsePostHogEvent: mockCaptureSurveyResponsePostHogEvent,
 }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   queueAuditEventWithoutRequest: mockQueueAuditEventWithoutRequest,
 }));
 

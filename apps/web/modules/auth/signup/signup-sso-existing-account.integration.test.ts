@@ -34,8 +34,8 @@ vi.mock("@/lib/constants", async (importOriginal) => ({
   SIGNUP_ENABLED: true,
 }));
 
-vi.mock("@/modules/ee/license-check/lib/utils", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/modules/ee/license-check/lib/utils")>()),
+vi.mock("@/modules/tallynest-core/entitlements", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/modules/tallynest-core/entitlements")>()),
   getIsMultiOrgEnabled: vi.fn(async () => true),
 }));
 
@@ -43,8 +43,8 @@ vi.mock("@/modules/ee/mailing/lib/mailing-subscription", () => ({
   subscribeUserToMailingList: vi.fn(async () => undefined),
 }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/modules/ee/audit-logs/lib/handler")>();
+vi.mock("@/modules/tallynest-core/activity-context", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/modules/tallynest-core/activity-context")>();
   return { ...actual, queueAuditEventBackground: vi.fn(async () => undefined) };
 });
 

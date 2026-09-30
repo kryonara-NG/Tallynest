@@ -19,7 +19,7 @@ import {
 } from "@formbricks/types/responses";
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { TTag } from "@formbricks/types/tags";
-import { getIsQuotasEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsQuotasEnabled } from "@/modules/tallynest-core/entitlements";
 import { reduceQuotaLimits } from "@/modules/ee/quotas/lib/quotas";
 import { deleteResponseFileUrls } from "@/modules/storage/lib/delete-response-files";
 import {
@@ -485,7 +485,7 @@ export const getResponseDownloadFile = async (
       "Finished",
       ...(isQuotasAllowed ? ["Quotas"] : []),
       "Survey ID",
-      "Formbricks ID (internal)",
+      "Tallynest ID (internal)",
       "User ID",
       "Tags",
       ...metaDataFields,

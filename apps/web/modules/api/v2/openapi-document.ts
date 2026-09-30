@@ -29,8 +29,8 @@ import { contactPaths } from "@/modules/ee/contacts/api/v2/management/contacts/l
 const document = createDocument({
   openapi: "3.1.0",
   info: {
-    title: "Formbricks API",
-    description: "Manage Formbricks resources programmatically.",
+    title: "Tallynest API",
+    description: "Manage Tallynest resources programmatically.",
     version: "2.0.0",
   },
   paths: {
@@ -50,8 +50,8 @@ const document = createDocument({
   },
   servers: [
     {
-      url: "https://app.formbricks.com/api/v2",
-      description: "Formbricks Cloud",
+      url: "https://app.tallynest.app/api/v2",
+      description: "Tallynest Cloud",
     },
   ],
   tags: [
@@ -114,7 +114,7 @@ const document = createDocument({
         type: "apiKey",
         in: "header",
         name: "x-api-key",
-        description: "Use your Formbricks x-api-key to authenticate.",
+        description: "Use your Tallynest x-api-key to authenticate.",
       },
     },
     schemas: {

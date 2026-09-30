@@ -42,7 +42,7 @@ export const isAppSurveyMissingTriggersToPublish = (
  */
 const INVALID_IMAGE_HINT = `The URL must end in a supported image extension (${IMAGE_FILE_EXTENSIONS.join(
   ", "
-)}). For CDN or extension-less links, upload the image to Formbricks or use a direct image URL.`;
+)}). For CDN or extension-less links, upload the image to Tallynest or use a direct image URL.`;
 
 export const transformPrismaSurvey = <T extends TSurvey | TJsWorkspaceStateSurvey>(surveyPrisma: any): T => {
   let segment: TSegment | null = null;

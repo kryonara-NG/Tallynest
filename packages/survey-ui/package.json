@@ -3,7 +3,7 @@
   "license": "MIT",
   "version": "1.0.4",
   "description": "React UI components for building surveys and forms - includes NPS, rating scales, multi-select, file upload, and more. Built with Radix UI and Tailwind CSS.",
-  "homepage": "https://formbricks.com",
+  "homepage": "https://tallynest.app",
   "type": "module",
   "keywords": [
     "react",
@@ -21,8 +21,8 @@
     "accessible"
   ],
   "author": {
-    "name": "Formbricks",
-    "url": "https://formbricks.com"
+    "name": "Tallynest",
+    "url": "https://tallynest.app"
   },
   "repository": {
     "type": "git",

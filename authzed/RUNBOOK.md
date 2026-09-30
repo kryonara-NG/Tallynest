@@ -138,7 +138,7 @@ clean while authorization state nothing accounts for is still present.
 
 **A non-zero `invalid` needs a human.** These are cross-organization source rows in PostgreSQL: the join
 tables carry independent foreign keys and no same-organization constraint, so the row is representable
-even though nothing in Formbricks creates one. The backfill will never project or prune them. Establish
+even though nothing in Tallynest creates one. The backfill will never project or prune them. Establish
 how the row was written, then correct or delete it in PostgreSQL — after which a re-run reports clean.
 
 **2. Converge what PostgreSQL says should exist.**
@@ -237,7 +237,7 @@ Either way, re-run before concluding anything.
   `manage_access` over another tenant's organization — so check the field rather than assuming.
 
   Then re-run step 2 to confirm the correct edge is present, and work out how it was written — nothing in
-  Formbricks creates one.
+  Tallynest creates one.
 
   **Only `--scope=all` can find one.** The escalation is an edge on _another_ tenant's resource naming
   the organization you are investigating, and a `--organization-id` run reads only the resources
@@ -321,7 +321,7 @@ the graph clean.
 
 In the direct-authority artifact, a SpiceDB, datastore, resolver, configuration, freshness, or unsupported-result
 failure is not an ordinary denial and never falls back. The protected operation receives a sanitized operational
-failure and fails closed. Formbricks `/health`, startup, readiness, and liveness remain independent so unrelated
+failure and fails closed. Tallynest `/health`, startup, readiness, and liveness remain independent so unrelated
 workloads are not restarted.
 
 ## 6. Historical comparison controls (not a release strategy)
@@ -475,6 +475,6 @@ that belongs with the AuthZed deployment contract rather than the application.
 | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Backfill reports `failures` that persist across runs     | Capture the `code` values and the run's JSON. A non-retryable code (`authzed_unauthenticated`, `authzed_permission_denied`, `authzed_invalid_request`) is a configuration problem, not a transient one. |
 | Orphan count exceeds the cap and the endpoint is correct | Do not raise the cap. Establish why first — a wrong database or an in-progress restore both look like this.                                                                                             |
-| `unmanaged` relationships reported                       | Something other than Formbricks is writing to this SpiceDB, or the schema moved ahead of its projector. Never pruned; investigate before enforcing.                                                     |
+| `unmanaged` relationships reported                       | Something other than Tallynest is writing to this SpiceDB, or the schema moved ahead of its projector. Never pruned; investigate before enforcing.                                                     |
 | Schema check reports `drifted`                           | `pnpm authzed:schema apply --expected-current-digest <remoteDigest>`. Relationship repair against a drifted schema is not meaningful.                                                                   |
 | Durable delivery or a clean graph cannot be restored     | Block cutover. If already authoritative, roll back to the pinned bridge digest, drain/replay, and require a clean audit before another attempt.                                                         |

@@ -401,8 +401,8 @@ export function buildV3SurveyGenerationRequest(input: TV3SurveyGenerateBody) {
     // z.preprocess-coerces them to numbers. z.preprocess does not survive JSON-Schema conversion,
     // so swapping the two here breaks provider structured output.
     schema: ZGeneratedSurveyDraftForAI,
-    schemaName: "FormbricksSurveyDraft",
-    schemaDescription: "A concise Formbricks survey draft that can be converted to a v3 create payload.",
+    schemaName: "TallynestSurveyDraft",
+    schemaDescription: "A concise Tallynest survey draft that can be converted to a v3 create payload.",
     system: buildV3SurveyGenerationSystemPrompt(V3_SURVEY_GENERATE_ALLOWED_LOCALES, input.type),
     prompt: buildV3SurveyGenerationPrompt(
       input.prompt,

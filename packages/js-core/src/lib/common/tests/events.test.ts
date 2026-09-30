@@ -1,18 +1,18 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import {
   FORMBRICKS_EVENTS,
-  emitFormbricksEvent,
-  offFormbricksEvent,
-  onFormbricksEvent,
-  resetFormbricksEventSubscribers,
+  emitTallynestEvent,
+  offTallynestEvent,
+  onTallynestEvent,
+  resetTallynestEventSubscribers,
 } from "@/lib/common/events";
 
-describe("emitFormbricksEvent", () => {
+describe("emitTallynestEvent", () => {
   beforeEach(() => {
     // The emitter creates `window.dataLayer` when absent; start every test from that state, and
     // from a subscriber-free registry.
     delete (window as { dataLayer?: unknown }).dataLayer;
-    resetFormbricksEventSubscribers();
+    resetTallynestEventSubscribers();
   });
 
   test("every event name carries the formbricks_ namespace — the string GTM triggers and on() match", () => {
@@ -24,7 +24,7 @@ describe("emitFormbricksEvent", () => {
   test("creates window.dataLayer when absent and pushes the nested envelope", () => {
     expect(window.dataLayer).toBeUndefined();
 
-    emitFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, {
+    emitTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, {
       surveyId: "survey_1",
       responseId: "response_1",
       finished: true,
@@ -52,7 +52,7 @@ describe("emitFormbricksEvent", () => {
     const hostEntry = { event: "host_event", cart: "abc" };
     window.dataLayer = [hostEntry];
 
-    emitFormbricksEvent(FORMBRICKS_EVENTS.actionTracked, { action: "clicked_demo" });
+    emitTallynestEvent(FORMBRICKS_EVENTS.actionTracked, { action: "clicked_demo" });
 
     expect(window.dataLayer[0]).toBe(hostEntry);
     expect(window.dataLayer).toHaveLength(2);
@@ -72,7 +72,7 @@ describe("emitFormbricksEvent", () => {
     // `responseId` is typed optional by the widened callbacks, so an emit can carry it as an
     // explicit undefined. If that survived the merge it would replace the null sentinel — and GTM's
     // recursive merge would keep an EARLIER event's responseId readable under this event's trigger.
-    emitFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, {
+    emitTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, {
       surveyId: "survey_1",
       responseId: undefined,
       finished: true,
@@ -94,7 +94,7 @@ describe("emitFormbricksEvent", () => {
     (window as { dataLayer?: unknown }).dataLayer = {};
 
     expect(() => {
-      emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+      emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
     }).not.toThrow();
 
     expect(Array.isArray(window.dataLayer)).toBe(true);
@@ -109,10 +109,10 @@ describe("emitFormbricksEvent", () => {
     window.dataLayer = poisoned;
 
     const handler = vi.fn();
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
 
     expect(() => {
-      emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+      emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
     }).not.toThrow();
 
     // The subscription surface still fired: the two are isolated separately.
@@ -123,7 +123,7 @@ describe("emitFormbricksEvent", () => {
 describe("on() / off() subscriptions", () => {
   beforeEach(() => {
     delete (window as { dataLayer?: unknown }).dataLayer;
-    resetFormbricksEventSubscribers();
+    resetTallynestEventSubscribers();
     vi.restoreAllMocks();
   });
 
@@ -132,11 +132,11 @@ describe("on() / off() subscriptions", () => {
     const second = vi.fn();
     const other = vi.fn();
 
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, first);
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, second);
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyClosed, other);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, first);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, second);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyClosed, other);
 
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
 
     expect(first).toHaveBeenCalledWith({ surveyId: "survey_1" });
     expect(second).toHaveBeenCalledWith({ surveyId: "survey_1" });
@@ -146,10 +146,10 @@ describe("on() / off() subscriptions", () => {
   test("registering the same handler twice notifies it once", () => {
     const handler = vi.fn();
 
-    onFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, handler);
-    onFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, handler);
+    onTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, handler);
+    onTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, handler);
 
-    emitFormbricksEvent(FORMBRICKS_EVENTS.responseSubmitted, { surveyId: "survey_1", finished: false });
+    emitTallynestEvent(FORMBRICKS_EVENTS.responseSubmitted, { surveyId: "survey_1", finished: false });
 
     expect(handler).toHaveBeenCalledTimes(1);
   });
@@ -159,13 +159,13 @@ describe("on() / off() subscriptions", () => {
     const viaOff = vi.fn();
     const kept = vi.fn();
 
-    const unsubscribe = onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, viaReturn);
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, viaOff);
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, kept);
+    const unsubscribe = onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, viaReturn);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, viaOff);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, kept);
 
     unsubscribe();
-    offFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, viaOff);
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+    offTallynestEvent(FORMBRICKS_EVENTS.surveyShown, viaOff);
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
 
     expect(viaReturn).not.toHaveBeenCalled();
     expect(viaOff).not.toHaveBeenCalled();
@@ -176,29 +176,29 @@ describe("on() / off() subscriptions", () => {
     const handler = vi.fn();
 
     expect(() => {
-      offFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+      offTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
     }).not.toThrow();
 
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
-    offFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, vi.fn());
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+    offTallynestEvent(FORMBRICKS_EVENTS.surveyShown, vi.fn());
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
 
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
   test("a handler that unsubscribes itself still receives the event it is handling", () => {
     const handler = vi.fn(() => {
-      offFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+      offTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
     });
 
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
 
     expect(() => {
-      emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+      emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
     }).not.toThrow();
     expect(handler).toHaveBeenCalledTimes(1);
 
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_2" });
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_2" });
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
@@ -213,19 +213,19 @@ describe("on() / off() subscriptions", () => {
     const handler = (): void => {
       calls += 1;
       if (calls > 2) throw new Error("re-arm re-entered the dispatch in flight");
-      offFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
-      onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+      offTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+      onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
     };
 
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, other);
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, handler);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, other);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyShown, handler);
 
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_1" });
     expect(calls).toBe(1);
     expect(errorSpy).not.toHaveBeenCalled();
 
     // Still subscribed for the next emit — re-arming is the point.
-    emitFormbricksEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_2" });
+    emitTallynestEvent(FORMBRICKS_EVENTS.surveyShown, { surveyId: "survey_2" });
     expect(calls).toBe(2);
   });
 
@@ -236,11 +236,11 @@ describe("on() / off() subscriptions", () => {
     });
     const healthy = vi.fn();
 
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyClosed, throwing);
-    onFormbricksEvent(FORMBRICKS_EVENTS.surveyClosed, healthy);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyClosed, throwing);
+    onTallynestEvent(FORMBRICKS_EVENTS.surveyClosed, healthy);
 
     expect(() => {
-      emitFormbricksEvent(FORMBRICKS_EVENTS.surveyClosed, { surveyId: "survey_1" });
+      emitTallynestEvent(FORMBRICKS_EVENTS.surveyClosed, { surveyId: "survey_1" });
     }).not.toThrow();
 
     expect(healthy).toHaveBeenCalledTimes(1);
@@ -250,7 +250,7 @@ describe("on() / off() subscriptions", () => {
 
   test("emitting with no subscribers still pushes to the dataLayer", () => {
     expect(() => {
-      emitFormbricksEvent(FORMBRICKS_EVENTS.setupSuccessful, { workspaceId: "ws_1" });
+      emitTallynestEvent(FORMBRICKS_EVENTS.setupSuccessful, { workspaceId: "ws_1" });
     }).not.toThrow();
     expect(window.dataLayer).toHaveLength(1);
   });

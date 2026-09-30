@@ -8,14 +8,14 @@ import { Alert, AlertDescription, AlertTitle } from "@/modules/ui/components/ale
 import { Button } from "@/modules/ui/components/button";
 
 interface RemovedFromOrganizationProps {
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   requiresPasswordConfirmation: boolean;
   user: TUser;
 }
 
 export const RemovedFromOrganization = ({
   user,
-  isFormbricksCloud,
+  isTallynestCloud,
   requiresPasswordConfirmation,
 }: Readonly<RemovedFromOrganizationProps>) => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ export const RemovedFromOrganization = ({
         open={isModalOpen}
         setOpen={setIsModalOpen}
         user={user}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         organizationsWithSingleOwner={[]}
       />
       <Button

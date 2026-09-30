@@ -75,7 +75,7 @@ export const APIKeysPage = async (props: Readonly<{ params: Promise<{ organizati
           organizationId={organization.id}
           locale={locale ?? DEFAULT_LOCALE}
           workspaces={workspaces}
-          isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+          isTallynestCloud={IS_FORMBRICKS_CLOUD}
           canGrantOrganizationWriteAccess={canGrantWriteAccess}
         />
       </SettingsCard>

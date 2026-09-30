@@ -231,7 +231,7 @@ async function seedDemoWorkflows(workspaceId: string, surveyId: string): Promise
       email: {
         to: "team@example.com",
         subject: "New survey response received",
-        body: "A new response was completed. Check Formbricks for details.",
+        body: "A new response was completed. Check Tallynest for details.",
       },
     },
   ];
@@ -524,7 +524,7 @@ const KITCHEN_SINK_QUESTIONS: SurveyQuestion[] = [
   {
     id: createId(),
     type: "openText",
-    headline: { default: "What do you think of Formbricks?" },
+    headline: { default: "What do you think of Tallynest?" },
     subheader: { default: "Please be honest!" },
     required: true,
     placeholder: { default: "Your feedback here..." },
@@ -533,7 +533,7 @@ const KITCHEN_SINK_QUESTIONS: SurveyQuestion[] = [
   {
     id: createId(),
     type: "multipleChoiceSingle",
-    headline: { default: "How often do you use Formbricks?" },
+    headline: { default: "How often do you use Tallynest?" },
     required: true,
     choices: [
       { id: createId(), label: { default: "Daily" } },
@@ -557,7 +557,7 @@ const KITCHEN_SINK_QUESTIONS: SurveyQuestion[] = [
   {
     id: createId(),
     type: "nps",
-    headline: { default: "How likely are you to recommend Formbricks?" },
+    headline: { default: "How likely are you to recommend Tallynest?" },
     required: true,
     lowerLabel: { default: "Not likely" },
     upperLabel: { default: "Very likely" },
@@ -568,7 +568,7 @@ const KITCHEN_SINK_QUESTIONS: SurveyQuestion[] = [
     headline: { default: "Check out our documentation!" },
     required: true,
     ctaButtonLabel: { default: "Go to Docs" },
-    buttonUrl: "https://formbricks.com/docs",
+    buttonUrl: "https://tallynest.app/docs",
     buttonExternal: true,
   },
   {
@@ -591,7 +591,7 @@ const KITCHEN_SINK_QUESTIONS: SurveyQuestion[] = [
   {
     id: createId(),
     type: "date",
-    headline: { default: "When did you start using Formbricks?" },
+    headline: { default: "When did you start using Tallynest?" },
     required: true,
     format: "M-d-y",
   },

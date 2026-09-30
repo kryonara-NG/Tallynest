@@ -96,7 +96,7 @@ vi.mock("@/components/general/response-error-component", () => ({
 }));
 
 vi.mock("@/components/general/formbricks-branding", () => ({
-  FormbricksBranding: () => null,
+  TallynestBranding: () => null,
 }));
 
 vi.mock("@/components/general/language-switch", () => ({

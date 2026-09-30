@@ -12,7 +12,7 @@ import {
   TFeedbackSourceCreateInput,
   TFeedbackSourceElementScope,
   TFeedbackSourceFieldMappingCreateInput,
-  TFeedbackSourceFormbricksMappingCreateInput,
+  TFeedbackSourceTallynestMappingCreateInput,
   TFeedbackSourceUpdateInput,
   TFeedbackSourceWithMappings,
   ZFeedbackSourceCreateInput,
@@ -315,10 +315,10 @@ export const isDirectoryWorkspaceFkViolation = (error: PrismaClientKnownRequestE
   );
 };
 
-export type TFormbricksMappingsInput = {
+export type TTallynestMappingsInput = {
   type: "formbricks_survey";
-  mappings: TFeedbackSourceFormbricksMappingCreateInput[];
-  /** Derived in `resolveFormbricksMappingsInput`, never supplied by a caller. */
+  mappings: TFeedbackSourceTallynestMappingCreateInput[];
+  /** Derived in `resolveTallynestMappingsInput`, never supplied by a caller. */
   elementScope: TFeedbackSourceElementScope;
 };
 
@@ -327,7 +327,7 @@ export type TFieldMappingsInput = {
   mappings: TFeedbackSourceFieldMappingCreateInput[];
 };
 
-export type TMappingsInput = TFormbricksMappingsInput | TFieldMappingsInput;
+export type TMappingsInput = TTallynestMappingsInput | TFieldMappingsInput;
 
 export const createFeedbackSourceWithMappings = async (
   workspaceId: string,
@@ -358,7 +358,7 @@ export const createFeedbackSourceWithMappings = async (
       if (mappingsInput?.type === "formbricks_survey") {
         await Promise.all(
           mappingsInput.mappings.map((mapping) =>
-            tx.feedbackSourceFormbricksMapping.create({
+            tx.feedbackSourceTallynestMapping.create({
               data: {
                 feedbackSourceId: feedbackSource.id,
                 workspaceId,
@@ -458,13 +458,13 @@ export const updateFeedbackSourceWithMappings = async (
       });
 
       if (mappingsInput?.type === "formbricks_survey") {
-        await tx.feedbackSourceFormbricksMapping.deleteMany({
+        await tx.feedbackSourceTallynestMapping.deleteMany({
           where: { feedbackSourceId, workspaceId },
         });
 
         await Promise.all(
           mappingsInput.mappings.map((mapping) =>
-            tx.feedbackSourceFormbricksMapping.create({
+            tx.feedbackSourceTallynestMapping.create({
               data: {
                 feedbackSourceId,
                 workspaceId,

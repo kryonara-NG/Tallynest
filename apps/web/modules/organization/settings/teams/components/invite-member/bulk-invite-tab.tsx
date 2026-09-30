@@ -24,7 +24,7 @@ interface BulkInviteTabProps {
   teams: TOrganizationTeam[];
   organizationId: string;
   isAccessControlAllowed: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isBulkInviteAllowed: boolean;
   enterpriseLicenseRequestFormUrl: string;
 }
@@ -59,7 +59,7 @@ export const BulkInviteTab = ({
   teams,
   organizationId,
   isAccessControlAllowed,
-  isFormbricksCloud,
+  isTallynestCloud,
   isBulkInviteAllowed,
   enterpriseLicenseRequestFormUrl,
 }: Readonly<BulkInviteTabProps>) => {
@@ -134,7 +134,7 @@ export const BulkInviteTab = ({
       const email = readCell(csv, "Email Address", "email").trim();
       const roleCell = readCell(csv, "Organization Role", "Role", "role");
       const orgRole = isAccessControlAllowed ? roleCell.trim().toLowerCase() : "owner";
-      if (!isFormbricksCloud && orgRole === "billing") {
+      if (!isTallynestCloud && orgRole === "billing") {
         billingRoleEmails.add(email);
       }
 
@@ -202,14 +202,14 @@ export const BulkInviteTab = ({
   if (!isBulkInviteAllowed) {
     const upgradeButtons: [ModalButton, ModalButton] = [
       {
-        text: isFormbricksCloud ? t("common.upgrade_plan") : t("common.request_trial_license"),
-        href: isFormbricksCloud
+        text: isTallynestCloud ? t("common.upgrade_plan") : t("common.request_trial_license"),
+        href: isTallynestCloud
           ? organizationSettingsPath(organizationId, "billing")
           : enterpriseLicenseRequestFormUrl,
       },
       {
         text: t("common.learn_more"),
-        href: "https://formbricks.com/docs/self-hosting/license",
+        href: "https://tallynest.app/docs/self-hosting/license",
       },
     ];
 

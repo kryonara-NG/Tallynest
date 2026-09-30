@@ -11,7 +11,7 @@ test.describe("Invite, accept and remove organization member", async () => {
   });
 
   test("Invite organization member", async ({ page }) => {
-    const inviteEmail = `org-invite-${Date.now()}@formbricks.com`;
+    const inviteEmail = `org-invite-${Date.now()}@tallynest.app`;
 
     await test.step("Invite User", async () => {
       const workspaceId = /\/workspaces\/([^/]+)\//.exec(page.url())?.[1];

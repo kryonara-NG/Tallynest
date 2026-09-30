@@ -74,7 +74,7 @@ export const getUserLocale = async (userId: string): Promise<TUserLocale> => {
  * analytics / Sentry / logger wiring are all live in better-auth-observability.ts.
  */
 export const auth = betterAuth({
-  appName: "Formbricks",
+  appName: "Tallynest",
   // Resolved in lib/constants.ts, which documents the BETTER_AUTH_* / NEXTAUTH_* alias. Passing it
   // explicitly is what keeps BA's cookie signing on the same secret the forward-auth proxy verifies with
   // (session-cookie.ts) and lib/jwt.ts signs app JWTs with; a divergence between any two of them is an
@@ -83,7 +83,7 @@ export const auth = betterAuth({
   secret: AUTH_SECRET,
   baseURL: AUTH_URL,
   // `/update-user` is served over HTTP for nobody (ENG-3189). Better Auth mounts it beside our own
-  // profile surface, and every field it can reach is one Formbricks does not let a client write there:
+  // profile surface, and every field it can reach is one Tallynest does not let a client write there:
   //
   //  - `name` is the identity provider's for an SSO user — re-read on every sign-in
   //    (`overrideUserInfo`) and locked in `updateUserAction` — yet a raw POST landed the write anyway,
@@ -132,7 +132,7 @@ export const auth = betterAuth({
       hash: (password) => hashSecret(password),
       verify: ({ password, hash }) => verifySecret(password, hash),
     },
-    // Reuse Formbricks' mailer. Dynamic import keeps the heavy email/nodemailer graph out of auth.ts's
+    // Reuse Tallynest' mailer. Dynamic import keeps the heavy email/nodemailer graph out of auth.ts's
     // app-wide static import chain (only loaded when a reset is actually sent).
     sendResetPassword: async ({ user, url }) => {
       const { sendPasswordResetLinkEmail } = await import("@/modules/email");
@@ -178,7 +178,7 @@ export const auth = betterAuth({
     // OFF since ENG-2562, and the reason is worth keeping: this used to be `true` "because clicking the
     // signed link proves email ownership". It does — but it does not prove the clicker chose the
     // account's PASSWORD, and conflating the two is account pre-hijacking. An attacker registers an
-    // address that has no account yet with a password they pick, Formbricks mails the victim a
+    // address that has no account yet with a password they pick, Tallynest mails the victim a
     // verification link, and the victim's click signs the victim into the attacker's account.
     //
     // The ENG-1746 UX it existed for (land in the app, not on /auth/login) is preserved for the case it
@@ -249,7 +249,7 @@ export const auth = betterAuth({
   },
 
   account: {
-    // No automatic linking — Formbricks keeps its hardened verify-before-link (SSO recovery) flow,
+    // No automatic linking — Tallynest keeps its hardened verify-before-link (SSO recovery) flow,
     // re-expressed via hooks in Phase 5 (design doc D7). BA's defaults are more permissive.
     accountLinking: {
       enabled: false,
@@ -280,7 +280,7 @@ export const auth = betterAuth({
       // nothing outside the sign-up path reads it, so it has no business in a user response body.
       isBootstrapAdmin: { type: "string", required: false, input: false, returned: false },
     },
-    // Account deletion (design doc §14): native Better Auth deleteUser with Formbricks' pre/post
+    // Account deletion (design doc §14): native Better Auth deleteUser with Tallynest' pre/post
     // cleanup (sole-owner-org guard + org/invite removal, then Brevo + audit). Confirmation friction
     // is asymmetric and wired at the edges in Phase 6 — password for credential users, email-link for
     // SSO — so `sendDeleteAccountVerification` is intentionally NOT set here (it would email everyone).
@@ -378,8 +378,8 @@ export const auth = betterAuth({
   advanced: {
     useSecureCookies: USE_SECURE_COOKIES, // "__Secure-" prefix on HTTPS; relaxed on http (local/dev)
     cookiePrefix: "formbricks",
-    // Formbricks ids are cuid2 (Prisma `@default(cuid())` + the `ZId = z.cuid2()` validators in the
-    // service layer). Better Auth's default id format is NOT cuid2, so without this every Formbricks
+    // Tallynest ids are cuid2 (Prisma `@default(cuid())` + the `ZId = z.cuid2()` validators in the
+    // service layer). Better Auth's default id format is NOT cuid2, so without this every Tallynest
     // service that validates a user id via ZId (e.g. updateUser, called from the SSO provisioning
     // write path) would reject BA-created users at cutover — caught by the SSO-provisioning test.
     database: { generateId: () => createId() },
@@ -409,7 +409,7 @@ export const auth = betterAuth({
     // User.twoFactorSecret|backupCodes into the twoFactor table, and move the login-time TOTP/
     // backup challenge out of the credentials authorize into Better Auth's flow.
     twoFactor({
-      issuer: "Formbricks",
+      issuer: "Tallynest",
       skipVerificationOnEnable: false, // require a valid TOTP before 2FA is enabled
       totpOptions: { digits: 6, period: 30 },
       backupCodeOptions: { amount: 10, length: 10, storeBackupCodes: "encrypted" },

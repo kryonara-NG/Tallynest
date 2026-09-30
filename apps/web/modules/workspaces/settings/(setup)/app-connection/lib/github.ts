@@ -22,7 +22,7 @@ const fetchLatestRelease = async (): Promise<{ tagName: string | null; failed: b
     });
 
     if (!res.ok) {
-      logger.warn({ status: res.status }, "Failed to fetch latest stable Formbricks release from GitHub");
+      logger.warn({ status: res.status }, "Failed to fetch latest stable Tallynest release from GitHub");
       return { tagName: null, failed: true };
     }
 
@@ -31,13 +31,13 @@ const fetchLatestRelease = async (): Promise<{ tagName: string | null; failed: b
 
     return { tagName, failed: false };
   } catch (error) {
-    logger.warn(error, "Failed to fetch latest stable Formbricks release from GitHub");
+    logger.warn(error, "Failed to fetch latest stable Tallynest release from GitHub");
     return { tagName: null, failed: true };
   }
 };
 
 /**
- * Fetches the latest stable Formbricks release tag from GitHub.
+ * Fetches the latest stable Tallynest release tag from GitHub.
  *
  * This runs entirely server-side, so it degrades gracefully instead of throwing:
  * when GitHub is rate-limited, unreachable, or returns an unexpected body, it
@@ -57,7 +57,7 @@ export const getLatestStableFbRelease = async (): Promise<string | null> => {
       return cached.data.tagName;
     }
   } catch (error) {
-    logger.warn({ error }, "Failed to read cached Formbricks release from Redis");
+    logger.warn({ error }, "Failed to read cached Tallynest release from Redis");
   }
 
   const { tagName, failed } = await fetchLatestRelease();
@@ -65,7 +65,7 @@ export const getLatestStableFbRelease = async (): Promise<string | null> => {
   try {
     await cache.set(cacheKey, { tagName } satisfies CachedRelease, failed ? FAILURE_TTL_MS : SUCCESS_TTL_MS);
   } catch (error) {
-    logger.warn({ error }, "Failed to cache Formbricks release in Redis");
+    logger.warn({ error }, "Failed to cache Tallynest release in Redis");
   }
 
   return tagName;

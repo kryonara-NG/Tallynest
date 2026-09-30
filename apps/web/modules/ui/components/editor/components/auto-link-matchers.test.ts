@@ -6,9 +6,9 @@ const [matchUrl, matchEmail] = MATCHERS;
 describe("auto-link matchers", () => {
   describe("URL matcher", () => {
     test.each([
-      ["https://formbricks.com", "https://formbricks.com"],
-      ["http://formbricks.com/path?a=1", "http://formbricks.com/path?a=1"],
-      ["www.formbricks.com", "www.formbricks.com"],
+      ["https://tallynest.app", "https://tallynest.app"],
+      ["http://tallynest.app/path?a=1", "http://tallynest.app/path?a=1"],
+      ["www.tallynest.app", "www.tallynest.app"],
     ])("auto-links %s so it opens in a new tab", (input, expectedUrl) => {
       const match = matchUrl(input);
 
@@ -21,12 +21,12 @@ describe("auto-link matchers", () => {
     });
 
     test("reports the offset and length of a URL inside surrounding text", () => {
-      const match = matchUrl("visit https://formbricks.com now");
+      const match = matchUrl("visit https://tallynest.app now");
 
       expect(match).toMatchObject({
         index: 6,
-        length: "https://formbricks.com".length,
-        text: "https://formbricks.com",
+        length: "https://tallynest.app".length,
+        text: "https://tallynest.app",
         attributes: LINK_ATTRIBUTES,
       });
     });
@@ -38,13 +38,13 @@ describe("auto-link matchers", () => {
 
   describe("email matcher", () => {
     test("auto-links an email address as mailto and keeps the current tab", () => {
-      const match = matchEmail("hi@formbricks.com");
+      const match = matchEmail("hi@tallynest.app");
 
       expect(match).toMatchObject({
         index: 0,
-        length: "hi@formbricks.com".length,
-        text: "hi@formbricks.com",
-        url: "mailto:hi@formbricks.com",
+        length: "hi@tallynest.app".length,
+        text: "hi@tallynest.app",
+        url: "mailto:hi@tallynest.app",
       });
       // No target/rel: handing off to the mail client must not open a blank tab.
       expect(match?.attributes).toBeUndefined();

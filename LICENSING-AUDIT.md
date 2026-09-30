@@ -3,18 +3,18 @@
 **Upstream audited:** https://github.com/formbricks/formbricks  
 **Audit date:** 2026-09-28  
 **Audited branch:** `main`  
-**Purpose:** determine what may be copied into Tallynest without relying on Formbricks Enterprise licensing.
+**Purpose:** determine what may be copied into Tallynest without relying on Tallynest Enterprise licensing.
 
 > This is a technical license audit, not legal advice. Any component whose licensing cannot be established from authoritative project files is marked **REQUIRES LEGAL REVIEW**.
 
 | Component | Location | License | Can copy? | Can modify? | Can redistribute? | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| Formbricks Core | Repository content outside explicitly carved-out components | AGPLv3 per upstream root LICENSE | Yes | Yes | Yes, subject to AGPLv3 | Preserve notices; modified network versions must satisfy AGPL source/notice obligations. |
-| Formbricks Enterprise Edition | `apps/web/modules/ee/**` | Formbricks Enterprise License | **No** | **No** | **No** | Explicitly excluded from Tallynest. No Enterprise License Key or license mechanism is being copied. |
-| Formbricks JS SDK | `packages/js/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT copyright/permission notice. |
-| Formbricks Android SDK | `packages/android/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT notice. |
-| Formbricks iOS SDK | `packages/ios/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT notice. |
-| Formbricks API package | `packages/api/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT notice. |
+| Tallynest Core | Repository content outside explicitly carved-out components | AGPLv3 per upstream root LICENSE | Yes | Yes | Yes, subject to AGPLv3 | Preserve notices; modified network versions must satisfy AGPL source/notice obligations. |
+| Tallynest Enterprise Edition | `apps/web/modules/ee/**` | Tallynest Enterprise License | **No** | **No** | **No** | Explicitly excluded from Tallynest. No Enterprise License Key or license mechanism is being copied. |
+| Tallynest JS SDK | `packages/js/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT copyright/permission notice. |
+| Tallynest Android SDK | `packages/android/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT notice. |
+| Tallynest iOS SDK | `packages/ios/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT notice. |
+| Tallynest API package | `packages/api/**` where present | MIT per upstream root LICENSE | Yes | Yes | Yes | Preserve MIT notice. |
 | Third-party components | Throughout repository | Original component license | Only after license verification | Depends | Depends | Tallynest must preserve applicable notices and license texts. |
 | SpiceDB operator chart | `charts/spicedb-operator/**` | Apache-2.0 (contains its own LICENSE) | Yes | Yes | Yes | Preserve Apache-2.0 notice and upstream attribution. |
 | Other nested license-bearing assets | Any nested LICENSE/NOTICE or vendored source discovered during import | Component-specific | Case-by-case | Case-by-case | Case-by-case | **REQUIRES LEGAL REVIEW** if the authoritative license cannot be established. |

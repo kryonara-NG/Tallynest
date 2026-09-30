@@ -263,7 +263,7 @@ describe("ZV3CreateSurveyBody", () => {
     );
   });
 
-  test.each(["https://formbricks.com/docs", "http://localhost:3000/docs", "mailto:support@example.com"])(
+  test.each(["https://tallynest.app/docs", "http://localhost:3000/docs", "mailto:support@example.com"])(
     "accepts a cta buttonUrl with the safe scheme %j",
     (buttonUrl) => {
       expect(ZV3CreateSurveyBody.safeParse(ctaCreateBody(buttonUrl)).success).toBe(true);

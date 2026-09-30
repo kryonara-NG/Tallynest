@@ -45,7 +45,7 @@ vi.mock("@/lib/workspace/service", () => ({ getWorkspace: (...a: unknown[]) => m
 vi.mock("@/modules/ee/license-check/lib/license", () => ({
   getEnterpriseLicense: (...a: unknown[]) => mocks.getEnterpriseLicense(...a),
 }));
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({
+vi.mock("@/modules/tallynest-core/entitlements", () => ({
   getAccessControlPermission: (...a: unknown[]) => mocks.getAccessControlPermission(...a),
   getOrganizationWorkspacesLimit: (...a: unknown[]) => mocks.getOrganizationWorkspacesLimit(...a),
 }));
@@ -61,7 +61,7 @@ const seedSuccess = () => {
   mocks.getEnterpriseLicense.mockResolvedValue({ features: { isMultiOrgEnabled: true } });
   mocks.getOrganizationWorkspacesLimit.mockResolvedValue(3);
   mocks.getMonthlyOrganizationResponseCount.mockResolvedValue(42);
-  mocks.getPublicDomain.mockReturnValue("https://app.formbricks.com");
+  mocks.getPublicDomain.mockReturnValue("https://app.tallynest.app");
   // No active-workspace cookie by default.
   mocks.cookieGet.mockReturnValue(undefined);
 };

@@ -46,7 +46,7 @@ describe("container environment preflight", () => {
     const result = validate();
     expect(result.status).toBe(1);
     expect(result.stdout).not.toContain("validated successfully");
-    expect(result.stderr).toContain("Formbricks v6 requires AUTHZED_ENABLED=true");
+    expect(result.stderr).toContain("Tallynest v6 requires AUTHZED_ENABLED=true");
     expect(result.stderr).toContain("AUTHZED_ENDPOINT is required");
     expect(result.stderr).toContain("AUTHZED_TOKEN is required");
   });

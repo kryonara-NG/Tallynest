@@ -1,5 +1,5 @@
 import "server-only";
-import { TFeedbackSourceFormbricksMapping, THubFieldType } from "@formbricks/types/feedback-source";
+import { TFeedbackSourceTallynestMapping, THubFieldType } from "@formbricks/types/feedback-source";
 import { TResponse, TResponseData, TResponseDataValue } from "@formbricks/types/responses";
 import { TSurveyElementTypeEnum } from "@formbricks/types/surveys/constants";
 import type {
@@ -188,7 +188,7 @@ const buildBaseFields = (
 
 const expandMatrixToRecords = (
   element: TSurveyMatrixElement,
-  mapping: TFeedbackSourceFormbricksMapping,
+  mapping: TFeedbackSourceTallynestMapping,
   value: TResponseDataValue,
   baseFields: BaseRecordFields,
   lookupLanguage: string
@@ -237,7 +237,7 @@ const expandMatrixToRecords = (
 
 const expandRankingToRecords = (
   element: TSurveyRankingElement,
-  mapping: TFeedbackSourceFormbricksMapping,
+  mapping: TFeedbackSourceTallynestMapping,
   value: TResponseDataValue,
   baseFields: BaseRecordFields,
   lookupLanguage: string
@@ -285,7 +285,7 @@ const expandRankingToRecords = (
  */
 const expandMultiChoiceToRecords = (
   element: TSurveyMultipleChoiceElement,
-  mapping: TFeedbackSourceFormbricksMapping,
+  mapping: TFeedbackSourceTallynestMapping,
   value: TResponseDataValue,
   baseFields: BaseRecordFields,
   lookupLanguage: string
@@ -362,7 +362,7 @@ const normalizeElementValue = (
 };
 
 /**
- * Transform a Formbricks survey response into FeedbackRecord payloads.
+ * Transform a Tallynest survey response into FeedbackRecord payloads.
  * Called from the pipeline handler when a response is created/finished.
  *
  * Matrix, ranking, and multi-select questions expand into one record per row/item/option,
@@ -371,7 +371,7 @@ const normalizeElementValue = (
 export function transformResponseToFeedbackRecords(
   response: TResponse,
   survey: Pick<TSurvey, "id" | "name" | "type" | "blocks" | "languages">,
-  mappings: TFeedbackSourceFormbricksMapping[],
+  mappings: TFeedbackSourceTallynestMapping[],
   tenantId: string
 ): FeedbackRecordCreateParams[] {
   const responseData = response.data;

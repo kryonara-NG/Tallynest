@@ -512,7 +512,7 @@ export const mockSurvey: TSurvey = {
       subheader: {
         default: "We appreciate your feedback.",
       },
-      buttonLink: "https://formbricks.com",
+      buttonLink: "https://tallynest.app",
       buttonLabel: { default: "Create your own Survey" },
     },
   ],

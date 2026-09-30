@@ -18,7 +18,7 @@ interface MainNavigationHeaderProps {
 }
 
 /**
- * The sidebar's top row: the Formbricks wordmark (expanded only) and the collapse/expand toggle.
+ * The sidebar's top row: the Tallynest wordmark (expanded only) and the collapse/expand toggle.
  *
  * Split out of MainNavigation rather than inlined: the block branched on `isCollapsed` three times
  * and on `isTextVisible` once, all nested inside the JSX, which is where most of that component's

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { TFeedbackSourceFormbricksMapping } from "@formbricks/types/feedback-source";
+import { TFeedbackSourceTallynestMapping } from "@formbricks/types/feedback-source";
 import { TResponse } from "@formbricks/types/responses";
 import { TSurvey } from "@formbricks/types/surveys/types";
 import { transformResponseToFeedbackRecords } from "./transform";
@@ -79,9 +79,9 @@ const mockResponse = {
 } as unknown as TResponse;
 
 const createMapping = (
-  overrides: Partial<TFeedbackSourceFormbricksMapping> &
-    Pick<TFeedbackSourceFormbricksMapping, "elementId" | "hubFieldType">
-): TFeedbackSourceFormbricksMapping => ({
+  overrides: Partial<TFeedbackSourceTallynestMapping> &
+    Pick<TFeedbackSourceTallynestMapping, "elementId" | "hubFieldType">
+): TFeedbackSourceTallynestMapping => ({
   id: `mapping-${overrides.elementId}`,
   createdAt: NOW,
   feedbackSourceId: "conn-1",
@@ -91,7 +91,7 @@ const createMapping = (
   ...overrides,
 });
 
-const allMappings: TFeedbackSourceFormbricksMapping[] = [
+const allMappings: TFeedbackSourceTallynestMapping[] = [
   createMapping({ elementId: "el-text", hubFieldType: "text" }),
   createMapping({ elementId: "el-nps", hubFieldType: "nps" }),
   createMapping({ elementId: "el-rating", hubFieldType: "rating" }),
@@ -489,7 +489,7 @@ describe("transformResponseToFeedbackRecords", () => {
       const mappings = [
         createMapping({
           elementId: "el-multi",
-          hubFieldType: "unknown-type" as TFeedbackSourceFormbricksMapping["hubFieldType"],
+          hubFieldType: "unknown-type" as TFeedbackSourceTallynestMapping["hubFieldType"],
         }),
       ];
       const result = transformResponseToFeedbackRecords(response, mockSurvey, mappings, mockTenantId);

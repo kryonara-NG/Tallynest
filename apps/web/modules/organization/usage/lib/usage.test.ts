@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { prisma } from "@formbricks/database";
-import { getIsWorkflowsEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsWorkflowsEnabled } from "@/modules/tallynest-core/entitlements";
 import { getOrganizationUsage } from "./usage";
 
 vi.mock("@formbricks/database", () => ({
@@ -9,7 +9,7 @@ vi.mock("@formbricks/database", () => ({
     workflowRun: { groupBy: vi.fn() },
   },
 }));
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({ getIsWorkflowsEnabled: vi.fn() }));
+vi.mock("@/modules/tallynest-core/entitlements", () => ({ getIsWorkflowsEnabled: vi.fn() }));
 vi.mock("@formbricks/logger", () => ({ logger: { info: vi.fn() } }));
 
 const ORG_ID = "clorg11111111111111111111";

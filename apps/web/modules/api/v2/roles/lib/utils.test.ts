@@ -8,7 +8,7 @@ vi.mock("@/lib/constants", () => ({
 }));
 
 describe("getRoles", () => {
-  test("should return all roles except billing when not in Formbricks Cloud", () => {
+  test("should return all roles except billing when not in Tallynest Cloud", () => {
     const result = getRoles();
     expect(result.ok).toBe(true);
     if (result.ok) {
@@ -16,7 +16,7 @@ describe("getRoles", () => {
     }
   });
 
-  test("should return all roles including billing when in Formbricks Cloud", () => {
+  test("should return all roles including billing when in Tallynest Cloud", () => {
     const originalValue = constants.IS_FORMBRICKS_CLOUD;
     Object.defineProperty(constants, "IS_FORMBRICKS_CLOUD", { value: true });
     const result = getRoles();

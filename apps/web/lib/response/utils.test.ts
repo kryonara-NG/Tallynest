@@ -1691,7 +1691,7 @@ describe("Response Utils", () => {
           data: {},
           meta: {
             userAgent: { browser: "Chrome", device: "desktop" },
-            url: "https://formbricks.com/dashboard",
+            url: "https://tallynest.app/dashboard",
             country: "US",
           },
         },
@@ -1700,7 +1700,7 @@ describe("Response Utils", () => {
           data: {},
           meta: {
             userAgent: { browser: "Safari", device: "mobile" },
-            url: "https://formbricks.com/surveys/123",
+            url: "https://tallynest.app/surveys/123",
             country: "UK",
           },
         },

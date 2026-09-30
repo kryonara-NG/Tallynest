@@ -29,10 +29,10 @@ interface UserDropdownProps {
   isCollapsed?: boolean;
   isTextVisible?: boolean;
   className?: string;
-  // Whether the Formbricks-in-Formbricks in-app survey widget is configured (workspace id set). The
-  // "What's New" and "Share feedback" items only trigger Formbricks surveys, so they are hidden when
+  // Whether the Tallynest-in-Tallynest in-app survey widget is configured (workspace id set). The
+  // "What's New" and "Share feedback" items only trigger Tallynest surveys, so they are hidden when
   // the widget is not mounted — otherwise they would render but do nothing.
-  isFormbricksSurveysConfigured?: boolean;
+  isTallynestSurveysConfigured?: boolean;
 }
 
 // The avatar/account trigger + menu (Account, Documentation, Share feedback, Log out) shown at the
@@ -45,7 +45,7 @@ export const UserDropdown = ({
   isCollapsed = false,
   isTextVisible = false,
   className,
-  isFormbricksSurveysConfigured = false,
+  isTallynestSurveysConfigured = false,
 }: Readonly<UserDropdownProps>) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -59,7 +59,7 @@ export const UserDropdown = ({
     },
     {
       label: t("common.documentation"),
-      href: "https://formbricks.com/docs",
+      href: "https://tallynest.app/docs",
       target: "_blank",
       icon: ArrowUpRightIcon,
     },
@@ -118,7 +118,7 @@ export const UserDropdown = ({
             </DropdownMenuItem>
           </Link>
         ))}
-        {isFormbricksSurveysConfigured && (
+        {isTallynestSurveysConfigured && (
           <>
             <DropdownMenuItem
               onClick={() => formbricks.track("whats_new_clicked").catch(() => undefined)}

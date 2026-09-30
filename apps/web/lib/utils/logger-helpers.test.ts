@@ -18,7 +18,7 @@ beforeEach(async () => {
   }));
 });
 
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({
+vi.mock("@/modules/tallynest-core/entitlements", () => ({
   getIsAuditLogsEnabled: vi.fn().mockResolvedValue(true),
 }));
 
@@ -182,7 +182,7 @@ describe("withAuditLogging", () => {
   test("logs audit event for successful handler", async () => {
     const handler = vi.fn().mockResolvedValue("ok");
     const { withAuditLogging } = await import("../../modules/ee/audit-logs/lib/handler");
-    const wrapped = withAuditLogging("created", "survey", handler);
+    const wrapped = withActivityContext("created", "survey", handler);
     const ctx = {
       user: {
         id: "u1",
@@ -220,7 +220,7 @@ describe("withAuditLogging", () => {
   test("logs audit event for failed handler and throws", async () => {
     const handler = vi.fn().mockRejectedValue(new Error("fail"));
     const { withAuditLogging } = await import("../../modules/ee/audit-logs/lib/handler");
-    const wrapped = withAuditLogging("created", "survey", handler);
+    const wrapped = withActivityContext("created", "survey", handler);
     const ctx = {
       user: {
         id: "u1",

@@ -68,7 +68,7 @@ interface BlockCardProps {
   lastElementIndex: number;
   invalidElements?: string[];
   addElement: (element: any, index?: number) => void;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isCxMode: boolean;
   locale: TUserLocale;
   responseCount: number;
@@ -106,7 +106,7 @@ const BlockCardComponent = ({
   lastElementIndex,
   invalidElements,
   addElement,
-  isFormbricksCloud,
+  isTallynestCloud,
   isCxMode,
   locale,
   responseCount,
@@ -247,7 +247,7 @@ const BlockCardComponent = ({
     // FileUpload needs extra props
     if (element.type === TSurveyElementTypeEnum.FileUpload) {
       additionalProps.workspace = workspace;
-      additionalProps.isFormbricksCloud = isFormbricksCloud;
+      additionalProps.isTallynestCloud = isTallynestCloud;
     }
 
     // @ts-expect-error - These props should cover everything

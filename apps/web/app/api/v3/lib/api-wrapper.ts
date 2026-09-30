@@ -11,7 +11,7 @@ import { getSession } from "@/modules/auth/lib/session";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
 import type { TRateLimitConfig } from "@/modules/core/rate-limit/types/rate-limit";
-import { TAuditAction, TAuditTarget } from "@/modules/ee/audit-logs/types/audit-log";
+import { TAuditAction, TAuditTarget } from "@/modules/tallynest-core/api-audit";
 import { buildV3AuditLog, queueV3AuditLog } from "./audit";
 import { mapV3ThrownError } from "./errors";
 import {

@@ -65,7 +65,7 @@ export const SurveyInactive = async ({
         <p className="text-lg leading-10 text-slate-500">{description}</p>
         {showCTA && (
           <Button className="mt-2" asChild>
-            <Link href="https://formbricks.com?utm_source=formbricks-app&utm_medium=survey&utm_campaign=create_your_own_cta">
+            <Link href="https://tallynest.app?utm_source=formbricks-app&utm_medium=survey&utm_campaign=create_your_own_cta">
               {t("s.create_your_own")}
             </Link>
           </Button>
@@ -73,7 +73,7 @@ export const SurveyInactive = async ({
       </div>
       {(!workspace || workspace.linkSurveyBranding) && (
         <div>
-          <Link href="https://formbricks.com?utm_source=formbricks-app&utm_medium=survey&utm_campaign=powered_by_badge">
+          <Link href="https://tallynest.app?utm_source=formbricks-app&utm_medium=survey&utm_campaign=powered_by_badge">
             <Image src={footerLogo} alt="Brand logo" className="mx-auto w-40" />
           </Link>
         </div>

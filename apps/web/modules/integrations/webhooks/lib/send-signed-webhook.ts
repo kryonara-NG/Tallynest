@@ -71,7 +71,7 @@ const fetchWithTimeout = async (
 };
 
 /**
- * The one way Formbricks POSTs to a webhook URL — used by background deliveries and the "test endpoint"
+ * The one way Tallynest POSTs to a webhook URL — used by background deliveries and the "test endpoint"
  * button alike, so the SSRF regime, signing and timeout can never drift between the two.
  *
  * Every call re-validates the URL and pins the TCP connection to the validated address (closing the

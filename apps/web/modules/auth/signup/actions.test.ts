@@ -16,8 +16,8 @@ import { readSignupIntent } from "@/modules/auth/lib/signup-intent";
 import { updateUser } from "@/modules/auth/lib/user";
 import { getInvite, resolveInviteMatch } from "@/modules/auth/signup/lib/invite";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
-import { UNKNOWN_DATA } from "@/modules/ee/audit-logs/types/audit-log";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { subscribeUserToMailingList } from "@/modules/ee/mailing/lib/mailing-subscription";
 import { createUserAction } from "./actions";
 
@@ -76,7 +76,7 @@ vi.mock("@/lib/posthog", () => ({
 vi.mock("@/modules/ee/billing/lib/organization-billing", () => ({
   ensureCloudStripeSetupForOrganization: vi.fn(),
 }));
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({ getIsMultiOrgEnabled: vi.fn() }));
+vi.mock("@/modules/tallynest-core/entitlements", () => ({ getIsMultiOrgEnabled: vi.fn() }));
 vi.mock("@/modules/ee/mailing/lib/mailing-subscription", () => ({ subscribeUserToMailingList: vi.fn() }));
 vi.mock("@/modules/email", () => ({ sendInviteAcceptedEmail: vi.fn() }));
 vi.mock("@/modules/workspaces/settings/lib/workspace", () => ({ createWorkspace: vi.fn() }));
@@ -111,7 +111,7 @@ vi.mock("@/lib/constants", () => ({
 
 vi.mock("@/lib/instance/service", () => ({ getIsFreshInstance: vi.fn() }));
 
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   withAuditLogging: vi.fn((_type: string, _object: string, fn: Function) => fn),
 }));
 

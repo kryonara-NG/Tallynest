@@ -24,7 +24,7 @@ vi.mock("@/modules/survey/link/lib/workspace", () => ({
 // Mock constants
 vi.mock("@/lib/constants", () => ({
   IS_FORMBRICKS_CLOUD: false,
-  WEBAPP_URL: "https://test.formbricks.com",
+  WEBAPP_URL: "https://test.tallynest.app",
 }));
 
 vi.mock("@/lib/styling/constants", () => ({
@@ -153,15 +153,15 @@ describe("Metadata Utils", () => {
       });
     });
 
-    describe("on Formbricks Cloud", () => {
-      // The root layout's `title.template` ("%s | Formbricks") is what brands `<title>`, so `title`
-      // must come back bare or the tab reads "… | Formbricks | Formbricks". Social previews are not
+    describe("on Tallynest Cloud", () => {
+      // The root layout's `title.template` ("%s | Tallynest") is what brands `<title>`, so `title`
+      // must come back bare or the tab reads "… | Tallynest | Tallynest". Social previews are not
       // templated, so `ogTitle` carries the suffix itself.
       const loadWithCloud = async () => {
         vi.resetModules();
         vi.doMock("@/lib/constants", () => ({
           IS_FORMBRICKS_CLOUD: true,
-          WEBAPP_URL: "https://test.formbricks.com",
+          WEBAPP_URL: "https://test.tallynest.app",
         }));
         const { getSurvey: getSurveyMock } = await import("@/modules/survey/lib/survey");
         const { getBasicSurveyMetadata: getBasicSurveyMetadataOnCloud } = await import("./metadata-utils");
@@ -187,7 +187,7 @@ describe("Metadata Utils", () => {
         const result = await getBasicSurveyMetadataOnCloud(mockSurveyId);
 
         expect(result.title).toBe("Test Survey");
-        expect(result.ogTitle).toBe("Test Survey | Formbricks");
+        expect(result.ogTitle).toBe("Test Survey | Tallynest");
       });
 
       test("keeps a custom link-metadata title unbranded in social previews", async () => {

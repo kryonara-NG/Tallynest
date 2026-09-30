@@ -275,7 +275,7 @@ export const ZMcpDeleteSurveyInput = z
 // call with a placeholder key would now fail here where v1 dropped it — costly out of proportion, because
 // this is the discovery tool every workspace-scoped tool takes its `workspaceId` from, so losing it looks
 // like the whole server being broken. Raised in review on #8859; no such client is confirmed, and our own
-// QA only exercises Claude Code, so treat a report of "the Formbricks MCP server won't connect" from
+// QA only exercises Claude Code, so treat a report of "the Tallynest MCP server won't connect" from
 // another client as a reason to look here first.
 export const ZMcpListWorkspacesInput = z.object({}).strict();
 

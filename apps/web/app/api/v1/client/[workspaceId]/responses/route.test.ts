@@ -67,7 +67,7 @@ vi.mock("@/modules/api/lib/verify-response-recaptcha", () => ({
   verifyResponseRecaptcha: mocks.verifyResponseRecaptcha,
 }));
 
-vi.mock("@/modules/ee/license-check/lib/utils", () => ({
+vi.mock("@/modules/tallynest-core/entitlements", () => ({
   getIsContactsEnabled: mocks.getIsContactsEnabled,
 }));
 

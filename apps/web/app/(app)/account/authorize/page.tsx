@@ -63,7 +63,7 @@ const OAuthConsentLogo = ({ label }: Readonly<{ label: string }>) => (
   <div className="mb-6 flex justify-center">
     <Link
       target="_blank"
-      href="https://formbricks.com?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=oauth_consent_logo"
+      href="https://tallynest.app?utm_source=formbricks-app&utm_medium=webapp&utm_campaign=oauth_consent_logo"
       rel="noopener noreferrer"
       aria-label={label}>
       <Logo aria-hidden="true" className="h-8 w-auto" />

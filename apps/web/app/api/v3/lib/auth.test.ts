@@ -29,7 +29,7 @@ vi.mock("@/lib/authorization", () => ({ assertCan: vi.fn(), can: vi.fn() }));
 const requestId = "req-123";
 
 describe("getV3AuthorizationActor", () => {
-  test("maps session and API-key authentication to Formbricks actors", () => {
+  test("maps session and API-key authentication to Tallynest actors", () => {
     expect(getV3AuthorizationActor({ user: { id: "user_1" } } as unknown as TV3Authentication)).toEqual({
       type: "user",
       id: "user_1",

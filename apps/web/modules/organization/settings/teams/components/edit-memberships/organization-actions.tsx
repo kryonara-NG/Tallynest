@@ -41,7 +41,7 @@ interface OrganizationActionsProps {
   teams: TOrganizationTeam[];
   isInviteDisabled: boolean;
   isAccessControlAllowed: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isMultiOrgEnabled: boolean;
   isUserManagementDisabledFromUi: boolean;
   isTeamAdmin: boolean;
@@ -58,7 +58,7 @@ export const OrganizationActions = ({
   isLeaveOrganizationDisabled,
   isInviteDisabled,
   isAccessControlAllowed,
-  isFormbricksCloud,
+  isTallynestCloud,
   isMultiOrgEnabled,
   isUserManagementDisabledFromUi,
   isTeamAdmin,
@@ -197,7 +197,7 @@ export const OrganizationActions = ({
         membershipRole={membershipRole}
         organizationId={organization.id}
         isAccessControlAllowed={isAccessControlAllowed}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         teams={teams}
         isOwnerOrManager={isOwnerOrManager}
         isTeamAdmin={isTeamAdmin}

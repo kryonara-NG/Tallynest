@@ -27,18 +27,18 @@ import { symmetricDecrypt } from "@/lib/crypto";
  * so they're harness-testable.
  */
 export const reencodeTwoFactorSecret = async (
-  encryptedFormbricksSecret: string,
+  encryptedTallynestSecret: string,
   secretConfig: string | SecretConfig
 ): Promise<string> => {
-  const formbricksSecret = symmetricDecrypt(encryptedFormbricksSecret, ENCRYPTION_KEY); // otplib base32
+  const formbricksSecret = symmetricDecrypt(encryptedTallynestSecret, ENCRYPTION_KEY); // otplib base32
   const keyBytes = Buffer.from(base32.decode(formbricksSecret));
   return symmetricEncrypt({ key: secretConfig, data: keyBytes.toString("latin1") });
 };
 
 /**
- * Re-encode backup codes from the Formbricks envelope (a JSON array, AES-GCM with ENCRYPTION_KEY) into
+ * Re-encode backup codes from the Tallynest envelope (a JSON array, AES-GCM with ENCRYPTION_KEY) into
  * Better Auth's envelope (a JSON array encrypted with secretConfig — matching BA's
- * `storeBackupCodes: "encrypted"`). Formbricks stored bare 10-char hex but DISPLAYED (so users saved)
+ * `storeBackupCodes: "encrypted"`). Tallynest stored bare 10-char hex but DISPLAYED (so users saved)
  * the hyphenated `XXXXX-XXXXX` form (`display-backup-codes.tsx` formatBackupCode), and BA's
  * verify-backup-code does an EXACT match with no hyphen-stripping. So we store the displayed form — the
  * string the user will actually enter.
@@ -50,10 +50,10 @@ export const reencodeTwoFactorSecret = async (
  * row → "TOTP not enabled" (ENG-1824).
  */
 export const reencodeTwoFactorBackupCodes = async (
-  encryptedFormbricksBackupCodes: string,
+  encryptedTallynestBackupCodes: string,
   secretConfig: string | SecretConfig
 ): Promise<string> => {
-  const storedCodes = JSON.parse(symmetricDecrypt(encryptedFormbricksBackupCodes, ENCRYPTION_KEY)) as (
+  const storedCodes = JSON.parse(symmetricDecrypt(encryptedTallynestBackupCodes, ENCRYPTION_KEY)) as (
     | string
     | null
   )[];
@@ -70,13 +70,13 @@ export const reencodeTwoFactorBackupCodes = async (
  * stored backup codes gets an empty (encrypted) code list.
  */
 export const buildReencodedTwoFactorData = async (
-  encryptedFormbricksSecret: string,
-  encryptedFormbricksBackupCodes: string | null,
+  encryptedTallynestSecret: string,
+  encryptedTallynestBackupCodes: string | null,
   secretConfig: string | SecretConfig
 ): Promise<{ secret: string; backupCodes: string }> => ({
-  secret: await reencodeTwoFactorSecret(encryptedFormbricksSecret, secretConfig),
-  backupCodes: encryptedFormbricksBackupCodes
-    ? await reencodeTwoFactorBackupCodes(encryptedFormbricksBackupCodes, secretConfig)
+  secret: await reencodeTwoFactorSecret(encryptedTallynestSecret, secretConfig),
+  backupCodes: encryptedTallynestBackupCodes
+    ? await reencodeTwoFactorBackupCodes(encryptedTallynestBackupCodes, secretConfig)
     : await symmetricEncrypt({ key: secretConfig, data: "[]" }),
 });
 

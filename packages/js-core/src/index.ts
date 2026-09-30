@@ -1,9 +1,9 @@
 import { CommandQueue, CommandType } from "@/lib/common/command-queue";
 import {
-  type TFormbricksEventName,
-  type TFormbricksEventPayloads,
-  offFormbricksEvent,
-  onFormbricksEvent,
+  type TTallynestEventName,
+  type TTallynestEventPayloads,
+  offTallynestEvent,
+  onTallynestEvent,
 } from "@/lib/common/events";
 import * as Setup from "@/lib/common/setup";
 import { getIsDebug } from "@/lib/common/utils";
@@ -30,7 +30,7 @@ const setup = async (setupConfig: TConfigInput): Promise<void> => {
   ) {
     const isDebug = getIsDebug();
     if (isDebug) {
-      console.warn("🧱 Formbricks - Warning: Using legacy init");
+      console.warn("🧱 Tallynest - Warning: Using legacy init");
     }
     await queue.add(Setup.setup, CommandType.Setup, false, {
       ...setupConfig,
@@ -113,7 +113,7 @@ const clearEmbeddedData = (...args: [] | [key: string]): void => {
 };
 
 /**
- * Subscribe to a Formbricks event (ENG-1814).
+ * Subscribe to a Tallynest event (ENG-1814).
  *
  * The host application is notified about what the SDK actually did — a survey reached the screen
  * (`formbricks_survey_shown`), was answered (`formbricks_response_submitted`, with the persisted
@@ -129,10 +129,10 @@ const clearEmbeddedData = (...args: [] | [key: string]): void => {
  * @param handler - Called with that event's payload (survey id, and where it applies the response id)
  * @returns A function that removes this subscription. `off()` with the same arguments does the same.
  */
-const on = <E extends TFormbricksEventName>(
+const on = <E extends TTallynestEventName>(
   event: E,
-  handler: (payload: TFormbricksEventPayloads[E]) => void
-): (() => void) => onFormbricksEvent(event, handler);
+  handler: (payload: TTallynestEventPayloads[E]) => void
+): (() => void) => onTallynestEvent(event, handler);
 
 /**
  * Remove a subscription registered with on().
@@ -140,11 +140,11 @@ const on = <E extends TFormbricksEventName>(
  * @param event - The event name the handler was registered for
  * @param handler - The same function reference that was passed to on()
  */
-const off = <E extends TFormbricksEventName>(
+const off = <E extends TTallynestEventName>(
   event: E,
-  handler: (payload: TFormbricksEventPayloads[E]) => void
+  handler: (payload: TTallynestEventPayloads[E]) => void
 ): void => {
-  offFormbricksEvent(event, handler);
+  offTallynestEvent(event, handler);
 };
 
 /**
@@ -186,7 +186,7 @@ const formbricks = {
 // so it executes regardless of which branch the wrapper picks.
 (globalThis as unknown as Record<string, unknown>).formbricks = formbricks;
 
-type TFormbricks = typeof formbricks;
-export type { TFormbricks };
-export type { TFormbricksEventName, TFormbricksEventPayloads } from "@/lib/common/events";
+type TTallynest = typeof formbricks;
+export type { TTallynest };
+export type { TTallynestEventName, TTallynestEventPayloads } from "@/lib/common/events";
 export default formbricks;

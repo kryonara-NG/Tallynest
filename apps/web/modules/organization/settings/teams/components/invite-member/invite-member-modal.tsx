@@ -24,7 +24,7 @@ interface InviteMemberModalProps {
   teams: TOrganizationTeam[];
   organizationId: string;
   isAccessControlAllowed: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   membershipRole?: TOrganizationRole;
   isOwnerOrManager: boolean;
   isTeamAdmin: boolean;
@@ -40,7 +40,7 @@ export const InviteMemberModal = ({
   teams,
   organizationId,
   isAccessControlAllowed,
-  isFormbricksCloud,
+  isTallynestCloud,
   membershipRole,
   isOwnerOrManager,
   isTeamAdmin,
@@ -67,7 +67,7 @@ export const InviteMemberModal = ({
         teams={filteredTeams}
         organizationId={organizationId}
         isAccessControlAllowed={isAccessControlAllowed}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         membershipRole={membershipRole}
         showTeamAdminRestrictions={showTeamAdminRestrictions}
         enterpriseLicenseRequestFormUrl={enterpriseLicenseRequestFormUrl}
@@ -80,7 +80,7 @@ export const InviteMemberModal = ({
         teams={filteredTeams}
         organizationId={organizationId}
         isAccessControlAllowed={isAccessControlAllowed}
-        isFormbricksCloud={isFormbricksCloud}
+        isTallynestCloud={isTallynestCloud}
         isBulkInviteAllowed={isBulkInviteAllowed}
         enterpriseLicenseRequestFormUrl={enterpriseLicenseRequestFormUrl}
       />

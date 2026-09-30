@@ -59,7 +59,7 @@ describe("sendResponseFinishedEmail", () => {
 
   // This is the exact regression: the organization's whitelabel logo was fetched but never
   // threaded into the template, so the notification email always fell back to the hard-coded
-  // Formbricks logo regardless of what the organization had configured.
+  // Tallynest logo regardless of what the organization had configured.
   test("resolves the organization's whitelabel logo to an absolute URL", async () => {
     mockGetOrganizationByWorkspaceId.mockResolvedValue({
       id: "org1",
@@ -77,7 +77,7 @@ describe("sendResponseFinishedEmail", () => {
   test.each([
     ["no whitelabel object", undefined],
     ["a whitelabel object with no logo", {}],
-  ])("leaves the logo unset for %s, so the default Formbricks logo applies", async (_label, whitelabel) => {
+  ])("leaves the logo unset for %s, so the default Tallynest logo applies", async (_label, whitelabel) => {
     mockGetOrganizationByWorkspaceId.mockResolvedValue({ id: "org1", whitelabel });
 
     await sendResponseFinishedEmail("owner@example.com", "en-US", "workspace1", survey, response, 1);

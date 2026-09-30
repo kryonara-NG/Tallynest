@@ -10,7 +10,7 @@ import { getTranslate } from "@/lingodotdev/server";
 import { TrialEndingWarningModal } from "@/modules/ee/billing/components/trial-ending-warning-modal";
 import { TrialResponseWarningModal } from "@/modules/ee/billing/components/trial-response-warning-modal";
 import { getPendingDowngradeSchedule } from "@/modules/ee/license-check/lib/license";
-import { getOrganizationWorkspacesLimit } from "@/modules/ee/license-check/lib/utils";
+import { getOrganizationWorkspacesLimit } from "@/modules/tallynest-core/entitlements";
 import { LimitsReachedBanner } from "@/modules/ui/components/limits-reached-banner";
 import { PendingDowngradeBanner } from "@/modules/ui/components/pending-downgrade-banner";
 import { TWorkspaceLayoutData } from "@/modules/workspaces/types/workspace-auth";
@@ -149,7 +149,7 @@ export const WorkspaceLayout = async ({ layoutData, children }: WorkspaceLayoutP
           organization={organization}
           user={user}
           workspace={{ id: workspace.id, name: workspace.name }}
-          isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+          isTallynestCloud={IS_FORMBRICKS_CLOUD}
           isDevelopment={IS_DEVELOPMENT}
           membershipRole={membership.role}
           organizationWorkspacesLimit={organizationWorkspacesLimit}
@@ -158,7 +158,7 @@ export const WorkspaceLayout = async ({ layoutData, children }: WorkspaceLayoutP
           isAccessControlAllowed={isAccessControlAllowed}
           responseCount={responseCount}
           newTrialBannerVariant={newTrialBannerVariant}
-          isFormbricksSurveysConfigured={IS_FORMBRICKS_SURVEYS_CONFIGURED}
+          isTallynestSurveysConfigured={IS_FORMBRICKS_SURVEYS_CONFIGURED}
           trialDaysRemaining={trialDaysRemaining}
         />
         <div id="mainContent" className="flex flex-1 flex-col overflow-hidden bg-slate-50">
@@ -166,7 +166,7 @@ export const WorkspaceLayout = async ({ layoutData, children }: WorkspaceLayoutP
             currentOrganizationId={organization.id}
             isMultiOrgEnabled={isMultiOrgEnabled}
             organizationWorkspacesLimit={organizationWorkspacesLimit}
-            isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+            isTallynestCloud={IS_FORMBRICKS_CLOUD}
             isLicenseActive={active}
             isNoLicense={status === "no-license"}
             isOwnerOrManager={isOwnerOrManager}

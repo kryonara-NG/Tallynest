@@ -168,7 +168,7 @@ describe("AuthZed client facade", () => {
     expect(second).not.toBe(first);
   });
 
-  test("returns only the Formbricks schema wrapper through the resilience pipeline", async () => {
+  test("returns only the Tallynest schema wrapper through the resilience pipeline", async () => {
     sdkMocks.readSchema.mockResolvedValue({
       readAt: { token: "revision" },
       schemaText: "definition user {}",
@@ -502,7 +502,7 @@ describe("AuthZed client facade", () => {
     expect(retryMocks.execute).toHaveBeenCalledWith("write_schema", expect.any(Function));
   });
 
-  test("translates Formbricks relationship updates without exposing SDK responses", async () => {
+  test("translates Tallynest relationship updates without exposing SDK responses", async () => {
     sdkMocks.writeRelationships.mockResolvedValue({ writtenAt: { token: "private-revision" } });
 
     await expect(

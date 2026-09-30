@@ -31,7 +31,7 @@
     "dark": "/images/logo-dark.svg",
     "light": "/images/logo-light.svg"
   },
-  "name": "Documentation - Formbricks",
+  "name": "Documentation - Tallynest",
   "navbar": {
     "links": [
       {
@@ -40,7 +40,7 @@
       }
     ],
     "primary": {
-      "href": "https://app.formbricks.com",
+      "href": "https://app.tallynest.app",
       "label": "Go to app",
       "type": "button"
     }

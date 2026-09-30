@@ -336,7 +336,7 @@ const validateAuthConfiguration = (values: TAuthConfigurationEnv, ctx: z.Refinem
       "BETTER_AUTH_SECRET",
       "BETTER_AUTH_SECRET is required. Generate one with `openssl rand -hex 32`. " +
         "(An instance that predates the rename may set NEXTAUTH_SECRET instead; either is accepted. " +
-        "AUTH_SECRET is not: Better Auth reads it, but Formbricks signs its own tokens and does not.)"
+        "AUTH_SECRET is not: Better Auth reads it, but Tallynest signs its own tokens and does not.)"
     );
     return;
   }
@@ -389,7 +389,7 @@ const parsedEnv = createEnv({
     WEBHOOK_DELIVERY_TIMEOUT_MS: z.coerce.number().int().min(1_000).max(30_000).optional(),
     DEBUG_SHOW_RESET_LINK: z.enum(["1", "0"]).optional(),
     // DEBUG is a common ambient env var in CI/tooling, so we accept arbitrary strings here
-    // and only treat "1" as enabling Formbricks-specific debug behavior downstream.
+    // and only treat "1" as enabling Tallynest-specific debug behavior downstream.
     DEBUG: z.string().optional(),
     // cuid2 rather than a bare string so a typo'd or foreign id (a uuid, an uppercase value) fails
     // at boot instead of silently provisioning SSO users into no organization at all. Permissive
@@ -472,8 +472,8 @@ const parsedEnv = createEnv({
     PLAIN_APP_ID: z.string().optional(),
     PLAIN_CHAT_HMAC_SECRET: z.string().optional(),
     PLAIN_ACTIVE_CUSTOMER_LABEL_TYPE_ID: z.string().optional(),
-    // Formbricks-in-Formbricks: dogfood in-app surveys. Points at the Formbricks
-    // instance that hosts the surveys (defaults to Formbricks Cloud). When
+    // Tallynest-in-Tallynest: dogfood in-app surveys. Points at the Tallynest
+    // instance that hosts the surveys (defaults to Tallynest Cloud). When
     // FORMBRICKS_WORKSPACE_ID is set, the survey widget is mounted in the app.
     FORMBRICKS_WORKSPACE_ID: z.string().optional(),
     FORMBRICKS_APP_URL: z.url().optional(),
@@ -769,13 +769,13 @@ export const assertAuthzedRuntimeConfiguration = (): void => {
       addEnvIssue(
         ctx,
         "AUTHZED_ENABLED",
-        "Formbricks v6 requires AUTHZED_ENABLED=true; configure SpiceDB before starting the server. See https://formbricks.com/docs/self-hosting/configuration/authzed-operations"
+        "Tallynest v6 requires AUTHZED_ENABLED=true; configure SpiceDB before starting the server. See https://tallynest.app/docs/self-hosting/configuration/authzed-operations"
       );
     }
     // Report missing credentials even when enablement was omitted.
     validateAuthzedConfiguration({ ...values, AUTHZED_ENABLED: "true" }, ctx);
     if (values.AUTHZED_CONSISTENCY !== "fully_consistent") {
-      addEnvIssue(ctx, "AUTHZED_CONSISTENCY", "Formbricks v6 requires AUTHZED_CONSISTENCY=fully_consistent");
+      addEnvIssue(ctx, "AUTHZED_CONSISTENCY", "Tallynest v6 requires AUTHZED_CONSISTENCY=fully_consistent");
     }
   }).safeParse(env);
 

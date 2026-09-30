@@ -133,7 +133,7 @@ const getMemberColumns = ({
   currentUserRole,
   currentUserId,
   isAccessControlAllowed,
-  isFormbricksCloud,
+  isTallynestCloud,
   isUserManagementDisabledFromUi,
   isOwnerOrManager,
   isManager,
@@ -147,7 +147,7 @@ const getMemberColumns = ({
   currentUserRole: TOrganizationRole;
   currentUserId: string;
   isAccessControlAllowed: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isUserManagementDisabledFromUi: boolean;
   isOwnerOrManager: boolean;
   isManager: boolean;
@@ -189,7 +189,7 @@ const getMemberColumns = ({
           memberAccepted={!isInvitee(member) ? member.accepted : undefined}
           inviteId={isInvitee(member) ? member.id : ""}
           doesOrgHaveMoreThanOneOwner={doesOrgHaveMoreThanOneOwner}
-          isFormbricksCloud={isFormbricksCloud}
+          isTallynestCloud={isTallynestCloud}
           isUserManagementDisabledFromUi={isUserManagementDisabledFromUi}
         />
       ),
@@ -256,7 +256,7 @@ interface MembersInfoProps {
   currentUserRole: TOrganizationRole;
   currentUserId: string;
   isAccessControlAllowed: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isUserManagementDisabledFromUi: boolean;
 }
 
@@ -267,7 +267,7 @@ export const MembersInfo = ({
   members,
   currentUserId,
   isAccessControlAllowed,
-  isFormbricksCloud,
+  isTallynestCloud,
   isUserManagementDisabledFromUi,
 }: Readonly<MembersInfoProps>) => {
   const { t, i18n } = useTranslation();
@@ -294,7 +294,7 @@ export const MembersInfo = ({
         currentUserRole,
         currentUserId,
         isAccessControlAllowed,
-        isFormbricksCloud,
+        isTallynestCloud,
         isUserManagementDisabledFromUi,
         isOwnerOrManager,
         isManager,

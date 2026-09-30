@@ -43,7 +43,7 @@ vi.mock("@/lib/user/password", () => ({
 
 // Passthrough so the handler runs directly, matching modules/ee/billing/actions.test.ts. Importing the
 // real handler would drag the audit-log graph (and its POSTHOG_KEY constant read) into this suite.
-vi.mock("@/modules/ee/audit-logs/lib/handler", () => ({
+vi.mock("@/modules/tallynest-core/activity-context", () => ({
   withAuditLogging: vi.fn((action: string, target: string, fn: unknown) => {
     mocks.auditWrapperArgs.push([action, target]);
     return fn;

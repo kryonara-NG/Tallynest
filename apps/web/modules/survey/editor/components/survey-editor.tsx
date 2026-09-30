@@ -11,7 +11,7 @@ import { extractLanguageCodes, getEnabledLanguages } from "@/lib/i18n/utils";
 import { structuredClone } from "@/lib/pollyfills/structuredClone";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useDocumentVisibility } from "@/lib/useDocumentVisibility";
-import { TTeamPermission } from "@/modules/ee/teams/workspace-teams/types/team";
+import { TTeamPermission } from "@/modules/tallynest-core/team-permissions";
 import { EditPublicSurveyAlertDialog } from "@/modules/survey/components/edit-public-survey-alert-dialog";
 import { ElementsView } from "@/modules/survey/editor/components/elements-view";
 import { LoadingSkeleton } from "@/modules/survey/editor/components/loading-skeleton";
@@ -46,7 +46,7 @@ interface SurveyEditorProps {
   colors: string[];
   isUserTargetingAllowed?: boolean;
   isSpamProtectionAllowed?: boolean;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isUnsplashConfigured: boolean;
   isQuotasAllowed: boolean;
   isCxMode: boolean;
@@ -79,7 +79,7 @@ export const SurveyEditor = ({
   colors,
   isUserTargetingAllowed = false,
   isSpamProtectionAllowed = false,
-  isFormbricksCloud,
+  isTallynestCloud,
   isUnsplashConfigured,
   isQuotasAllowed,
   isCxMode = false,
@@ -254,7 +254,7 @@ export const SurveyEditor = ({
               invalidElements={invalidElements}
               setInvalidElements={setInvalidElements}
               selectedLanguageCode={selectedLanguageCode || "default"}
-              isFormbricksCloud={isFormbricksCloud}
+              isTallynestCloud={isTallynestCloud}
               isCxMode={isCxMode}
               locale={locale}
               responseCount={responseCount}
@@ -305,7 +305,7 @@ export const SurveyEditor = ({
               isUserTargetingAllowed={isUserTargetingAllowed}
               isSpamProtectionAllowed={isSpamProtectionAllowed}
               workspacePermission={workspacePermission}
-              isFormbricksCloud={isFormbricksCloud}
+              isTallynestCloud={isTallynestCloud}
               isQuotasAllowed={isQuotasAllowed}
               quotas={quotas}
               surveySchedulingConfig={surveySchedulingConfig}

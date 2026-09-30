@@ -341,7 +341,7 @@ export const getResponsesJson = (
         Timestamp: getFormattedDateTimeString(response.createdAt, timeZone),
         Finished: response.finished ? "Yes" : "No",
         "Survey ID": response.surveyId,
-        "Formbricks ID (internal)": response.contact?.id || "",
+        "Tallynest ID (internal)": response.contact?.id || "",
         "User ID": response.contact?.userId || "",
         Tags: response.tags.map((tag) => tag.name).join(", "),
       })

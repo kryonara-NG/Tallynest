@@ -16,10 +16,10 @@ import { convertToCsv } from "@/lib/utils/file-conversion";
 import { getOrganizationIdFromSurveyId, getWorkspaceIdFromSurveyId } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { generatePersonalLinks } from "@/modules/ee/contacts/lib/contacts";
 import { NO_CONTACTS_IN_SEGMENT_ERROR_CODE } from "@/modules/ee/contacts/lib/personal-link-errors";
-import { getIsContactsEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";
 import { getOrganizationLogoUrl } from "@/modules/ee/whitelabel/email-customization/lib/organization";
 import { sendEmbedSurveyPreviewEmail } from "@/modules/email";
 import { deleteResponsesAndDisplaysForSurvey } from "./lib/survey";
@@ -65,7 +65,7 @@ const ZResetSurveyAction = z.object({
 });
 
 export const resetSurveyAction = authenticatedActionClient.inputSchema(ZResetSurveyAction).action(
-  withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
     const organizationId = await getOrganizationIdFromSurveyId(parsedInput.surveyId);
     const workspaceId = await getWorkspaceIdFromSurveyId(parsedInput.surveyId);
 
@@ -118,7 +118,7 @@ const ZGenerateExampleResponsesAction = z.object({
 export const generateExampleResponsesAction = authenticatedActionClient
   .inputSchema(ZGenerateExampleResponsesAction)
   .action(
-    withAuditLogging("updated", "survey", async ({ ctx, parsedInput }) => {
+    withActivityContext("updated", "survey", async ({ ctx, parsedInput }) => {
       // Per-user limit (1 per minute). Closes the multi-click race window where
       // two clicks fired before the first LLM call returns could both pass the
       // responseCount === 0 check, and bounds a single user's overall LLM spend.
@@ -250,7 +250,7 @@ export const generatePersonalLinksAction = authenticatedActionClient
 
     // Prepare CSV data with the specified headers and order
     const csvHeaders = [
-      "Formbricks Contact ID",
+      "Tallynest Contact ID",
       "User ID",
       "First Name",
       "Last Name",
@@ -265,7 +265,7 @@ export const generatePersonalLinksAction = authenticatedActionClient
         }
         const attributes = contact.attributes ?? {};
         return {
-          "Formbricks Contact ID": contact.contactId,
+          "Tallynest Contact ID": contact.contactId,
           "User ID": attributes.userId ?? "",
           "First Name": attributes.firstName ?? "",
           "Last Name": attributes.lastName ?? "",

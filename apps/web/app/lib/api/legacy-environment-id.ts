@@ -5,7 +5,7 @@ import { logger } from "@formbricks/logger";
 /**
  * Backwards compatibility layer for the environment → workspace rename in API v1 responses.
  *
- * Before Formbricks 5, v1 surveys and webhooks carried an `environmentId`. Long-lived integrations
+ * Before Tallynest 5, v1 surveys and webhooks carried an `environmentId`. Long-lived integrations
  * built against v1 (Zapier, Make, n8n) still read that field — e.g. the Zapier "Response Finished"
  * trigger derives the subscription's environment id from the surveys it lists — so v1 keeps emitting
  * it as `legacyEnvironmentId ?? workspaceId`.

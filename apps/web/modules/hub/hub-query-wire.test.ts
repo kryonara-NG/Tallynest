@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import type FormbricksHub from "@formbricks/hub";
+import type TallynestHub from "@formbricks/hub";
 
 /**
  * The wire-format contract between our Hub params and the URL the Hub actually receives.
@@ -47,7 +47,7 @@ vi.mock("@/lib/cache", () => ({
 }));
 
 const globalForHub = globalThis as unknown as {
-  formbricksHubClientRepeatArrays: FormbricksHub | undefined;
+  formbricksHubClientRepeatArrays: TallynestHub | undefined;
 };
 
 let fetchMock: ReturnType<typeof vi.fn>;

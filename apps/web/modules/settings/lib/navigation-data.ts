@@ -16,7 +16,7 @@ import { getEnterpriseLicense } from "@/modules/ee/license-check/lib/license";
 import {
   getAccessControlPermission,
   getOrganizationWorkspacesLimit,
-} from "@/modules/ee/license-check/lib/utils";
+} from "@/modules/tallynest-core/entitlements";
 
 type TOrganizationWithBilling = NonNullable<Awaited<ReturnType<typeof getOrganization>>>;
 type TLicense = Awaited<ReturnType<typeof getEnterpriseLicense>>;
@@ -33,7 +33,7 @@ export interface TSettingsLayoutData {
   organizationWorkspacesLimit: number;
   license: TLicense;
   responseCount: number;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
   isDevelopment: boolean;
   // The "current" workspace used to render the sidebar's Workspace section, back link, and the
   // WorkspaceContext that reused settings components depend on. Null when the user has no workspace
@@ -132,7 +132,7 @@ export const getSettingsLayoutData = async (
     organizationWorkspacesLimit,
     license,
     responseCount,
-    isFormbricksCloud: IS_FORMBRICKS_CLOUD,
+    isTallynestCloud: IS_FORMBRICKS_CLOUD,
     isDevelopment: IS_DEVELOPMENT,
     currentWorkspace,
     backUrl: currentWorkspace ? `/workspaces/${currentWorkspace.id}/surveys` : "/",

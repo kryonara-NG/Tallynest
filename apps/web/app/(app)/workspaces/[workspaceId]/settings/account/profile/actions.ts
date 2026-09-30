@@ -17,7 +17,7 @@ import { auth } from "@/modules/auth/lib/auth";
 import { updateBrevoCustomer } from "@/modules/auth/lib/brevo";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/ee/audit-logs/lib/handler";
+import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
 import { sendVerificationNewEmail } from "@/modules/email";
 
 function buildUserUpdatePayload(parsedInput: TUserPersonalInfoUpdateInput): TUserUpdateInput {
@@ -92,7 +92,7 @@ async function handleEmailUpdate({
 }
 
 export const updateUserAction = authenticatedActionClient.inputSchema(ZUserPersonalInfoUpdateInput).action(
-  withAuditLogging("updated", "user", async ({ ctx, parsedInput }) => {
+  withActivityContext("updated", "user", async ({ ctx, parsedInput }) => {
     const oldObject = await getUser(ctx.user.id);
     assertNameUpdateAllowed({ ctx, parsedInput });
     let payload = buildUserUpdatePayload(parsedInput);
@@ -113,7 +113,7 @@ export const updateUserAction = authenticatedActionClient.inputSchema(ZUserPerso
 );
 
 export const resetPasswordAction = authenticatedActionClient.action(
-  withAuditLogging("passwordReset", "user", async ({ ctx }) => {
+  withActivityContext("passwordReset", "user", async ({ ctx }) => {
     if (PASSWORD_RESET_DISABLED) {
       throw new OperationNotAllowedError("Password reset is disabled");
     }

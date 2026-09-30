@@ -57,7 +57,7 @@ interface SignupFormProps {
   samlSsoEnabled: boolean;
   isTurnstileConfigured: boolean;
   turnstileSiteKey?: string;
-  isFormbricksCloud: boolean;
+  isTallynestCloud: boolean;
 }
 
 export const SignupForm = ({
@@ -77,7 +77,7 @@ export const SignupForm = ({
   samlSsoEnabled,
   isTurnstileConfigured,
   turnstileSiteKey,
-  isFormbricksCloud,
+  isTallynestCloud,
 }: Readonly<SignupFormProps>) => {
   const [showLogin, setShowLogin] = useState(false);
   const searchParams = useSearchParams();
@@ -327,7 +327,7 @@ export const SignupForm = ({
             )}
 
             {showLogin &&
-              (isFormbricksCloud ? (
+              (isTallynestCloud ? (
                 <label
                   htmlFor="product-updates"
                   className="my-4 flex cursor-pointer items-start gap-x-3 rounded-md border border-slate-200 bg-slate-100 p-3 text-left">

@@ -122,28 +122,28 @@ afterEach(() => {
 describe("docker/formbricks.sh RustFS bootstrap", () => {
   test("embedded init script stays in sync with the checked-in dev bootstrap script", () => {
     const tempDir = createTempDir();
-    const standaloneFormbricksScriptPath = join(tempDir, "formbricks.sh");
+    const standaloneTallynestScriptPath = join(tempDir, "formbricks.sh");
     const generatedScriptPath = join(tempDir, "rustfs-init.sh");
 
-    copyFileSync(formbricksScriptPath, standaloneFormbricksScriptPath);
-    writeRustfsInitScript(generatedScriptPath, standaloneFormbricksScriptPath);
+    copyFileSync(formbricksScriptPath, standaloneTallynestScriptPath);
+    writeRustfsInitScript(generatedScriptPath, standaloneTallynestScriptPath);
 
     expect(readFileSync(generatedScriptPath, "utf8")).toBe(readFileSync(rustfsInitTemplatePath, "utf8"));
   });
 
   test("generated init script remains readable with a restrictive installer umask", () => {
     const tempDir = createTempDir();
-    const standaloneFormbricksScriptPath = join(tempDir, "formbricks.sh");
+    const standaloneTallynestScriptPath = join(tempDir, "formbricks.sh");
     const generatedScriptPath = join(tempDir, "rustfs-init.sh");
 
-    copyFileSync(formbricksScriptPath, standaloneFormbricksScriptPath);
+    copyFileSync(formbricksScriptPath, standaloneTallynestScriptPath);
     execFileSync(
       "bash",
       [
         "-lc",
         'umask 077; source "$1"; write_rustfs_init_script "$2"',
         "bash",
-        standaloneFormbricksScriptPath,
+        standaloneTallynestScriptPath,
         generatedScriptPath,
       ],
       { encoding: "utf8" }

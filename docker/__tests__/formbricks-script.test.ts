@@ -74,7 +74,7 @@ const parseEnvFile = (contents: string): Map<string, string> =>
       })
   );
 
-const addFormbricksTraefikLabels = (
+const addTallynestTraefikLabels = (
   composePath: string,
   hstsEnabled: "y" | "n",
   httpsSetup: "y" | "n"
@@ -1053,7 +1053,7 @@ describe("docker/formbricks.sh Traefik label injection", () => {
   test("adds HTTPS Traefik labels to the formbricks service only", () => {
     const composePath = writeDockerComposeTemplate();
 
-    addFormbricksTraefikLabels(composePath, "y", "y");
+    addTallynestTraefikLabels(composePath, "y", "y");
 
     const composeContents = readFileSync(composePath, "utf8");
     const formbricksMigrateBlock = getServiceBlock(composeContents, "formbricks-migrate");
@@ -1090,7 +1090,7 @@ describe("docker/formbricks.sh Traefik label injection", () => {
   test("omits ACME certresolver labels when HTTPS setup is disabled", () => {
     const composePath = writeDockerComposeTemplate();
 
-    addFormbricksTraefikLabels(composePath, "y", "n");
+    addTallynestTraefikLabels(composePath, "y", "n");
 
     const composeContents = readFileSync(composePath, "utf8");
     const formbricksBlock = getServiceBlock(composeContents, "formbricks");
@@ -1105,7 +1105,7 @@ describe("docker/formbricks.sh Traefik label injection", () => {
   test("adds HTTP fallback labels when HSTS is disabled", () => {
     const composePath = writeDockerComposeTemplate();
 
-    addFormbricksTraefikLabels(composePath, "n", "n");
+    addTallynestTraefikLabels(composePath, "n", "n");
 
     const composeContents = readFileSync(composePath, "utf8");
     const formbricksMigrateBlock = getServiceBlock(composeContents, "formbricks-migrate");
@@ -1135,7 +1135,7 @@ describe("docker/formbricks.sh Traefik label injection", () => {
     );
 
     expect(() => {
-      addFormbricksTraefikLabels(composePath, "y", "y");
+      addTallynestTraefikLabels(composePath, "y", "y");
     }).toThrow();
     expect(existsSync(`${composePath}.tmp`)).toBe(false);
   });

@@ -6,7 +6,7 @@ import formbricks from "@formbricks/js";
 
 export const CHURN_SURVEY_PENDING_KEY = "churnSurveyPending";
 
-interface FormbricksProviderProps {
+interface TallynestProviderProps {
   workspaceId: string;
   appUrl: string;
   userId?: string | null;
@@ -15,16 +15,16 @@ interface FormbricksProviderProps {
 }
 
 /**
- * Initializes the Formbricks SDK on the client, identifies the logged-in user, and
+ * Initializes the Tallynest SDK on the client, identifies the logged-in user, and
  * tracks client-side route changes so page-triggered surveys fire on navigation.
  */
-export const FormbricksProvider = ({
+export const TallynestProvider = ({
   workspaceId,
   appUrl,
   userId,
   userEmail,
   userName,
-}: Readonly<FormbricksProviderProps>) => {
+}: Readonly<TallynestProviderProps>) => {
   const pathname = usePathname();
   // Guards against a second effect run (deps changing mid-flight) reading and tracking the same
   // marker again before the first run has cleared it.
@@ -34,7 +34,7 @@ export const FormbricksProvider = ({
   useEffect(() => {
     if (!workspaceId) return;
 
-    const setupFormbricks = async () => {
+    const setupTallynest = async () => {
       await formbricks.setup({ workspaceId, appUrl });
 
       if (userId) {
@@ -71,8 +71,8 @@ export const FormbricksProvider = ({
     };
 
     // Handle rejections so failed SDK calls don't become unhandled promise rejections.
-    setupFormbricks().catch((error) => {
-      console.error("Formbricks setup failed:", error);
+    setupTallynest().catch((error) => {
+      console.error("Tallynest setup failed:", error);
     });
   }, [workspaceId, appUrl, userId, userEmail, userName]);
 
@@ -80,7 +80,7 @@ export const FormbricksProvider = ({
   useEffect(() => {
     if (!workspaceId) return;
     formbricks.registerRouteChange().catch((error) => {
-      console.error("Formbricks route change failed:", error);
+      console.error("Tallynest route change failed:", error);
     });
   }, [workspaceId, pathname]);
 

@@ -21,7 +21,7 @@ const TELEMETRY_LAST_SENT_KEY = createCacheKey.custom("analytics", "telemetry_la
 let nextTelemetryCheck = 0;
 
 /**
- * Sends telemetry events to Formbricks Enterprise endpoint.
+ * Sends telemetry events to Tallynest Enterprise endpoint.
  * Uses a three-layer check system to prevent duplicate submissions:
  * 1. In-memory check (fast, process-local)
  * 2. Redis check (shared across instances, persists across restarts)
@@ -227,7 +227,7 @@ const getWorkflowNodeTypesInUse = async (): Promise<{ triggerTypes: string[]; ac
 };
 
 /**
- * Gathers telemetry data and sends it to Formbricks Enterprise endpoint.
+ * Gathers telemetry data and sends it to Tallynest Enterprise endpoint.
  * @param lastSent - Timestamp of last telemetry send (used to calculate incremental metrics)
  * @returns `true` when a usage update was accepted by the endpoint, `false` when there was nothing to
  * report. Throws when the update could not be delivered, so the caller applies its failure cooldown
@@ -369,7 +369,7 @@ const sendTelemetry = async (lastSent: number): Promise<boolean> => {
     },
     sso: ssoMap,
     meta: {
-      version: packageJson.version, // Formbricks version for compatibility tracking
+      version: packageJson.version, // Tallynest version for compatibility tracking
     },
     temporal: {
       instanceCreatedAt: instanceCreatedAt.toISOString(), // When instance was first created
@@ -377,9 +377,9 @@ const sendTelemetry = async (lastSent: number): Promise<boolean> => {
     },
   };
 
-  // Send telemetry to Formbricks Enterprise endpoint.
+  // Send telemetry to Tallynest Enterprise endpoint.
   // This endpoint collects usage statistics for enterprise license validation and analytics.
-  const url = `https://ee.formbricks.com/api/v1/instances/${instanceId}/usage-updates`;
+  const url = `https://ee.tallynest.app/api/v1/instances/${instanceId}/usage-updates`;
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout

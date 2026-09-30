@@ -6,7 +6,7 @@ import {
   FORMBRICKS_CLOUD_ACCOUNT_DELETION_SURVEY_URL,
 } from "@/modules/account/constants";
 import { auth } from "@/modules/auth/lib/auth";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
+import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { sendDeleteAccountConfirmationEmail } from "@/modules/email";
 import { requestSsoAccountDeletionEmail } from "./better-auth-account-deletion-request";
 
@@ -20,14 +20,14 @@ vi.mock("@/modules/auth/lib/session", () => ({ getSession: getSessionMock }));
 // constant (WEBAPP_URL, etc.) stays real so the Better Auth harness is untouched (auth.ts does not
 // read IS_FORMBRICKS_CLOUD).
 const { constantsOverrides } = vi.hoisted(() => ({
-  constantsOverrides: { isFormbricksCloud: false, signupEnabled: false },
+  constantsOverrides: { isTallynestCloud: false, signupEnabled: false },
 }));
 vi.mock("@/lib/constants", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/lib/constants")>();
   return {
     ...actual,
     get IS_FORMBRICKS_CLOUD() {
-      return constantsOverrides.isFormbricksCloud;
+      return constantsOverrides.isTallynestCloud;
     },
     // Derived from IS_FORMBRICKS_CLOUD / IS_DEVELOPMENT / E2E_TESTING, all false under vitest, so the
     // closed-signup policy (ENG-2293) otherwise admits only the first user on a fresh instance. The one
@@ -42,7 +42,7 @@ vi.mock("@/lib/constants", async (importOriginal) => {
 // when the license permits multiple organizations — so a test that needs a SECOND user has to say which.
 // Mirrors the mock in better-auth-account-deletion.integration.test.ts; defaults to false (single-org,
 // the real local shape) and is raised only by the test that needs two accounts.
-vi.mock("@/modules/ee/license-check/lib/utils", async (importOriginal) => {
+vi.mock("@/modules/tallynest-core/entitlements", async (importOriginal) => {
   const actual = await importOriginal<Record<string, unknown>>();
   return { ...actual, getIsMultiOrgEnabled: vi.fn() };
 });
@@ -75,7 +75,7 @@ const createVerifiedUser = async (email: string, password: string): Promise<stri
 beforeEach(async () => {
   await resetDb();
   vi.clearAllMocks();
-  constantsOverrides.isFormbricksCloud = false;
+  constantsOverrides.isTallynestCloud = false;
   constantsOverrides.signupEnabled = false;
   vi.mocked(getIsMultiOrgEnabled).mockResolvedValue(false);
 });
@@ -128,8 +128,8 @@ describe("requestSsoAccountDeletionEmail (real Postgres)", () => {
     expect(await prisma.user.findUnique({ where: { id: userId } })).toBeNull();
   });
 
-  test("on Formbricks Cloud, the emailed link still carries a relative callbackURL (ENG-3260)", async () => {
-    constantsOverrides.isFormbricksCloud = true;
+  test("on Tallynest Cloud, the emailed link still carries a relative callbackURL (ENG-3260)", async () => {
+    constantsOverrides.isTallynestCloud = true;
     const email = "ssocloud@example.com";
     const userId = await createVerifiedUser(email, "Passw0rd!");
     await prisma.user.update({ where: { id: userId }, data: { identityProvider: "google" } });
@@ -186,7 +186,7 @@ describe("requestSsoAccountDeletionEmail (real Postgres)", () => {
   };
 
   test("the emailed link survives originCheck end to end on a Cloud deployment and deletes the user", async () => {
-    constantsOverrides.isFormbricksCloud = true;
+    constantsOverrides.isTallynestCloud = true;
     const email = "ssocloudhttp@example.com";
     const { deleteLink, userId } = await requestDeleteLinkFor(email);
     const cookie = await signInCookie(email, "Passw0rd!");

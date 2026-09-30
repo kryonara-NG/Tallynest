@@ -8,7 +8,7 @@ declare global {
     formbricksSurveys?: {
       renderSurvey: (options: unknown) => void;
       // Optional: the surveys bundle is served by the (possibly self-hosted, older)
-      // Formbricks instance, so it may predate setNonce.
+      // Tallynest instance, so it may predate setNonce.
       setNonce?: (nonce: string | undefined) => void;
     };
   }

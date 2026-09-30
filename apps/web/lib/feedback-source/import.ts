@@ -2,7 +2,7 @@ import "server-only";
 import { logger } from "@formbricks/logger";
 import { InvalidInputError } from "@formbricks/types/errors";
 import {
-  TFeedbackSourceFormbricksMapping,
+  TFeedbackSourceTallynestMapping,
   TFeedbackSourceWithMappings,
 } from "@formbricks/types/feedback-source";
 import { TSurvey } from "@formbricks/types/surveys/types";
@@ -18,7 +18,7 @@ export type TImportResult = { successes: number; failures: number; skipped: numb
 const processBatch = async (
   responses: Awaited<ReturnType<typeof getResponses>>,
   survey: TSurvey,
-  mappings: TFeedbackSourceFormbricksMapping[],
+  mappings: TFeedbackSourceTallynestMapping[],
   tenantId: string,
   snapshotAt: Date
 ): Promise<TImportResult> => {
@@ -74,7 +74,7 @@ export const importHistoricalResponses = async (
   survey: TSurvey
 ): Promise<TImportResult> => {
   if (feedbackSource.type !== "formbricks_survey") {
-    throw new InvalidInputError("Historical import is only supported for Formbricks feedbackSources");
+    throw new InvalidInputError("Historical import is only supported for Tallynest feedbackSources");
   }
 
   let successes = 0;
