@@ -1,0 +1,1 @@
+export const getContacts=async(..._args:any[])=>[]; export const getContact=async(..._args:any[])=>null;
