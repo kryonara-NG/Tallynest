@@ -1,1 +1,1 @@
-import { notFound } from "next/navigation"; export default function BillingPage(){notFound();}
+import { notFound } from "next/navigation"; export const PricingPage=(_props:any)=>null; export default function BillingPage(){notFound();}
