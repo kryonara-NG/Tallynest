@@ -26,7 +26,7 @@ jobs:
       CUBEJS_API_URL: http://localhost:4000
       HUB_API_URL: http://localhost:3001
       HUB_API_KEY: tallynest-ci-hub-key
-      LOG_LEVEL: silent
+      LOG_LEVEL: fatal
       FORMBRICKS_APP_URL: http://localhost:3000
       IS_FORMBRICKS_CLOUD: "false"
       NEXT_PUBLIC_IS_FORMBRICKS_CLOUD: "false"
