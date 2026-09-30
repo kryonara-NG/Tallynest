@@ -40,6 +40,8 @@ jobs:
         run: corepack enable && corepack prepare pnpm@11.7.0 --activate
       - name: Install
         run: pnpm install --frozen-lockfile
+      - name: Remove local environment overrides
+        run: rm -f apps/web/.env
       - name: Prepare CI environment file
         run: |
           cat > .env <<EOF
