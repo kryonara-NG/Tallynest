@@ -1,0 +1,1 @@
+export const getSegmentActivity=async(..._args:any[])=>[];
