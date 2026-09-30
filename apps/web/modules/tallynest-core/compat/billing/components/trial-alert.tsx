@@ -1,0 +1,1 @@
+export const TrialAlert=(_props:any)=>null;
