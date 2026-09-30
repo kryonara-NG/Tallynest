@@ -1,0 +1,1 @@
+export const TrialBannerNew=(_props:any)=>null;
