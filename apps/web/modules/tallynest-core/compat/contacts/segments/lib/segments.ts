@@ -1,0 +1,1 @@
+export const getSegments=async(..._args:any[])=>[]; export const getSegment=async(..._args:any[])=>null;
