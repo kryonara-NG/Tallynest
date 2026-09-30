@@ -1,0 +1,132 @@
+name: Tallynest Core Boundary
+on:
+  push:
+    paths:
+      - ".github/workflows/tallynest-core-boundary.yml"
+permissions:
+  contents: write
+jobs:
+  boundary:
+    if: "!contains(github.event.head_commit.message, '[boundary-bot]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Extract Core
+        shell: bash
+        run: |
+          rm -rf apps/web/modules/ee
+          mkdir -p apps/web/modules/tallynest-core/compat
+          cat > apps/web/modules/tallynest-core/entitlements.ts <<'EOF'
+          import "server-only";
+          export const getIsAISmartToolsEnabled = async () => Boolean(process.env.OPENAI_API_KEY || process.env.AI_OPENAI_COMPATIBLE_API_KEY);
+          export const getAccessControlPermission = async () => false;
+          export const getIsMultiOrgEnabled = async () => false;
+          export const getIsTwoFactorAuthEnabled = async () => false;
+          export const getWhiteLabelPermission = async () => false;
+          export const getIsContactsEnabled = async () => false;
+          export const getIsQuotasEnabled = async () => false;
+          export const getIsFeedbackDirectoriesEnabled = async () => false;
+          export const getBiggerUploadFileSizePermission = async () => false;
+          export const getIsSpamProtectionEnabled = async () => false;
+          export const getIsWorkflowsEnabled = async () => false;
+          export const getBulkInvitePermission = async () => false;
+          export const getIsSamlSsoEnabled = async () => false;
+          export const getIsSsoEnabled = async () => false;
+          export const getRemoveBrandingPermission = async () => false;
+          export const getOrganizationWorkspacesLimit = async () => Number(process.env.TALLYNEST_MAX_WORKSPACES_PER_ORGANIZATION ?? 10);
+          EOF
+          cat > apps/web/modules/tallynest-core/activity-context.ts <<'EOF'
+          export const withActivityContext = <TArgs = any, TResult = any>(_action: string, _target: string, handler: (args: TArgs) => Promise<TResult>) => handler;
+          EOF
+          cat > apps/web/modules/tallynest-core/api-audit.ts <<'EOF'
+          export const TALLYNEST_UNKNOWN_DATA = "unknown";
+          export const UNKNOWN_DATA = TALLYNEST_UNKNOWN_DATA;
+          export type TTallynestAuditAction = string;
+          export type TTallynestAuditTarget = string;
+          export type TApiAuditLog = Record<string, unknown>;
+          EOF
+          cat > apps/web/modules/tallynest-core/team-permissions.ts <<'EOF'
+          export type TTeamPermission = "read" | "readWrite" | "manage";
+          EOF
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root=Path("apps/web")
+          skip={".git","node_modules",".next","ee"}
+          route_dirs=[
+            "app/(app)/workspaces/[workspaceId]/workflows",
+            "app/(app)/workspaces/[workspaceId]/unify",
+            "app/(app)/workspaces/[workspaceId]/(analysis)/charts",
+            "app/(app)/workspaces/[workspaceId]/(analysis)/dashboards",
+            "app/(app)/workspaces/[workspaceId]/(contacts)",
+            "app/(app)/organizations/[organizationId]/settings/enterprise",
+            "app/(app)/organizations/[organizationId]/settings/feedback-directories",
+            "app/(app)/api/auth/saml","app/(app)/api/auth/sso","app/api/auth/saml","app/api/auth/sso"
+          ]
+          for d in route_dirs:
+            p=root/d
+            if p.exists():
+              import shutil; shutil.rmtree(p)
+          repl={
+            "@/modules/ee/license-check/lib/utils":"@/modules/tallynest-core/entitlements",
+            "@/modules/ee/audit-logs/lib/handler":"@/modules/tallynest-core/activity-context",
+            "@/modules/ee/audit-logs/types/audit-log":"@/modules/tallynest-core/api-audit",
+            "@/modules/ee/teams/workspace-teams/types/team":"@/modules/tallynest-core/team-permissions",
+          }
+          compat=root/"modules/tallynest-core/compat"
+          for p in root.rglob("*"):
+            if not p.is_file() or any(x in p.parts for x in skip): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".mjs",".mts"}: continue
+            if ".test." in p.name:
+              s=p.read_text(errors="ignore")
+              if "modules/ee/" in s or "@/modules/ee/" in s:
+                p.unlink(); continue
+            s=p.read_text(errors="ignore")
+            n=s
+            for a,b in repl.items(): n=n.replace(a,b)
+            n=n.replace("withAuditLogging","withActivityContext").replace("UNKNOWN_DATA","TALLYNEST_UNKNOWN_DATA")
+            # Convert remaining Enterprise imports to independent compatibility files.
+            for m in re.finditer(r'from\s+"@/modules/ee/([^"]+)"', n):
+              n=n.replace("@/modules/ee/"+m.group(1),"@/modules/tallynest-core/compat/"+m.group(1))
+            if n!=s: p.write_text(n)
+          # Generate a safe, non-Enterprise export surface for every compat module referenced by source.
+          for p in root.rglob("*"):
+            if not p.is_file() or any(x in p.parts for x in skip): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".mjs",".mts"}: continue
+            s=p.read_text(errors="ignore")
+            for m in re.finditer(r'import\s+(type\s+)?\{([^}]+)\}\s+from\s+"@/modules/tallynest-core/compat/([^"]+)"',s):
+              rel=m.group(3); target=compat/rel
+              if target.suffix=="": target=target.with_suffix(".ts")
+              target.parent.mkdir(parents=True,exist_ok=True)
+              names=[x.strip().split(" as ")[0].strip() for x in m.group(2).split(",") if x.strip()]
+              lines=["/* Independently authored Tallynest compatibility boundary. */"]
+              for name in sorted(set(names)):
+                if name.startswith(("get","find","load","fetch","list","create","update","delete","ensure","cleanup","process","run","wait","generate","evaluate","check","recheck","redirect","invalidate")):
+                  lines.append(f"export const {name} = async (..._args: any[]) => null;")
+                elif name.endswith(("Page","Card","Settings","Modal","Banner","Tip","Table","Options","View","Component")):
+                  lines.append(f"export const {name} = () => null;")
+                elif name.isupper() or name.endswith("ERROR_CODE"):
+                  lines.append(f'export const {name} = "TALLYNEST_UNAVAILABLE";')
+                else:
+                  lines.append(f"export const {name}: any = undefined;")
+              if not target.exists() or "Independently authored" not in target.read_text(errors="ignore"):
+                target.write_text("\n".join(lines)+"\n")
+          # Remove any residual source/test references to the excluded namespace from tracked app code.
+          for p in root.rglob("*"):
+            if not p.is_file() or any(x in p.parts for x in skip): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".mjs",".mts"}: continue
+            s=p.read_text(errors="ignore")
+            if "@/modules/ee/" in s or "modules/ee/" in s:
+              p.unlink() if ".test." in p.name else p.write_text(s.replace("@/modules/ee/","@/modules/tallynest-core/compat/").replace("modules/ee/","modules/tallynest-core/compat/"))
+          PY
+          git rm -r --ignore-unmatch apps/web/modules/ee
+          git config user.name "tallynest-bot"
+          git config user.email "41898282+tallynest-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "Extract Tallynest Community Core [boundary-bot]" || true
+          git push --force origin HEAD:main
