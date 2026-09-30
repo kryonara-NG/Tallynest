@@ -3,6 +3,13 @@ packages:
   - "docker"
   - "packages/*"
 
+onlyBuiltDependencies:
+  - "@prisma/client"
+  - "@prisma/engines"
+  - prisma
+  - esbuild
+  - sharp
+
 allowBuilds:
   "@prisma/engines": true
   "@sentry/cli": true
