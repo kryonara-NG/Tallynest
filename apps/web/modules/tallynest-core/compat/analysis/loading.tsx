@@ -1,1 +1,1 @@
-export default function Loading(){return null;}
+export const AnalysisListLoading=(_props:any)=>null; export default function Loading(){return null;}
