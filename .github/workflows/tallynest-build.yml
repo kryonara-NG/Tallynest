@@ -21,6 +21,11 @@ jobs:
       BETTER_AUTH_URL: http://localhost:3000
       BETTER_AUTH_SECRET: tallynest-ci-secret-tallynest-ci-secret
       CRON_SECRET: tallynest-ci-cron
+      ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      CUBEJS_API_SECRET: tallynest-ci-cube-secret
+      CUBEJS_API_URL: http://localhost:4000
+      HUB_API_URL: http://localhost:3001
+      HUB_API_KEY: tallynest-ci-hub-key
       LOG_LEVEL: silent
       FORMBRICKS_APP_URL: http://localhost:3000
       IS_FORMBRICKS_CLOUD: "false"
