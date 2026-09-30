@@ -1,0 +1,1 @@
+export const getOrganizationEmailCustomization=async(..._args:any[])=>null;
