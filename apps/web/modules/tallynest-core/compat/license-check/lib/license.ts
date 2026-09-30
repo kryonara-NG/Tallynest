@@ -1,0 +1,1 @@
+export const getEnterpriseLicense=async(..._args:any[])=>({status:"no-license",features:{}});
