@@ -1,0 +1,1 @@
+export const getContactSurveyLink=async(..._args:any[])=>null;
