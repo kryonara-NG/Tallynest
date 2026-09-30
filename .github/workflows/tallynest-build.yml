@@ -40,6 +40,23 @@ jobs:
         run: corepack enable && corepack prepare pnpm@11.7.0 --activate
       - name: Install
         run: pnpm install --frozen-lockfile
+      - name: Prepare CI environment file
+        run: |
+          cat > .env <<EOF
+          DATABASE_URL=$DATABASE_URL
+          REDIS_URL=$REDIS_URL
+          ENCRYPTION_KEY=$ENCRYPTION_KEY
+          CUBEJS_API_SECRET=$CUBEJS_API_SECRET
+          CUBEJS_API_URL=$CUBEJS_API_URL
+          HUB_API_URL=$HUB_API_URL
+          HUB_API_KEY=$HUB_API_KEY
+          WEBAPP_URL=$WEBAPP_URL
+          NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL
+          BETTER_AUTH_URL=$BETTER_AUTH_URL
+          BETTER_AUTH_SECRET=$BETTER_AUTH_SECRET
+          CRON_SECRET=$CRON_SECRET
+          LOG_LEVEL=$LOG_LEVEL
+          EOF
       - name: Generate
         run: pnpm generate
       - name: Typecheck
