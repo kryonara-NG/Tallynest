@@ -10,7 +10,7 @@ import { deleteOrganization, getOrganization, updateOrganization } from "@/lib/o
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { AuthenticatedActionClientCtx } from "@/lib/utils/action-client/types/context";
 import { getTranslate } from "@/lingodotdev/server";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import {
   ZOrganizationAISettingsInput,

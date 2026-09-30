@@ -21,7 +21,7 @@ import {
 } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { getFeedbackDirectoriesByWorkspaceId } from "@/modules/tallynest-core/compat/feedback-directory/lib/feedback-directory";
 import { getContactIdsByUserIds } from "@/modules/tallynest-core/compat/unify-feedback/lib/contacts";
 import { listFeedbackRecords } from "@/modules/hub/service";

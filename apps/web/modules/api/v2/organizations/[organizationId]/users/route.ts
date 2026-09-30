@@ -25,7 +25,7 @@ import {
   ZUserInput,
   ZUserInputPatch,
 } from "@/modules/api/v2/organizations/[organizationId]/users/types/users";
-import { UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export const GET = async (request: NextRequest, props: { params: Promise<{ organizationId: string }> }) =>
   authenticatedApiClient({
@@ -233,7 +233,7 @@ export const PATCH = async (request: Request, props: { params: Promise<{ organiz
         );
       }
 
-      let oldUserData: any = UNKNOWN_DATA;
+      let oldUserData: any = TALLYNEST_UNKNOWN_DATA;
       try {
         const oldUserResult = await getUsers(authentication.organizationId, {
           email: body.email,
@@ -250,7 +250,7 @@ export const PATCH = async (request: Request, props: { params: Promise<{ organiz
       }
 
       if (auditLog) {
-        auditLog.targetId = oldUserData !== UNKNOWN_DATA ? oldUserData?.id : UNKNOWN_DATA;
+        auditLog.targetId = oldUserData !== TALLYNEST_UNKNOWN_DATA ? oldUserData?.id : TALLYNEST_UNKNOWN_DATA;
       }
 
       const updateUserResult = await updateUser(body, authentication.organizationId);
@@ -259,7 +259,7 @@ export const PATCH = async (request: Request, props: { params: Promise<{ organiz
       }
 
       if (auditLog) {
-        auditLog.targetId = auditLog.targetId === UNKNOWN_DATA ? updateUserResult.data.id : auditLog.targetId;
+        auditLog.targetId = auditLog.targetId === TALLYNEST_UNKNOWN_DATA ? updateUserResult.data.id : auditLog.targetId;
         auditLog.oldObject = oldUserData;
         auditLog.newObject = updateUserResult.data;
       }

@@ -1,1 +1,2 @@
-export async function POST(){return new Response("Not available",{status:404});}
+/* Independently authored Tallynest compatibility boundary. */
+export const PUT = "TALLYNEST_UNAVAILABLE";

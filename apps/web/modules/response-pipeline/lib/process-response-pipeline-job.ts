@@ -19,7 +19,7 @@ import { isDatabasePoolExhaustionError } from "@/lib/jobs/pool-exhaustion";
 import { getResponseCountBySurveyId } from "@/lib/response/service";
 import { sendTelemetryEvents } from "@/lib/telemetry/usage-update";
 import { queueAuditEventWithoutRequest } from "@/modules/tallynest-core/activity-context";
-import { type TAuditStatus, UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { type TAuditStatus, TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import { recordResponseCreatedMeterEvent } from "@/modules/tallynest-core/compat/billing/lib/metering";
 import { dispatchWorkflowRunViaJobs } from "@/modules/tallynest-core/compat/workflows/lib/runner/dispatch";
 import { enqueueResponseCompletedWorkflowRuns } from "@/modules/tallynest-core/compat/workflows/lib/runner/enqueue-response-completed-runs";
@@ -534,7 +534,7 @@ const handleSurveyAutoCompleteSafely = async ({
       status: logStatus,
       action: "updated",
       targetType: "survey",
-      userId: UNKNOWN_DATA,
+      userId: TALLYNEST_UNKNOWN_DATA,
       userType: "system",
       targetId: survey.id,
       organizationId,

@@ -1,1 +1,2 @@
-export async function POST(){return new Response("Billing is not part of Tallynest core",{status:404});}
+/* Independently authored Tallynest compatibility boundary. */
+export const POST = "TALLYNEST_UNAVAILABLE";

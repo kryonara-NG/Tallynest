@@ -10,7 +10,7 @@ import { createOrganization } from "@/lib/organization/service";
 import { capturePostHogEvent, getEmailDomain, groupIdentifyPostHog } from "@/lib/posthog";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { DEFAULT_WORKSPACE_NAME } from "@/lib/workspace/constants";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { ensureCloudStripeSetupForOrganization } from "@/modules/tallynest-core/compat/billing/lib/organization-billing";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { createWorkspace } from "@/modules/workspaces/settings/lib/workspace";

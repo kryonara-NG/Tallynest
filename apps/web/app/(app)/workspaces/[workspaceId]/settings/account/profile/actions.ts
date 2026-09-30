@@ -17,7 +17,7 @@ import { auth } from "@/modules/auth/lib/auth";
 import { updateBrevoCustomer } from "@/modules/auth/lib/brevo";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { sendVerificationNewEmail } from "@/modules/email";
 
 function buildUserUpdatePayload(parsedInput: TUserPersonalInfoUpdateInput): TUserUpdateInput {
@@ -32,7 +32,7 @@ function buildUserUpdatePayload(parsedInput: TUserPersonalInfoUpdateInput): TUse
  * the address.
  *
  * The identity provider owns `User.name` — it is re-read on every sign-in (`overrideUserInfo` in
- * modules/ee/sso/lib/better-auth-providers.ts) — so `EditProfileDetailsForm` renders the input
+ * modules/tallynest-core/compat/sso/lib/better-auth-providers.ts) — so `EditProfileDetailsForm` renders the input
  * disabled. That is presentation, not enforcement: this action takes `name` straight off the request,
  * so a crafted call would still land a write that sticks until the user's next sign-in silently
  * reverts it. Enforce it at the boundary instead.

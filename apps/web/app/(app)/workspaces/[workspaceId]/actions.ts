@@ -10,7 +10,7 @@ import { capturePostHogEvent, groupIdentifyPostHog } from "@/lib/posthog";
 import { updateUser } from "@/lib/user/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationWorkspacesCount } from "@/lib/workspace/service";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import {
   getAccessControlPermission,
   getOrganizationWorkspacesLimit,

@@ -6,7 +6,7 @@ import { assertCan } from "@/lib/authorization";
 import { capturePostHogEvent } from "@/lib/posthog";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromApiKeyId } from "@/lib/utils/helper";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import {
   createApiKey,
   deleteApiKey,

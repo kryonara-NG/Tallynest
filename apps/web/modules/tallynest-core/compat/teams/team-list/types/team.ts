@@ -1,1 +1,2 @@
-export type TTeam={id:string;name:string;};
+/* Independently authored Tallynest compatibility boundary. */
+export const TOrganizationTeam: any = undefined;

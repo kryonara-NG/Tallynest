@@ -1,1 +1,2 @@
-export const getEnrichmentStatus=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const TEnrichmentStatusResponse: any = undefined;

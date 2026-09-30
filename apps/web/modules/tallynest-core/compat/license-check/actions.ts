@@ -1,1 +1,2 @@
-export const requestEnterpriseLicense=async(..._args:any[])=>null; export const activateEnterpriseLicense=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const recheckLicenseAction = async (..._args: any[]) => null;

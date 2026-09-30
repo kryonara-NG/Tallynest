@@ -1,1 +1,2 @@
-export const createBillingPortal=async(..._args:any[])=>null; export const handleBillingAction=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const waitForBillingPlanAction = async (..._args: any[]) => null;

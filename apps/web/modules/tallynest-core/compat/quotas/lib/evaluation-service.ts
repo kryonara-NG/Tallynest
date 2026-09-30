@@ -1,1 +1,2 @@
-export const evaluateQuotas=async(..._args:any[])=>({allowed:true,quotas:[]}); export const evaluateQuota=async(..._args:any[])=>({allowed:true});
+/* Independently authored Tallynest compatibility boundary. */
+export const evaluateResponseQuotas = async (..._args: any[]) => null;

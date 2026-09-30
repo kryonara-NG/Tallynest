@@ -70,7 +70,7 @@ const canAccessFeedbackDirectoryAssignment = async (
  * Resolve (and authorize) the Hub tenant for a feedback-records request. This is the single tenant-
  * isolation choke point for every tool: workspace access → feedback-directories license gate →
  * dataset membership → the resolved Hub tenant (= the FeedbackDirectory id, `dataset_id` on the wire).
- * Mirrors the Unify read path (`modules/ee/unify-feedback/page.tsx`). `tenant_id` is never taken from caller input.
+ * Mirrors the Unify read path (`modules/tallynest-core/compat/unify-feedback/page.tsx`). `tenant_id` is never taken from caller input.
  */
 export async function resolveWorkspaceFeedbackTenant({
   authentication,

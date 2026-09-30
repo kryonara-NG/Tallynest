@@ -6,7 +6,7 @@ import { AuthenticationError } from "@formbricks/types/errors";
 import { ZUserEmail, ZUserName } from "@formbricks/types/user";
 import { INVITE_DISABLED } from "@/lib/constants";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { sendInviteMemberEmail } from "@/modules/email";
 import { applyInviteRateLimit } from "@/modules/organization/settings/teams/lib/invite-rate-limit";
 import { checkSetupInviteAuthorization } from "@/modules/setup/organization/[organizationId]/invite/lib/authorization";

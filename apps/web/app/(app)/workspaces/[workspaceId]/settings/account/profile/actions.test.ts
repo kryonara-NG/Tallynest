@@ -22,7 +22,7 @@ vi.mock("@/lib/utils/action-client", () => ({
   },
 }));
 vi.mock("@/modules/tallynest-core/activity-context", () => ({
-  withAuditLogging: vi.fn((_eventName, _objectType, fn) => fn),
+  withActivityContext: vi.fn((_eventName, _objectType, fn) => fn),
 }));
 vi.mock("@/lib/user/service", () => ({ getUser: mocks.getUser, updateUser: mocks.updateUser }));
 vi.mock("@/app/(app)/workspaces/[workspaceId]/settings/account/profile/lib/user", () => ({

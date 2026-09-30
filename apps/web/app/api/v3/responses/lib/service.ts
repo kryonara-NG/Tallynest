@@ -172,7 +172,7 @@ export async function deleteScopedResponse(
 
       // Deliberately no `reduceQuotaLimits` here. `ON DELETE CASCADE` drops the `ResponseQuotaLink`
       // rows, and the only fullness predicate in the repo is `screenedInCount >= quota.limit`
-      // (`modules/ee/quotas/lib/utils.ts`) counting those same live rows — so the cascade *already*
+      // (`modules/tallynest-core/compat/quotas/lib/utils.ts`) counting those same live rows — so the cascade *already*
       // gives the capacity back. Decrementing `limit` on top of that cancels the slot the cascade freed
       // and permanently shrinks a customer-configured setting that nothing restores; repeated deletes
       // ratchet it down. `limit` is user-facing ("Limit" in the quota editor), and the dashboard's

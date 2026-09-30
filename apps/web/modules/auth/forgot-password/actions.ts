@@ -13,7 +13,7 @@ import { auth } from "@/modules/auth/lib/auth";
 import { getUserByEmail } from "@/modules/auth/lib/user";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 
 /**
  * Whether this user has a password to reset. Pure SSO users do not, and are silently skipped — Better
@@ -81,7 +81,7 @@ export const forgotPasswordAction = actionClient.inputSchema(ZForgotPasswordActi
 
     if (user && (await canResetPassword(user))) {
       // Target the audited event at the account the reset was requested for. The ACTOR stays
-      // `UNKNOWN_DATA` because this action is unauthenticated by design — which is the honest record:
+      // `TALLYNEST_UNKNOWN_DATA` because this action is unauthenticated by design — which is the honest record:
       // someone who knows the address asked for a reset.
       ctx.auditLoggingCtx.userId = user.id;
       try {

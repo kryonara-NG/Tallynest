@@ -4,7 +4,7 @@ import { logger } from "@formbricks/logger";
 import { cache } from "@/lib/cache";
 import { hashSecret, verifySecret } from "@/lib/crypto";
 import { queueAuditEventBackground } from "@/modules/tallynest-core/activity-context";
-import { TAuditAction, TAuditStatus, UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TAuditAction, TAuditStatus, TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export const hashPassword = async (password: string) => {
   return await hashSecret(password, 12);
@@ -24,7 +24,7 @@ export const verifyPassword = async (password: string, hashedPassword: string) =
  */
 export const createAuditIdentifier = (identifier: string, prefix: string = "actor"): string => {
   if (!identifier || identifier === "unknown" || identifier === "unknown_user") {
-    return UNKNOWN_DATA;
+    return TALLYNEST_UNKNOWN_DATA;
   }
 
   // Create a consistent hash that can be used for pattern detection
@@ -40,7 +40,7 @@ export const logAuthEvent = (
   email?: string,
   additionalData: Record<string, any> = {}
 ) => {
-  const auditActorId = userId === UNKNOWN_DATA && email ? createAuditIdentifier(email, "email") : userId;
+  const auditActorId = userId === TALLYNEST_UNKNOWN_DATA && email ? createAuditIdentifier(email, "email") : userId;
 
   // Auth failures are NOT sent to Sentry: they're expected (wrong password / unknown user), so
   // capturing every attempt was noise, not signal. The security trail is the audit log below
@@ -51,7 +51,7 @@ export const logAuthEvent = (
     targetType: "user",
     userId: auditActorId,
     targetId: auditActorId,
-    organizationId: UNKNOWN_DATA,
+    organizationId: TALLYNEST_UNKNOWN_DATA,
     status,
     userType: "user",
     newObject: {
@@ -66,7 +66,7 @@ export const logAuthEvent = (
  * @param failureReason - Specific reason for authentication failure
  * @param provider - Authentication provider (credentials, token, etc.)
  * @param authMethod - Authentication method (password, totp, backup_code, etc.)
- * @param userId - User ID (use UNKNOWN_DATA if not available)
+ * @param userId - User ID (use TALLYNEST_UNKNOWN_DATA if not available)
  * @param email - User email (optional) - used ONLY to create hashed identifier, never stored
  * @param additionalData - Additional context data
  */
@@ -74,7 +74,7 @@ export const logAuthAttempt = (
   failureReason: string,
   provider: string,
   authMethod: string,
-  userId: string = UNKNOWN_DATA,
+  userId: string = TALLYNEST_UNKNOWN_DATA,
   email?: string,
   additionalData: Record<string, any> = {}
 ) => {
@@ -145,14 +145,14 @@ export const logTwoFactorAttempt = (
  *
  * @param isSuccess - Whether the verification was successful
  * @param failureReason - Failure reason (only for failed attempts)
- * @param userId - User ID (use UNKNOWN_DATA if not available)
+ * @param userId - User ID (use TALLYNEST_UNKNOWN_DATA if not available)
  * @param email - User email (optional) - used ONLY to create hashed identifier, never stored
  * @param additionalData - Additional context data
  */
 export const logEmailVerificationAttempt = (
   isSuccess: boolean,
   failureReason?: string,
-  userId: string = UNKNOWN_DATA,
+  userId: string = TALLYNEST_UNKNOWN_DATA,
   email?: string,
   additionalData: Record<string, any> = {}
 ) => {

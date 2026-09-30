@@ -18,7 +18,7 @@ import {
 } from "@/modules/api/v2/management/webhooks/[webhookId]/lib/webhook";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import {
   createWebhook,
   deleteWebhook,

@@ -16,7 +16,7 @@ import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromWorkspaceId, getWorkspaceIdFromLanguageId } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 
 const ZCreateLanguageAction = z.object({
   workspaceId: ZId,

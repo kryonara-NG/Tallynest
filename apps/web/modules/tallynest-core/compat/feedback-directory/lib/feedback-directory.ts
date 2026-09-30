@@ -1,1 +1,2 @@
-export const getFeedbackDirectories=async(..._args:any[])=>[]; export const getFeedbackDirectory=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const getFeedbackDirectoriesByWorkspaceId = async (..._args: any[]) => null;

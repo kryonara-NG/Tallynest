@@ -1,1 +1,2 @@
-export const getContactSurveyLink=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const verifyContactSurveyToken: any = undefined;

@@ -22,7 +22,7 @@ import {
   successListResponse,
   successResponse,
 } from "@/app/api/v3/lib/response";
-import { UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 import { registerFeedbackRecordTools } from "./feedback-records";
 import { ZMcpUpdateFeedbackRecordInput } from "./schemas";
 
@@ -719,11 +719,11 @@ describe("count_feedback_records", () => {
 });
 
 describe("create_feedback_records", () => {
-  // buildAuditLogBaseObject seeds `targetId` with the UNKNOWN_DATA placeholder and the batch path
+  // buildAuditLogBaseObject seeds `targetId` with the TALLYNEST_UNKNOWN_DATA placeholder and the batch path
   // branches on it, so the mock has to carry it. Omitting it (as these tests used to) makes a plain
   // truthiness check pass here while matching every entry in production — which is how the batch path
   // came to emit success events for records the Hub had rejected.
-  const makeAuditLog = () => ({ status: "failure", targetId: UNKNOWN_DATA }) as any;
+  const makeAuditLog = () => ({ status: "failure", targetId: TALLYNEST_UNKNOWN_DATA }) as any;
   const records = [
     { source_type: "call_notes", field_id: "note", field_type: "text", value_text: "one" },
     { source_type: "call_notes", field_id: "note", field_type: "text", value_text: "two" },
@@ -765,7 +765,7 @@ describe("create_feedback_records", () => {
     expect(built[1].status).toBe("failure");
     // The rejected record keeps the placeholder, so it must never be reported as a creation: an
     // audit trail that invents records is worse than one with gaps.
-    expect(built[1].targetId).toBe(UNKNOWN_DATA);
+    expect(built[1].targetId).toBe(TALLYNEST_UNKNOWN_DATA);
     expect(vi.mocked(queueV3AuditLog).mock.calls[0][0]).toBe(built[0]);
   });
 

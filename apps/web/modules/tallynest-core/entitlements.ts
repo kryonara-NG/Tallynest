@@ -1,5 +1,4 @@
 import "server-only";
-const enabled = (v: string | undefined) => v === "true" || v === "1";
 export const getIsAISmartToolsEnabled = async () => Boolean(process.env.OPENAI_API_KEY || process.env.AI_OPENAI_COMPATIBLE_API_KEY);
 export const getAccessControlPermission = async () => false;
 export const getIsMultiOrgEnabled = async () => false;
@@ -16,4 +15,3 @@ export const getIsSamlSsoEnabled = async () => false;
 export const getIsSsoEnabled = async () => false;
 export const getRemoveBrandingPermission = async () => false;
 export const getOrganizationWorkspacesLimit = async () => Number(process.env.TALLYNEST_MAX_WORKSPACES_PER_ORGANIZATION ?? 10);
-export const isTallynestCloud = () => enabled(process.env.TALLYNEST_CLOUD);

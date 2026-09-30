@@ -17,7 +17,7 @@ import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { getOrganizationIdFromInviteId } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { getBulkInvitePermission, getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { checkRoleManagementPermission } from "@/modules/tallynest-core/compat/role-management/actions";
 import { getTeamsWhereUserIsAdmin } from "@/modules/tallynest-core/compat/teams/lib/roles";

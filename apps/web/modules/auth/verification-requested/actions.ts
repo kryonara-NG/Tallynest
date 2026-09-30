@@ -27,7 +27,7 @@ import {
 } from "@/modules/auth/lib/verification-links";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import {
   type TSsoRecoveryIntent,
   getSsoRecoveryPairedTtlSeconds,

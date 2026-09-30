@@ -7,7 +7,7 @@ import { updateBrevoCustomer } from "@/modules/auth/lib/brevo";
 import { getUser, updateUser } from "@/modules/auth/lib/user";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 
 export const verifyEmailChangeAction = actionClient.inputSchema(z.object({ token: z.string() })).action(
   withActivityContext("updated", "user", async ({ ctx, parsedInput }) => {

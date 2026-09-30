@@ -1,1 +1,2 @@
-export const getContacts=async(..._args:any[])=>[]; export const getContact=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const generatePersonalLinks = async (..._args: any[]) => null;

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { ZUserNotificationSettings } from "@formbricks/types/user";
 import { getUser, updateUser } from "@/lib/user/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 
 const ZUpdateNotificationSettingsAction = z.object({
   notificationSettings: ZUserNotificationSettings,

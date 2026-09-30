@@ -16,7 +16,7 @@ import { convertToCsv } from "@/lib/utils/file-conversion";
 import { getOrganizationIdFromSurveyId, getWorkspaceIdFromSurveyId } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { generatePersonalLinks } from "@/modules/tallynest-core/compat/contacts/lib/contacts";
 import { NO_CONTACTS_IN_SEGMENT_ERROR_CODE } from "@/modules/tallynest-core/compat/contacts/lib/personal-link-errors";
 import { getIsContactsEnabled } from "@/modules/tallynest-core/entitlements";

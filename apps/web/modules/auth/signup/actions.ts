@@ -52,7 +52,7 @@ import { createTeamMembership } from "@/modules/auth/signup/lib/team";
 import { verifyTurnstileToken } from "@/modules/auth/signup/lib/utils";
 import { applyIPRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { ensureCloudStripeSetupForOrganization } from "@/modules/tallynest-core/compat/billing/lib/organization-billing";
 import { getIsMultiOrgEnabled } from "@/modules/tallynest-core/entitlements";
 import { subscribeUserToMailingList } from "@/modules/tallynest-core/compat/mailing/lib/mailing-subscription";
@@ -503,8 +503,8 @@ export const createUserAction = actionClient.inputSchema(ZCreateUserAction).acti
       ctx.auditLoggingCtx.newObject = user;
     } else {
       // No account was created, so no `created` event may be written. Attribution alone is not enough:
-      // `withAuditLogging` wraps the whole action with a fixed action name and cannot see which branch
-      // ran, so without this it still logged a SUCCESSFUL `created` for an UNKNOWN_DATA target — a false
+      // `withActivityContext` wraps the whole action with a fixed action name and cannot see which branch
+      // ran, so without this it still logged a SUCCESSFUL `created` for an TALLYNEST_UNKNOWN_DATA target — a false
       // creation record on audit-enabled deployments (raised by @BhagyaAmarasinghe in review).
       //
       // The response stays byte-identical either way (ENG-2099) — this changes only what we record, and

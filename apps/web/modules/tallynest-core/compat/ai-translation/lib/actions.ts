@@ -1,1 +1,2 @@
-export const translateSurvey=async(..._args:any[])=>null; export const translateText=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const checkAITranslationAvailableAction = async (..._args: any[]) => null;

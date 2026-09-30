@@ -66,7 +66,7 @@ const verifyTriggerSurvey: WorkflowApiContext["verifyTriggerSurvey"] = async ({
  * event.
  *
  * Organization resolution: the API-key path already set `auditLog.organizationId` from the key's
- * org (see `buildV3AuditLog`); the session path leaves it as `UNKNOWN_DATA`, so we resolve the
+ * org (see `buildV3AuditLog`); the session path leaves it as `TALLYNEST_UNKNOWN_DATA`, so we resolve the
  * workflow's real org from `detail.workspaceId` (a first-class field — never inferred from the
  * snapshots, so snapshot reshaping or PII redaction can't silently regress it). Any failure is
  * swallowed and logged — an audit problem must never break or alter an already-successful mutation.

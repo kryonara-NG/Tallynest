@@ -44,7 +44,7 @@ vi.mock("@/lingodotdev/server", () => ({
 }));
 
 vi.mock("@/modules/tallynest-core/activity-context", () => ({
-  withAuditLogging: vi.fn((_eventName, _objectType, fn) => fn),
+  withActivityContext: vi.fn((_eventName, _objectType, fn) => fn),
 }));
 
 vi.mock("@/modules/tallynest-core/entitlements", () => ({

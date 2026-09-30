@@ -20,7 +20,7 @@ import {
   getApiKeyCreatorRole,
 } from "@/modules/api/v2/organizations/[organizationId]/users/lib/utils";
 import { ApiErrorResponseV2 } from "@/modules/api/v2/types/api-error";
-import { UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
+import { TALLYNEST_UNKNOWN_DATA } from "@/modules/tallynest-core/api-audit";
 
 export const GET = async (
   request: Request,
@@ -101,7 +101,7 @@ export const DELETE = async (
         );
       }
 
-      let oldTeamData: any = UNKNOWN_DATA;
+      let oldTeamData: any = TALLYNEST_UNKNOWN_DATA;
       try {
         const oldTeamResult = await getTeam(params.organizationId, params.teamId);
         if (oldTeamResult.ok) {
@@ -173,7 +173,7 @@ export const PUT = (
         );
       }
 
-      let oldTeamData: any = UNKNOWN_DATA;
+      let oldTeamData: any = TALLYNEST_UNKNOWN_DATA;
       try {
         const oldTeamResult = await getTeam(params.organizationId, params.teamId);
         if (oldTeamResult.ok) {

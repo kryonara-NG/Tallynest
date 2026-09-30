@@ -1,1 +1,2 @@
-export const runWithSsoRequestContext=async<T>(fn:()=>Promise<T>)=>fn();
+/* Independently authored Tallynest compatibility boundary. */
+export const runWithSsoRequestContext = async (..._args: any[]) => null;

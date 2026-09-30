@@ -1,1 +1,2 @@
-export const getQuotaLimit=async(..._args:any[])=>null; export const hasQuotaReached=(..._args:any[])=>false;
+/* Independently authored Tallynest compatibility boundary. */
+export const createQuotaFullObject = async (..._args: any[]) => null;

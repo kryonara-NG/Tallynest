@@ -22,7 +22,7 @@ import {
 } from "@/lib/utils/helper";
 import { applyRateLimit } from "@/modules/core/rate-limit/helpers";
 import { rateLimitConfigs } from "@/modules/core/rate-limit/rate-limit-configs";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { createActionClass } from "@/modules/survey/editor/lib/action-class";
 import { checkExternalUrlsPermission } from "@/modules/survey/editor/lib/check-external-urls-permission";
 import { updateSurvey, updateSurveyDraft } from "@/modules/survey/editor/lib/survey";

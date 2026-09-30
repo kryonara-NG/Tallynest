@@ -1,1 +1,2 @@
-export const getSegments=async(..._args:any[])=>[]; export const getSegment=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const getSurveyWorkspaceIdMap = async (..._args: any[]) => null;

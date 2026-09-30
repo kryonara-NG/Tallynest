@@ -1,1 +1,2 @@
-export const getTeamMembership=async(..._args:any[])=>null;
+/* Independently authored Tallynest compatibility boundary. */
+export const getTeamPermissionFlags = async (..._args: any[]) => null;

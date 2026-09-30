@@ -4,7 +4,7 @@ import { z } from "zod";
 import { logger } from "@formbricks/logger";
 import { isExpectedError } from "@formbricks/types/errors";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
-import { withAuditLogging } from "@/modules/tallynest-core/activity-context";
+import { withActivityContext } from "@/modules/tallynest-core/activity-context";
 import { deleteWorkspaceWithConfirmation, getWorkspaceIdForLogging } from "./lib/delete-workspace";
 
 const logWorkspaceDeletionError = (userId: string, workspaceId: string, error: unknown) => {

@@ -1,1 +1,3 @@
-export type TEnterpriseLicense={status:"no-license"|"active"|"expired"|string;features?:Record<string,boolean>;}; export type TPublicLicenseFeatureKey=string;
+/* Independently authored Tallynest compatibility boundary. */
+export const TEnterpriseLicenseFeatures: any = undefined;
+export const TLicenseStatus: any = undefined;

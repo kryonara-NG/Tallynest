@@ -36,7 +36,7 @@ vi.mock("@/modules/core/rate-limit/helpers", () => ({
 }));
 
 vi.mock("@/modules/tallynest-core/activity-context", () => ({
-  withAuditLogging: vi.fn((_action: string, _object: string, handler: VerifyEmailChangeHandler) => handler),
+  withActivityContext: vi.fn((_action: string, _object: string, handler: VerifyEmailChangeHandler) => handler),
 }));
 
 describe("verifyEmailChangeAction", () => {
