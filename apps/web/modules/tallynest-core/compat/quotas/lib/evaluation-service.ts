@@ -1,0 +1,1 @@
+export const evaluateQuotas=async(..._args:any[])=>({allowed:true,quotas:[]}); export const evaluateQuota=async(..._args:any[])=>({allowed:true});
