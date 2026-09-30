@@ -1,0 +1,1 @@
+export const TrialResponseWarningModal=(_props:any)=>null;
