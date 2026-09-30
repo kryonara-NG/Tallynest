@@ -49,4 +49,4 @@ jobs:
       - name: Assert Enterprise source absent
         run: |
           test ! -d apps/web/modules/ee
-          ! git grep -n -E 'from ["'\''"]@/modules/ee/|modules/ee/' -- ':!EE-DEPENDENCY-REPORT.md' ':!.github/workflows/tallynest-core-boundary.yml' ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md'
+          ! git grep -n -E "from [\"'']@/modules/ee/|modules/ee/" -- ':!EE-DEPENDENCY-REPORT.md' ':!.github/workflows/tallynest-core-boundary.yml' ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md'
