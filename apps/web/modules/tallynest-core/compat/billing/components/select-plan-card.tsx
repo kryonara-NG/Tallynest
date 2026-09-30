@@ -1,0 +1,1 @@
+export const SelectPlanCard=(props:any)=><div {...props} />;
