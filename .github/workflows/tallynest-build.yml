@@ -1,0 +1,60 @@
+name: Tallynest Build Verification
+on:
+  push:
+    paths:
+      - "apps/web/**"
+      - "packages/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "vercel.json"
+      - ".github/workflows/tallynest-build.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tallynest
+      REDIS_URL: redis://localhost:6379
+      ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      CUBEJS_API_SECRET: tallynest-ci-cube-secret
+      CUBEJS_API_URL: http://localhost:4000
+      HUB_API_URL: http://localhost:3001
+      HUB_API_KEY: tallynest-ci-hub-key
+      WEBAPP_URL: http://localhost:3000
+      NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+      BETTER_AUTH_URL: http://localhost:3000
+      BETTER_AUTH_SECRET: tallynest-ci-secret-tallynest-ci-secret
+      CRON_SECRET: tallynest-ci-cron
+      LOG_LEVEL: fatal
+      FORMBRICKS_APP_URL: http://localhost:3000
+      IS_FORMBRICKS_CLOUD: "false"
+      NEXT_PUBLIC_IS_FORMBRICKS_CLOUD: "false"
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable && corepack prepare pnpm@11.7.0 --activate
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Prepare CI environment
+        run: |
+          cp .env.example .env
+          printf '\nENCRYPTION_KEY=%s\n' "$ENCRYPTION_KEY" >> .env
+          printf '\nCUBEJS_API_URL=%s\nCUBEJS_API_SECRET=%s\n' "$CUBEJS_API_URL" "$CUBEJS_API_SECRET" >> .env
+          printf '\nHUB_API_URL=%s\nHUB_API_KEY=%s\n' "$HUB_API_URL" "$HUB_API_KEY" >> .env
+          printf '\nDATABASE_URL=%s\nREDIS_URL=%s\nLOG_LEVEL=fatal\n' "$DATABASE_URL" "$REDIS_URL" >> .env
+      - name: Generate
+        run: pnpm generate
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Build
+        run: pnpm build
+      - name: Verify Enterprise boundary
+        run: |
+          test ! -d apps/web/modules/ee
+          if git grep -n "modules/ee/" -- ':!EE-DEPENDENCY-REPORT.md' ':!.github/workflows/tallynest-core-boundary.yml' ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md'; then exit 1; fi
