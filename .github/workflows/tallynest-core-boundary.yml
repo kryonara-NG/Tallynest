@@ -1,0 +1,123 @@
+name: Tallynest Core Boundary
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/tallynest-core-boundary.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.5.2
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Remove excluded Enterprise source
+        shell: bash
+        run: |
+          rm -rf apps/web/modules/ee
+          mkdir -p apps/web/modules/tallynest-core
+      - name: Add independent core boundary
+        shell: bash
+        run: |
+          cat > apps/web/modules/tallynest-core/entitlements.ts <<'EOF'
+          import "server-only";
+          const enabled = (v: string | undefined) => v === "true" || v === "1";
+          export const getIsAISmartToolsEnabled = async () => Boolean(process.env.OPENAI_API_KEY || process.env.AI_OPENAI_COMPATIBLE_API_KEY);
+          export const getAccessControlPermission = async () => false;
+          export const getIsMultiOrgEnabled = async () => false;
+          export const getIsTwoFactorAuthEnabled = async () => false;
+          export const getWhiteLabelPermission = async () => false;
+          export const getIsContactsEnabled = async () => false;
+          export const getIsQuotasEnabled = async () => false;
+          export const getIsFeedbackDirectoriesEnabled = async () => false;
+          export const getBiggerUploadFileSizePermission = async () => false;
+          export const getIsSpamProtectionEnabled = async () => false;
+          export const getIsWorkflowsEnabled = async () => false;
+          export const getBulkInvitePermission = async () => false;
+          export const getIsSamlSsoEnabled = async () => false;
+          export const getIsSsoEnabled = async () => false;
+          export const getRemoveBrandingPermission = async () => false;
+          export const getOrganizationWorkspacesLimit = async () => Number(process.env.TALLYNEST_MAX_WORKSPACES_PER_ORGANIZATION ?? 10);
+          export const isTallynestCloud = () => enabled(process.env.TALLYNEST_CLOUD);
+          EOF
+          cat > apps/web/modules/tallynest-core/activity-context.ts <<'EOF'
+          export const withActivityContext = <TArgs, TResult>(_action: string, _target: string, handler: (args: TArgs) => Promise<TResult>) => handler;
+          EOF
+          cat > apps/web/modules/tallynest-core/team-permissions.ts <<'EOF'
+          export type TTeamPermission = "read" | "readWrite" | "manage";
+          EOF
+          cat > apps/web/modules/tallynest-core/api-audit.ts <<'EOF'
+          export const TALLYNEST_UNKNOWN_DATA = "unknown";
+          export type TTallynestAuditAction = string;
+          export type TTallynestAuditTarget = string;
+          export type TApiAuditLog = Record<string, unknown>;
+          EOF
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path("apps/web")
+          replacements={
+            "@/modules/ee/license-check/lib/utils":"@/modules/tallynest-core/entitlements",
+            "@/modules/ee/audit-logs/lib/handler":"@/modules/tallynest-core/activity-context",
+            "@/modules/ee/teams/workspace-teams/types/team":"@/modules/tallynest-core/team-permissions",
+            "@/modules/ee/audit-logs/types/audit-log":"@/modules/tallynest-core/api-audit",
+          }
+          for p in root.rglob("*"):
+            if not p.is_file() or any(part in {".next","node_modules","ee"} for part in p.parts): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".mjs",".mts"}: continue
+            s=p.read_text(errors="ignore")
+            n=s
+            for a,b in replacements.items(): n=n.replace(a,b)
+            n=n.replace("withAuditLogging(","withActivityContext(")
+            if n!=s: p.write_text(n)
+          PY
+      - name: Remove EE-only route trees
+        shell: bash
+        run: |
+          for d in             "apps/web/app/(app)/workspaces/[workspaceId]/workflows"             "apps/web/app/(app)/workspaces/[workspaceId]/unify"             "apps/web/app/(app)/workspaces/[workspaceId]/(analysis)/charts"             "apps/web/app/(app)/workspaces/[workspaceId]/(analysis)/dashboards"             "apps/web/app/(app)/workspaces/[workspaceId]/(contacts)"             "apps/web/app/(app)/organizations/[organizationId]/settings/enterprise"             "apps/web/app/(app)/organizations/[organizationId]/settings/feedback-directories"             "apps/web/app/(app)/api/auth/saml"             "apps/web/app/(app)/api/auth/sso"             "apps/web/app/api/auth/saml"             "apps/web/app/api/auth/sso"; do
+            rm -rf "$d"
+          done
+      - name: Rebrand obvious user-facing Formbricks strings
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for p in Path(".").rglob("*"):
+            if not p.is_file() or any(x in p.parts for x in {".git","node_modules",".next"}): continue
+            if p.suffix not in {".ts",".tsx",".js",".jsx",".json",".md",".mdx",".css",".html"}: continue
+            try: s=p.read_text()
+            except: continue
+            n=s.replace("Formbricks","Tallynest").replace("formbricks.com","tallynest.app")
+            if n!=s: p.write_text(n)
+          PY
+      - name: Generate dependency report
+        shell: bash
+        run: |
+          set +e
+          git grep -n -E 'modules/ee|/ee/' -- ':!LICENSING-AUDIT.md' ':!THIRD-PARTY-NOTICES.md' ':!CHANGES.md' ':!ARCHITECTURE.md' ':!LICENSE' ':!README.md' ':!EE-DEPENDENCY-REPORT.md' > EE-DEPENDENCY-REPORT.md.tmp
+          rc=$?
+          {
+            echo "# Tallynest Enterprise Boundary Report"
+            echo
+            if [ "$rc" -eq 0 ]; then cat EE-DEPENDENCY-REPORT.md.tmp; else echo "No Enterprise references remain."; fi
+          } > EE-DEPENDENCY-REPORT.md
+          rm -f EE-DEPENDENCY-REPORT.md.tmp
+      - name: Commit boundary work
+        shell: bash
+        run: |
+          git config user.name "tallynest-bot"
+          git config user.email "41898282+tallynest-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "Extract Tallynest Community Core" || exit 0
+          git push
