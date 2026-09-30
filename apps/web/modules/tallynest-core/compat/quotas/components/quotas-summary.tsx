@@ -1,0 +1,1 @@
+export const QuotasSummary=(_props:any)=>null;
