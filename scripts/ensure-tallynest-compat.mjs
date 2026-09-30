@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 const root=process.cwd();
-const base=path.join(root,"apps/web/modules/tallynest-core/compat");\nfs.rmSync(base,{recursive:true,force:true});
+const base=path.join(root,"apps/web/modules/tallynest-core/compat");
+fs.rmSync(base,{recursive:true,force:true});
 const files={
 "billing/lib/organization-billing.ts":`export const getOrganizationBillingWithReadThroughSync=async(..._args:any[])=>({stripe:undefined});\nexport const getProTrialDays=async(..._args:any[])=>0;\nexport const invalidateOrganizationBillingCache=async(..._args:any[])=>{};\nexport const getOrganizationBilling=async(..._args:any[])=>({stripe:undefined});`,
 "billing/actions.ts":`export const waitForBillingPlanAction=async(..._args:any[])=>null;`,
