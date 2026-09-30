@@ -1,5 +1,5 @@
 {
-  "installCommand": "pnpm install --frozen-lockfile --dangerously-allow-all-builds",
+  "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm build",
   "framework": "nextjs",
   "outputDirectory": "apps/web/.next"
