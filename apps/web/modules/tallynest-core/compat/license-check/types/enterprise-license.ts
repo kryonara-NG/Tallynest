@@ -1,0 +1,1 @@
+export type TEnterpriseLicense={status:"no-license"|"active"|"expired"|string;features?:Record<string,boolean>;}; export type TPublicLicenseFeatureKey=string;
