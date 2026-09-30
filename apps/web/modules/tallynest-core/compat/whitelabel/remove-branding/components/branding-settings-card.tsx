@@ -1,0 +1,1 @@
+export const BrandingSettingsCard=(_props:any)=>null;
