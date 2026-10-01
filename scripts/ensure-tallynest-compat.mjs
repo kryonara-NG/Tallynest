@@ -118,7 +118,16 @@ write("entitlements.ts", [
   "export const getTeamPermissionFlags = async (..._args: any[]): Promise<any> => ({});",
   "export const checkRoleManagementPermission = async (..._args: any[]): Promise<any> => true;",
   "export const getBulkInvitePermission = async (..._args: any[]): Promise<any> => true;",
-  "export const getRemoveBrandingPermission = async (..._args: any[]): Promise<any> => false;",
+  "export const getRemoveBrandingPermission = async (..._args: any[]): Promise<any> => false;
+export const getIsContactsEnabled = async (..._args:any[]) => true;
+export const getIsQuotasEnabled = async (..._args:any[]) => true;
+export const getIsSpamProtectionEnabled = async (..._args:any[]) => true;
+export const getIsWorkflowsEnabled = async (..._args:any[]) => false;
+export const getIsAISmartToolsEnabled = async (..._args:any[]) => false;
+export const getIsFeedbackDirectoriesEnabled = async (..._args:any[]) => false;
+export const getIsSsoEnabled = async (..._args:any[]) => false;
+export const getIsSamlSsoEnabled = async (..._args:any[]) => false;
+export const getOrganizationWorkspacesLimit = async (..._args:any[]) => null;",
   "export const INVITE_DISABLED = false;"
 ].join("\n"));
 
@@ -174,6 +183,58 @@ write("compat/sso/lib/better-auth-providers.ts", "export const getBetterAuthProv
 write("compat/sso/lib/better-auth-recovery-signin.ts", "export const getBetterAuthRecoverySignIn = async (..._args: any[]) => null;");
 write("compat/workflows/lib/analytics/constants.ts", "export const WORKFLOW_LIFECYCLE_EVENTS = {} as const;");
 write("compat/workflows/lib/runner/reconcile-constants.ts", "export const WORKFLOW_RUN_RECONCILE_INTERVAL = 60000;");
+
+
+write("compat/contacts/lib/contact-attribute-keys.ts", "export const getContactAttributeKeys = async (..._args: any[]) => [];");
+write("compat/contacts/segments/components/segment-activity-utils.ts", "export const getSegmentActivity = async (..._args: any[]) => [];");
+write("compat/contacts/segments/components/targeting-card.ts", "export const TargetingCard = (..._args: any[]) => null; export default TargetingCard;");
+write("compat/contacts/segments/actions.ts", "export const getSegmentsAction = async (..._args: any[]) => []; export const createSegmentAction = async (..._args: any[]) => null;");
+write("compat/contacts/segments/lib/filter/prisma-query.ts", "export const getSegmentPrismaQuery = (..._args: any[]) => ({});");
+write("compat/contacts/api/v2/management/contacts/bulk/lib/openapi.ts", "export const openApi = {};");
+write("compat/contacts/api/v2/management/contacts/lib/openapi.ts", "export const openApi = {};");
+write("compat/contacts/api/v1/client/[workspaceId]/user/route.ts", "export async function GET(){ return new Response(null,{status:404}); }");
+write("compat/contacts/api/v1/management/contact-attribute-keys/route.ts", "export async function GET(){ return new Response(null,{status:404}); }");
+write("compat/contacts/api/v1/management/contact-attribute-keys/[contactAttributeKeyId]/route.ts", "export async function GET(){ return new Response(null,{status:404}); }");
+write("compat/contacts/api/v1/management/contact-attributes/route.ts", "export async function GET(){ return new Response(null,{status:404}); }");
+write("compat/contacts/api/v1/management/contacts/route.ts", "export async function GET(){ return new Response(null,{status:404}); }");
+write("compat/contacts/api/v1/management/contacts/[contactId]/route.ts", "export async function GET(){ return new Response(null,{status:404}); }");
+write("compat/contacts/api/v2/management/contacts/bulk/route.ts", "export async function POST(){ return new Response(null,{status:404}); }");
+write("compat/ai-translation/lib/actions.ts", "export const checkAITranslationAvailableAction = async (..._args: any[]) => ({data:null,serverError:null}); export const translateSurveyFieldsAction = async (..._args: any[]) => ({data:null,serverError:null});");
+write("compat/unify-feedback/enrichment-status/lib/enrichment.ts", "export type TEnrichmentProgress = any; export type TEnrichmentStatusResponse = Record<string,any>; export const getEnrichmentStatus = async (..._args: any[]) => ({});");
+write("compat/unify-feedback/lib/contacts.ts", "export const getFeedbackRecordContacts = async (..._args: any[]) => [];");
+write("compat/workflows/lib/analytics/process-workflows-usage-snapshot-job.ts", "export const processWorkflowsUsageSnapshotJob = async (..._args: any[]) => undefined;");
+write("compat/workflows/lib/runner/process-workflow-run-job.ts", "export const processWorkflowRunJob = async (..._args: any[]) => undefined;");
+write("compat/workflows/lib/runner/process-workflow-run-reconcile-job.ts", "export const processWorkflowRunReconcileJob = async (..._args: any[]) => undefined;");
+write("compat/workflows/lib/runner/dispatch.ts", "export const dispatchWorkflowRunViaJobs = async (..._args: any[]) => undefined;");
+write("compat/workflows/lib/runner/enqueue-response-completed-runs.ts", "export const enqueueResponseCompletedRuns = async (..._args: any[]) => undefined;");
+write("compat/workflows/lib/analytics/constants.ts", "export const WORKFLOW_LIFECYCLE_EVENTS = {}; export const WORKFLOWS_USAGE_SNAPSHOT_DAILY_CRON_PATTERN = '0 0 * * *'; export const WORKFLOWS_USAGE_SNAPSHOT_TIME_ZONE = 'UTC';");
+write("compat/workflows/lib/runner/reconcile-constants.ts", "export const WORKFLOW_RUN_RECONCILE_INTERVAL = 60000; export const WORKFLOW_RUN_RECONCILE_INTERVAL_MS = 60000;");
+write("compat/billing/lib/metering.ts", "export const recordResponseCreatedMeterEvent = async (..._args: any[]) => undefined;");
+write("compat/role-management/actions.ts", "export const getBulkInvitePermission = async (..._args: any[]) => true; export const checkRoleManagementPermission = async (..._args: any[]) => true;");
+write("compat/role-management/components/add-member-role.ts", "export const AddMemberRole = (..._args: any[]) => null; export default AddMemberRole;");
+write("compat/role-management/components/edit-membership-role.ts", "export const EditMembershipRole = (..._args: any[]) => null; export default EditMembershipRole;");
+write("compat/teams/lib/roles.ts", "export const getTeamsWhereUserIsAdmin = async (..._args: any[]) => []; export const getWorkspacePermissionByUserId = async (..._args: any[]) => true;");
+write("compat/teams/team-list/types/team.ts", "export type TOrganizationTeam = any; export type TOrganizationMember = any; export type TOrganizationMemberRole = any;");
+write("compat/teams/team-list/types/workspace.ts", "export type TOrganizationWorkspace = any;");
+write("compat/teams/team-list/lib/team.ts", "export const getTeamsByOrganizationId = async (..._args: any[]) => []; export const getTeam = async (..._args: any[]) => null;");
+write("compat/teams/team-list/components/teams-view.ts", "export const TeamsView = (..._args: any[]) => null; export default TeamsView;");
+write("compat/teams/utils/teams.ts", "export const getTeamPermissionFlags = async (..._args: any[]) => ({});");
+write("compat/two-factor-auth/components/disable-two-factor-modal.ts", "export const DisableTwoFactorModal = (..._args: any[]) => null; export default DisableTwoFactorModal;");
+write("compat/two-factor-auth/components/enable-two-factor-modal.ts", "export const EnableTwoFactorModal = (..._args: any[]) => null; export default EnableTwoFactorModal;");
+write("compat/two-factor-auth/components/two-factor.ts", "export const TwoFactor = (..._args: any[]) => null; export default TwoFactor;");
+write("compat/two-factor-auth/components/two-factor-backup.ts", "export const TwoFactorBackup = (..._args: any[]) => null; export default TwoFactorBackup;");
+write("compat/sso/components/sso-options.ts", "export const SsoOptions = (..._args: any[]) => null; export default SsoOptions;");
+write("compat/sso/lib/better-auth-hooks.ts", "export type AuthHookContext = any; export const blockedSignupDomainRedirectAfterHandler = async (..._args:any[])=>undefined; export const ssoRecoveryAfterHandler = async (..._args:any[])=>undefined; export const ssoDatabaseHooks = {}; export const ssoLicenseGateBeforeHandler = async (..._args:any[])=>undefined;");
+write("compat/sso/lib/better-auth-providers.ts", "export const ssoGenericOAuthConfig = {}; export const ssoSocialProviders = [];");
+write("compat/sso/lib/better-auth-recovery-signin.ts", "export const ssoRecoverySignInPlugin = {};");
+write("compat/sso/lib/recovery-intent.ts", "export const readSsoRecoveryIntent = async (..._args:any[])=>null; export const refreshSsoRecoveryIntent = async (..._args:any[])=>null;");
+write("compat/mailing/lib/mailing-subscription.ts", "export const getMailingSubscription = async (..._args:any[])=>null;");
+write("compat/whitelabel/email-customization/lib/organization.ts", "export const getOrganizationEmailCustomization = async (..._args:any[])=>null; export const getOrganizationLogoUrl = async (..._args:any[])=>null;");
+write("compat/whitelabel/remove-branding/components/branding-settings-card.ts", "export const BrandingSettingsCard = (..._args:any[])=>null; export default BrandingSettingsCard;");
+write("compat/license-check/components/lite-license-tip.ts", "export const LiteLicenseTip = (..._args:any[])=>null; export default LiteLicenseTip;");
+write("compat/quotas/components/quotas-card.ts", "export const QuotasCard = (..._args:any[])=>null; export default QuotasCard;");
+write("compat/quotas/components/single-response-card-quotas.ts", "export const SingleResponseCardQuotas = (..._args:any[])=>null; export default SingleResponseCardQuotas;");
+write("compat/quotas/components/quotas-summary.ts", "export const QuotasSummary = (..._args:any[])=>null; export default QuotasSummary;");
 
 const common = path.join(root, "packages/types/common.ts");
 if (fs.existsSync(common)) {
