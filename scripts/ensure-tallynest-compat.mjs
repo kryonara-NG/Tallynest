@@ -77,7 +77,8 @@ for (const file of walk(webRoot)) {
 }
 for (const [key, names] of imports) {
   const [kind, ...rest] = key.split("/");
-  const target = path.join(coreRoot, kind, rest.join("/"));
+  let target = path.join(coreRoot, kind, rest.join("/"));
+  if (!path.extname(target)) target += ".ts";
   fs.mkdirSync(path.dirname(target), { recursive: true });
   const lines = ["/* Independently authored Tallynest compatibility boundary. */"];
   for (const n of names.values()) {
