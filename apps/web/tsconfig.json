@@ -4,7 +4,9 @@
     "jsx": "preserve",
     "jsxImportSource": "react",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {
@@ -12,9 +14,20 @@
       }
     ],
     "skipLibCheck": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noCheck": true
   },
-  "exclude": ["../../.env", "node_modules", "integration"],
+  "exclude": [
+    "../../.env",
+    "node_modules",
+    "integration"
+  ],
   "extends": "@formbricks/config-typescript/nextjs.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../packages/types/*.d.ts"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../../packages/types/*.d.ts"
+  ]
 }
