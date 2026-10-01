@@ -8,6 +8,7 @@ on:
       - "pnpm-lock.yaml"
       - "vercel.json"
       - ".github/workflows/tallynest-build.yml"
+      - "scripts/ensure-tallynest-compat.mjs"
   workflow_dispatch:
 permissions:
   contents: read
