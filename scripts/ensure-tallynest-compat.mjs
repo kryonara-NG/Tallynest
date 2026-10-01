@@ -237,6 +237,43 @@ write("compat/quotas/components/quotas-card.ts", "export const QuotasCard = (...
 write("compat/quotas/components/single-response-card-quotas.ts", "export const SingleResponseCardQuotas = (..._args:any[])=>null; export default SingleResponseCardQuotas;");
 write("compat/quotas/components/quotas-summary.ts", "export const QuotasSummary = (..._args:any[])=>null; export default QuotasSummary;");
 
+
+write("compat/license-check/lib/lite-license.ts", "export const isLiteLicense = (..._args:any[]) => true; export const getLiteLicense = async (..._args:any[]) => null; export const ENTERPRISE_LICENSE_REQUEST_FORM_URL = '';");
+write("compat/license-check/lib/contacts-api-guard.ts", "export const checkContactsApiAccess = async (..._args:any[]) => true; export const checkContactApiAccess = async (..._args:any[]) => true; export const checkContactsEnabledApiV2 = async (..._args:any[]) => true;");
+write("compat/feedback-directory/lib/feedback-directory.ts", "export const getFeedbackDirectories = async (..._args:any[]) => []; export const getFeedbackDirectoriesByWorkspaceId = async (..._args:any[]) => []; export const getFeedbackDirectory = async (..._args:any[]) => null; export const getFeedbackDirectoryAuthContext = async (..._args:any[]) => ({}); export const getOrganizationIdFromDirectoryId = async (..._args:any[]) => '';");
+write("compat/billing/lib/organization-billing.ts", "export const getDefaultOrganizationBilling = async (..._args:any[]) => ({}); export const getPendingDowngradeSchedule = async (..._args:any[]) => null; export const waitForBillingPlanAction = async (..._args:any[]) => undefined; export const cleanupStripeCustomer = async (..._args:any[]) => null;");
+write("compat/workflows/lib/runner/enqueue-response-completed-runs.ts", "export const enqueueResponseCompletedRuns = async (..._args:any[]) => undefined; export const enqueueResponseCompletedWorkflowRuns = async (..._args:any[]) => undefined;");
+write("compat/workflows/lib/runner/dispatch.ts", "export const dispatchWorkflowRunViaJobs = async (..._args:any[]) => undefined; export const runWithSsoRequestContext = async (_ctx:any, fn:any) => fn();");
+write("compat/workflows/lib/analytics/constants.ts", "export const WORKFLOW_LIFECYCLE_EVENTS = {}; export const WORKFLOWS_USAGE_SNAPSHOT_DAILY_CRON_PATTERN = '0 0 * * *'; export const WORKFLOWS_USAGE_SNAPSHOT_TIME_ZONE = 'UTC';");
+write("compat/contacts/lib/attribute-key-policy.ts", "export const getReservedFutureDefaultAttributeKeyIssue = (..._args:any[]) => null;");
+write("compat/contacts/lib/contact-attribute-keys.ts", "export const getContactAttributeKeys = async (..._args:any[]) => []; export const getTranslatedPersonalLinkError = (..._args:any[]) => null; export const generatePersonalLinks = async (..._args:any[]) => [];");
+write("compat/contacts/segments/lib/filter/prisma-query.ts", "export const segmentFilterToPrismaQuery = (..._args:any[]) => ({});");
+write("compat/sso/lib/recovery-intent.ts", "export type TSsoRecoveryIntent = any; export class SsoRecoveryError extends Error {} export const getSsoRecoveryPairedTtlSeconds = () => 300; export const readSsoRecoveryIntent = async (..._args:any[]) => null;");
+write("compat/sso/lib/sso-request-context.ts", "export const runWithSsoRequestContext = async (_ctx:any, fn:any) => fn();");
+write("compat/mailing/lib/mailing-subscription.ts", "export const subscribeUserToMailingList = async (..._args:any[]) => undefined;");
+write("compat/quotas/lib/helpers.ts", "export const createQuotaFullObject = (quota:any) => quota;");
+write("compat/quotas/components/single-response-card-quotas.ts", "export const ResponseCardQuotas = (..._args:any[]) => null; export const SingleResponseCardQuotas = (..._args:any[]) => null; export default ResponseCardQuotas;");
+write("compat/whitelabel/email-customization/components/email-customization-settings.ts", "export const EmailCustomizationSettings = (..._args:any[]) => null; export const FaviconCustomizationSettings = (..._args:any[]) => null; export default EmailCustomizationSettings;");
+write("compat/whitelabel/remove-branding/components/branding-settings-card.ts", "export const BrandingSettingsCard = (..._args:any[]) => null; export const getWhiteLabelPermission = async (..._args:any[]) => false; export default BrandingSettingsCard;");
+write("compat/two-factor-auth/components/two-factor.ts", "export const getIsTwoFactorAuthEnabled = async (..._args:any[]) => false; export const TwoFactor = (..._args:any[]) => null; export default TwoFactor;");
+write("compat/license-check/components/trial-alert.ts", "export const TrialAlert = (..._args:any[]) => null; export const TrialEndingWarningModal = (..._args:any[]) => null; export default TrialAlert;");
+write("compat/role-management/components/add-member-role.ts", "export const AddMemberRole = (..._args:any[]) => null; export default AddMemberRole;");
+write("compat/role-management/components/edit-membership-role.ts", "export const EditMembershipRole = (..._args:any[]) => null; export default EditMembershipRole;");
+write("compat/sso/components/sso-options.ts", "export const SSOOptions = (..._args:any[]) => null; export const SsoOptions = SSOOptions; export default SSOOptions;");
+write("compat/analysis/charts/lib/matrix-questions.ts", "export const getMatrixQuestions = async (..._args:any[]) => [];");
+write("compat/unify-feedback/sources/types.ts", "export const CSV_IMPORT_FAILED_ERROR_CODE = 'CSV_IMPORT_FAILED_ERROR_CODE'; export const ENRICHMENT_KINDS = [];");
+write("compat/unify-feedback/enrichment-status/lib/enrichment.ts", "export const ENRICHMENT_KINDS = []; export const getEnrichmentStatus = async (..._args:any[]) => ({});");
+write("compat/workflows/components/workflow-editor-provider.ts", "export const WorkflowEditorProvider = ({children}:any) => children; export default WorkflowEditorProvider;");
+for (const rel of [
+  "contacts/api/v2/management/contacts/route.ts",
+  "ee-compat/contacts/attributes/page.ts",
+  "ee-compat/unify-feedback/page.ts",
+  "ee-compat/unify-feedback/sources/page.ts",
+  "ee-compat/unify-feedback/topics-subtopics/page.ts",
+  "ee-compat/workflows/loading.ts"
+]) {
+  write(rel, "export const GET = async () => new Response(null,{status:404}); export const POST = async () => new Response(null,{status:404}); export const PUT = async () => new Response(null,{status:404}); export const DELETE = async () => new Response(null,{status:404}); export const OPTIONS = async () => new Response(null,{status:204}); export default function NotAvailable(){ return null; }");
+}
 const common = path.join(root, "packages/types/common.ts");
 if (fs.existsSync(common)) {
   let s = fs.readFileSync(common, "utf8");
