@@ -118,16 +118,16 @@ write("entitlements.ts", [
   "export const getTeamPermissionFlags = async (..._args: any[]): Promise<any> => ({});",
   "export const checkRoleManagementPermission = async (..._args: any[]): Promise<any> => true;",
   "export const getBulkInvitePermission = async (..._args: any[]): Promise<any> => true;",
-  "export const getRemoveBrandingPermission = async (..._args: any[]): Promise<any> => false;
-export const getIsContactsEnabled = async (..._args:any[]) => true;
-export const getIsQuotasEnabled = async (..._args:any[]) => true;
-export const getIsSpamProtectionEnabled = async (..._args:any[]) => true;
-export const getIsWorkflowsEnabled = async (..._args:any[]) => false;
-export const getIsAISmartToolsEnabled = async (..._args:any[]) => false;
-export const getIsFeedbackDirectoriesEnabled = async (..._args:any[]) => false;
-export const getIsSsoEnabled = async (..._args:any[]) => false;
-export const getIsSamlSsoEnabled = async (..._args:any[]) => false;
-export const getOrganizationWorkspacesLimit = async (..._args:any[]) => null;",
+  "export const getRemoveBrandingPermission = async (..._args: any[]): Promise<any> => false;",
+  "export const getIsContactsEnabled = async (..._args:any[]) => true;",
+  "export const getIsQuotasEnabled = async (..._args:any[]) => true;",
+  "export const getIsSpamProtectionEnabled = async (..._args:any[]) => true;",
+  "export const getIsWorkflowsEnabled = async (..._args:any[]) => false;",
+  "export const getIsAISmartToolsEnabled = async (..._args:any[]) => false;",
+  "export const getIsFeedbackDirectoriesEnabled = async (..._args:any[]) => false;",
+  "export const getIsSsoEnabled = async (..._args:any[]) => false;",
+  "export const getIsSamlSsoEnabled = async (..._args:any[]) => false;",
+  "export const getOrganizationWorkspacesLimit = async (..._args:any[]) => null;",
   "export const INVITE_DISABLED = false;"
 ].join("\n"));
 
