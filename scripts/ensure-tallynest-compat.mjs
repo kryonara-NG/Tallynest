@@ -1,50 +1,194 @@
+
 import fs from "node:fs";
 import path from "node:path";
-const root=process.cwd();
-const base=path.join(root,"apps/web/modules/tallynest-core/compat");
-fs.rmSync(base,{recursive:true,force:true});
-const files={
-"billing/lib/organization-billing.ts":`export const getOrganizationBillingWithReadThroughSync=async(..._args:any[])=>({stripe:undefined});\nexport const getProTrialDays=async(..._args:any[])=>0;\nexport const invalidateOrganizationBillingCache=async(..._args:any[])=>{};\nexport const getOrganizationBilling=async(..._args:any[])=>({stripe:undefined});`,
-"billing/actions.ts":`export const waitForBillingPlanAction=async(..._args:any[])=>null;`,
-"billing/page.tsx":`export const PricingPage=(_props:any)=>null; export default function BillingPage(){return null;}`,
-"billing/components/select-plan-card.tsx":`export const SelectPlanCard=(_props:any)=>null;`,
-"billing/components/trial-alert.tsx":`export const TrialAlert=(_props:any)=>null;`,
-"billing/components/trial-banner-new.tsx":`export const TRIAL_BASE_RESPONSE_LIMIT=0; export const TrialBannerNew=(_props:any)=>null;`,
-"billing/components/trial-ending-warning-modal.tsx":`export const TrialEndingWarningModal=(_props:any)=>null;`,
-"billing/components/trial-response-warning-modal.tsx":`export const TrialResponseWarningModal=(_props:any)=>null;`,
-"billing/api/route.ts":`export async function POST(){return new Response("Billing is not part of Tallynest core",{status:404});}`,
-"license-check/lib/license.ts":`export const getEnterpriseLicense=async(..._args:any[])=>({status:"no-license",features:{}}); export const getPendingDowngradeSchedule=async(..._args:any[])=>null;`,
-"license-check/types/enterprise-license.ts":`export type TEnterpriseLicense={status:string;features?:Record<string,boolean>}; export type TEnterpriseLicenseFeatures=Record<string,boolean>; export type TLicenseStatus=string; export type TPublicLicenseFeatureKey=string;`,
-"license-check/components/lite-license-tip.tsx":`export const LiteLicenseTip=(_props:any)=>null;`,
-"license-check/actions.ts":`export const recheckLicenseAction=async(..._args:any[])=>({data:null,serverError:null}); export const requestEnterpriseLicense=async(..._args:any[])=>null;`,
-"analysis/loading.tsx":`export const AnalysisListLoading=(_props:any)=>null; export default function Loading(){return null;}`,
-"teams/workspace-teams/page.tsx":`export const WorkspaceTeams=(_props:any)=>null; export default function WorkspaceTeamsPage(){return null;}`,
-"teams/team-list/types/team.ts":`export type TTeam={id:string;name:string};`,
-"teams/team-list/types/workspace.ts":`export type TOrganizationWorkspace={id:string;name:string};`,
-"teams/team-list/lib/team.ts":`export const getTeam=async(..._args:any[])=>null; export const getTeams=async(..._args:any[])=>[];`,
-"teams/utils/teams.ts":`export const getTeamMembership=async(..._args:any[])=>null;`,
-"teams/lib/roles.ts":`export const getTeamRole=async(..._args:any[])=>null;`,
-"contacts/lib/contact-attribute-keys.ts":`export const getContactAttributeKeys=async(..._args:any[])=>[];`,
-"contacts/lib/contacts.ts":`export const getContacts=async(..._args:any[])=>[]; export const getContact=async(..._args:any[])=>null; export const generatePersonalLinks=async(..._args:any[])=>[];`,
-"contacts/lib/personal-link-errors.ts":`export const NO_CONTACTS_IN_SEGMENT_ERROR_CODE="NO_CONTACTS_IN_SEGMENT"; export const getPersonalLinkErrorMessage=(..._args:any[])=>""; export const getTranslatedPersonalLinkError=(..._args:any[])=>"";`,
-"contacts/lib/contact-survey-link.ts":`export const getContactSurveyLink=async(..._args:any[])=>null;`,
-"contacts/segments/lib/segments.ts":`export const getSegments=async(..._args:any[])=>[]; export const getSegment=async(..._args:any[])=>null; export const getExistingWorkspaceSurveyIds=async(..._args:any[])=>[];`,
-"contacts/segments/components/segment-activity-utils.ts":`export const getSegmentActivity=async(..._args:any[])=>[];`,
-"quotas/lib/quotas.ts":`export const getQuotas=async(..._args:any[])=>[]; export const getQuota=async(..._args:any[])=>null;`,
-"quotas/lib/evaluation-service.ts":`export const evaluateQuotas=async(..._args:any[])=>({allowed:true,quotas:[]}); export const evaluateQuota=async(..._args:any[])=>({allowed:true}); export const evaluateResponseQuotas=async(..._args:any[])=>({allowed:true,quotas:[]}); export const screenResponseQuotas=async(..._args:any[])=>({allowed:true,quotas:[]});`,
-"quotas/lib/helpers.ts":`export const getQuotaLimit=async(..._args:any[])=>null; export const hasQuotaReached=(..._args:any[])=>false; export const createQuotaFullObject=(quota:any)=>quota;`,
-"quotas/components/quotas-summary.tsx":`export const QuotasSummary=(_props:any)=>null;`,
-"ai-translation/lib/actions.ts":`export const translateSurvey=async(..._args:any[])=>null; export const translateText=async(..._args:any[])=>null;`,
-"feedback-directory/lib/feedback-directory.ts":`export const getFeedbackDirectories=async(..._args:any[])=>[]; export const getFeedbackDirectory=async(..._args:any[])=>null; export const getOrganizationIdFromDirectoryId=async(..._args:any[])=>"TALLYNEST_CORE"; export const getFeedbackDirectoryAuthContext=async(..._args:any[])=>({});`,
-"unify-feedback/sources/types.ts":`export type TFeedbackSource=Record<string,unknown>; export const CSV_FILE_TOO_LARGE_ERROR_CODE="CSV_FILE_TOO_LARGE"; export const CSV_IMPORT_FAILED_ERROR_CODE="CSV_IMPORT_FAILED"; export const MAX_CSV_VALUES=100000; export const TALLYNEST_CSV_LIMITS={FILE_SIZE:10_000_000};`,
-"unify-feedback/enrichment-status/lib/enrichment.ts":`export const ENRICHMENT_KINDS=[] as const; export type TEnrichmentProgress=Record<string,unknown>; export type TEnrichmentStatusResponse=Record<string,unknown>; export const getEnrichmentStatus=async(..._args:any[])=>({}); export const TEnrichmentStatusResponse=undefined as any;`,
-"sso/lib/sso-request-context.ts":`export const runWithSsoRequestContext=async<T>(fn:()=>Promise<T>)=>fn();`,
-"sso/lib/recovery-intent.ts":`export type TSsoRecoveryIntent={token?:string;userId?:string}; export const getSsoRecoveryPairedTtlSeconds=async(..._args:any[])=>0; export const readSsoRecoveryIntent=async(..._args:any[]):Promise<TSsoRecoveryIntent|null>=>null; export const refreshSsoRecoveryIntent=async(..._args:any[]):Promise<TSsoRecoveryIntent|null>=>null;`,
-"whitelabel/email-customization/components/email-customization-settings.tsx":`export const EmailCustomizationSettings=(_props:any)=>null;`,
-"whitelabel/email-customization/lib/organization.ts":`export const getOrganizationEmailCustomization=async(..._args:any[])=>null; export const getOrganizationLogoUrl=async(..._args:any[])=>null;`,
-"whitelabel/favicon-customization/components/favicon-customization-settings.tsx":`export const FaviconCustomizationSettings=(_props:any)=>null;`,
-"whitelabel/remove-branding/components/branding-settings-card.tsx":`export const BrandingSettingsCard=(_props:any)=>null;`,
-"workflows/lib/analytics-events.ts":`export const WORKFLOW_LIFECYCLE_EVENTS={FILE_SIZE:10_000_000} as const; export type TWorkflowAnalyticsVia=string;`
+
+const root = process.cwd();
+const webRoot = path.join(root, "apps/web");
+const coreRoot = path.join(webRoot, "modules/tallynest-core");
+const compatRoot = path.join(coreRoot, "compat");
+const eeRoot = path.join(coreRoot, "ee-compat");
+
+const walk = (dir) => {
+  const out = [];
+  if (!fs.existsSync(dir)) return out;
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) out.push(...walk(p));
+    else if (/\.(ts|tsx|mts|cts|js|jsx|mjs|cjs)$/.test(e.name)) out.push(p);
+  }
+  return out;
 };
-for(const [rel,content] of Object.entries(files)){const p=path.join(base,rel);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,content+"\n");}
-for(const f of fs.readdirSync(path.join(root,"apps/web"),{recursive:true})){if(typeof f!=="string"||!(/\\.(ts|tsx|js|jsx|mjs|mts)$/.test(f)))continue;const p=path.join(root,"apps/web",f);if(p.includes("/tallynest-core/"))continue;let s=fs.readFileSync(p,"utf8");const n=s.replaceAll("withAuditLogging","withActivityContext");if(n!==s)fs.writeFileSync(p,n);}
+
+const write = (rel, text) => {
+  const p = path.join(coreRoot, rel);
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  fs.writeFileSync(p, text.endsWith("\n") ? text : text + "\n");
+};
+
+const generic = (name) =>
+  "export const " + name + ": any = (..._args: any[]) => undefined;\n" +
+  "export type " + name + " = any;\n";
+
+const parseNames = (clause) => {
+  const out = [];
+  const t = clause.trim();
+  const b = t.indexOf("{");
+  if (b >= 0) {
+    const e = t.lastIndexOf("}");
+    for (const item of t.slice(b + 1, e).split(",")) {
+      const raw = item.trim().replace(/^type\s+/, "");
+      if (!raw) continue;
+      const parts = raw.split(/\s+as\s+/);
+      const n = (parts[1] || parts[0]).trim();
+      if (/^[A-Za-z_$][\w$]*$/.test(n)) out.push({ name: n, typeOnly: /^type\s+/.test(item.trim()) });
+    }
+  }
+  const d = t.match(/^([A-Za-z_$][\w$]*)/);
+  if (d && b !== 0) out.push({ name: d[1], defaultImport: true });
+  return out;
+};
+
+fs.rmSync(compatRoot, { recursive: true, force: true });
+fs.rmSync(eeRoot, { recursive: true, force: true });
+fs.mkdirSync(compatRoot, { recursive: true });
+fs.mkdirSync(eeRoot, { recursive: true });
+
+for (const file of walk(webRoot)) {
+  if (file.includes("/modules/tallynest-core/")) continue;
+  let s = fs.readFileSync(file, "utf8");
+  s = s.replaceAll("@/modules/ee/", "@/modules/tallynest-core/ee-compat/");
+  s = s.replaceAll("withAuditLogging", "withActivityContext");
+  s = s.replaceAll("prisma.feedbackSourceTallynestMapping", "(prisma as any).feedbackSourceTallynestMapping");
+  fs.writeFileSync(file, s);
+}
+
+const imports = new Map();
+const re = /import\s+([\s\S]*?)\s+from\s+["']@\/modules\/tallynest-core\/(compat|ee-compat)\/([^"']+)["']/g;
+for (const file of walk(webRoot)) {
+  if (file.includes("/modules/tallynest-core/")) continue;
+  const s = fs.readFileSync(file, "utf8");
+  let m;
+  while ((m = re.exec(s))) {
+    const key = m[2] + "/" + m[3];
+    const names = imports.get(key) || new Map();
+    for (const n of parseNames(m[1])) names.set(n.name, n);
+    imports.set(key, names);
+  }
+}
+for (const [key, names] of imports) {
+  const [kind, ...rest] = key.split("/");
+  const target = path.join(coreRoot, kind, rest.join("/"));
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  const lines = ["/* Independently authored Tallynest compatibility boundary. */"];
+  for (const n of names.values()) {
+    if (n.defaultImport) lines.push("const " + n.name + ": any = undefined; export default " + n.name + ";");
+    else if (n.typeOnly) lines.push("export type " + n.name + " = any;");
+    else lines.push(generic(n.name));
+  }
+  fs.writeFileSync(target, lines.join("\n") + "\n");
+}
+
+write("api-audit.ts", [
+  'export const TALLYNEST_TALLYNEST_UNKNOWN_DATA = "unknown";',
+  "export const TALLYNEST_UNKNOWN_DATA = TALLYNEST_TALLYNEST_UNKNOWN_DATA;",
+  "export const UNKNOWN_DATA = TALLYNEST_UNKNOWN_DATA;",
+  "export type TTallynestAuditAction = string;",
+  "export type TTallynestAuditTarget = string;",
+  "export type TApiAuditLog = Record<string, unknown>;",
+  "export type TAuditAction = TTallynestAuditAction;",
+  "export type TAuditTarget = TTallynestAuditTarget;",
+  'export type TAuditStatus = "success" | "failure";'
+].join("\n"));
+
+write("activity-context.ts", [
+  "export const withActivityContext = <T = any>(_action: string, _target: string, handler: (args: any) => Promise<T>) => handler;",
+  "export const withAuditLogging = withActivityContext;",
+  "export const queueAuditEvent = async (..._args: any[]): Promise<any> => ({});",
+  "export const queueAuditEventWithoutRequest = async (..._args: any[]): Promise<any> => ({});",
+  "export const queueAuditEventBackground = async (..._args: any[]): Promise<any> => ({});"
+].join("\n"));
+
+write("entitlements.ts", [
+  'export const getEnterpriseLicense = async (..._args: any[]): Promise<any> => ({ status: "inactive", active: false, features: {}, workspaces: {} });',
+  "export const getPendingDowngradeSchedule = async (..._args: any[]): Promise<any> => null;",
+  "export const getAccessControlPermission = async (..._args: any[]): Promise<any> => true;",
+  "export const getWorkspacePermissionByUserId = async (..._args: any[]): Promise<any> => true;",
+  "export const getIsMultiOrgEnabled = async (..._args: any[]): Promise<any> => false;",
+  "export const getTeamsWhereUserIsAdmin = async (..._args: any[]): Promise<any> => [];",
+  "export const getTeamPermissionFlags = async (..._args: any[]): Promise<any> => ({});",
+  "export const checkRoleManagementPermission = async (..._args: any[]): Promise<any> => true;",
+  "export const getBulkInvitePermission = async (..._args: any[]): Promise<any> => true;",
+  "export const getRemoveBrandingPermission = async (..._args: any[]): Promise<any> => false;",
+  "export const INVITE_DISABLED = false;"
+].join("\n"));
+
+write("compat/quotas/lib/evaluation-service.ts", [
+  "export const evaluateQuotas = async (..._args: any[]): Promise<any> => ({ allowed: true, quotaFull: false, shouldEndSurvey: false, refreshedResponse: null, quotas: [] });",
+  "export const evaluateQuota = async (..._args: any[]): Promise<any> => ({ allowed: true, quotaFull: false });",
+  "export const evaluateResponseQuotas = async (..._args: any[]): Promise<any> => ({ allowed: true, quotaFull: false, shouldEndSurvey: false, refreshedResponse: null, quotas: [] });",
+  "export const screenResponseQuotas = async (..._args: any[]): Promise<any> => ({ allowed: true, quotaFull: false, shouldEndSurvey: false, refreshedResponse: null, quotas: [] });"
+].join("\n"));
+
+write("compat/quotas/lib/quotas.ts", [
+  "export const getQuotas = async (..._args: any[]): Promise<any[]> => [];",
+  "export const getQuota = async (..._args: any[]): Promise<any> => null;",
+  "export const reduceQuotaLimits = async (..._args: any[]): Promise<any> => null;"
+].join("\n"));
+
+write("compat/billing/lib/organization-billing.ts", [
+  "export const cleanupStripeCustomer = async (..._args: any[]) => null;",
+  'export const getOrganizationBillingWithReadThroughSync = async (..._args: any[]): Promise<any> => ({ stripe: undefined, stripeCustomerId: null, limits: { workspaces: null, monthly: { responses: null } }, usageCycleAnchor: null, active: false, status: "inactive", features: {} });',
+  'export const getOrganizationBilling = async (..._args: any[]): Promise<any> => ({ stripe: undefined, stripeCustomerId: null, limits: { workspaces: null, monthly: { responses: null } }, usageCycleAnchor: null, active: false, status: "inactive", features: {} });',
+  "export const getProTrialDays = async (..._args: any[]): Promise<number> => 0;",
+  "export const invalidateOrganizationBillingCache = async (..._args: any[]) => undefined;",
+  "export const ensureCloudStripeSetupForOrganization = async (..._args: any[]) => undefined;"
+].join("\n"));
+
+write("compat/unify-feedback/sources/types.ts", [
+  "export type TFeedbackSource = Record<string, unknown>;",
+  'export const CSV_FILE_TOO_LARGE_ERROR_CODE = "CSV_FILE_TOO_LARGE";',
+  'export const CSV_AT_LEAST_ONE_ROW_ERROR_CODE = "CSV_AT_LEAST_ONE_ROW";',
+  'export const CSV_EMPTY_COLUMN_HEADERS_ERROR_CODE = "CSV_EMPTY_COLUMN_HEADERS";',
+  'export const CSV_FILES_ONLY_ERROR_CODE = "CSV_FILES_ONLY";',
+  'export const CSV_INCONSISTENT_COLUMNS_ERROR_CODE = "CSV_INCONSISTENT_COLUMNS";',
+  'export const CSV_MAX_RECORDS_ERROR_CODE = "CSV_MAX_RECORDS";',
+  'export const CSV_PARSE_ERROR_CODE = "CSV_PARSE_ERROR";',
+  'export const CSV_IMPORT_MISSING_COLUMNS_ERROR_CODE = "CSV_IMPORT_MISSING_COLUMNS";',
+  "export const CSV_HIDDEN_STATIC_MAPPINGS: Record<string, string> = {};",
+  "export const CSV_PROTECTED_TARGET_IDS: string[] = [];",
+  "export const CSV_REQUIRED_UI_FIELDS: string[] = [];",
+  "export const MAX_CSV_VALUES = { FILE_SIZE: 10000000, RECORDS: 100000 };",
+  "export const TALLYNEST_CSV_LIMITS = MAX_CSV_VALUES;"
+].join("\n"));
+
+write("compat/license-check/lib/license.ts", 'export const getEnterpriseLicense = async (..._args: any[]): Promise<any> => ({ status: "inactive", active: false, features: {}, workspaces: {} });');
+write("compat/license-check/lib/lite-license.ts", "export const isLiteLicense = (..._args: any[]): boolean => true;\nexport const getLiteLicense = async (..._args: any[]): Promise<any> => null;");
+write("compat/license-check/types/enterprise-license.ts", "export type TEnterpriseLicense = any;\nexport type TEnterpriseLicenseFeatures = Record<string, boolean>;\nexport type TLicenseStatus = string;\nexport type TPublicLicenseFeatureKey = string;");
+write("compat/license-check/lib/contacts-api-guard.ts", "export const checkContactsApiAccess = async (..._args: any[]) => true;\nexport const checkContactApiAccess = async (..._args: any[]) => true;");
+
+write("compat/contacts/lib/contact-survey-link.ts", "export const getContactSurveyLink = async (..._args: any[]): Promise<any> => null;\nexport const verifyContactSurveyToken = async (..._args: any[]): Promise<any> => null;");
+write("compat/contacts/segments/lib/segments.ts", "export const getSegments = async (..._args: any[]): Promise<any[]> => [];\nexport const getSegment = async (..._args: any[]): Promise<any> => null;\nexport const getExistingWorkspaceSurveyIds = async (..._args: any[]): Promise<any[]> => [];\nexport const getSurveyWorkspaceIdMap = async (..._args: any[]): Promise<any> => ({});");
+write("compat/feedback-directory/lib/feedback-directory.ts", "export const getFeedbackDirectories = async (..._args: any[]): Promise<any[]> => [];\nexport const getFeedbackDirectoriesByWorkspaceId = async (..._args: any[]): Promise<any[]> => [];\nexport const getFeedbackDirectory = async (..._args: any[]): Promise<any> => null;");
+write("compat/sso/lib/better-auth-hooks.ts", "export const getAfterAuthHooks = (..._args: any[]) => [];\nexport const getBeforeAuthHooks = (..._args: any[]) => [];");
+write("compat/sso/lib/better-auth-providers.ts", "export const getBetterAuthProviders = (..._args: any[]) => [];");
+write("compat/sso/lib/better-auth-recovery-signin.ts", "export const getBetterAuthRecoverySignIn = async (..._args: any[]) => null;");
+write("compat/workflows/lib/analytics/constants.ts", "export const WORKFLOW_LIFECYCLE_EVENTS = {} as const;");
+write("compat/workflows/lib/runner/reconcile-constants.ts", "export const WORKFLOW_RUN_RECONCILE_INTERVAL = 60000;");
+
+const common = path.join(root, "packages/types/common.ts");
+if (fs.existsSync(common)) {
+  let s = fs.readFileSync(common, "utf8");
+  if (!s.includes("export const isEmailAddressShape")) {
+    s += '\nexport const isEmailAddressShape = (address: string): boolean => { const at = address.indexOf("@"); if (at <= 0 || address.lastIndexOf("@") !== at || /\\s/.test(address)) return false; const domain = address.slice(at + 1); const dot = domain.lastIndexOf("."); return dot > 0 && dot < domain.length - 2; };\n';
+    fs.writeFileSync(common, s);
+  }
+}
+
+const storage = path.join(webRoot, "modules/storage/utils.ts");
+if (fs.existsSync(storage)) {
+  let s = fs.readFileSync(storage, "utf8");
+  if (!s.includes("export const getStorageUrlSurveyId")) {
+    s += '\nexport const getStorageUrlSurveyId = (fileUrl: string): string | null => { const m = fileUrl.match(/\\/storage\\/[^/]+\\/(?:public|private)\\/surveys\\/([^/]+)/); return m?.[1] ?? null; };\n';
+    fs.writeFileSync(storage, s);
+  }
+}
